@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { CheckCircle2, Lock, Play } from 'lucide-react';
 import { PUZZLES } from '../../data';
-import { isAuthored } from '../../schemas';
+import { isPlayable } from '../../schemas';
 import type { Puzzle } from '../../schemas';
 import { useProgressStore } from '../../state/progressStore';
 import { useDebugStore } from '../../devtools/debugStore';
@@ -109,7 +109,7 @@ function PuzzleRow({
   done: boolean;
   theme: ThemeId;
 }) {
-  const playable = isAuthored(puzzle) && prevDone;
+  const playable = isPlayable(puzzle) && prevDone;
 
   const card = (
     <div

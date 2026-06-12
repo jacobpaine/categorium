@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { safeParsePuzzle, parsePuzzle } from './puzzle.schema';
+import { safeParsePuzzle, parsePuzzle, puzzleAuthoredSchema } from './puzzle.schema';
 import { parseThemes } from './theme.schema';
 import { parseGlossary } from './glossary.schema';
 import { PUZZLES } from '../data';
@@ -27,12 +27,15 @@ describe('puzzle schema', () => {
     expect(orders).toEqual([...orders].sort((a, b) => a - b));
   });
 
-  it('rejects a malformed puzzle with a useful path', () => {
+  it('rejects a malformed puzzle, with a useful path from the authored schema', () => {
     const broken = {
       ...(puzzle01 as Record<string, unknown>),
       objects: [{ id: 'obj-a' /* missing required `labels` */ }],
     };
-    const result = safeParsePuzzle(broken);
+    // The loader's union just drops it...
+    expect(safeParsePuzzle(broken).success).toBe(false);
+    // ...and the transformation schema pinpoints the offending path.
+    const result = puzzleAuthoredSchema.safeParse(broken);
     expect(result.success).toBe(false);
     if (!result.success) {
       const paths = result.error.issues.map((i) => i.path.join('.'));

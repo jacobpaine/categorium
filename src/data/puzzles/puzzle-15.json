@@ -1,0 +1,67 @@
+{
+  "status": "authored",
+  "kind": "functor",
+  "id": "puzzle-15",
+  "chapterId": "chapter-04-functors",
+  "order": 15,
+  "title": {
+    "data": "Preserve Composition",
+    "alchemy": "Preserve Composition",
+    "spellcraft": "Preserve Composition",
+    "abstract": "Preserve Composition"
+  },
+  "conceptTags": ["functor"],
+  "intro": {
+    "data": "A functor must respect composition. The source has f, g, and their composite g∘f. Map all three so the composite lands on the composite of the images.",
+    "alchemy": "A functor must respect composition. The source has f, g, and their composite g∘f. Map all three so the composite lands on the composite of the images.",
+    "spellcraft": "A functor must respect composition. The source has f, g, and their composite g∘f. Map all three so the composite lands on the composite of the images.",
+    "abstract": "A functor must respect composition. Map A, B, C and f, g, g∘f so F(g∘f) = F(g) ∘ F(f)."
+  },
+  "goal": {
+    "data": "Map all three objects and all three machines, including the composite.",
+    "alchemy": "Map all three materials and all three apparatuses, including the composite.",
+    "spellcraft": "Map all three essences and all three runes, including the composite.",
+    "abstract": "Map A, B, C and f, g, g∘f to their images."
+  },
+  "sourceCategory": {
+    "objects": [
+      { "id": "obj-a", "formalLabel": "A", "labels": { "data": "User", "alchemy": "Herb", "spellcraft": "Rune", "abstract": "A" }, "colorToken": "sky" },
+      { "id": "obj-b", "formalLabel": "B", "labels": { "data": "Email", "alchemy": "Essence", "spellcraft": "Spark", "abstract": "B" }, "colorToken": "emerald" },
+      { "id": "obj-c", "formalLabel": "C", "labels": { "data": "Domain", "alchemy": "Vapor", "spellcraft": "Flame", "abstract": "C" }, "colorToken": "amber" }
+    ],
+    "morphisms": [
+      { "id": "mor-f", "formalLabel": "f", "sourceObjectId": "obj-a", "targetObjectId": "obj-b", "labels": { "data": "getEmail", "alchemy": "Extract", "spellcraft": "Invoke", "abstract": "f" } },
+      { "id": "mor-g", "formalLabel": "g", "sourceObjectId": "obj-b", "targetObjectId": "obj-c", "labels": { "data": "getDomain", "alchemy": "Distil", "spellcraft": "Kindle", "abstract": "g" } },
+      { "id": "mor-gf", "formalLabel": "g∘f", "sourceObjectId": "obj-a", "targetObjectId": "obj-c", "labels": { "data": "userDomain", "alchemy": "Refine", "spellcraft": "Channel", "abstract": "g∘f" } }
+    ]
+  },
+  "targetCategory": {
+    "objects": [
+      { "id": "tobj-a", "formalLabel": "F(A)", "labels": { "data": "List of Users", "alchemy": "Herb Bundle", "spellcraft": "Rune Set", "abstract": "F(A)" }, "colorToken": "sky" },
+      { "id": "tobj-b", "formalLabel": "F(B)", "labels": { "data": "List of Emails", "alchemy": "Essence Bundle", "spellcraft": "Spark Set", "abstract": "F(B)" }, "colorToken": "emerald" },
+      { "id": "tobj-c", "formalLabel": "F(C)", "labels": { "data": "List of Domains", "alchemy": "Vapor Bundle", "spellcraft": "Flame Set", "abstract": "F(C)" }, "colorToken": "amber" }
+    ],
+    "morphisms": [
+      { "id": "tmor-u", "formalLabel": "F(f)", "sourceObjectId": "tobj-a", "targetObjectId": "tobj-b", "labels": { "data": "map getEmail", "alchemy": "Extract Each", "spellcraft": "Invoke Each", "abstract": "F(f)" } },
+      { "id": "tmor-w", "formalLabel": "F(g)", "sourceObjectId": "tobj-b", "targetObjectId": "tobj-c", "labels": { "data": "map getDomain", "alchemy": "Distil Each", "spellcraft": "Kindle Each", "abstract": "F(g)" } },
+      { "id": "tmor-wu", "formalLabel": "F(g)∘F(f)", "sourceObjectId": "tobj-a", "targetObjectId": "tobj-c", "labels": { "data": "map userDomain", "alchemy": "Refine Each", "spellcraft": "Channel Each", "abstract": "F(g)∘F(f)" } }
+    ]
+  },
+  "referenceMapping": {
+    "objectMap": { "obj-a": "tobj-a", "obj-b": "tobj-b", "obj-c": "tobj-c" },
+    "morphismMap": { "mor-f": "tmor-u", "mor-g": "tmor-w", "mor-gf": "tmor-wu" }
+  },
+  "reveal": {
+    "afterSuccess": {
+      "data": "The composite mapped to the composite of the images: doing g∘f and then F, or F to each piece and then composing, give the same arrow.",
+      "alchemy": "The composite mapped to the composite of the images: bundling the combined process equals combining the bundled processes.",
+      "spellcraft": "The composite mapped to the composite of the images: setting the combined working equals combining the set workings.",
+      "abstract": "The composite mapped to the composite of the images: F(g∘f) = F(g) ∘ F(f)."
+    },
+    "summary": "Functors preserve composition: F(g ∘ f) = F(g) ∘ F(f). The image of a combined step is the combination of the imaged steps.",
+    "notation": ["F(g ∘ f) = F(g) ∘ F(f)"],
+    "moreFormal": "Together with F(id_A) = id_F(A), this is the full definition of a functor: it preserves identities and composition, so it carries every commuting diagram in C to a commuting diagram in D.",
+    "programmerAnalogy": "map(compose(g, f)) === compose(map(g), map(f))."
+  },
+  "glossaryUnlocks": []
+}

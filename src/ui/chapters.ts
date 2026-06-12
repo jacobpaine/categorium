@@ -39,10 +39,10 @@ export const CHAPTERS: ChapterMeta[] = [
   },
   {
     id: 'chapter-04-functors',
-    title: 'Functors',
-    summary: 'Maps between whole systems that preserve identities and composition.',
+    title: 'Maps Between Worlds',
+    summary: 'A functor maps a whole category to another, preserving sources, targets, and structure.',
     concepts: ['functor', 'structure-preserving map'],
-    status: 'placeholder',
+    status: 'available',
   },
 ];
 

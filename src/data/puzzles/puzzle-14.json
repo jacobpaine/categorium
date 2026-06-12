@@ -1,0 +1,93 @@
+{
+  "status": "authored",
+  "kind": "functor",
+  "id": "puzzle-14",
+  "chapterId": "chapter-04-functors",
+  "order": 14,
+  "title": {
+    "data": "Map the Arrow",
+    "alchemy": "Map the Arrow",
+    "spellcraft": "Map the Arrow",
+    "abstract": "Map the Arrow"
+  },
+  "conceptTags": ["functor"],
+  "intro": {
+    "data": "A functor copies a whole world into another. Here the List functor wraps each type in a list, and each function into \"apply it to every element.\" Map each source piece to its image.",
+    "alchemy": "A functor copies a whole world into another. Here the Bundle functor wraps each material into a bundle, and each apparatus into \"apply it to each.\" Map each source piece to its image.",
+    "spellcraft": "A functor copies a whole world into another. Here the Set functor wraps each essence into a set, and each rune into \"cast it on each.\" Map each source piece to its image.",
+    "abstract": "A functor F sends each object and morphism of C to one in D. Map each source piece to its image under F."
+  },
+  "goal": {
+    "data": "Map A and B to their list versions, and f to its mapped version.",
+    "alchemy": "Map A and B to their bundled versions, and f to its per-element version.",
+    "spellcraft": "Map A and B to their set versions, and f to its per-element version.",
+    "abstract": "Map A → F(A), B → F(B), and f → F(f)."
+  },
+  "sourceCategory": {
+    "objects": [
+      {
+        "id": "obj-a",
+        "formalLabel": "A",
+        "labels": { "data": "User", "alchemy": "Herb", "spellcraft": "Rune", "abstract": "A" },
+        "colorToken": "sky"
+      },
+      {
+        "id": "obj-b",
+        "formalLabel": "B",
+        "labels": { "data": "Email", "alchemy": "Essence", "spellcraft": "Spark", "abstract": "B" },
+        "colorToken": "emerald"
+      }
+    ],
+    "morphisms": [
+      {
+        "id": "mor-f",
+        "formalLabel": "f",
+        "sourceObjectId": "obj-a",
+        "targetObjectId": "obj-b",
+        "labels": { "data": "getEmail", "alchemy": "Extract", "spellcraft": "Invoke", "abstract": "f" }
+      }
+    ]
+  },
+  "targetCategory": {
+    "objects": [
+      {
+        "id": "tobj-a",
+        "formalLabel": "F(A)",
+        "labels": { "data": "List of Users", "alchemy": "Bundle of Herbs", "spellcraft": "Rune Set", "abstract": "F(A)" },
+        "colorToken": "sky"
+      },
+      {
+        "id": "tobj-b",
+        "formalLabel": "F(B)",
+        "labels": { "data": "List of Emails", "alchemy": "Bundle of Essences", "spellcraft": "Spark Set", "abstract": "F(B)" },
+        "colorToken": "emerald"
+      }
+    ],
+    "morphisms": [
+      {
+        "id": "tmor-f",
+        "formalLabel": "F(f)",
+        "sourceObjectId": "tobj-a",
+        "targetObjectId": "tobj-b",
+        "labels": { "data": "map getEmail", "alchemy": "Extract Each", "spellcraft": "Invoke Each", "abstract": "F(f)" }
+      }
+    ]
+  },
+  "referenceMapping": {
+    "objectMap": { "obj-a": "tobj-a", "obj-b": "tobj-b" },
+    "morphismMap": { "mor-f": "tmor-f" }
+  },
+  "reveal": {
+    "afterSuccess": {
+      "data": "You mapped a whole little world into another: each type to its list, and the function to \"map\" of it. That assignment is a functor.",
+      "alchemy": "You mapped a whole little world into another: each material to its bundle, and the apparatus to its per-element form. That assignment is a functor.",
+      "spellcraft": "You mapped a whole little world into another: each essence to its set, and the rune to its per-element form. That assignment is a functor.",
+      "abstract": "You mapped a whole little world into another, sending objects to objects and morphisms to morphisms. That assignment is a functor."
+    },
+    "summary": "A functor F : C → D sends each object A to F(A) and each morphism f : A → B to F(f) : F(A) → F(B) — it preserves sources and targets.",
+    "notation": ["F : C → D", "F(f) : F(A) → F(B)"],
+    "moreFormal": "A functor must also preserve identities and composition: F(id_A) = id_F(A) and F(g ∘ f) = F(g) ∘ F(f). The app checks the structural part — that every image points the right way.",
+    "programmerAnalogy": "List is a functor: List<A>, and map(f): List<A> => List<B>."
+  },
+  "glossaryUnlocks": ["functor"]
+}

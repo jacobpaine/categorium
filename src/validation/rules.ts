@@ -18,7 +18,8 @@ export type ConceptTag =
   | 'commutative-diagram'
   | 'identity-law'
   | 'associativity'
-  | 'isomorphism';
+  | 'isomorphism'
+  | 'functor';
 
 export const CONCEPT_TAGS: readonly ConceptTag[] = [
   'object',
@@ -30,6 +31,7 @@ export const CONCEPT_TAGS: readonly ConceptTag[] = [
   'identity-law',
   'associativity',
   'isomorphism',
+  'functor',
 ];
 
 /**

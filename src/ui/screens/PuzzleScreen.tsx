@@ -2,7 +2,8 @@ import { useCallback, useMemo, useRef, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { ArrowLeft, ArrowRight, CheckCircle2, Lightbulb, Play, RotateCcw } from 'lucide-react';
 import { getPuzzle, PUZZLES, toDiagram, toValidationInput, THEMES } from '../../data';
-import { isAuthored } from '../../schemas';
+import { isAuthored, isFunctorPuzzle } from '../../schemas';
+import { FunctorPuzzleScreen } from './FunctorPuzzleScreen';
 import { validatePuzzle, type ValidationResult } from '../../validation';
 import { useProgressStore } from '../../state/progressStore';
 import { useDebugStore } from '../../devtools/debugStore';
@@ -17,6 +18,10 @@ type RunStatus = 'editing' | 'success' | 'error';
 /** Wrapper: remount the inner screen per puzzle so all local state resets on navigation. */
 export function PuzzleScreen() {
   const { puzzleId } = useParams();
+  const puzzle = puzzleId ? getPuzzle(puzzleId) : undefined;
+  if (puzzle && isFunctorPuzzle(puzzle)) {
+    return <FunctorPuzzleScreen key={puzzleId} puzzle={puzzle} />;
+  }
   return <PuzzleScreenInner key={puzzleId ?? 'none'} puzzleId={puzzleId} />;
 }
 

@@ -17,8 +17,8 @@ describe('chapter unlocking', () => {
     expect(isChapterUnlocked('chapter-02-laws', new Set(ch1), PUZZLES)).toBe(true);
   });
 
-  it('placeholder chapters never unlock, even with everything complete', () => {
+  it('an unknown / not-yet-added chapter never unlocks', () => {
     const allDone = new Set(PUZZLES.map((p) => p.id));
-    expect(isChapterUnlocked('chapter-04-functors', allDone, PUZZLES)).toBe(false);
+    expect(isChapterUnlocked('chapter-99-nonexistent', allDone, PUZZLES)).toBe(false);
   });
 });
