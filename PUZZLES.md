@@ -105,10 +105,49 @@ Design notes:
 - `identity-law` and `associativity` are **display/glossary-only** concept tags — never used via
   `concept-tag-required` (they aren't auto-derived; `path-equivalence` carries the proof).
 
-## Chapters 3+ — *(titled placeholders)*
+## Chapter 3 — `chapter-03-isomorphisms`  *(fully authored)*
 
-`chapter-03-isomorphisms`, `chapter-04-functors`, and beyond are titled previews on the chapter
-map. See [`ROADMAP.md`](./ROADMAP.md) for the full arc and the engine work each needs.
+> "Sameness, Both Ways." Reversible processes and lossless round-trips. Engine-light, like Ch2.
+
+| Puzzle | Concept | How it's validated |
+|---|---|---|
+| 10 Build the Inverse | `g ∘ f = id_A` | round-trip wired; `path-equivalence([f,g], [id_A])` |
+| 11 The Other Way | `f ∘ g = id_B` | the dual round-trip |
+| 12 Choose the True Inverse | only the real inverse returns home | a lossy `B→C` distractor fails `type-valid-wiring` / `required-final-object` |
+| 13 Same as Same | isomorphisms compose (`A ≅ B ≅ C`) | chain two isos; `required-final-object` + `allowed-morphisms-only` |
+
+Honesty: inverse round-trips are author-*declared* (the engine checks endpoints + return, not
+that values round-trip). Stated in the reveals.
+
+## Chapter 4 — `chapter-04-functors`  *(fully authored — a distinct puzzle kind)*
+
+> "Maps Between Worlds." Functor puzzles use `kind: "functor"` and a different mechanic: two
+> small categories (`sourceCategory`, `targetCategory`) and a `referenceMapping`. The board is
+> the `FunctorCanvas` — chips for each object/morphism; the player draws mapping edges. The
+> check is `validateFunctor` (`src/validation/`), not `validatePuzzle`.
+
+| Puzzle | Concept | How it's validated |
+|---|---|---|
+| 14 Map the Arrow | a functor on a 1-arrow category (List functor) | totality + source/target preservation |
+| 15 Preserve Composition | `F(g∘f) = F(g)∘F(f)` | the composite must map to an `F(A)→F(C)` arrow |
+| 16 Respect Every Arrow | object & morphism maps must agree (Optional functor) | a mis-aligned object map leaves an arrow un-mappable |
+
+`checkFunctor` enforces totality + endpoint preservation; identity/composition preservation are
+the stated laws (a mis-pointed image fails the structural check).
+
+## Chapter 5 — `chapter-05-products`  *(fully authored)*
+
+> "Combining and Choosing." Products and coproducts via their **universal properties** —
+> projections/injections and a unique pairing/case-split, all *unary* morphisms. Engine-light.
+
+| Puzzle | Concept | How it's validated |
+|---|---|---|
+| 17 Project Out | a product has projections `π₁, π₂` | wire `A×B → π₁ → A`; `type-valid-wiring` + `required-final-object` |
+| 18 Pair It Up | product universal property | `π₁∘⟨f,g⟩ = f`, `π₂∘⟨f,g⟩ = g` via two `path-equivalence`s |
+| 19 Either Way | coproduct (dual) | `[f,g]∘ι₁ = f`, `[f,g]∘ι₂ = g` |
+| 20 Make a Copy | the diagonal `Δ = ⟨id, id⟩` | `π₁∘Δ = π₂∘Δ = id_A` |
+
+See [`ROADMAP.md`](./ROADMAP.md) for the arc beyond Chapter 5.
 
 ## Authoring checklist
 

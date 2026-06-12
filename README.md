@@ -111,25 +111,38 @@ and unit-testable without React.
   theme mappings, graph + puzzle JSON, progress state, content load errors, and quick actions
   (mark complete / reset graph / clear progress); e2e-covered
 
-**Stubbed:**
-- Chapters 3–4 (titled placeholders, no puzzles yet)
+**Built and working (Session 8 — Chapters 3–5):**
+- **Chapter 3 Isomorphisms** (4 puzzles): inverses, two-sided round-trips, choosing the true
+  inverse, composing isos — engine-light via `path-equivalence` to identity paths
+- **Chapter 4 Functors** (3 puzzles): a genuine engine extension — `domain/functor.ts` +
+  `validateFunctor` (totality + source/target preservation) and a new **FunctorCanvas** where
+  the player draws object→object / morphism→morphism mapping edges between two categories
+- **Chapter 5 Products & Coproducts** (4 puzzles): projections, the pairing universal property,
+  the coproduct case-split, and the diagonal — engine-light via the universal-property model
+  (unary morphisms only)
+- New concept tags + glossary: isomorphism, inverse, functor, product, coproduct
+- All reference solutions / mappings unit-tested; functor mapping covered by a new e2e
+
+**Now: 20 puzzles across 5 unlocked chapters.**
 
 **Deferred (next):**
 Full keyboard graph construction (mouse-first for now), locked-puzzle deep-link screen,
-e2e solves for puzzles 2–9, and authoring Chapter 3 (isomorphisms).
+e2e solves for the remaining puzzles, natural transformations (needs functor categories), and
+true products-as-limits (needs multi-input morphisms).
 
 **Known limitations:**
-- Morphisms are unary only (products/sums/multi-input are a marked future extension point).
+- Morphisms are unary only (multi-input/output is a marked future extension point); Chapter 5
+  uses the universal-property model rather than literal product objects.
 - `tracePath` follows a single linear path; the commutative-diagram puzzle (5) will consume
   declared `paths` rather than re-trace.
 - Graph editing is mouse-first; no accounts/backend (progress is localStorage only).
 
 ## Next steps
 
-1. Author Chapter 3 (isomorphisms) — now easy to playtest via `?debug=true`.
-2. Extend Playwright e2e to solve Puzzles 2–9.
-3. Keyboard-accessible graph construction; React Flow a11y pass.
-4. Locked-puzzle deep-link screen (opening a not-yet-unlocked puzzle by URL).
+1. Extend Playwright e2e to cover more puzzles across Chapters 2–5.
+2. Keyboard-accessible graph construction; React Flow a11y pass (incl. the functor canvas).
+3. Locked-puzzle deep-link screen (opening a not-yet-unlocked puzzle by URL).
+4. Chapter 6: natural transformations (needs functor categories) — see `ROADMAP.md`.
 
 ## Debug mode
 

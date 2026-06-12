@@ -34,10 +34,31 @@ Together, the identity and associativity laws are *exactly* what make objects + 
 **category** — state this in the associativity reveal. Keep both laws true and precise; the
 engine declares the equalities (`path-equivalence`) rather than proving them.
 
-## Curriculum arc beyond Chapter 2
-See `ROADMAP.md`: Ch3 isomorphisms (inverses, round-trips), Ch4 functors (maps between
-categories), then universal constructions. Keep new chapters honest about what the engine
-checks vs. declares.
+## Chapter 3 teaching order — "Sameness, Both Ways" (isomorphisms)
+1. Build the inverse — `g ∘ f = id_A` (a round trip that returns home).
+2. The other way — `f ∘ g = id_B`; with both, f is an isomorphism, `A ≅ B`.
+3. Choose the true inverse — only a morphism that returns to the start can be an inverse.
+4. Isos compose — `A ≅ B ≅ C ⟹ A ≅ C`. Be honest: inverses are author-declared, not value-checked.
+
+## Chapter 4 teaching order — "Maps Between Worlds" (functors)
+A functor is a NEW puzzle kind (`kind: "functor"`): the player maps a whole source category onto
+a target one (objects→objects, morphisms→morphisms) on the `FunctorCanvas`.
+1. Map the arrow — a functor sends `f : A→B` to `F(f) : F(A)→F(B)` (e.g. the List functor).
+2. Preserve composition — `F(g∘f) = F(g)∘F(f)`.
+3. Respect every arrow — object and morphism maps must agree; many functors can exist (List vs Optional).
+The engine enforces totality + source/target preservation; identity/composition preservation is
+the stated law (a mis-pointed image fails). See `src/domain/functor.ts`.
+
+## Chapter 5 teaching order — "Combining and Choosing" (products & coproducts)
+Use the **universal-property** model (unary morphisms only — no multi-input morphisms):
+1. Project out — a product `A×B` has projections `π₁, π₂`.
+2. Pair it up — the unique pairing `⟨f,g⟩` with `π₁∘⟨f,g⟩ = f`, `π₂∘⟨f,g⟩ = g`.
+3. Either way — the coproduct is the dual: injections `ι₁, ι₂` and a unique case-split `[f,g]`.
+4. Make a copy — the diagonal `Δ = ⟨id, id⟩`. Products = "and", coproducts = "or".
+
+## Curriculum arc beyond Chapter 5
+See `ROADMAP.md`: natural transformations (maps between functors) and products-as-limits
+(needs multi-input morphisms). Keep new chapters honest about what the engine checks vs. declares.
 
 ## Per-concept reveal pattern
 metaphor language → optional programmer analogy → short formal reveal → expandable

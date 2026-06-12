@@ -45,37 +45,42 @@ Engine support: both ride on the existing `path-equivalence` rule — **no valid
 Associativity is made tangible with *composite machines* (a machine that bundles `g ∘ f`), so
 the grouping choice becomes a visible wiring choice (see `PUZZLES.md`).
 
-### Chapter 3 — Isomorphisms  🔒 *placeholder*
+### Chapter 3 — Isomorphisms  ✅ *authored*
 `chapter-03-isomorphisms`
 
 When two objects are "the same" for all practical purposes: a morphism `f : A → B` with an
 inverse `g : B → A` such that `g ∘ f = id_A` and `f ∘ g = id_B`. Reversible processes;
-lossless round-trips.
+lossless round-trips. Built engine-light: round-trips are declared `path-equivalence`s to
+identity paths, and the correct inverse is pinned with `allowed-morphisms-only` / types.
 
-Engine support: round-trip equivalence — express `g ∘ f` and `id_A` as declared paths and check
-them with `path-equivalence`. A puzzle asks the player to build *both directions* and show each
-round-trip returns to the start. Small/no engine change (an identity path is a one-morphism
-path of a self-loop).
-
-### Chapter 4 — Functors  🔒 *placeholder*
+### Chapter 4 — Functors  ✅ *authored*
 `chapter-04-functors`
 
-A structure-preserving map *between two categories*: it sends objects to objects and morphisms
-to morphisms while preserving identities and composition (`F(id_A) = id_F(A)`,
-`F(g ∘ f) = F(g) ∘ F(f)`). The first genuinely "meta" idea — a process that transforms whole
-systems, not just things.
+A structure-preserving map *between two categories*: objects→objects, morphisms→morphisms,
+preserving sources, targets, identities, and composition. The first genuinely "meta" idea.
 
-Engine support: **new** — the domain model is currently a single category. This needs a
-two-category representation and "functor arrows" between them in the graph/adapter. Flagged as
-the first substantial engine extension on the roadmap.
+Engine support: **the one real extension** — `src/domain/functor.ts` models two small
+categories + a `FunctorMapping`, and `checkFunctor`/`validateFunctor` verify totality and
+source/target preservation. The UI is a dedicated **FunctorCanvas**: the two categories appear
+as columns of chips and the player draws object→object / morphism→morphism mapping edges.
+(Composition/identity preservation is the stated law; the structural check enforces that every
+image points the right way — a mis-pointed image fails.)
 
-### Beyond — Universal constructions & natural transformations  🔒 *future*
+### Chapter 5 — Products & Coproducts  ✅ *authored*
+`chapter-05-products`
 
-Products & coproducts (`A × B`, `A + B`) as the formal version of "combine / choose"; natural
-transformations as maps *between functors*. These are the eventual goal: by here, a player who
-started by wiring a CSV parser is reasoning about universal properties. Requires multi-input /
-multi-output morphisms (the domain model already marks this extension point in
-`src/domain/types.ts`).
+Products bundle two things (projections `π₁,π₂`, a unique pairing `⟨f,g⟩`); coproducts let you
+choose one (injections `ι₁,ι₂`, a unique case-split `[f,g]`). Built engine-light via the
+**universal-property** model — projections/injections and the pairing/case-split are all
+*unary* morphisms, and the laws (`π₁∘⟨f,g⟩ = f`) are `path-equivalence`s. No multi-input
+morphisms required.
+
+### Beyond — Natural transformations & limits  🔒 *future*
+
+Natural transformations as maps *between functors* (needs functor categories), and true
+products-as-limits / multi-input morphisms (the domain model marks this extension point in
+`src/domain/types.ts`). These are the eventual goal: by here, a player who started by wiring a
+CSV parser is reasoning about universal constructions.
 
 ---
 
@@ -153,16 +158,18 @@ shows their shape, without pretending to be a theorem prover.
 
 ## Engine extension map
 
-| Milestone | Concept | Engine work |
-|---|---|---|
-| Ch 2 | identity & associativity laws | **none** — reuse `path-equivalence` + composite machines |
-| Ch 3 | isomorphisms | small — round-trip via identity paths + `path-equivalence` |
-| Ch 4 | functors | **new** — two-category model + functor arrows in domain/adapter |
-| Future | products / coproducts | **new** — multi-input/output morphisms (extension point already marked) |
-| Future | sample-value semantics | optional — a value evaluator so equivalence can be *checked* on samples, not only declared |
+| Milestone | Concept | Engine work | Status |
+|---|---|---|---|
+| Ch 2 | identity & associativity laws | reuse `path-equivalence` + composite machines | ✅ done |
+| Ch 3 | isomorphisms | round-trip via identity paths + `path-equivalence` | ✅ done |
+| Ch 4 | functors | two-category model (`domain/functor.ts`) + `FunctorCanvas` mapping mechanic | ✅ done |
+| Ch 5 | products / coproducts | **none** — universal-property model with unary morphisms | ✅ done |
+| Future | natural transformations | functor categories (maps between functors) | 🔒 |
+| Future | products-as-limits | multi-input/output morphisms (extension point already marked) | 🔒 |
+| Future | sample-value semantics | a value evaluator so equivalence can be *checked* on samples, not only declared | 🔒 |
 
 ## Non-curriculum roadmap (product)
 
-Tracked in `README.md` "Next steps"; summarized here for completeness: sample-value animation,
-the `?debug=true` panel, per-puzzle e2e coverage, keyboard/a11y graph construction, and a
-locked-puzzle deep-link screen.
+Tracked in `README.md` "Next steps"; summarized here for completeness: per-puzzle e2e coverage,
+keyboard/a11y graph construction (incl. the functor canvas), and a locked-puzzle deep-link screen.
+(Sample-value animation and the `?debug=true` panel are now built.)

@@ -164,10 +164,12 @@ unlocked concept-by-concept.
 | 4 Use Identity | identity | `id_A : A → A`  (analogy `x => x`) |
 | 5 Equivalent Paths | commutative diagram | `g ∘ f = k ∘ h` |
 
-Chapter 2 (`chapter-02-laws`, "The Laws of Composition") is **authored** — it makes the
-identity law and associativity law explicit and demonstrated by construction (see `PUZZLES.md`).
-Chapters 3+ (isomorphisms, functors, …) are titled locked placeholders. The full curriculum
-arc and a worked complex example live in [`ROADMAP.md`](./ROADMAP.md).
+Chapters 2–5 are **authored** (20 puzzles total): Ch2 laws of composition, Ch3 isomorphisms,
+Ch4 functors, Ch5 products & coproducts. Chapter 4 introduces a second puzzle **kind**
+(`kind: "functor"`) with its own board (`FunctorCanvas`) and validator (`validateFunctor`) —
+the player maps one category onto another. All others are transformation (wiring) puzzles. The
+full curriculum arc, the worked complex example, and the engine-extension map live in
+[`ROADMAP.md`](./ROADMAP.md).
 
 ## 7. Glossary
 
