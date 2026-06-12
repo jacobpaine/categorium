@@ -29,10 +29,11 @@ Multiple valid solutions are allowed — rules describe constraints, not a singl
 
 | Rule | Meaning |
 |---|---|
+| `type-valid-wiring` | Every wire must connect type-compatible ports (a machine's input/output type must match what it's wired to; no thing-to-thing wires). |
 | `required-final-object` | The constructed path must end at this object/type. |
-| `allowed-morphisms-only` | Only these machines/morphisms may be used. |
+| `allowed-morphisms-only` | Only these machines/morphisms may be used (a *wired* machine counts; merely placed distractors do not). |
 | `path-equivalence` | Two declared paths must be equivalent (commutative diagram). |
-| `concept-tag-required` | The solution must exercise this concept. |
+| `concept-tag-required` | The solution must exercise this concept (`composition` needs ≥2 chained machines; `identity` needs a wired self-loop machine). |
 
 Path equivalence uses **puzzle-declared** equivalence, optionally corroborated by running
 sample values through both paths. The engine does not infer deep categorical equality.
@@ -64,14 +65,21 @@ Connect one machine from object A to object B. Formal structure `f: A → B`.
 - **Formal reveal:** `A --f--> B`,  `f: A → B`. Programmer analogy (opt-in): `f: (input: A) => B`.
 - **Glossary unlocks:** object, morphism.
 
-### Puzzles 2–5 — *(stubbed: id, chapter, order, concept tags, brief intro/goal)*
+### Puzzles 2–5 — *(fully authored)*
 
-| Puzzle | Concept | Reveal |
-|---|---|---|
-| 2 Choose the Valid Transformation | typed transform — only one machine's ports type-match | type-matched ports |
-| 3 Chain Two Transformations | composition `A → B → C` | `g ∘ f : A → C` ("do f first, then g") |
-| 4 Use Identity | a do-nothing machine `A → A` (Pass Through / Preserve / Echo / Identity) | `id_A : A → A`  (`x => x`) |
-| 5 Equivalent Paths | build a second path that behaves the same | `g ∘ f = k ∘ h` |
+| Puzzle | Concept | How it's validated | Reveal |
+|---|---|---|---|
+| 2 Choose the Valid Transformation | typed transform — three machines, only one fits | `type-valid-wiring` (the two distractors are wrong-input / wrong-output) + `required-final-object` | type-matched ports, `f: A → B` |
+| 3 Chain Two Transformations | composition `A → B → C` | `type-valid-wiring` + `required-final-object` C + `concept-tag-required composition` (≥2 chained) | `g ∘ f : A → C` ("do f first, then g") |
+| 4 Use Identity | a do-nothing machine `A → A` (Pass Through / Preserve / Echo / Identity) | `type-valid-wiring` (distractor `f: A → B` can't reach goal A) + `required-final-object` A + `concept-tag-required identity` | `id_A : A → A`  (`x => x`) |
+| 5 Equivalent Paths | build a second route to the same goal | `type-valid-wiring` + `allowed-morphisms-only [h,k]` + `required-final-object` C + `path-equivalence` of the two declared paths | `g ∘ f = k ∘ h` |
+
+Notes on the design:
+- A machine merely placed on the canvas is not "used"; only a **wired** machine counts (so
+  puzzle 2/4 distractors don't trip rules until connected).
+- Puzzle 5's known `f;g` route is described in the intro/reveal but not placed on the editable
+  canvas — the player builds the alternate `h;k` route, and the `path-equivalence` rule
+  confirms the two declared routes are parallel (`A → C`).
 
 ## Chapter 2 — `chapter-02-laws`  *(locked placeholder)*
 

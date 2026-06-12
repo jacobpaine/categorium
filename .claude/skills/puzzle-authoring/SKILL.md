@@ -20,12 +20,23 @@ Edges are `{id, sourceNodeId, targetNodeId}` (a wire). `initialGraph` is what th
 with; `referenceSolution` is the canonical completed graph.
 
 ## Validation rules (evaluated in order; first failure shown)
+- `type-valid-wiring` — every wire must connect type-compatible ports (machine input/output
+  must match the thing it's wired to; no thing-to-thing wires). This is what makes distractor
+  machines meaningful — see `src/validation/wiring.ts`.
 - `required-final-object` — the traced path must end at this object.
-- `allowed-morphisms-only` — only these machines may be used.
+- `allowed-morphisms-only` — only these machines may be used. A machine merely *placed* on the
+  canvas doesn't count; only a **wired** machine does (`morphismIdsUsed` in `src/domain/graph.ts`).
 - `path-equivalence` — two declared `paths` must be parallel & author-equivalent.
 - `concept-tag-required` — the constructed graph must demonstrate this concept
-  (composition needs ≥2 chained morphisms; identity needs a self-loop morphism — see
-  `src/validation/concepts.ts`).
+  (composition needs ≥2 chained morphisms; identity needs a wired self-loop morphism — see
+  `src/validation/concepts.ts`). Note: `commutative-diagram` is NOT auto-derived, so don't
+  require it via this rule — use `path-equivalence` instead.
+
+## Distractor pattern (typed-transform / identity puzzles)
+Place wrong-typed machines as extra morphism nodes in `initialGraph` (don't list them in a
+restrictive `allowed-morphisms-only`); rely on `type-valid-wiring` + `required-final-object` so
+a player who wires the wrong machine gets a type-mismatch explanation. Define the distractor's
+off-type objects in `objects` even if they never appear as terminal nodes.
 
 ## Authoring checklist
 - All four ThemeId keys present in every theme-text bundle (`data`, `alchemy`, `spellcraft`, `abstract`).

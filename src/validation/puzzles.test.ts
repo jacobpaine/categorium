@@ -1,0 +1,72 @@
+import { describe, it, expect } from 'vitest';
+import { PUZZLES, getPuzzle, toValidationInput } from '../data';
+import { isAuthored } from '../schemas';
+import type { PuzzleGraph } from '../domain';
+import { validatePuzzle } from './validatePuzzle';
+
+/** Build a graph from a puzzle's initial nodes plus a custom set of wires. */
+function wire(puzzleId: string, edges: [string, string][]): PuzzleGraph {
+  const p = getPuzzle(puzzleId);
+  if (!p || !isAuthored(p)) throw new Error(`fixture ${puzzleId}`);
+  return {
+    nodes: p.initialGraph.nodes,
+    edges: edges.map(([s, t], i) => ({ id: `e${i}`, sourceNodeId: s, targetNodeId: t })),
+  };
+}
+
+describe('reference solutions pass for every authored puzzle', () => {
+  for (const puzzle of PUZZLES) {
+    if (!isAuthored(puzzle) || !puzzle.referenceSolution) continue;
+    it(`${puzzle.id}`, () => {
+      const res = validatePuzzle(toValidationInput(puzzle), puzzle.referenceSolution!);
+      expect(res.ok).toBe(true);
+    });
+  }
+});
+
+describe('puzzle-02 — typed transformation', () => {
+  const input = () => toValidationInput(getPuzzle('puzzle-02') as never);
+
+  it('rejects a wrong-output machine on a type-mismatch', () => {
+    // mor-bad-out: A -> C, so wiring it into B is a type error.
+    const res = validatePuzzle(input(), wire('puzzle-02', [['n-a', 'n-bad-out'], ['n-bad-out', 'n-b']]));
+    expect(res.ok).toBe(false);
+    if (!res.ok) expect(res.firstFailure.rule.type).toBe('type-valid-wiring');
+  });
+
+  it('rejects a wrong-input machine on a type-mismatch', () => {
+    // mor-bad-in: C -> B, so feeding A into it is a type error.
+    const res = validatePuzzle(input(), wire('puzzle-02', [['n-a', 'n-bad-in'], ['n-bad-in', 'n-b']]));
+    expect(res.ok).toBe(false);
+    if (!res.ok) expect(res.firstFailure.rule.type).toBe('type-valid-wiring');
+  });
+});
+
+describe('puzzle-04 — identity', () => {
+  const input = () => toValidationInput(getPuzzle('puzzle-04') as never);
+
+  it('rejects the distractor f (A -> B) because it cannot reach goal A', () => {
+    const res = validatePuzzle(
+      input(),
+      wire('puzzle-04', [['n-a-start', 'n-f'], ['n-f', 'n-a-goal']]),
+    );
+    expect(res.ok).toBe(false);
+    if (!res.ok) expect(res.firstFailure.rule.type).toBe('type-valid-wiring');
+  });
+
+  it('rejects a direct thing-to-thing wire (no machine)', () => {
+    const res = validatePuzzle(input(), wire('puzzle-04', [['n-a-start', 'n-a-goal']]));
+    expect(res.ok).toBe(false);
+    if (!res.ok) expect(res.firstFailure.rule.type).toBe('type-valid-wiring');
+  });
+});
+
+describe('puzzle-05 — commutative diagram', () => {
+  const input = () => toValidationInput(getPuzzle('puzzle-05') as never);
+
+  it('fails to reach the goal when no second path is built', () => {
+    const res = validatePuzzle(input(), wire('puzzle-05', []));
+    expect(res.ok).toBe(false);
+    if (!res.ok) expect(res.firstFailure.rule.type).toBe('required-final-object');
+  });
+});

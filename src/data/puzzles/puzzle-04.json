@@ -1,5 +1,5 @@
 {
-  "status": "stub",
+  "status": "authored",
   "id": "puzzle-04",
   "chapterId": "chapter-01-transformations",
   "order": 4,
@@ -11,15 +11,97 @@
   },
   "conceptTags": ["identity"],
   "intro": {
-    "data": "Sometimes the right step changes nothing at all. Use the Pass Through machine that returns a thing as itself.",
-    "alchemy": "Sometimes the right step changes nothing at all. Use the Preserve apparatus that returns a material as itself.",
-    "spellcraft": "Sometimes the right step changes nothing at all. Use the Echo rune that returns an essence as itself.",
-    "abstract": "Sometimes the right step changes nothing at all. Use the Identity process from an object back to itself."
+    "data": "The goal is the same kind of thing as the start. You still need a step between them — one that changes nothing. The Pass Through machine returns a thing as itself.",
+    "alchemy": "The goal is the same kind of thing as the start. You still need a step between them — one that changes nothing. The Preserve apparatus returns a material as itself.",
+    "spellcraft": "The goal is the same kind of thing as the start. You still need a step between them — one that changes nothing. The Echo rune returns an essence as itself.",
+    "abstract": "The goal is the same object as the start. You still need a step between them — one that changes nothing. The Identity process returns an object as itself."
   },
   "goal": {
-    "data": "Place the do-nothing machine from A back to A, then reveal identity (id_A).",
-    "alchemy": "Place the do-nothing apparatus from A back to A, then reveal identity (id_A).",
-    "spellcraft": "Place the do-nothing rune from A back to A, then reveal identity (id_A).",
-    "abstract": "Place the identity process id_A : A → A, then reveal identity."
+    "data": "Wire the start through the do-nothing machine back to the goal of the same type.",
+    "alchemy": "Wire the start through the do-nothing apparatus back to the goal of the same type.",
+    "spellcraft": "Wire the start through the do-nothing rune back to the goal of the same type.",
+    "abstract": "Wire the start through id_A back to the goal A."
+  },
+  "objects": [
+    {
+      "id": "obj-a",
+      "formalLabel": "A",
+      "labels": { "data": "Raw CSV", "alchemy": "Ore", "spellcraft": "Spark", "abstract": "A" },
+      "colorToken": "sky"
+    },
+    {
+      "id": "obj-b",
+      "formalLabel": "B",
+      "labels": { "data": "Clean Table", "alchemy": "Ingot", "spellcraft": "Flame", "abstract": "B" },
+      "colorToken": "emerald"
+    }
+  ],
+  "morphisms": [
+    {
+      "id": "mor-id",
+      "formalLabel": "id_A",
+      "sourceObjectId": "obj-a",
+      "targetObjectId": "obj-a",
+      "labels": { "data": "Pass Through", "alchemy": "Preserve", "spellcraft": "Echo", "abstract": "id_A" },
+      "description": {
+        "data": "Returns the data unchanged (Raw CSV → Raw CSV).",
+        "alchemy": "Returns the material unchanged (Ore → Ore).",
+        "spellcraft": "Returns the essence unchanged (Spark → Spark).",
+        "abstract": "A → A, the do-nothing step."
+      }
+    },
+    {
+      "id": "mor-f",
+      "formalLabel": "f",
+      "sourceObjectId": "obj-a",
+      "targetObjectId": "obj-b",
+      "labels": { "data": "Parser", "alchemy": "Smelter", "spellcraft": "Ignition", "abstract": "f" },
+      "description": {
+        "data": "Raw CSV → Clean Table (changes the type — wrong goal).",
+        "alchemy": "Ore → Ingot (changes the type — wrong goal).",
+        "spellcraft": "Spark → Flame (changes the type — wrong goal).",
+        "abstract": "A → B (changes the type — wrong goal)."
+      }
+    }
+  ],
+  "initialGraph": {
+    "nodes": [
+      { "kind": "object", "nodeId": "n-a-start", "objectId": "obj-a", "role": "start", "position": { "x": 40, "y": 180 } },
+      { "kind": "morphism", "nodeId": "n-id", "morphismId": "mor-id", "position": { "x": 340, "y": 70 } },
+      { "kind": "morphism", "nodeId": "n-f", "morphismId": "mor-f", "position": { "x": 340, "y": 290 } },
+      { "kind": "object", "nodeId": "n-a-goal", "objectId": "obj-a", "role": "goal", "position": { "x": 640, "y": 180 } }
+    ],
+    "edges": []
+  },
+  "allowedMorphismIds": ["mor-id", "mor-f"],
+  "validation": [
+    { "type": "type-valid-wiring" },
+    { "type": "required-final-object", "objectId": "obj-a" },
+    { "type": "concept-tag-required", "conceptTag": "identity" }
+  ],
+  "reveal": {
+    "afterSuccess": {
+      "data": "You used a step that changes nothing — and it still counts as a step. A do-nothing process from a thing back to itself is called identity.",
+      "alchemy": "You used a step that changes nothing — and it still counts as a step. A do-nothing process from a material back to itself is called identity.",
+      "spellcraft": "You used a step that changes nothing — and it still counts as a step. A do-nothing working from an essence back to itself is called identity.",
+      "abstract": "You used a step that changes nothing — and it still counts as a step. A do-nothing arrow from an object back to itself is called identity."
+    },
+    "summary": "Every object has an identity step from itself to itself. It does nothing to the thing passing through, yet it is a perfectly valid process.",
+    "notation": ["id_A : A → A"],
+    "moreFormal": "For each object A there is an identity morphism id_A : A → A. It is the canonical do-nothing arrow on A. Why it matters under composition is the subject of the next chapter.",
+    "programmerAnalogy": "const idA = (x: A): A => x;"
+  },
+  "glossaryUnlocks": ["identity"],
+  "referenceSolution": {
+    "nodes": [
+      { "kind": "object", "nodeId": "n-a-start", "objectId": "obj-a", "role": "start", "position": { "x": 40, "y": 180 } },
+      { "kind": "morphism", "nodeId": "n-id", "morphismId": "mor-id", "position": { "x": 340, "y": 70 } },
+      { "kind": "morphism", "nodeId": "n-f", "morphismId": "mor-f", "position": { "x": 340, "y": 290 } },
+      { "kind": "object", "nodeId": "n-a-goal", "objectId": "obj-a", "role": "goal", "position": { "x": 640, "y": 180 } }
+    ],
+    "edges": [
+      { "id": "e-a-id", "sourceNodeId": "n-a-start", "targetNodeId": "n-id" },
+      { "id": "e-id-a", "sourceNodeId": "n-id", "targetNodeId": "n-a-goal" }
+    ]
   }
 }

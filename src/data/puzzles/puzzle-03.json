@@ -1,5 +1,5 @@
 {
-  "status": "stub",
+  "status": "authored",
   "id": "puzzle-03",
   "chapterId": "chapter-01-transformations",
   "order": 3,
@@ -11,15 +11,107 @@
   },
   "conceptTags": ["composition"],
   "intro": {
-    "data": "One machine is not enough. Feed the output of the first into a second to reach the goal.",
-    "alchemy": "One apparatus is not enough. Feed the output of the first into a second to reach the goal.",
-    "spellcraft": "One rune is not enough. Feed the output of the first into a second to reach the goal.",
-    "abstract": "One process is not enough. Feed the output of the first into a second to reach the goal."
+    "data": "One machine can’t get you all the way. Run the first machine, then feed its output straight into the second to reach the goal.",
+    "alchemy": "One apparatus can’t get you all the way. Run the first, then feed its output straight into the second to reach the goal.",
+    "spellcraft": "One rune can’t get you all the way. Cast the first, then feed its result straight into the second to reach the goal.",
+    "abstract": "One process can’t get you all the way. Apply the first, then feed its output straight into the second to reach the goal."
   },
   "goal": {
-    "data": "Build A to B to C by chaining two machines, then reveal composition (g after f).",
-    "alchemy": "Build A to B to C by chaining two apparatuses, then reveal composition (g after f).",
-    "spellcraft": "Build A to B to C by chaining two runes, then reveal composition (g after f).",
-    "abstract": "Build A to B to C by chaining two processes, then reveal composition: g ∘ f."
+    "data": "Wire the start through both machines in order — A to B to C — ending at the goal.",
+    "alchemy": "Wire the start through both apparatuses in order — A to B to C — ending at the goal.",
+    "spellcraft": "Wire the start through both runes in order — A to B to C — ending at the goal.",
+    "abstract": "Wire the start through both processes in order — A to B to C — ending at the goal."
+  },
+  "objects": [
+    {
+      "id": "obj-a",
+      "formalLabel": "A",
+      "labels": { "data": "Raw CSV", "alchemy": "Ore", "spellcraft": "Spark", "abstract": "A" },
+      "colorToken": "sky"
+    },
+    {
+      "id": "obj-b",
+      "formalLabel": "B",
+      "labels": { "data": "Clean Table", "alchemy": "Ingot", "spellcraft": "Flame", "abstract": "B" },
+      "colorToken": "emerald"
+    },
+    {
+      "id": "obj-c",
+      "formalLabel": "C",
+      "labels": { "data": "Chart", "alchemy": "Tool", "spellcraft": "Beacon", "abstract": "C" },
+      "colorToken": "amber"
+    }
+  ],
+  "morphisms": [
+    {
+      "id": "mor-f",
+      "formalLabel": "f",
+      "sourceObjectId": "obj-a",
+      "targetObjectId": "obj-b",
+      "labels": { "data": "Parser", "alchemy": "Smelter", "spellcraft": "Ignition", "abstract": "f" },
+      "description": {
+        "data": "Raw CSV → Clean Table",
+        "alchemy": "Ore → Ingot",
+        "spellcraft": "Spark → Flame",
+        "abstract": "A → B"
+      }
+    },
+    {
+      "id": "mor-g",
+      "formalLabel": "g",
+      "sourceObjectId": "obj-b",
+      "targetObjectId": "obj-c",
+      "labels": { "data": "Charter", "alchemy": "Toolsmith", "spellcraft": "Kindler", "abstract": "g" },
+      "description": {
+        "data": "Clean Table → Chart",
+        "alchemy": "Ingot → Tool",
+        "spellcraft": "Flame → Beacon",
+        "abstract": "B → C"
+      }
+    }
+  ],
+  "initialGraph": {
+    "nodes": [
+      { "kind": "object", "nodeId": "n-a", "objectId": "obj-a", "role": "start", "position": { "x": 40, "y": 180 } },
+      { "kind": "morphism", "nodeId": "n-f", "morphismId": "mor-f", "position": { "x": 210, "y": 180 } },
+      { "kind": "object", "nodeId": "n-b", "objectId": "obj-b", "position": { "x": 380, "y": 180 } },
+      { "kind": "morphism", "nodeId": "n-g", "morphismId": "mor-g", "position": { "x": 550, "y": 180 } },
+      { "kind": "object", "nodeId": "n-c", "objectId": "obj-c", "role": "goal", "position": { "x": 720, "y": 180 } }
+    ],
+    "edges": []
+  },
+  "allowedMorphismIds": ["mor-f", "mor-g"],
+  "validation": [
+    { "type": "type-valid-wiring" },
+    { "type": "required-final-object", "objectId": "obj-c" },
+    { "type": "concept-tag-required", "conceptTag": "composition" }
+  ],
+  "reveal": {
+    "afterSuccess": {
+      "data": "You chained two machines into one longer transformation. Feeding the output of one process into another is called composition.",
+      "alchemy": "You chained two apparatuses into one longer transformation. Feeding the output of one process into another is called composition.",
+      "spellcraft": "You chained two runes into one longer working. Feeding the result of one process into another is called composition.",
+      "abstract": "You chained two processes into one longer arrow. Feeding the output of one into another is called composition."
+    },
+    "summary": "When the target of one morphism matches the source of the next, you can compose them into a single arrow from the first source to the last target.",
+    "notation": ["A --f--> B --g--> C", "g ∘ f : A → C", "g ∘ f means do f first, then g."],
+    "moreFormal": "Given f : A → B and g : B → C, the composite g ∘ f : A → C is defined because target(f) = source(g) = B. Composition is read right-to-left, but applied first-to-last.",
+    "programmerAnalogy": "const gf = (x: A): C => g(f(x));"
+  },
+  "glossaryUnlocks": ["composition"],
+  "referenceSolution": {
+    "nodes": [
+      { "kind": "object", "nodeId": "n-a", "objectId": "obj-a", "role": "start", "position": { "x": 40, "y": 180 } },
+      { "kind": "morphism", "nodeId": "n-f", "morphismId": "mor-f", "position": { "x": 210, "y": 180 } },
+      { "kind": "object", "nodeId": "n-b", "objectId": "obj-b", "position": { "x": 380, "y": 180 } },
+      { "kind": "morphism", "nodeId": "n-g", "morphismId": "mor-g", "position": { "x": 550, "y": 180 } },
+      { "kind": "object", "nodeId": "n-c", "objectId": "obj-c", "role": "goal", "position": { "x": 720, "y": 180 } }
+    ],
+    "edges": [
+      { "id": "e-a-f", "sourceNodeId": "n-a", "targetNodeId": "n-f" },
+      { "id": "e-f-b", "sourceNodeId": "n-f", "targetNodeId": "n-b" },
+      { "id": "e-b-g", "sourceNodeId": "n-b", "targetNodeId": "n-g" },
+      { "id": "e-g-c", "sourceNodeId": "n-g", "targetNodeId": "n-c" }
+    ]
   }
 }

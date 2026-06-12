@@ -101,8 +101,9 @@ type ConceptTag =
   | 'composition' | 'identity' | 'commutative-diagram';
 
 type PuzzleValidationRule =
+  | { type: 'type-valid-wiring' }                       // every wire connects compatible ports
   | { type: 'required-final-object'; objectId: string }
-  | { type: 'allowed-morphisms-only'; morphismIds: string[] }
+  | { type: 'allowed-morphisms-only'; morphismIds: string[] }  // a *wired* machine counts
   | { type: 'path-equivalence'; leftPathId: string; rightPathId: string }
   | { type: 'concept-tag-required'; conceptTag: ConceptTag };
 

@@ -114,9 +114,19 @@ export function tracePath(diagram: Diagram, graph: PuzzleGraph): Result<TracedPa
   };
 }
 
-/** All morphism ids referenced by morphism nodes in the graph. */
+/**
+ * Morphism ids that are actually WIRED into the graph (a morphism node with at least one
+ * incident edge). A machine merely placed on the canvas but not connected does not count as
+ * "used" — this is what makes distractor machines work (e.g. puzzle 2's wrong-typed options).
+ */
 export function morphismIdsUsed(graph: PuzzleGraph): string[] {
+  const wired = new Set<string>();
+  for (const e of graph.edges) {
+    wired.add(e.sourceNodeId);
+    wired.add(e.targetNodeId);
+  }
   return graph.nodes
     .filter((n): n is Extract<GraphNode, { kind: 'morphism' }> => n.kind === 'morphism')
+    .filter((n) => wired.has(n.nodeId))
     .map((n) => n.morphismId);
 }

@@ -10,6 +10,7 @@ import { tracePath, morphismIdsUsed, getObject, arePathsEquivalent } from '../do
 import type { PuzzleGraph } from '../domain';
 import type { ConceptTag, PuzzleValidationRule } from './rules';
 import { conceptsExercised } from './concepts';
+import { wireTypeErrors } from './wiring';
 
 /** Minimal puzzle slice the engine needs — schemas/UI pass a superset. */
 export type ValidationInput = {
@@ -39,6 +40,14 @@ function evaluateRule(
   graph: PuzzleGraph,
 ): RuleFailure | null {
   switch (rule.type) {
+    case 'type-valid-wiring': {
+      const errors = wireTypeErrors(diagram, graph);
+      if (errors.length > 0) {
+        return { rule, message: errors[0].message, nearConcept: 'typed-transform' };
+      }
+      return null;
+    }
+
     case 'required-final-object': {
       const traced = tracePath(diagram, graph);
       if (!traced.ok) {

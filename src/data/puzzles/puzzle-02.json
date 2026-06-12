@@ -1,5 +1,5 @@
 {
-  "status": "stub",
+  "status": "authored",
   "id": "puzzle-02",
   "chapterId": "chapter-01-transformations",
   "order": 2,
@@ -11,15 +11,118 @@
   },
   "conceptTags": ["typed-transform"],
   "intro": {
-    "data": "Several machines are available, but only one accepts this input and produces what you need.",
-    "alchemy": "Several apparatuses are available, but only one accepts this material and produces what you need.",
-    "spellcraft": "Several runes are available, but only one accepts this essence and produces what you need.",
-    "abstract": "Several processes are available, but only one has matching input and output."
+    "data": "Three machines are on the bench, but they don’t all fit. Each machine accepts one kind of input and makes one kind of output. Only one turns the start into the goal.",
+    "alchemy": "Three apparatuses are on the bench, but they don’t all fit. Each accepts one kind of material and makes one kind of output. Only one turns the start into the goal.",
+    "spellcraft": "Three runes are laid out, but they don’t all fit. Each accepts one kind of essence and makes one kind of output. Only one turns the start into the goal.",
+    "abstract": "Three processes are available, but they don’t all fit. Each has one source type and one target type. Only one turns the start into the goal."
   },
   "goal": {
-    "data": "Pick the one machine whose input and output types fit, and connect it.",
-    "alchemy": "Pick the one apparatus whose input and output fit, and connect it.",
-    "spellcraft": "Pick the one rune whose input and output fit, and connect it.",
-    "abstract": "Pick the one process whose source and target match, and connect it."
+    "data": "Wire the start through the one machine whose input and output types match, ending at the goal.",
+    "alchemy": "Wire the start through the one apparatus whose input and output match, ending at the goal.",
+    "spellcraft": "Wire the start through the one rune whose input and output match, ending at the goal.",
+    "abstract": "Wire the start through the one process whose source and target match, ending at the goal."
+  },
+  "objects": [
+    {
+      "id": "obj-a",
+      "formalLabel": "A",
+      "labels": { "data": "Raw CSV", "alchemy": "Ore", "spellcraft": "Spark", "abstract": "A" },
+      "colorToken": "sky"
+    },
+    {
+      "id": "obj-b",
+      "formalLabel": "B",
+      "labels": { "data": "Clean Table", "alchemy": "Ingot", "spellcraft": "Flame", "abstract": "B" },
+      "colorToken": "emerald"
+    },
+    {
+      "id": "obj-c",
+      "formalLabel": "C",
+      "labels": { "data": "Chart", "alchemy": "Tool", "spellcraft": "Beacon", "abstract": "C" },
+      "colorToken": "amber"
+    }
+  ],
+  "morphisms": [
+    {
+      "id": "mor-f",
+      "formalLabel": "f",
+      "sourceObjectId": "obj-a",
+      "targetObjectId": "obj-b",
+      "labels": { "data": "Parser", "alchemy": "Smelter", "spellcraft": "Ignition", "abstract": "f" },
+      "description": {
+        "data": "Raw CSV → Clean Table",
+        "alchemy": "Ore → Ingot",
+        "spellcraft": "Spark → Flame",
+        "abstract": "A → B"
+      }
+    },
+    {
+      "id": "mor-bad-out",
+      "formalLabel": "g",
+      "sourceObjectId": "obj-a",
+      "targetObjectId": "obj-c",
+      "labels": { "data": "Charter", "alchemy": "Caster", "spellcraft": "Diviner", "abstract": "g" },
+      "description": {
+        "data": "Raw CSV → Chart (wrong output)",
+        "alchemy": "Ore → Tool (wrong output)",
+        "spellcraft": "Spark → Beacon (wrong output)",
+        "abstract": "A → C (wrong output)"
+      }
+    },
+    {
+      "id": "mor-bad-in",
+      "formalLabel": "h",
+      "sourceObjectId": "obj-c",
+      "targetObjectId": "obj-b",
+      "labels": { "data": "Importer", "alchemy": "Binder", "spellcraft": "Shaper", "abstract": "h" },
+      "description": {
+        "data": "Chart → Clean Table (wrong input)",
+        "alchemy": "Tool → Ingot (wrong input)",
+        "spellcraft": "Beacon → Flame (wrong input)",
+        "abstract": "C → B (wrong input)"
+      }
+    }
+  ],
+  "initialGraph": {
+    "nodes": [
+      { "kind": "object", "nodeId": "n-a", "objectId": "obj-a", "role": "start", "position": { "x": 40, "y": 180 } },
+      { "kind": "morphism", "nodeId": "n-f", "morphismId": "mor-f", "position": { "x": 380, "y": 60 } },
+      { "kind": "morphism", "nodeId": "n-bad-out", "morphismId": "mor-bad-out", "position": { "x": 380, "y": 180 } },
+      { "kind": "morphism", "nodeId": "n-bad-in", "morphismId": "mor-bad-in", "position": { "x": 380, "y": 300 } },
+      { "kind": "object", "nodeId": "n-b", "objectId": "obj-b", "role": "goal", "position": { "x": 720, "y": 180 } }
+    ],
+    "edges": []
+  },
+  "allowedMorphismIds": ["mor-f", "mor-bad-out", "mor-bad-in"],
+  "validation": [
+    { "type": "type-valid-wiring" },
+    { "type": "required-final-object", "objectId": "obj-b" },
+    { "type": "concept-tag-required", "conceptTag": "typed-transform" }
+  ],
+  "reveal": {
+    "afterSuccess": {
+      "data": "Only one machine had a matching input and output. Machines have typed ports, and a wire only connects when the types line up.",
+      "alchemy": "Only one apparatus had a matching input and output. Apparatuses have typed ports, and a connection only forms when the types line up.",
+      "spellcraft": "Only one rune had a matching input and output. Runes have typed ports, and a binding only forms when the types line up.",
+      "abstract": "Only one process had a matching source and target. Processes have typed ports, and an arrow only connects when the types line up."
+    },
+    "summary": "A morphism has a fixed source type and target type. It can only be applied to its source type, and it always yields its target type — so not every machine fits every thing.",
+    "notation": ["f : A → B", "g : A → C", "h : C → B"],
+    "moreFormal": "For f : A → B, the domain A and codomain B are part of the morphism’s identity. A wire is well-typed only when the output type of one port equals the input type of the next.",
+    "programmerAnalogy": "f: (input: A) => B will not accept a value of type C."
+  },
+  "glossaryUnlocks": [],
+  "referenceSolution": {
+    "nodes": [
+      { "kind": "object", "nodeId": "n-a", "objectId": "obj-a", "role": "start", "position": { "x": 40, "y": 180 } },
+      { "kind": "morphism", "nodeId": "n-f", "morphismId": "mor-f", "position": { "x": 380, "y": 60 } },
+      { "kind": "morphism", "nodeId": "n-bad-out", "morphismId": "mor-bad-out", "position": { "x": 380, "y": 180 } },
+      { "kind": "morphism", "nodeId": "n-bad-in", "morphismId": "mor-bad-in", "position": { "x": 380, "y": 300 } },
+      { "kind": "object", "nodeId": "n-b", "objectId": "obj-b", "role": "goal", "position": { "x": 720, "y": 180 } }
+    ],
+    "edges": [
+      { "id": "e-a-f", "sourceNodeId": "n-a", "targetNodeId": "n-f" },
+      { "id": "e-f-b", "sourceNodeId": "n-f", "targetNodeId": "n-b" }
+    ]
   }
 }

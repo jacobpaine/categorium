@@ -26,6 +26,8 @@ export const CONCEPT_TAGS: readonly ConceptTag[] = [
  * describe constraints, not one canonical answer.
  */
 export type PuzzleValidationRule =
+  /** Every wire must connect type-compatible ports (no machine-to-wrong-thing). */
+  | { type: 'type-valid-wiring' }
   | { type: 'required-final-object'; objectId: string }
   | { type: 'allowed-morphisms-only'; morphismIds: string[] }
   | { type: 'path-equivalence'; leftPathId: string; rightPathId: string }

@@ -70,13 +70,19 @@ and unit-testable without React.
 - Glossary screen (unlocks gate entries) and Settings (theme + clear-all-progress)
 - Progress store fully wired: completions, concept/glossary unlocks, per-puzzle saved graph
 
+**Built and working (Session 3 — Chapter 1 content):**
+- Puzzles 2–5 fully authored across all four themes (typed transform, composition, identity,
+  commutative diagram), each with reference solution, reveal, and glossary unlocks
+- New `type-valid-wiring` validation rule (type-checks every wire) — powers the distractor
+  machines in puzzles 2 & 4; "used" now means *wired*, not merely placed
+- Per-puzzle validation tests: every reference solution passes; type/identity/goal failures fail
+
 **Stubbed:**
-- Puzzles 2–5 (id, chapter, order, concept tags, brief intro/goal only — listed as "Coming soon")
 - `src/devtools/` debug panel
 
 **Deferred (next):**
 Sample-value animation through machines, debug panel + `?debug=true`, full keyboard graph
-construction (mouse-first for now), Puzzles 2–5 authored content, locked-puzzle deep-link screen.
+construction (mouse-first for now), locked-puzzle deep-link screen.
 
 **Known limitations:**
 - Morphisms are unary only (products/sums/multi-input are a marked future extension point).
