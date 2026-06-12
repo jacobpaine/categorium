@@ -1,0 +1,28 @@
+[
+  {
+    "id": "data",
+    "name": "Data Refinery",
+    "tagline": "Transform messy inputs into clean, useful outputs.",
+    "recommendedFor": "programmers",
+    "example": { "from": "Raw CSV", "machine": "Parser", "to": "Clean Table" }
+  },
+  {
+    "id": "alchemy",
+    "name": "Alchemy Workshop",
+    "tagline": "Choose this if you like materials, crafting, and transformation metaphors.",
+    "example": { "from": "Ore", "machine": "Smelter", "to": "Ingot" }
+  },
+  {
+    "id": "spellcraft",
+    "name": "Spellcraft System",
+    "tagline": "Choose this if you like magical systems and composed effects.",
+    "example": { "from": "Spark", "machine": "Ignition", "to": "Flame" }
+  },
+  {
+    "id": "abstract",
+    "name": "Abstract Machine World",
+    "tagline": "Pure mode. The cleanest version of nodes, ports, and arrows.",
+    "pure": true,
+    "example": { "from": "A", "machine": "f", "to": "B" }
+  }
+]

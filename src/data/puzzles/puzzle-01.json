@@ -1,0 +1,147 @@
+{
+  "status": "authored",
+  "id": "puzzle-01",
+  "chapterId": "chapter-01-transformations",
+  "order": 1,
+  "title": {
+    "data": "One Transformation",
+    "alchemy": "One Transformation",
+    "spellcraft": "One Transformation",
+    "abstract": "One Transformation"
+  },
+  "conceptTags": ["object", "morphism"],
+  "intro": {
+    "data": "Every system begins with something that can be transformed. Here you have one starting input, one machine, and one goal. Connect them so the machine can turn the start into the goal.",
+    "alchemy": "Every craft begins with a raw material that can be transformed. Here you have one starting material, one apparatus, and one goal. Connect them so the apparatus can turn the start into the goal.",
+    "spellcraft": "Every working begins with a spark that can be transformed. Here you have one starting essence, one rune, and one goal. Connect them so the rune can turn the start into the goal.",
+    "abstract": "Every system begins with something that can be transformed. Here you have one starting object, one process, and one goal. Connect them so the process can turn the start into the goal."
+  },
+  "goal": {
+    "data": "Connect the starting input to the machine, then connect the machine to the goal.",
+    "alchemy": "Connect the starting material to the apparatus, then connect the apparatus to the goal.",
+    "spellcraft": "Connect the starting essence to the rune, then connect the rune to the goal.",
+    "abstract": "Connect the start object to the process, then connect the process to the goal."
+  },
+  "objects": [
+    {
+      "id": "obj-a",
+      "formalLabel": "A",
+      "labels": {
+        "data": "Raw CSV",
+        "alchemy": "Ore",
+        "spellcraft": "Spark",
+        "abstract": "A"
+      },
+      "description": {
+        "data": "A messy, unparsed spreadsheet.",
+        "alchemy": "Unrefined ore dug from the mountain.",
+        "spellcraft": "A raw spark of untamed energy.",
+        "abstract": "A source object."
+      },
+      "colorToken": "sky"
+    },
+    {
+      "id": "obj-b",
+      "formalLabel": "B",
+      "labels": {
+        "data": "Clean Table",
+        "alchemy": "Ingot",
+        "spellcraft": "Flame",
+        "abstract": "B"
+      },
+      "description": {
+        "data": "A clean, structured table.",
+        "alchemy": "A refined metal ingot.",
+        "spellcraft": "A steady, usable flame.",
+        "abstract": "A target object."
+      },
+      "colorToken": "emerald"
+    }
+  ],
+  "morphisms": [
+    {
+      "id": "mor-f",
+      "formalLabel": "f",
+      "sourceObjectId": "obj-a",
+      "targetObjectId": "obj-b",
+      "labels": {
+        "data": "Parser",
+        "alchemy": "Smelter",
+        "spellcraft": "Ignition",
+        "abstract": "f"
+      },
+      "description": {
+        "data": "Parses a raw CSV into a clean table.",
+        "alchemy": "Smelts ore into a refined ingot.",
+        "spellcraft": "Ignites a raw spark into a steady flame.",
+        "abstract": "A process from A to B."
+      },
+      "examples": [
+        {
+          "input": {
+            "data": "messy spreadsheet",
+            "alchemy": "raw ore",
+            "spellcraft": "a stray spark",
+            "abstract": "a value of A"
+          },
+          "output": {
+            "data": "clean table",
+            "alchemy": "metal ingot",
+            "spellcraft": "a steady flame",
+            "abstract": "a value of B"
+          }
+        }
+      ]
+    }
+  ],
+  "initialGraph": {
+    "nodes": [
+      { "kind": "object", "nodeId": "n-a", "objectId": "obj-a", "role": "start" },
+      { "kind": "morphism", "nodeId": "n-f", "morphismId": "mor-f" },
+      { "kind": "object", "nodeId": "n-b", "objectId": "obj-b", "role": "goal" }
+    ],
+    "edges": []
+  },
+  "allowedMorphismIds": ["mor-f"],
+  "validation": [
+    { "type": "allowed-morphisms-only", "morphismIds": ["mor-f"] },
+    { "type": "required-final-object", "objectId": "obj-b" },
+    { "type": "concept-tag-required", "conceptTag": "morphism" }
+  ],
+  "samples": [
+    {
+      "id": "sample-a1",
+      "objectId": "obj-a",
+      "labels": {
+        "data": "messy spreadsheet",
+        "alchemy": "raw ore",
+        "spellcraft": "a stray spark",
+        "abstract": "a value of A"
+      }
+    }
+  ],
+  "reveal": {
+    "afterSuccess": {
+      "data": "You built one valid transformation. In category theory, the things being transformed are called objects, and the process between them is called an arrow or morphism.",
+      "alchemy": "You built one valid transformation. In category theory, the materials being transformed are called objects, and the process between them is called an arrow or morphism.",
+      "spellcraft": "You built one valid transformation. In category theory, the essences being transformed are called objects, and the working between them is called an arrow or morphism.",
+      "abstract": "You built one valid transformation. In category theory, the things being transformed are called objects, and the process between them is called an arrow or morphism."
+    },
+    "summary": "A process transforms one thing into another. What it starts from and what it produces are objects; the process between them is an arrow, also called a morphism.",
+    "notation": ["A --f--> B", "f: A → B"],
+    "moreFormal": "An object is a labelled point in a diagram. A morphism f: A → B is a directed arrow with a single source object A and a single target object B. It need not be a set-function — only that it has one source and one target.",
+    "programmerAnalogy": "f: (input: A) => B"
+  },
+  "glossaryUnlocks": ["object", "morphism"],
+  "referenceSolution": {
+    "nodes": [
+      { "kind": "object", "nodeId": "n-a", "objectId": "obj-a", "role": "start" },
+      { "kind": "morphism", "nodeId": "n-f", "morphismId": "mor-f" },
+      { "kind": "object", "nodeId": "n-b", "objectId": "obj-b", "role": "goal" }
+    ],
+    "edges": [
+      { "id": "e-a-f", "sourceNodeId": "n-a", "targetNodeId": "n-f" },
+      { "id": "e-f-b", "sourceNodeId": "n-f", "targetNodeId": "n-b" }
+    ]
+  }
+}

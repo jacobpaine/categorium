@@ -1,0 +1,25 @@
+{
+  "status": "stub",
+  "id": "puzzle-02",
+  "chapterId": "chapter-01-transformations",
+  "order": 2,
+  "title": {
+    "data": "Choose the Valid Transformation",
+    "alchemy": "Choose the Valid Transformation",
+    "spellcraft": "Choose the Valid Transformation",
+    "abstract": "Choose the Valid Transformation"
+  },
+  "conceptTags": ["typed-transform"],
+  "intro": {
+    "data": "Several machines are available, but only one accepts this input and produces what you need.",
+    "alchemy": "Several apparatuses are available, but only one accepts this material and produces what you need.",
+    "spellcraft": "Several runes are available, but only one accepts this essence and produces what you need.",
+    "abstract": "Several processes are available, but only one has matching input and output."
+  },
+  "goal": {
+    "data": "Pick the one machine whose input and output types fit, and connect it.",
+    "alchemy": "Pick the one apparatus whose input and output fit, and connect it.",
+    "spellcraft": "Pick the one rune whose input and output fit, and connect it.",
+    "abstract": "Pick the one process whose source and target match, and connect it."
+  }
+}

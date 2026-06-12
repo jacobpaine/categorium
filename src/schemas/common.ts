@@ -5,10 +5,12 @@
  */
 import { z } from 'zod';
 import { THEME_IDS } from '../domain';
+import type { ThemeId } from '../domain';
 import { CONCEPT_TAGS } from '../validation';
+import type { ConceptTag } from '../validation';
 
 export const themeIdSchema = z.enum(
-  THEME_IDS as unknown as [string, ...string[]],
+  THEME_IDS as unknown as [ThemeId, ...ThemeId[]],
 );
 
 /** Every theme key must be present, so no display label is ever missing. */
@@ -20,7 +22,7 @@ export const themeTextSchema = z.object({
 });
 
 export const conceptTagSchema = z.enum(
-  CONCEPT_TAGS as unknown as [string, ...string[]],
+  CONCEPT_TAGS as unknown as [ConceptTag, ...ConceptTag[]],
 );
 
 export const categoryObjectSchema = z.object({

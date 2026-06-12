@@ -1,0 +1,25 @@
+{
+  "status": "stub",
+  "id": "puzzle-03",
+  "chapterId": "chapter-01-transformations",
+  "order": 3,
+  "title": {
+    "data": "Chain Two Transformations",
+    "alchemy": "Chain Two Transformations",
+    "spellcraft": "Chain Two Transformations",
+    "abstract": "Chain Two Transformations"
+  },
+  "conceptTags": ["composition"],
+  "intro": {
+    "data": "One machine is not enough. Feed the output of the first into a second to reach the goal.",
+    "alchemy": "One apparatus is not enough. Feed the output of the first into a second to reach the goal.",
+    "spellcraft": "One rune is not enough. Feed the output of the first into a second to reach the goal.",
+    "abstract": "One process is not enough. Feed the output of the first into a second to reach the goal."
+  },
+  "goal": {
+    "data": "Build A to B to C by chaining two machines, then reveal composition (g after f).",
+    "alchemy": "Build A to B to C by chaining two apparatuses, then reveal composition (g after f).",
+    "spellcraft": "Build A to B to C by chaining two runes, then reveal composition (g after f).",
+    "abstract": "Build A to B to C by chaining two processes, then reveal composition: g ∘ f."
+  }
+}

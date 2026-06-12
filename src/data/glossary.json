@@ -1,0 +1,77 @@
+[
+  {
+    "id": "object",
+    "term": "Object",
+    "unlockedByConcept": "object",
+    "shortDefinition": "A thing or type that can be transformed.",
+    "themeExplanation": {
+      "data": "A kind of data, like a Raw CSV or a Clean Table — the stuff that flows between machines.",
+      "alchemy": "A kind of material, like Ore or an Ingot — the stuff your apparatuses work on.",
+      "spellcraft": "A kind of essence, like a Spark or a Flame — the stuff your runes act upon.",
+      "abstract": "A labelled point in a diagram, written A, B, C."
+    },
+    "formalDefinition": "In a category, an object is one of the things between which morphisms are drawn. It carries no internal structure of its own here — it is identified only by its name and the arrows into and out of it.",
+    "programmerAnalogy": "A type, like A in a signature f: (input: A) => B.",
+    "notationExamples": ["A", "B", "C"]
+  },
+  {
+    "id": "morphism",
+    "term": "Morphism (arrow)",
+    "unlockedByConcept": "morphism",
+    "shortDefinition": "A process from one object to another.",
+    "themeExplanation": {
+      "data": "A machine that turns one kind of data into another, like a Parser from Raw CSV to Clean Table.",
+      "alchemy": "An apparatus that turns one material into another, like a Smelter from Ore to Ingot.",
+      "spellcraft": "A rune that turns one essence into another, like Ignition from Spark to Flame.",
+      "abstract": "A directed arrow f from a source object to a target object."
+    },
+    "formalDefinition": "A morphism f: A → B is a directed arrow with a single source object A and a single target object B. It need not be a set-function; what matters is that it has one source and one target and can be composed with other arrows.",
+    "programmerAnalogy": "A function signature from one type to another: f: (input: A) => B.",
+    "notationExamples": ["A --f--> B", "f: A → B"]
+  },
+  {
+    "id": "composition",
+    "term": "Composition",
+    "unlockedByConcept": "composition",
+    "shortDefinition": "Chaining processes so the output of one feeds the next.",
+    "themeExplanation": {
+      "data": "Run one machine, then feed its output into another — a longer pipeline made of smaller steps.",
+      "alchemy": "Run one apparatus, then feed its output into another — a longer process made of smaller steps.",
+      "spellcraft": "Cast one rune, then feed its result into another — a longer working made of smaller steps.",
+      "abstract": "Follow one arrow, then another, to get a single combined arrow."
+    },
+    "formalDefinition": "If f: A → B and g: B → C, their composite g ∘ f: A → C is the single arrow you get by doing f first and then g. Composition requires the target of f to match the source of g.",
+    "programmerAnalogy": "Combining functions: const gf = (x: A) => g(f(x)).",
+    "notationExamples": ["A --f--> B --g--> C", "g ∘ f: A → C", "g ∘ f means do f first, then g."]
+  },
+  {
+    "id": "identity",
+    "term": "Identity",
+    "unlockedByConcept": "identity",
+    "shortDefinition": "A do-nothing step from an object back to itself.",
+    "themeExplanation": {
+      "data": "A Pass Through machine that returns data unchanged — still a valid step in the pipeline.",
+      "alchemy": "A Preserve apparatus that returns a material unchanged — still a valid step.",
+      "spellcraft": "An Echo rune that returns an essence unchanged — still a valid step.",
+      "abstract": "The identity arrow on A, which leaves A as itself."
+    },
+    "formalDefinition": "For every object A there is an identity morphism id_A: A → A. Composing it with any arrow leaves that arrow unchanged: f ∘ id_A = f and id_B ∘ f = f for f: A → B.",
+    "programmerAnalogy": "The identity function: x => x.",
+    "notationExamples": ["id_A : A → A"]
+  },
+  {
+    "id": "commutative-diagram",
+    "term": "Commutative diagram",
+    "unlockedByConcept": "commutative-diagram",
+    "shortDefinition": "Different routes with the same start and end that give the same result.",
+    "themeExplanation": {
+      "data": "Two different pipelines that begin and end with the same data and produce the same output.",
+      "alchemy": "Two different processes that begin and end with the same material and produce the same result.",
+      "spellcraft": "Two different workings that begin and end with the same essence and produce the same result.",
+      "abstract": "Two paths with the same source and target that are declared equal."
+    },
+    "formalDefinition": "A diagram commutes when any two paths sharing the same start and end object are equal as morphisms. For a square with f: A → B, g: B → C, h: A → D, k: D → C, commuting means g ∘ f = k ∘ h.",
+    "programmerAnalogy": "Two different implementations that pass exactly the same tests.",
+    "notationExamples": ["g ∘ f = k ∘ h"]
+  }
+]

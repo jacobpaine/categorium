@@ -1,0 +1,25 @@
+{
+  "status": "stub",
+  "id": "puzzle-04",
+  "chapterId": "chapter-01-transformations",
+  "order": 4,
+  "title": {
+    "data": "Use Identity",
+    "alchemy": "Use Identity",
+    "spellcraft": "Use Identity",
+    "abstract": "Use Identity"
+  },
+  "conceptTags": ["identity"],
+  "intro": {
+    "data": "Sometimes the right step changes nothing at all. Use the Pass Through machine that returns a thing as itself.",
+    "alchemy": "Sometimes the right step changes nothing at all. Use the Preserve apparatus that returns a material as itself.",
+    "spellcraft": "Sometimes the right step changes nothing at all. Use the Echo rune that returns an essence as itself.",
+    "abstract": "Sometimes the right step changes nothing at all. Use the Identity process from an object back to itself."
+  },
+  "goal": {
+    "data": "Place the do-nothing machine from A back to A, then reveal identity (id_A).",
+    "alchemy": "Place the do-nothing apparatus from A back to A, then reveal identity (id_A).",
+    "spellcraft": "Place the do-nothing rune from A back to A, then reveal identity (id_A).",
+    "abstract": "Place the identity process id_A : A → A, then reveal identity."
+  }
+}

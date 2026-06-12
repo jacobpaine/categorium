@@ -1,0 +1,25 @@
+{
+  "status": "stub",
+  "id": "puzzle-05",
+  "chapterId": "chapter-01-transformations",
+  "order": 5,
+  "title": {
+    "data": "Equivalent Paths",
+    "alchemy": "Equivalent Paths",
+    "spellcraft": "Equivalent Paths",
+    "abstract": "Equivalent Paths"
+  },
+  "conceptTags": ["commutative-diagram"],
+  "intro": {
+    "data": "Two different routes through the machines can reach the same result. Build a second route that behaves like the first.",
+    "alchemy": "Two different routes through the apparatuses can reach the same result. Build a second route that behaves like the first.",
+    "spellcraft": "Two different routes through the runes can reach the same result. Build a second route that behaves like the first.",
+    "abstract": "Two different paths can reach the same result. Build a second path that behaves like the first."
+  },
+  "goal": {
+    "data": "Given one path, build another with the same start and end that behaves the same, then reveal the commutative diagram.",
+    "alchemy": "Given one path, build another with the same start and end that behaves the same, then reveal the commutative diagram.",
+    "spellcraft": "Given one path, build another with the same start and end that behaves the same, then reveal the commutative diagram.",
+    "abstract": "Given one path, build another with the same start and end so that g ∘ f = k ∘ h."
+  }
+}
