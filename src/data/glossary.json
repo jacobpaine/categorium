@@ -103,5 +103,35 @@
     "formalDefinition": "Composition is associative: for f : A → B, g : B → C, h : C → D, (h ∘ g) ∘ f = h ∘ (g ∘ f). So chains can be written h ∘ g ∘ f without parentheses. Identity + associativity are exactly what make objects and morphisms a category.",
     "programmerAnalogy": "compose(compose(h, g), f) === compose(h, compose(g, f)).",
     "notationExamples": ["(h ∘ g) ∘ f = h ∘ (g ∘ f)"]
+  },
+  {
+    "id": "inverse",
+    "term": "Inverse",
+    "unlockedByConcept": "isomorphism",
+    "shortDefinition": "A process that undoes another, returning to the start.",
+    "themeExplanation": {
+      "data": "Decode is the inverse of Encode — running both, in either order, leaves the data unchanged.",
+      "alchemy": "Cast is the inverse of Grind — running both, in either order, leaves the material unchanged.",
+      "spellcraft": "Read is the inverse of Etch — running both, in either order, leaves the essence unchanged.",
+      "abstract": "g is the inverse of f when composing them either way gives an identity."
+    },
+    "formalDefinition": "An inverse of f : A → B is a morphism g : B → A with g ∘ f = id_A and f ∘ g = id_B. When it exists it is unique, written f⁻¹.",
+    "programmerAnalogy": "decode = encode⁻¹: decode(encode(x)) === x and encode(decode(y)) === y.",
+    "notationExamples": ["g ∘ f = id_A", "f ∘ g = id_B"]
+  },
+  {
+    "id": "isomorphism",
+    "term": "Isomorphism",
+    "unlockedByConcept": "isomorphism",
+    "shortDefinition": "A reversible process; its objects are the same up to renaming.",
+    "themeExplanation": {
+      "data": "A machine with an inverse — the two data shapes hold exactly the same information.",
+      "alchemy": "An apparatus with an inverse — the two materials are freely interconvertible.",
+      "spellcraft": "A working with an inverse — the two essences are freely interchangeable.",
+      "abstract": "A morphism with a two-sided inverse; the objects are interchangeable."
+    },
+    "formalDefinition": "An isomorphism is a morphism f : A → B that has an inverse. Then A and B are isomorphic, written A ≅ B. Isomorphisms compose, and ≅ is an equivalence relation on objects.",
+    "programmerAnalogy": "A lossless, invertible transformation (a bijection between the two types).",
+    "notationExamples": ["A ≅ B", "f⁻¹"]
   }
 ]

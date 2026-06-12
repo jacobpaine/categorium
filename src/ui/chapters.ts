@@ -32,10 +32,10 @@ export const CHAPTERS: ChapterMeta[] = [
   },
   {
     id: 'chapter-03-isomorphisms',
-    title: 'Isomorphisms',
+    title: 'Sameness, Both Ways',
     summary: 'When two things are the same: reversible processes and lossless round-trips.',
-    concepts: ['inverse', 'round-trip', 'sameness'],
-    status: 'placeholder',
+    concepts: ['inverse', 'round-trip', 'isomorphism'],
+    status: 'available',
   },
   {
     id: 'chapter-04-functors',

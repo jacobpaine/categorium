@@ -19,6 +19,6 @@ describe('chapter unlocking', () => {
 
   it('placeholder chapters never unlock, even with everything complete', () => {
     const allDone = new Set(PUZZLES.map((p) => p.id));
-    expect(isChapterUnlocked('chapter-03-isomorphisms', allDone, PUZZLES)).toBe(false);
+    expect(isChapterUnlocked('chapter-04-functors', allDone, PUZZLES)).toBe(false);
   });
 });

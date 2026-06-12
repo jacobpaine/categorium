@@ -1,0 +1,115 @@
+{
+  "status": "authored",
+  "id": "puzzle-11",
+  "chapterId": "chapter-03-isomorphisms",
+  "order": 11,
+  "title": {
+    "data": "The Other Way",
+    "alchemy": "The Other Way",
+    "spellcraft": "The Other Way",
+    "abstract": "The Other Way"
+  },
+  "conceptTags": ["isomorphism"],
+  "intro": {
+    "data": "A real inverse works both ways. Start from the packed form, Decode it, then Encode again — you should return to the packed form unchanged.",
+    "alchemy": "A real inverse works both ways. Start from the dust, Cast it, then Grind again — you should return to the dust unchanged.",
+    "spellcraft": "A real inverse works both ways. Start from the glyph, Read it, then Etch again — you should return to the glyph unchanged.",
+    "abstract": "A real inverse works both ways. Start from B, apply g, then f — you should return to B unchanged."
+  },
+  "goal": {
+    "data": "Wire the start through Decode and then Encode, returning to the packed form.",
+    "alchemy": "Wire the start through Cast and then Grind, returning to the dust.",
+    "spellcraft": "Wire the start through Read and then Etch, returning to the glyph.",
+    "abstract": "Wire the start through g and then f, returning to B."
+  },
+  "objects": [
+    {
+      "id": "obj-a",
+      "formalLabel": "A",
+      "labels": { "data": "Raw CSV", "alchemy": "Gold Bar", "spellcraft": "Sigil", "abstract": "A" },
+      "colorToken": "sky"
+    },
+    {
+      "id": "obj-b",
+      "formalLabel": "B",
+      "labels": { "data": "Packed Blob", "alchemy": "Gold Dust", "spellcraft": "Glyph", "abstract": "B" },
+      "colorToken": "emerald"
+    }
+  ],
+  "morphisms": [
+    {
+      "id": "mor-g",
+      "formalLabel": "g",
+      "sourceObjectId": "obj-b",
+      "targetObjectId": "obj-a",
+      "labels": { "data": "Decode", "alchemy": "Cast", "spellcraft": "Read", "abstract": "g" },
+      "description": { "data": "B → A", "alchemy": "B → A", "spellcraft": "B → A", "abstract": "B → A" }
+    },
+    {
+      "id": "mor-f",
+      "formalLabel": "f",
+      "sourceObjectId": "obj-a",
+      "targetObjectId": "obj-b",
+      "labels": { "data": "Encode", "alchemy": "Grind", "spellcraft": "Etch", "abstract": "f" },
+      "description": { "data": "A → B", "alchemy": "A → B", "spellcraft": "A → B", "abstract": "A → B" }
+    },
+    {
+      "id": "mor-idB",
+      "formalLabel": "id_B",
+      "sourceObjectId": "obj-b",
+      "targetObjectId": "obj-b",
+      "labels": { "data": "Pass Through", "alchemy": "Preserve", "spellcraft": "Echo", "abstract": "id_B" },
+      "description": { "data": "B → B", "alchemy": "B → B", "spellcraft": "B → B", "abstract": "B → B" }
+    }
+  ],
+  "paths": [
+    { "id": "path-gf", "morphismIds": ["mor-g", "mor-f"] },
+    { "id": "path-idB", "morphismIds": ["mor-idB"] }
+  ],
+  "equivalences": [{ "id": "eq-1", "leftPathId": "path-gf", "rightPathId": "path-idB" }],
+  "initialGraph": {
+    "nodes": [
+      { "kind": "object", "nodeId": "n-b-start", "objectId": "obj-b", "role": "start", "position": { "x": 40, "y": 160 } },
+      { "kind": "morphism", "nodeId": "n-g", "morphismId": "mor-g", "position": { "x": 200, "y": 160 } },
+      { "kind": "object", "nodeId": "n-a", "objectId": "obj-a", "position": { "x": 360, "y": 160 } },
+      { "kind": "morphism", "nodeId": "n-f", "morphismId": "mor-f", "position": { "x": 520, "y": 160 } },
+      { "kind": "object", "nodeId": "n-b-goal", "objectId": "obj-b", "role": "goal", "position": { "x": 680, "y": 160 } }
+    ],
+    "edges": []
+  },
+  "allowedMorphismIds": ["mor-g", "mor-f"],
+  "validation": [
+    { "type": "type-valid-wiring" },
+    { "type": "required-final-object", "objectId": "obj-b" },
+    { "type": "allowed-morphisms-only", "morphismIds": ["mor-g", "mor-f"] },
+    { "type": "path-equivalence", "leftPathId": "path-gf", "rightPathId": "path-idB" }
+  ],
+  "reveal": {
+    "afterSuccess": {
+      "data": "The round trip the other way also returned home: f ∘ g = id_B. Since both round trips are the identity, Encode and Decode are inverses — an isomorphism.",
+      "alchemy": "The round trip the other way also returned home: f ∘ g = id_B. Since both round trips are the identity, Grind and Cast are inverses — an isomorphism.",
+      "spellcraft": "The round trip the other way also returned home: f ∘ g = id_B. Since both round trips are the identity, Etch and Read are inverses — an isomorphism.",
+      "abstract": "The other round trip also returned home: f ∘ g = id_B. With both round trips identities, f and g are inverses — an isomorphism."
+    },
+    "summary": "An isomorphism is a morphism f with an inverse g such that g ∘ f = id_A and f ∘ g = id_B. The two objects are then interchangeable.",
+    "notation": ["f ∘ g = id_B", "g ∘ f = id_A"],
+    "moreFormal": "If f : A → B has a two-sided inverse g (both composites are identities), f is an isomorphism and we write A ≅ B. The inverse, when it exists, is unique.",
+    "programmerAnalogy": "encode(decode(y)) === y and decode(encode(x)) === x."
+  },
+  "glossaryUnlocks": [],
+  "referenceSolution": {
+    "nodes": [
+      { "kind": "object", "nodeId": "n-b-start", "objectId": "obj-b", "role": "start", "position": { "x": 40, "y": 160 } },
+      { "kind": "morphism", "nodeId": "n-g", "morphismId": "mor-g", "position": { "x": 200, "y": 160 } },
+      { "kind": "object", "nodeId": "n-a", "objectId": "obj-a", "position": { "x": 360, "y": 160 } },
+      { "kind": "morphism", "nodeId": "n-f", "morphismId": "mor-f", "position": { "x": 520, "y": 160 } },
+      { "kind": "object", "nodeId": "n-b-goal", "objectId": "obj-b", "role": "goal", "position": { "x": 680, "y": 160 } }
+    ],
+    "edges": [
+      { "id": "e-b-g", "sourceNodeId": "n-b-start", "targetNodeId": "n-g" },
+      { "id": "e-g-a", "sourceNodeId": "n-g", "targetNodeId": "n-a" },
+      { "id": "e-a-f", "sourceNodeId": "n-a", "targetNodeId": "n-f" },
+      { "id": "e-f-b", "sourceNodeId": "n-f", "targetNodeId": "n-b-goal" }
+    ]
+  }
+}

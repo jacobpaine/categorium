@@ -82,6 +82,20 @@ describe('puzzle-06 — identity law', () => {
   });
 });
 
+describe('puzzle-12 — isomorphism (choose the true inverse)', () => {
+  const input = () => toValidationInput(getPuzzle('puzzle-12') as never);
+
+  it('rejects the lossy machine that cannot return to the start (type mismatch)', () => {
+    // mor-bad: B -> C, so wiring it into the goal A is ill-typed.
+    const res = validatePuzzle(
+      input(),
+      wire('puzzle-12', [['n-a-start', 'n-f'], ['n-f', 'n-b'], ['n-b', 'n-bad'], ['n-bad', 'n-a-goal']]),
+    );
+    expect(res.ok).toBe(false);
+    if (!res.ok) expect(res.firstFailure.rule.type).toBe('type-valid-wiring');
+  });
+});
+
 describe('puzzle-09 — associativity', () => {
   const input = () => toValidationInput(getPuzzle('puzzle-09') as never);
 
