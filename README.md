@@ -86,12 +86,24 @@ and unit-testable without React.
 - **Playwright e2e** (`npm run test:e2e`): drives a real browser to draw wires and solve Puzzle 1,
   plus the no-wires failure-hint path
 
+**Built and working (Session 5 — Chapter 2 + roadmap):**
+- [`ROADMAP.md`](./ROADMAP.md): the full curriculum arc (Ch1→functors→universal constructions)
+  plus a worked complex example expressed in real domain/validation terms
+- **Chapter 2 "The Laws of Composition"** authored: 4 puzzles across all themes — right/left
+  identity, identities-anywhere, and associativity (via *composite machines*). No `validatePuzzle`
+  change: the laws ride on the existing `path-equivalence` rule
+- Multi-chapter infrastructure: sectioned chapter map, `isChapterUnlocked`, and puzzle loading
+  via `import.meta.glob` (adding a chapter = dropping a JSON file); titled placeholders for
+  Ch3 (isomorphisms) and Ch4 (functors)
+- New `identity-law` / `associativity` concept tags + glossary entries
+
 **Stubbed:**
-- `src/devtools/` debug panel
+- `src/devtools/` debug panel; Chapters 3–4 (titled placeholders, no puzzles yet)
 
 **Deferred (next):**
 Sample-value animation through machines, debug panel + `?debug=true`, full keyboard graph
-construction (mouse-first for now), locked-puzzle deep-link screen, e2e solves for puzzles 2–5.
+construction (mouse-first for now), locked-puzzle deep-link screen, e2e solves for puzzles 2–9,
+and authoring Chapter 3 (isomorphisms).
 
 **Known limitations:**
 - Morphisms are unary only (products/sums/multi-input are a marked future extension point).

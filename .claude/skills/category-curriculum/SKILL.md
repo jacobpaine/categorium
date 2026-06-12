@@ -23,6 +23,22 @@ Guards the hidden curriculum and the accuracy of every explanation in Categorium
 Chapter 1 implies the category laws *through play*; it does not yet formally state the
 identity or associativity laws (that is Chapter 2).
 
+## Chapter 2 teaching order — "The Laws of Composition" (now formally taught)
+1. Identity law, right side — `f ∘ id_A = f` (insert a do-nothing step before a process).
+2. Identity law, left side — `id_B ∘ f = f` (insert it after).
+3. Identities anywhere — repeatedly inserting identities collapses to the clean chain.
+4. Associativity — `(h ∘ g) ∘ f = h ∘ (g ∘ f)`; grouping a chain doesn't change the result.
+   Taught with *composite machines* (a machine that bundles `g ∘ f`) so grouping is visible.
+
+Together, the identity and associativity laws are *exactly* what make objects + morphisms a
+**category** — state this in the associativity reveal. Keep both laws true and precise; the
+engine declares the equalities (`path-equivalence`) rather than proving them.
+
+## Curriculum arc beyond Chapter 2
+See `ROADMAP.md`: Ch3 isomorphisms (inverses, round-trips), Ch4 functors (maps between
+categories), then universal constructions. Keep new chapters honest about what the engine
+checks vs. declares.
+
 ## Per-concept reveal pattern
 metaphor language → optional programmer analogy → short formal reveal → expandable
 "more formal". Never lead with notation.

@@ -81,10 +81,34 @@ Notes on the design:
   canvas — the player builds the alternate `h;k` route, and the `path-equivalence` rule
   confirms the two declared routes are parallel (`A → C`).
 
-## Chapter 2 — `chapter-02-laws`  *(locked placeholder)*
+## Chapter 2 — `chapter-02-laws`  *(fully authored)*
 
-"The Laws of Composition." Locked in the MVP. Likely topics: identity law, associativity law;
-later, isomorphisms.
+> "The Laws of Composition." Makes the laws Chapter 1 only implied explicit, and demonstrates
+> each *by construction*. All four puzzles use the existing engine — **no validator change** —
+> by riding on `path-equivalence`.
+
+| Puzzle | Concept | How it's validated | Reveal |
+|---|---|---|---|
+| 6 Do Nothing First | identity law (right) | wire `id_A → f`; `concept-tag-required identity` forces the do-nothing step; `path-equivalence [id_A,f] ≡ [f]` | `f ∘ id_A = f` |
+| 7 Do Nothing After | identity law (left) | wire `f → id_B`; same shape on the other side | `id_B ∘ f = f` |
+| 8 Redundant Steps | identity law (capstone) | wire `id_A → f → id_B → g`; equals the clean `g ∘ f` | `g ∘ id_B ∘ f ∘ id_A = g ∘ f` |
+| 9 Grouping Doesn't Matter | associativity | **composite machines** `gf : A→C`, `hg : B→D`; player wires `gf → h`; `path-equivalence [gf,h] ≡ [f,hg]` | `(h ∘ g) ∘ f = h ∘ (g ∘ f)` |
+
+Design notes:
+- The **identity law** puzzles force the do-nothing step with `concept-tag-required: identity`
+  (auto-derived for any wired self-loop morphism), then formalize the law with a declared
+  `path-equivalence` to the identity-free path.
+- **Associativity** is made tangible with *composite machines*: `gf` bundles `g ∘ f` and `hg`
+  bundles `h ∘ g`. The two groupings become two routes to `D` (`[gf,h]` vs `[f,hg]`); the
+  `path-equivalence` rule confirms they're parallel. The non-bundled route is shown in the
+  reveal, not placed on the editable canvas (same technique as Puzzle 5).
+- `identity-law` and `associativity` are **display/glossary-only** concept tags — never used via
+  `concept-tag-required` (they aren't auto-derived; `path-equivalence` carries the proof).
+
+## Chapters 3+ — *(titled placeholders)*
+
+`chapter-03-isomorphisms`, `chapter-04-functors`, and beyond are titled previews on the chapter
+map. See [`ROADMAP.md`](./ROADMAP.md) for the full arc and the engine work each needs.
 
 ## Authoring checklist
 
