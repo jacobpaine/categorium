@@ -70,3 +70,31 @@ describe('puzzle-05 — commutative diagram', () => {
     if (!res.ok) expect(res.firstFailure.rule.type).toBe('required-final-object');
   });
 });
+
+describe('puzzle-06 — identity law', () => {
+  const input = () => toValidationInput(getPuzzle('puzzle-06') as never);
+
+  it('requires the do-nothing step: skipping id_A fails the concept rule', () => {
+    // A -> f -> B reaches the goal but never uses the identity step.
+    const res = validatePuzzle(input(), wire('puzzle-06', [['n-a', 'n-f'], ['n-f', 'n-b']]));
+    expect(res.ok).toBe(false);
+    if (!res.ok) expect(res.firstFailure.rule.type).toBe('concept-tag-required');
+  });
+});
+
+describe('puzzle-09 — associativity', () => {
+  const input = () => toValidationInput(getPuzzle('puzzle-09') as never);
+
+  it('rejects wiring the g∘f bundle straight to the goal (type mismatch)', () => {
+    // mor-gf outputs C, but the goal node is D, so this wire is ill-typed.
+    const res = validatePuzzle(input(), wire('puzzle-09', [['n-a', 'n-gf'], ['n-gf', 'n-d']]));
+    expect(res.ok).toBe(false);
+    if (!res.ok) expect(res.firstFailure.rule.type).toBe('type-valid-wiring');
+  });
+
+  it('fails to reach the goal when nothing is wired', () => {
+    const res = validatePuzzle(input(), wire('puzzle-09', []));
+    expect(res.ok).toBe(false);
+    if (!res.ok) expect(res.firstFailure.rule.type).toBe('required-final-object');
+  });
+});
