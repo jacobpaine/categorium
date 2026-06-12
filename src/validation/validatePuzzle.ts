@@ -6,7 +6,7 @@
  * explanation. This layer stays theme-neutral and React-free.
  */
 import type { Diagram, Path } from '../domain';
-import { tracePath, morphismIdsUsed, getObject, arePathsEquivalent } from '../domain';
+import { tracePath, morphismIdsUsed, getObject, arePathsEquivalent, runChain } from '../domain';
 import type { PuzzleGraph } from '../domain';
 import type { ConceptTag, PuzzleValidationRule } from './rules';
 import { conceptsExercised } from './concepts';
@@ -44,6 +44,29 @@ function evaluateRule(
       const errors = wireTypeErrors(diagram, graph);
       if (errors.length > 0) {
         return { rule, message: errors[0].message, nearConcept: 'typed-transform' };
+      }
+      return null;
+    }
+
+    case 'required-output': {
+      const traced = tracePath(diagram, graph);
+      if (!traced.ok) {
+        return {
+          rule,
+          message: `The solution does not form a complete path: ${traced.error}`,
+          nearConcept: 'composition',
+        };
+      }
+      const run = runChain(diagram, traced.value.morphismIds, rule.inputValueId);
+      if (!run.ok) {
+        return { rule, message: run.error, nearConcept: 'typed-transform' };
+      }
+      if (run.value !== rule.outputValueId) {
+        return {
+          rule,
+          message: 'Your machines ran, but the result isn’t the goal. Look at what each machine actually does.',
+          nearConcept: 'morphism',
+        };
       }
       return null;
     }

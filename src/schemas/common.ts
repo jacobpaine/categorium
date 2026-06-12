@@ -99,6 +99,11 @@ export const puzzleGraphSchema = z.object({
 
 export const validationRuleSchema = z.discriminatedUnion('type', [
   z.object({ type: z.literal('type-valid-wiring') }),
+  z.object({
+    type: z.literal('required-output'),
+    inputValueId: z.string().min(1),
+    outputValueId: z.string().min(1),
+  }),
   z.object({ type: z.literal('required-final-object'), objectId: z.string().min(1) }),
   z.object({ type: z.literal('allowed-morphisms-only'), morphismIds: z.array(z.string().min(1)) }),
   z.object({

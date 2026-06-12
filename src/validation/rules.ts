@@ -48,6 +48,8 @@ export const CONCEPT_TAGS: readonly ConceptTag[] = [
 export type PuzzleValidationRule =
   /** Every wire must connect type-compatible ports (no machine-to-wrong-thing). */
   | { type: 'type-valid-wiring' }
+  /** Running `inputValueId` through the constructed path must produce `outputValueId` (behavior). */
+  | { type: 'required-output'; inputValueId: string; outputValueId: string }
   | { type: 'required-final-object'; objectId: string }
   | { type: 'allowed-morphisms-only'; morphismIds: string[] }
   | { type: 'path-equivalence'; leftPathId: string; rightPathId: string }
