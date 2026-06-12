@@ -51,6 +51,13 @@ export const CHAPTERS: ChapterMeta[] = [
     concepts: ['product', 'coproduct', 'universal property'],
     status: 'available',
   },
+  {
+    id: 'chapter-06-natural-transformations',
+    title: 'Between the Maps',
+    summary: 'A natural transformation maps one functor to another, square by commuting square.',
+    concepts: ['natural transformation', 'naturality', 'functor category'],
+    status: 'available',
+  },
 ];
 
 export const FIRST_CHAPTER_ID = CHAPTERS[0].id;

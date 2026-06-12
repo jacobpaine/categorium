@@ -178,5 +178,20 @@
     "formalDefinition": "A coproduct A+B comes with injections ι₁ : A → A+B and ι₂ : B → A+B such that for every f : A→Y and g : B→Y there is a unique [f,g] : A+B→Y with [f,g]∘ι₁ = f and [f,g]∘ι₂ = g. It is the product with every arrow reversed.",
     "programmerAnalogy": "A tagged union / sum type: Card | Cash, handled by a match.",
     "notationExamples": ["ι₁ : A → A+B", "[f,g] ∘ ι₁ = f"]
+  },
+  {
+    "id": "natural-transformation",
+    "term": "Natural transformation",
+    "unlockedByConcept": "natural-transformation",
+    "shortDefinition": "A map between two functors — one component per object, with commuting squares.",
+    "themeExplanation": {
+      "data": "A single polymorphic conversion from one functor to another, like safeHead: List<A> => Optional<A>, defined for every type at once.",
+      "alchemy": "A single uniform conversion from one functor to another, applied at every material at once.",
+      "spellcraft": "A single uniform conversion from one functor to another, applied at every essence at once.",
+      "abstract": "A family of components α_A : F(A) → G(A) compatible with every morphism of C."
+    },
+    "formalDefinition": "A natural transformation α : F ⇒ G (between functors F, G : C → D) assigns to each object A a component α_A : F(A) → G(A) such that for every f : A → B, α_B ∘ F(f) = G(f) ∘ α_A (the naturality square commutes). Natural transformations are the morphisms of the functor category [C, D].",
+    "programmerAnalogy": "A parametric (fully polymorphic) function between two type constructors, e.g. List ⇒ Optional.",
+    "notationExamples": ["α : F ⇒ G", "α_A : F(A) → G(A)", "α_B ∘ F(f) = G(f) ∘ α_A"]
   }
 ]

@@ -1,0 +1,78 @@
+{
+  "status": "authored",
+  "kind": "natural-transformation",
+  "id": "puzzle-23",
+  "chapterId": "chapter-06-natural-transformations",
+  "order": 23,
+  "title": {
+    "data": "The Identity Transformation",
+    "alchemy": "The Identity Transformation",
+    "spellcraft": "The Identity Transformation",
+    "abstract": "The Identity Transformation"
+  },
+  "conceptTags": ["natural-transformation"],
+  "intro": {
+    "data": "Every functor has an identity transformation that changes nothing. Here F and G are both List. One candidate keeps each list as-is; the other pads in a default and is not natural. Build the identity transformation.",
+    "alchemy": "Every functor has an identity transformation that changes nothing. Here F and G are both Batch. One candidate keeps each batch as-is; the other pads in a spare and is not natural. Build the identity transformation.",
+    "spellcraft": "Every functor has an identity transformation that changes nothing. Here F and G are both Swarm. One candidate keeps each swarm as-is; the other conjures an extra and is not natural. Build the identity transformation.",
+    "abstract": "When F = G, the identity transformation id_F has component id at every object. One distractor is typed right but not natural. Build id_F."
+  },
+  "goal": {
+    "data": "Pick the keep-as-is (identity) component at each object.",
+    "alchemy": "Pick the keep-as-is (identity) component at each material.",
+    "spellcraft": "Pick the keep-as-is (identity) component at each essence.",
+    "abstract": "Pick the identity component at each object."
+  },
+  "sourceCategory": {
+    "objects": [
+      { "id": "obj-a", "formalLabel": "A", "labels": { "data": "User", "alchemy": "Herb", "spellcraft": "Rune", "abstract": "A" } },
+      { "id": "obj-b", "formalLabel": "B", "labels": { "data": "Email", "alchemy": "Essence", "spellcraft": "Spark", "abstract": "B" } }
+    ],
+    "morphisms": [
+      { "id": "mor-f", "formalLabel": "f", "sourceObjectId": "obj-a", "targetObjectId": "obj-b", "labels": { "data": "getEmail", "alchemy": "Extract", "spellcraft": "Invoke", "abstract": "f" } }
+    ]
+  },
+  "targetCategory": {
+    "objects": [
+      { "id": "d-la", "formalLabel": "F(A)", "labels": { "data": "List of Users", "alchemy": "Batch of Herbs", "spellcraft": "Swarm of Runes", "abstract": "F(A)=G(A)" }, "colorToken": "sky" },
+      { "id": "d-lb", "formalLabel": "F(B)", "labels": { "data": "List of Emails", "alchemy": "Batch of Essences", "spellcraft": "Swarm of Sparks", "abstract": "F(B)=G(B)" }, "colorToken": "emerald" }
+    ],
+    "morphisms": [
+      { "id": "d-mapf", "formalLabel": "F(f)", "sourceObjectId": "d-la", "targetObjectId": "d-lb", "labels": { "data": "map getEmail", "alchemy": "Extract Each", "spellcraft": "Invoke Each", "abstract": "F(f)=G(f)" } },
+      { "id": "d-idA", "formalLabel": "id", "sourceObjectId": "d-la", "targetObjectId": "d-la", "labels": { "data": "keep", "alchemy": "hold", "spellcraft": "still", "abstract": "id" } },
+      { "id": "d-idB", "formalLabel": "id", "sourceObjectId": "d-lb", "targetObjectId": "d-lb", "labels": { "data": "keep", "alchemy": "hold", "spellcraft": "still", "abstract": "id" } },
+      { "id": "d-apA", "formalLabel": "pad", "sourceObjectId": "d-la", "targetObjectId": "d-la", "labels": { "data": "padDefault", "alchemy": "add spare", "spellcraft": "conjure one", "abstract": "β_A" } },
+      { "id": "d-apB", "formalLabel": "pad", "sourceObjectId": "d-lb", "targetObjectId": "d-lb", "labels": { "data": "padDefault", "alchemy": "add spare", "spellcraft": "conjure one", "abstract": "β_B" } },
+      { "id": "d-r1", "formalLabel": "r1", "sourceObjectId": "d-la", "targetObjectId": "d-lb", "labels": { "data": "broken1", "alchemy": "broken1", "spellcraft": "broken1", "abstract": "r1" } },
+      { "id": "d-r2", "formalLabel": "r2", "sourceObjectId": "d-la", "targetObjectId": "d-lb", "labels": { "data": "broken2", "alchemy": "broken2", "spellcraft": "broken2", "abstract": "r2" } }
+    ],
+    "composites": [
+      { "first": "d-mapf", "second": "d-idB", "result": "d-mapf" },
+      { "first": "d-idA", "second": "d-mapf", "result": "d-mapf" },
+      { "first": "d-mapf", "second": "d-apB", "result": "d-r1" },
+      { "first": "d-apA", "second": "d-mapf", "result": "d-r2" }
+    ]
+  },
+  "functorF": {
+    "objectMap": { "obj-a": "d-la", "obj-b": "d-lb" },
+    "morphismMap": { "mor-f": "d-mapf" }
+  },
+  "functorG": {
+    "objectMap": { "obj-a": "d-la", "obj-b": "d-lb" },
+    "morphismMap": { "mor-f": "d-mapf" }
+  },
+  "referenceComponents": { "obj-a": "d-idA", "obj-b": "d-idB" },
+  "reveal": {
+    "afterSuccess": {
+      "data": "The identity component at every object gives the identity transformation id_F — it does nothing and trivially commutes. padDefault is typed right but breaks the square. id_F is the identity arrow of the functor category [C, D].",
+      "alchemy": "The keep component at every material gives the identity transformation id_F — it does nothing and trivially commutes. The spare-adding one breaks the square.",
+      "spellcraft": "The keep component at every essence gives the identity transformation id_F — it does nothing and trivially commutes. The conjuring one breaks the square.",
+      "abstract": "Identity components everywhere give id_F : F ⇒ F, the identity of the functor category [C, D]. The padding family is typed right but not natural."
+    },
+    "summary": "For any functor F there is an identity natural transformation id_F : F ⇒ F (the identity component at each object). It is the identity morphism in the functor category [C, D].",
+    "notation": ["id_F : F ⇒ F", "(id_F)_A = id_F(A)"],
+    "moreFormal": "Functor categories [C, D] have functors as objects and natural transformations as morphisms, composed component-wise. id_F is each object's identity — the unit of that composition (a future chapter).",
+    "programmerAnalogy": "The identity polymorphic function id<A>: F<A> => F<A> — changes nothing, natural everywhere."
+  },
+  "glossaryUnlocks": []
+}

@@ -1,0 +1,76 @@
+{
+  "status": "authored",
+  "kind": "natural-transformation",
+  "id": "puzzle-21",
+  "chapterId": "chapter-06-natural-transformations",
+  "order": 21,
+  "title": {
+    "data": "Build a Transformation",
+    "alchemy": "Build a Transformation",
+    "spellcraft": "Build a Transformation",
+    "abstract": "Build a Transformation"
+  },
+  "conceptTags": ["natural-transformation"],
+  "intro": {
+    "data": "A natural transformation turns one functor into another, one object at a time. safeHead turns a List into an Optional — its first element, if any. Choose the safeHead component at each object.",
+    "alchemy": "A natural transformation turns one functor into another, one material at a time. Sample turns a Batch into a Trace — one piece, if any. Choose the Sample component at each material.",
+    "spellcraft": "A natural transformation turns one functor into another, one essence at a time. Catch turns a Swarm into an Echo — one member, if any. Choose the Catch component at each essence.",
+    "abstract": "A natural transformation α : F ⇒ G gives a component α_A : F(A) → G(A) at every object. Choose the component at each object."
+  },
+  "goal": {
+    "data": "At each object, draw to the safeHead component F(A) → G(A).",
+    "alchemy": "At each material, draw to the Sample component F(A) → G(A).",
+    "spellcraft": "At each essence, draw to the Catch component F(A) → G(A).",
+    "abstract": "At each object, choose the component α_A : F(A) → G(A)."
+  },
+  "sourceCategory": {
+    "objects": [
+      { "id": "obj-a", "formalLabel": "A", "labels": { "data": "User", "alchemy": "Herb", "spellcraft": "Rune", "abstract": "A" } },
+      { "id": "obj-b", "formalLabel": "B", "labels": { "data": "Email", "alchemy": "Essence", "spellcraft": "Spark", "abstract": "B" } }
+    ],
+    "morphisms": [
+      { "id": "mor-f", "formalLabel": "f", "sourceObjectId": "obj-a", "targetObjectId": "obj-b", "labels": { "data": "getEmail", "alchemy": "Extract", "spellcraft": "Invoke", "abstract": "f" } }
+    ]
+  },
+  "targetCategory": {
+    "objects": [
+      { "id": "d-fa", "formalLabel": "F(A)", "labels": { "data": "List of Users", "alchemy": "Batch of Herbs", "spellcraft": "Swarm of Runes", "abstract": "F(A)" }, "colorToken": "sky" },
+      { "id": "d-fb", "formalLabel": "F(B)", "labels": { "data": "List of Emails", "alchemy": "Batch of Essences", "spellcraft": "Swarm of Sparks", "abstract": "F(B)" }, "colorToken": "emerald" },
+      { "id": "d-ga", "formalLabel": "G(A)", "labels": { "data": "Optional User", "alchemy": "Trace of Herb", "spellcraft": "Echo of Rune", "abstract": "G(A)" }, "colorToken": "sky" },
+      { "id": "d-gb", "formalLabel": "G(B)", "labels": { "data": "Optional Email", "alchemy": "Trace of Essence", "spellcraft": "Echo of Spark", "abstract": "G(B)" }, "colorToken": "emerald" }
+    ],
+    "morphisms": [
+      { "id": "d-Ff", "formalLabel": "F(f)", "sourceObjectId": "d-fa", "targetObjectId": "d-fb", "labels": { "data": "map getEmail", "alchemy": "Extract Each", "spellcraft": "Invoke Each", "abstract": "F(f)" } },
+      { "id": "d-Gf", "formalLabel": "G(f)", "sourceObjectId": "d-ga", "targetObjectId": "d-gb", "labels": { "data": "map? getEmail", "alchemy": "Trace Extract", "spellcraft": "Echo Invoke", "abstract": "G(f)" } },
+      { "id": "d-shA", "formalLabel": "safeHead_A", "sourceObjectId": "d-fa", "targetObjectId": "d-ga", "labels": { "data": "safeHead", "alchemy": "Sample", "spellcraft": "Catch", "abstract": "α_A" } },
+      { "id": "d-shB", "formalLabel": "safeHead_B", "sourceObjectId": "d-fb", "targetObjectId": "d-gb", "labels": { "data": "safeHead", "alchemy": "Sample", "spellcraft": "Catch", "abstract": "α_B" } },
+      { "id": "d-diag", "formalLabel": "diag", "sourceObjectId": "d-fa", "targetObjectId": "d-gb", "labels": { "data": "first email", "alchemy": "first essence", "spellcraft": "first spark", "abstract": "diag" } }
+    ],
+    "composites": [
+      { "first": "d-Ff", "second": "d-shB", "result": "d-diag" },
+      { "first": "d-shA", "second": "d-Gf", "result": "d-diag" }
+    ]
+  },
+  "functorF": {
+    "objectMap": { "obj-a": "d-fa", "obj-b": "d-fb" },
+    "morphismMap": { "mor-f": "d-Ff" }
+  },
+  "functorG": {
+    "objectMap": { "obj-a": "d-ga", "obj-b": "d-gb" },
+    "morphismMap": { "mor-f": "d-Gf" }
+  },
+  "referenceComponents": { "obj-a": "d-shA", "obj-b": "d-shB" },
+  "reveal": {
+    "afterSuccess": {
+      "data": "You chose a component at every object — together they form safeHead, a natural transformation from List to Optional. One arrow per object, all at once.",
+      "alchemy": "You chose a component at every material — together they form Sample, a natural transformation from Batch to Trace.",
+      "spellcraft": "You chose a component at every essence — together they form Catch, a natural transformation from Swarm to Echo.",
+      "abstract": "You chose a component at every object — together they form a natural transformation α : F ⇒ G."
+    },
+    "summary": "A natural transformation α : F ⇒ G is a family of components α_A : F(A) → G(A), one for every object A — a single arrow between two functors.",
+    "notation": ["α : F ⇒ G", "α_A : F(A) → G(A)"],
+    "moreFormal": "The components must satisfy the naturality condition (next puzzle). Natural transformations are the morphisms of the functor category [C, D]; functors are its objects.",
+    "programmerAnalogy": "safeHead<A>: List<A> => Optional<A> — one polymorphic function, all types at once."
+  },
+  "glossaryUnlocks": ["natural-transformation"]
+}
