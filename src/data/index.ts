@@ -8,19 +8,16 @@ import type { AuthoredPuzzle, Puzzle, Theme, GlossaryEntry } from '../schemas';
 import type { Diagram } from '../domain';
 import type { ValidationInput } from '../validation';
 
-import puzzle01 from './puzzles/puzzle-01.json';
-import puzzle02 from './puzzles/puzzle-02.json';
-import puzzle03 from './puzzles/puzzle-03.json';
-import puzzle04 from './puzzles/puzzle-04.json';
-import puzzle05 from './puzzles/puzzle-05.json';
 import themesJson from './themes.json';
 import glossaryJson from './glossary.json';
 
-const RAW_PUZZLES: unknown[] = [puzzle01, puzzle02, puzzle03, puzzle04, puzzle05];
+// Auto-load every puzzle JSON. Adding a chapter is just dropping a file in puzzles/.
+const puzzleModules = import.meta.glob<{ default: unknown }>('./puzzles/*.json', { eager: true });
 
 function loadPuzzles(): Puzzle[] {
   const valid: Puzzle[] = [];
-  for (const raw of RAW_PUZZLES) {
+  for (const path of Object.keys(puzzleModules).sort()) {
+    const raw = puzzleModules[path].default;
     const result = safeParsePuzzle(raw);
     if (result.success) {
       valid.push(result.data);

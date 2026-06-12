@@ -2,14 +2,22 @@
  * Puzzle validation rule types. Pure data + types — no React, no theme strings used for logic.
  */
 
-/** The category-theory concepts a puzzle can exercise / unlock. */
+/**
+ * The category-theory concepts a puzzle can exercise / unlock.
+ *
+ * NOTE: `commutative-diagram`, `identity-law`, and `associativity` are NOT auto-derived by
+ * `conceptsExercised` — they are demonstrated structurally via `path-equivalence`, so they are
+ * used for display (chapter map, glossary) and never via a `concept-tag-required` rule.
+ */
 export type ConceptTag =
   | 'object'
   | 'morphism'
   | 'typed-transform'
   | 'composition'
   | 'identity'
-  | 'commutative-diagram';
+  | 'commutative-diagram'
+  | 'identity-law'
+  | 'associativity';
 
 export const CONCEPT_TAGS: readonly ConceptTag[] = [
   'object',
@@ -18,6 +26,8 @@ export const CONCEPT_TAGS: readonly ConceptTag[] = [
   'composition',
   'identity',
   'commutative-diagram',
+  'identity-law',
+  'associativity',
 ];
 
 /**
