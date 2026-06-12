@@ -4,8 +4,12 @@ import { ChapterMap } from './screens/ChapterMap';
 import { PuzzleScreen } from './screens/PuzzleScreen';
 import { GlossaryScreen } from './screens/GlossaryScreen';
 import { SettingsScreen } from './screens/SettingsScreen';
+import { useDebugStore } from '../devtools/debugStore';
 
 export default function App() {
+  const debug = useDebugStore((s) => s.enabled);
+  const setDebug = useDebugStore((s) => s.setEnabled);
+
   return (
     <div className="flex min-h-full flex-col bg-slate-50 text-slate-900">
       <header className="border-b border-slate-200 bg-white px-6 py-3">
@@ -28,6 +32,15 @@ export default function App() {
               {l.label}
             </NavLink>
           ))}
+          {debug && (
+            <button
+              onClick={() => setDebug(false)}
+              title="Debug mode on — click to disable"
+              className="ml-auto rounded-full bg-emerald-100 px-2 py-0.5 text-[11px] font-semibold text-emerald-800 hover:bg-emerald-200"
+            >
+              DEBUG ✕
+            </button>
+          )}
         </nav>
       </header>
       <main className="flex-1">

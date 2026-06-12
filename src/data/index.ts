@@ -14,6 +14,9 @@ import glossaryJson from './glossary.json';
 // Auto-load every puzzle JSON. Adding a chapter is just dropping a file in puzzles/.
 const puzzleModules = import.meta.glob<{ default: unknown }>('./puzzles/*.json', { eager: true });
 
+/** Puzzles that failed schema validation, surfaced in the debug panel (empty when all valid). */
+export const PUZZLE_LOAD_ERRORS: { id: string; error: string }[] = [];
+
 function loadPuzzles(): Puzzle[] {
   const valid: Puzzle[] = [];
   for (const path of Object.keys(puzzleModules).sort()) {
@@ -23,7 +26,8 @@ function loadPuzzles(): Puzzle[] {
       valid.push(result.data);
     } else {
       const id =
-        raw && typeof raw === 'object' && 'id' in raw ? String((raw as { id: unknown }).id) : '?';
+        raw && typeof raw === 'object' && 'id' in raw ? String((raw as { id: unknown }).id) : path;
+      PUZZLE_LOAD_ERRORS.push({ id, error: JSON.stringify(result.error.format(), null, 2) });
       // Fail loudly in dev; the chapter map simply omits this puzzle for players.
       console.error(`[categorium] Puzzle '${id}' failed schema validation:`, result.error.format());
     }

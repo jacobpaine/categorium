@@ -5,6 +5,8 @@ import { getPuzzle, PUZZLES, toDiagram, toValidationInput, THEMES } from '../../
 import { isAuthored } from '../../schemas';
 import { validatePuzzle, type ValidationResult } from '../../validation';
 import { useProgressStore } from '../../state/progressStore';
+import { useDebugStore } from '../../devtools/debugStore';
+import { DebugPanel } from '../../devtools/DebugPanel';
 import type { PuzzleGraph, ThemeId } from '../../domain';
 import { PuzzleCanvas } from '../canvas/PuzzleCanvas';
 import { RevealPanel } from '../components/RevealPanel';
@@ -31,6 +33,7 @@ function PuzzleScreenInner({ puzzleId }: { puzzleId?: string }) {
   const completePuzzle = useProgressStore((s) => s.completePuzzle);
   const unlockConcepts = useProgressStore((s) => s.unlockConcepts);
   const unlockGlossary = useProgressStore((s) => s.unlockGlossary);
+  const debug = useDebugStore((s) => s.enabled);
 
   const [showFormal, setShowFormal] = useState(false);
   const [result, setResult] = useState<ValidationResult | null>(null);
@@ -252,6 +255,8 @@ function PuzzleScreenInner({ puzzleId }: { puzzleId?: string }) {
           onGraphChange={onGraphChange}
         />
       </div>
+
+      {debug && <DebugPanel puzzle={authored} theme={theme} />}
     </section>
   );
 }

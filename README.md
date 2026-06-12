@@ -104,12 +104,19 @@ and unit-testable without React.
   `prefers-reduced-motion`; verified in the Playwright e2e
 - Uses authored `samples` where present, falling back to object labels
 
+**Built and working (Session 7 — debug mode):**
+- `?debug=true` enables a session-sticky debug mode (a header **DEBUG** badge toggles it off)
+- **Dev unlock**: every chapter/puzzle is reachable without finishing prior chapters
+- **DebugPanel** on the puzzle screen: live per-rule validation against the constructed graph,
+  theme mappings, graph + puzzle JSON, progress state, content load errors, and quick actions
+  (mark complete / reset graph / clear progress); e2e-covered
+
 **Stubbed:**
-- `src/devtools/` debug panel; Chapters 3–4 (titled placeholders, no puzzles yet)
+- Chapters 3–4 (titled placeholders, no puzzles yet)
 
 **Deferred (next):**
-Debug panel + `?debug=true`, full keyboard graph construction (mouse-first for now),
-locked-puzzle deep-link screen, e2e solves for puzzles 2–9, and authoring Chapter 3 (isomorphisms).
+Full keyboard graph construction (mouse-first for now), locked-puzzle deep-link screen,
+e2e solves for puzzles 2–9, and authoring Chapter 3 (isomorphisms).
 
 **Known limitations:**
 - Morphisms are unary only (products/sums/multi-input are a marked future extension point).
@@ -119,9 +126,13 @@ locked-puzzle deep-link screen, e2e solves for puzzles 2–9, and authoring Chap
 
 ## Next steps
 
-1. Debug panel behind `?debug=true` (puzzle JSON, parse result, graph, validation, mappings)
-   plus a dev unlock to jump to any chapter/puzzle.
+1. Author Chapter 3 (isomorphisms) — now easy to playtest via `?debug=true`.
 2. Extend Playwright e2e to solve Puzzles 2–9.
-3. Author Chapter 3 (isomorphisms).
-4. Keyboard-accessible graph construction; React Flow a11y pass.
-5. Locked-puzzle deep-link screen (opening a not-yet-unlocked puzzle by URL).
+3. Keyboard-accessible graph construction; React Flow a11y pass.
+4. Locked-puzzle deep-link screen (opening a not-yet-unlocked puzzle by URL).
+
+## Debug mode
+
+Append `?debug=true` to any URL to unlock all chapters and show the on-screen debug panel
+(live validation, theme mappings, graph/JSON, progress, content errors). It stays on for the
+session; click the **DEBUG** badge in the header (or use `?debug=false`) to turn it off.

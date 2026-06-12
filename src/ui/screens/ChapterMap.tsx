@@ -4,12 +4,14 @@ import { PUZZLES } from '../../data';
 import { isAuthored } from '../../schemas';
 import type { Puzzle } from '../../schemas';
 import { useProgressStore } from '../../state/progressStore';
+import { useDebugStore } from '../../devtools/debugStore';
 import { CHAPTERS, chapterPuzzles, isChapterUnlocked, type ChapterMeta } from '../chapters';
 import type { ThemeId } from '../../domain';
 
 export function ChapterMap() {
   const theme: ThemeId = useProgressStore((s) => s.selectedTheme) ?? 'data';
   const completed = useProgressStore((s) => s.completedPuzzleIds);
+  const debug = useDebugStore((s) => s.enabled);
   const completedSet = new Set(completed);
 
   return (
@@ -27,6 +29,7 @@ export function ChapterMap() {
             number={index + 1}
             theme={theme}
             completedSet={completedSet}
+            debug={debug}
           />
         ))}
       </div>
@@ -39,14 +42,17 @@ function ChapterSection({
   number,
   theme,
   completedSet,
+  debug,
 }: {
   chapter: ChapterMeta;
   number: number;
   theme: ThemeId;
   completedSet: Set<string>;
+  debug: boolean;
 }) {
   const puzzles = chapterPuzzles(chapter.id, PUZZLES);
-  const unlocked = chapter.status === 'available' && isChapterUnlocked(chapter.id, completedSet, PUZZLES);
+  const unlocked =
+    chapter.status === 'available' && (debug || isChapterUnlocked(chapter.id, completedSet, PUZZLES));
 
   return (
     <div>
@@ -74,7 +80,7 @@ function ChapterSection({
             <PuzzleRow
               key={puzzle.id}
               puzzle={puzzle}
-              prevDone={index === 0 || completedSet.has(puzzles[index - 1].id)}
+              prevDone={debug || index === 0 || completedSet.has(puzzles[index - 1].id)}
               done={completedSet.has(puzzle.id)}
               theme={theme}
             />
