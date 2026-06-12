@@ -72,7 +72,12 @@ export function ChapterMap() {
           return (
             <li key={puzzle.id}>
               {playable ? (
-                <Link to={`/chapter/${puzzle.chapterId}/puzzle/${puzzle.id}`}>{card}</Link>
+                <Link
+                  to={`/chapter/${puzzle.chapterId}/puzzle/${puzzle.id}`}
+                  data-testid={`puzzle-link-${puzzle.id}`}
+                >
+                  {card}
+                </Link>
               ) : (
                 card
               )}

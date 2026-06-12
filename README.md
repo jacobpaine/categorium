@@ -20,8 +20,9 @@ npm install
 | `npm run dev` | Start the Vite dev server |
 | `npm run build` | Type-check (strict) and build to `dist/` |
 | `npm run preview` | Preview the production build locally |
-| `npm run test` | Run the Vitest suite (domain, validation, schema) |
+| `npm run test` | Run the Vitest suite (domain, validation, schema, adapter) |
 | `npm run test:watch` | Vitest in watch mode |
+| `npm run test:e2e` | Run the Playwright browser flow (solves Puzzle 1) |
 
 ## Project layout
 
@@ -77,12 +78,19 @@ and unit-testable without React.
   machines in puzzles 2 & 4; "used" now means *wired*, not merely placed
 - Per-puzzle validation tests: every reference solution passes; type/identity/goal failures fail
 
+**Built and working (Session 4 — completion flow + e2e):**
+- Post-success flow: a **Next puzzle** button and a collapsible **read-only reference-solution**
+  preview (the authored `referenceSolution`, previously unused in the UI)
+- `PuzzleScreen` remounts per puzzle id, so navigating between puzzles resets state cleanly
+- **Playwright e2e** (`npm run test:e2e`): drives a real browser to draw wires and solve Puzzle 1,
+  plus the no-wires failure-hint path
+
 **Stubbed:**
 - `src/devtools/` debug panel
 
 **Deferred (next):**
 Sample-value animation through machines, debug panel + `?debug=true`, full keyboard graph
-construction (mouse-first for now), locked-puzzle deep-link screen.
+construction (mouse-first for now), locked-puzzle deep-link screen, e2e solves for puzzles 2–5.
 
 **Known limitations:**
 - Morphisms are unary only (products/sums/multi-input are a marked future extension point).
@@ -92,7 +100,8 @@ construction (mouse-first for now), locked-puzzle deep-link screen.
 
 ## Next steps
 
-1. Author Puzzles 2–5 (the engine, schema, and canvas already support them).
-2. Sample-value animation on Run; subtle completion effects.
-3. Debug panel behind `?debug=true` (puzzle JSON, parse result, graph, validation, mappings).
+1. Sample-value animation on Run; subtle completion effects.
+2. Debug panel behind `?debug=true` (puzzle JSON, parse result, graph, validation, mappings).
+3. Extend Playwright e2e to solve Puzzles 2–5.
 4. Keyboard-accessible graph construction; React Flow a11y pass.
+5. Locked-puzzle deep-link screen (opening a not-yet-unlocked puzzle by URL).

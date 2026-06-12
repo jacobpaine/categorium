@@ -1,18 +1,24 @@
 import { useCallback, useMemo, useRef, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { ArrowLeft, CheckCircle2, Lightbulb, Play, RotateCcw } from 'lucide-react';
-import { getPuzzle, toDiagram, toValidationInput, THEMES } from '../../data';
+import { ArrowLeft, ArrowRight, CheckCircle2, Lightbulb, Play, RotateCcw } from 'lucide-react';
+import { getPuzzle, PUZZLES, toDiagram, toValidationInput, THEMES } from '../../data';
 import { isAuthored } from '../../schemas';
 import { validatePuzzle, type ValidationResult } from '../../validation';
 import { useProgressStore } from '../../state/progressStore';
 import type { PuzzleGraph, ThemeId } from '../../domain';
 import { PuzzleCanvas } from '../canvas/PuzzleCanvas';
 import { RevealPanel } from '../components/RevealPanel';
+import { SolutionPreview } from '../components/SolutionPreview';
 
 type RunStatus = 'editing' | 'success' | 'error';
 
+/** Wrapper: remount the inner screen per puzzle so all local state resets on navigation. */
 export function PuzzleScreen() {
   const { puzzleId } = useParams();
+  return <PuzzleScreenInner key={puzzleId ?? 'none'} puzzleId={puzzleId} />;
+}
+
+function PuzzleScreenInner({ puzzleId }: { puzzleId?: string }) {
   const puzzle = puzzleId ? getPuzzle(puzzleId) : undefined;
   const authored = puzzle && isAuthored(puzzle) ? puzzle : undefined;
 
@@ -58,6 +64,9 @@ export function PuzzleScreen() {
 
   const initialGraph: PuzzleGraph = savedGraph ?? authored.initialGraph;
   const canvasKey = `${authored.id}:${theme}:${resetToken}`;
+  const nextPuzzle = PUZZLES.find(
+    (p) => p.chapterId === authored.chapterId && p.order === authored.order + 1 && isAuthored(p),
+  );
 
   function runCheck() {
     const graph = graphRef.current ?? initialGraph;
@@ -117,6 +126,7 @@ export function PuzzleScreen() {
         <div className="mt-4 flex flex-wrap items-center gap-2">
           <button
             onClick={runCheck}
+            data-testid="run-check"
             className="inline-flex items-center gap-1.5 rounded-lg bg-sky-600 px-3 py-2 text-sm font-semibold text-white hover:bg-sky-700"
           >
             <Play className="h-4 w-4" aria-hidden /> Run / Check
@@ -173,15 +183,48 @@ export function PuzzleScreen() {
         )}
 
         {status === 'success' && (
-          <div className="mt-4 space-y-3">
-            <div className="flex items-center gap-1.5 font-semibold text-emerald-700">
-              <CheckCircle2 className="h-5 w-5" aria-hidden /> Solved!
+          <div className="mt-4 space-y-3" data-testid="solved">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-1.5 font-semibold text-emerald-700">
+                <CheckCircle2 className="h-5 w-5" aria-hidden /> Solved!
+              </div>
+              {nextPuzzle ? (
+                <Link
+                  to={`/chapter/${nextPuzzle.chapterId}/puzzle/${nextPuzzle.id}`}
+                  data-testid="next-puzzle"
+                  className="inline-flex items-center gap-1 rounded-lg bg-emerald-600 px-3 py-1.5 text-sm font-semibold text-white hover:bg-emerald-700"
+                >
+                  Next puzzle <ArrowRight className="h-4 w-4" aria-hidden />
+                </Link>
+              ) : (
+                <Link
+                  to="/chapters"
+                  className="inline-flex items-center gap-1 rounded-lg border border-emerald-300 px-3 py-1.5 text-sm font-medium text-emerald-700 hover:bg-emerald-50"
+                >
+                  Chapter complete
+                </Link>
+              )}
             </div>
+
             <RevealPanel
               reveal={authored.reveal}
               theme={theme}
               glossaryUnlocks={authored.glossaryUnlocks}
             />
+
+            {authored.referenceSolution && (
+              <details className="rounded-lg border border-slate-200 bg-white p-3 text-sm">
+                <summary className="cursor-pointer font-medium text-slate-600">
+                  See a reference solution
+                </summary>
+                <p className="mt-1 text-xs text-slate-500">
+                  One canonical way to solve it. Other valid solutions are accepted too.
+                </p>
+                <div className="mt-2">
+                  <SolutionPreview diagram={diagram} graph={authored.referenceSolution} theme={theme} />
+                </div>
+              </details>
+            )}
           </div>
         )}
       </aside>

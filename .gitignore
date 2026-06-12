@@ -6,3 +6,6 @@ dist-ssr/
 coverage/
 *.log
 .vite/
+test-results/
+playwright-report/
+.playwright/

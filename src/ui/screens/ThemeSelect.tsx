@@ -28,6 +28,7 @@ export function ThemeSelect() {
           return (
             <button
               key={theme.id}
+              data-testid={`theme-${theme.id}`}
               onClick={() => choose(theme.id)}
               className={`rounded-xl border-2 p-5 text-left transition hover:border-sky-400 hover:shadow ${
                 isSelected ? 'border-sky-500 bg-sky-50' : 'border-slate-200 bg-white'
