@@ -22,8 +22,9 @@ export function FunctorChipNode({ data }: NodeProps<FunctorChipData>) {
   const c = colorClasses(data.colorToken);
 
   const body = isObject ? (
-    <div className={`rounded-full border-2 px-4 py-2 text-sm font-semibold shadow-sm ${c.bg} ${c.border} ${c.text}`}>
-      {data.label}
+    <div className={`rounded-2xl border-2 px-4 py-2 shadow-sm ${c.bg} ${c.border} ${c.text}`}>
+      <div className="text-sm font-semibold">{data.label}</div>
+      {data.sub && <div className="font-mono text-[11px] opacity-70">{data.sub}</div>}
     </div>
   ) : (
     <div className="rounded-lg border-2 border-slate-400 bg-white px-3 py-1.5 shadow-sm">

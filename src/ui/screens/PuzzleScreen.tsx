@@ -2,8 +2,9 @@ import { useCallback, useMemo, useRef, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { ArrowLeft, ArrowRight, CheckCircle2, Lightbulb, Play, RotateCcw } from 'lucide-react';
 import { getPuzzle, PUZZLES, toDiagram, toValidationInput, THEMES } from '../../data';
-import { isAuthored, isFunctorPuzzle } from '../../schemas';
+import { isAuthored, isFunctorPuzzle, isNaturalTransformationPuzzle } from '../../schemas';
 import { FunctorPuzzleScreen } from './FunctorPuzzleScreen';
+import { NaturalTransformationPuzzleScreen } from './NaturalTransformationPuzzleScreen';
 import { validatePuzzle, type ValidationResult } from '../../validation';
 import { useProgressStore } from '../../state/progressStore';
 import { useDebugStore } from '../../devtools/debugStore';
@@ -21,6 +22,9 @@ export function PuzzleScreen() {
   const puzzle = puzzleId ? getPuzzle(puzzleId) : undefined;
   if (puzzle && isFunctorPuzzle(puzzle)) {
     return <FunctorPuzzleScreen key={puzzleId} puzzle={puzzle} />;
+  }
+  if (puzzle && isNaturalTransformationPuzzle(puzzle)) {
+    return <NaturalTransformationPuzzleScreen key={puzzleId} puzzle={puzzle} />;
   }
   return <PuzzleScreenInner key={puzzleId ?? 'none'} puzzleId={puzzleId} />;
 }
