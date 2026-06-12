@@ -61,11 +61,12 @@ Design notes:
 - Color is now a *gentle* aid, not the answer key: the meaningful distractors share type/color.
 - Chapters 2–6 remain structural (no `samples`/`required-output`); behavior is additive and gated.
 
-## Chapter 2 — `chapter-02-laws`  *(fully authored)*
+## Chapter 2 — `chapter-02-laws`  *(behavior; fully authored)*
 
-> "The Laws of Composition." Makes the laws Chapter 1 only implied explicit, and demonstrates
-> each *by construction*. All four puzzles use the existing engine — **no validator change** —
-> by riding on `path-equivalence`.
+> "The Laws of Composition." **Rebuilt around the behavior runtime** (`samples` + `action` tables
+> + `required-output`): each law is felt on real values. A fake identity (the Smudger) is the same
+> type but alters the value and **jams** the next machine; a fake `g∘f` bundle produces the wrong
+> chart Reporter can't use. The genuine identity / composite is the one that actually behaves.
 
 | Puzzle | Concept | How it's validated | Reveal |
 |---|---|---|---|
@@ -85,9 +86,11 @@ Design notes:
 - `identity-law` and `associativity` are **display/glossary-only** concept tags — never used via
   `concept-tag-required` (they aren't auto-derived; `path-equivalence` carries the proof).
 
-## Chapter 3 — `chapter-03-isomorphisms`  *(fully authored)*
+## Chapter 3 — `chapter-03-isomorphisms`  *(behavior; fully authored)*
 
-> "Sameness, Both Ways." Reversible processes and lossless round-trips. Engine-light, like Ch2.
+> "Sameness, Both Ways." **Behavior runtime**: an inverse is checked by **round-tripping the
+> value** — a same-typed decoder that returns a corrupted/different value (or a lossy finisher)
+> is rejected; only the genuine inverse restores the original. P12 offers three decoders to weigh.
 
 | Puzzle | Concept | How it's validated |
 |---|---|---|
@@ -113,12 +116,15 @@ that values round-trip). Stated in the reveals.
 | 16 Respect Every Arrow | object & morphism maps must agree (Optional functor) | a mis-aligned object map leaves an arrow un-mappable |
 
 `checkFunctor` enforces totality + endpoint preservation; identity/composition preservation are
-the stated laws (a mis-pointed image fails the structural check).
+the stated laws (a mis-pointed image fails the structural check). **P16's target category is
+unlabeled (P, Q, R)** so the mapping must be deduced from arrow preservation, not read off chips.
 
-## Chapter 5 — `chapter-05-products`  *(fully authored)*
+## Chapter 5 — `chapter-05-products`  *(behavior; fully authored)*
 
-> "Combining and Choosing." Products and coproducts via their **universal properties** —
-> projections/injections and a unique pairing/case-split, all *unary* morphisms. Engine-light.
+> "Combining and Choosing." Products and coproducts via their **universal properties**, now
+> **behavior-checked**: a look-alike projection returns the wrong component, a swapped pairing
+> misorders the record, and the coproduct's case-split must handle **both** injected cases
+> (two `required-output` rules) — all checked on real values.
 
 | Puzzle | Concept | How it's validated |
 |---|---|---|

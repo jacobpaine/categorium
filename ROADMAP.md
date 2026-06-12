@@ -178,7 +178,8 @@ shows their shape, without pretending to be a theorem prover.
 | Ch 5 | products / coproducts | **none** — universal-property model with unary morphisms | ✅ done |
 | Ch 6 | natural transformations | composition table on D (`domain/naturalTransformation.ts`) + `NaturalTransformationCanvas`; genuine naturality check | ✅ done |
 | Ch 1 | behavior runtime | value evaluator (`domain/evaluate.ts`) + `required-output` rule + predict-then-run; equivalence checked on real values | ✅ done (pilot) |
-| Future | behavior runtime, Ch 2–6 | roll the value runtime out to the remaining chapters | 🔒 |
+| Ch 2,3,5 | behavior runtime rollout | the wiring chapters rebuilt around behavior with type-valid distractors | ✅ done |
+| Ch 4 | deduced functor mapping | unlabeled target category so the mapping is reasoned, not read | ✅ done |
 | Future | composing natural transformations | the functor-category algebra (vertical/horizontal composition, id_F) | 🔒 |
 | Future | products-as-limits | multi-input/output morphisms (extension point already marked) | 🔒 |
 

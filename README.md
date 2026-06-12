@@ -146,11 +146,21 @@ and unit-testable without React.
   was produced and whether the prediction was right.
 - **Chapter 1 rebuilt** around behavior with type-valid-but-wrong distractors; equivalence (P5) is
   now checked by actually running values. Addresses "the game only drags arrows between colors."
-- Additive + gated per puzzle: Ch2–6 unchanged. Rolls out to later chapters if the mechanic lands.
+
+**Built and working (Session 11 — behavior rollout to Chapters 2–6):**
+- **Chapters 2, 3, 5** (the wiring chapters) rebuilt around behavior: laws via fake-identity /
+  fake-composite distractors (a Smudger jams the next machine); isomorphisms checked by
+  **round-tripping the value** (a lossy decoder returns a corrupted file); products/coproducts/
+  diagonals checked on real component values (the coproduct must handle **both** cases).
+- **Chapter 4** (functors): the alignment puzzle's target category is now **unlabeled** (P, Q, R)
+  so the mapping must be *deduced* from arrow preservation, not read off the chips.
+- **Chapter 6** (natural transformations) left as-is — it already *computes* naturality and its
+  puzzles carry type-valid distractors.
+- Every chapter now forces real consideration; color/type matching alone never solves a puzzle.
 
 **Deferred (next):**
-Roll the behavior runtime into Chapters 2–6; keyboard graph construction; locked-puzzle deep-link
-screen; composing natural transformations; products-as-limits (multi-input morphisms).
+Keyboard graph construction; locked-puzzle deep-link screen; composing natural transformations;
+products-as-limits (multi-input morphisms); broaden e2e coverage.
 
 **Known limitations:**
 - Morphisms are unary only (multi-input/output is a marked future extension point); Chapter 5

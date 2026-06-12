@@ -139,8 +139,9 @@ sample-value id → output value id); `src/domain/evaluate.ts` runs a value thro
 `required-output` rule is a **behavior puzzle**: it's solved by producing the right output
 *value*, so two same-typed machines are distinguishable by what they do, and the player
 **predicts then runs** (the sample token shows the real transformation). Equivalence is then
-checked by actually running values, not just declared. Chapter 1 uses this; the rest are
-structural for now (additive, gated on data).
+checked by actually running values, not just declared. The wiring chapters (1, 2, 3, 5) use
+this; Chapters 4 (functors) and 6 (natural transformations) are different puzzle kinds with
+their own validators. Behavior is additive and gated on data.
 
 ## 5. Themes
 
