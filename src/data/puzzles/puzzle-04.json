@@ -11,92 +11,60 @@
   },
   "conceptTags": ["identity"],
   "intro": {
-    "data": "The goal is the same kind of thing as the start. You still need a step between them — one that changes nothing. The Pass Through machine returns a thing as itself.",
-    "alchemy": "The goal is the same kind of thing as the start. You still need a step between them — one that changes nothing. The Preserve apparatus returns a material as itself.",
-    "spellcraft": "The goal is the same kind of thing as the start. You still need a step between them — one that changes nothing. The Echo rune returns an essence as itself.",
-    "abstract": "The goal is the same object as the start. You still need a step between them — one that changes nothing. The Identity process returns an object as itself."
+    "data": "The goal is the very thing you started with. You still need a step — but one that changes nothing. One machine returns the spreadsheet untouched; the other smudges it. Predict which, then build the do-nothing step.",
+    "alchemy": "The goal is the very thing you started with. You still need a step — but one that changes nothing. One apparatus returns the ore untouched; the other taints it. Predict which, then build the do-nothing step.",
+    "spellcraft": "The goal is the very thing you started with. You still need a step — but one that changes nothing. One rune returns the spark untouched; the other warps it. Predict which, then build the do-nothing step.",
+    "abstract": "The goal value equals the input. Use the step whose behavior leaves the value unchanged."
   },
   "goal": {
-    "data": "Wire the start through the do-nothing machine back to the goal of the same type.",
-    "alchemy": "Wire the start through the do-nothing apparatus back to the goal of the same type.",
-    "spellcraft": "Wire the start through the do-nothing rune back to the goal of the same type.",
-    "abstract": "Wire the start through id_A back to the goal A."
+    "data": "Send the spreadsheet through a step and get the very same spreadsheet out.",
+    "alchemy": "Send the ore through a step and get the very same ore out.",
+    "spellcraft": "Send the spark through a step and get the very same spark out.",
+    "abstract": "Get the input value back out unchanged."
   },
   "objects": [
-    {
-      "id": "obj-a",
-      "formalLabel": "A",
-      "labels": { "data": "Raw CSV", "alchemy": "Ore", "spellcraft": "Spark", "abstract": "A" },
-      "colorToken": "sky"
-    },
-    {
-      "id": "obj-b",
-      "formalLabel": "B",
-      "labels": { "data": "Clean Table", "alchemy": "Ingot", "spellcraft": "Flame", "abstract": "B" },
-      "colorToken": "emerald"
-    }
+    { "id": "obj-a", "formalLabel": "A", "labels": { "data": "Raw CSV", "alchemy": "Ore", "spellcraft": "Spark", "abstract": "A" }, "colorToken": "sky" }
   ],
   "morphisms": [
-    {
-      "id": "mor-id",
-      "formalLabel": "id_A",
-      "sourceObjectId": "obj-a",
-      "targetObjectId": "obj-a",
-      "labels": { "data": "Pass Through", "alchemy": "Preserve", "spellcraft": "Echo", "abstract": "id_A" },
-      "description": {
-        "data": "Returns the data unchanged (Raw CSV → Raw CSV).",
-        "alchemy": "Returns the material unchanged (Ore → Ore).",
-        "spellcraft": "Returns the essence unchanged (Spark → Spark).",
-        "abstract": "A → A, the do-nothing step."
-      }
-    },
-    {
-      "id": "mor-f",
-      "formalLabel": "f",
-      "sourceObjectId": "obj-a",
-      "targetObjectId": "obj-b",
-      "labels": { "data": "Parser", "alchemy": "Smelter", "spellcraft": "Ignition", "abstract": "f" },
-      "description": {
-        "data": "Raw CSV → Clean Table (changes the type — wrong goal).",
-        "alchemy": "Ore → Ingot (changes the type — wrong goal).",
-        "spellcraft": "Spark → Flame (changes the type — wrong goal).",
-        "abstract": "A → B (changes the type — wrong goal)."
-      }
-    }
+    { "id": "mor-id", "formalLabel": "id_A", "sourceObjectId": "obj-a", "targetObjectId": "obj-a", "labels": { "data": "Pass Through", "alchemy": "Preserve", "spellcraft": "Echo", "abstract": "id_A" }, "description": { "data": "returns it unchanged", "alchemy": "returns it unchanged", "spellcraft": "returns it unchanged", "abstract": "A → A, the do-nothing step" }, "action": { "v-messy": "v-messy" } },
+    { "id": "mor-tweak", "formalLabel": "t", "sourceObjectId": "obj-a", "targetObjectId": "obj-a", "labels": { "data": "Smudger", "alchemy": "Tainter", "spellcraft": "Warper", "abstract": "t" }, "description": { "data": "looks harmless, but alters it", "alchemy": "looks harmless, but alters it", "spellcraft": "looks harmless, but alters it", "abstract": "A → A, but not identity" }, "action": { "v-messy": "v-smudged" } }
+  ],
+  "samples": [
+    { "id": "v-messy", "objectId": "obj-a", "labels": { "data": "messy spreadsheet", "alchemy": "raw ore", "spellcraft": "wild spark", "abstract": "a" } },
+    { "id": "v-smudged", "objectId": "obj-a", "labels": { "data": "smudged spreadsheet", "alchemy": "tainted ore", "spellcraft": "warped spark", "abstract": "a′" } }
   ],
   "initialGraph": {
     "nodes": [
       { "kind": "object", "nodeId": "n-a-start", "objectId": "obj-a", "role": "start", "position": { "x": 40, "y": 180 } },
-      { "kind": "morphism", "nodeId": "n-id", "morphismId": "mor-id", "position": { "x": 340, "y": 70 } },
-      { "kind": "morphism", "nodeId": "n-f", "morphismId": "mor-f", "position": { "x": 340, "y": 290 } },
+      { "kind": "morphism", "nodeId": "n-id", "morphismId": "mor-id", "position": { "x": 340, "y": 90 } },
+      { "kind": "morphism", "nodeId": "n-tweak", "morphismId": "mor-tweak", "position": { "x": 340, "y": 270 } },
       { "kind": "object", "nodeId": "n-a-goal", "objectId": "obj-a", "role": "goal", "position": { "x": 640, "y": 180 } }
     ],
     "edges": []
   },
-  "allowedMorphismIds": ["mor-id", "mor-f"],
+  "allowedMorphismIds": ["mor-id", "mor-tweak"],
   "validation": [
     { "type": "type-valid-wiring" },
-    { "type": "required-final-object", "objectId": "obj-a" },
-    { "type": "concept-tag-required", "conceptTag": "identity" }
+    { "type": "required-output", "inputValueId": "v-messy", "outputValueId": "v-messy" }
   ],
   "reveal": {
     "afterSuccess": {
-      "data": "You used a step that changes nothing — and it still counts as a step. A do-nothing process from a thing back to itself is called identity.",
-      "alchemy": "You used a step that changes nothing — and it still counts as a step. A do-nothing process from a material back to itself is called identity.",
-      "spellcraft": "You used a step that changes nothing — and it still counts as a step. A do-nothing working from an essence back to itself is called identity.",
-      "abstract": "You used a step that changes nothing — and it still counts as a step. A do-nothing arrow from an object back to itself is called identity."
+      "data": "The Pass Through gave back exactly what went in — a do-nothing step that still counts as a step. The Smudger was the same type, but it changed the value. Identity is the one that truly leaves things alone.",
+      "alchemy": "Preserve gave back exactly what went in — a do-nothing step that still counts. The Tainter was the same type but altered the value. Identity truly leaves things alone.",
+      "spellcraft": "Echo gave back exactly what went in — a do-nothing step that still counts. The Warper was the same type but altered the essence. Identity truly leaves things alone.",
+      "abstract": "Identity returned the value unchanged; the look-alike altered it. Identity is the do-nothing arrow."
     },
-    "summary": "Every object has an identity step from itself to itself. It does nothing to the thing passing through, yet it is a perfectly valid process.",
+    "summary": "Every object has an identity morphism id_A : A → A that returns each value unchanged. A step that changes nothing is still a real step.",
     "notation": ["id_A : A → A"],
-    "moreFormal": "For each object A there is an identity morphism id_A : A → A. It is the canonical do-nothing arrow on A. Why it matters under composition is the subject of the next chapter.",
-    "programmerAnalogy": "const idA = (x: A): A => x;"
+    "moreFormal": "id_A is the canonical do-nothing arrow on A. Beware look-alikes: being A → A is not enough — identity must leave every value exactly as it found it.",
+    "programmerAnalogy": "const idA = (x) => x;  // not the same as a function that quietly mutates x"
   },
   "glossaryUnlocks": ["identity"],
   "referenceSolution": {
     "nodes": [
       { "kind": "object", "nodeId": "n-a-start", "objectId": "obj-a", "role": "start", "position": { "x": 40, "y": 180 } },
-      { "kind": "morphism", "nodeId": "n-id", "morphismId": "mor-id", "position": { "x": 340, "y": 70 } },
-      { "kind": "morphism", "nodeId": "n-f", "morphismId": "mor-f", "position": { "x": 340, "y": 290 } },
+      { "kind": "morphism", "nodeId": "n-id", "morphismId": "mor-id", "position": { "x": 340, "y": 90 } },
+      { "kind": "morphism", "nodeId": "n-tweak", "morphismId": "mor-tweak", "position": { "x": 340, "y": 270 } },
       { "kind": "object", "nodeId": "n-a-goal", "objectId": "obj-a", "role": "goal", "position": { "x": 640, "y": 180 } }
     ],
     "edges": [

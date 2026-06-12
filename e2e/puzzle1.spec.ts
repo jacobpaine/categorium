@@ -1,14 +1,9 @@
 import { test, expect, type Page } from '@playwright/test';
 
-/**
- * Drag from one React Flow handle to another to create a wire. Source handles are on the right
- * of a node, target handles on the left (see ObjectTerminalNode / MachineNode).
- */
+/** Drag from one React Flow handle to another to create a wire. */
 async function connect(page: Page, fromSelector: string, toSelector: string) {
-  const from = page.locator(fromSelector);
-  const to = page.locator(toSelector);
-  const a = await from.boundingBox();
-  const b = await to.boundingBox();
+  const a = await page.locator(fromSelector).boundingBox();
+  const b = await page.locator(toSelector).boundingBox();
   if (!a || !b) throw new Error(`missing handle: ${fromSelector} -> ${toSelector}`);
   const ax = a.x + a.width / 2;
   const ay = a.y + a.height / 2;
@@ -21,46 +16,44 @@ async function connect(page: Page, fromSelector: string, toSelector: string) {
   await page.mouse.up();
 }
 
-const rightHandle = (nodeId: string) =>
-  `.react-flow__node[data-id="${nodeId}"] .react-flow__handle-right`;
-const leftHandle = (nodeId: string) =>
-  `.react-flow__node[data-id="${nodeId}"] .react-flow__handle-left`;
+const right = (id: string) => `.react-flow__node[data-id="${id}"] .react-flow__handle-right`;
+const left = (id: string) => `.react-flow__node[data-id="${id}"] .react-flow__handle-left`;
 
-test('a player can solve Puzzle 1 by wiring the machine', async ({ page }) => {
+async function openPuzzle1(page: Page) {
   await page.goto('/');
-
-  // Theme selection -> chapter map -> puzzle 1.
   await page.getByTestId('theme-data').click();
   await page.getByTestId('puzzle-link-puzzle-01').click();
-
-  // Canvas renders the three pre-placed nodes.
   await expect(page.locator('.react-flow__node[data-id="n-a"]')).toBeVisible();
-  await expect(page.locator('.react-flow__node[data-id="n-f"]')).toBeVisible();
-  await expect(page.locator('.react-flow__node[data-id="n-b"]')).toBeVisible();
-  await page.waitForTimeout(400); // let fitView settle before measuring handles
+  await expect(page.locator('.react-flow__node[data-id="n-parser"]')).toBeVisible();
+  await expect(page.locator('.react-flow__node[data-id="n-shred"]')).toBeVisible();
+  await page.waitForTimeout(400); // let fitView settle
+}
 
-  // Wire start -> machine -> goal.
-  await connect(page, rightHandle('n-a'), leftHandle('n-f'));
-  await connect(page, rightHandle('n-f'), leftHandle('n-b'));
-  await expect(page.locator('.react-flow__edge')).toHaveCount(2);
+test('solving requires the right BEHAVIOR, not just a matching type', async ({ page }) => {
+  await openPuzzle1(page);
 
-  // Run / Check -> success, reveal, and a Next-puzzle affordance.
+  // Predict the output, then wire the machine that actually makes a clean table.
+  await page.getByRole('button', { name: 'clean table', exact: true }).click();
+  await connect(page, right('n-a'), left('n-parser'));
+  await connect(page, right('n-parser'), left('n-b'));
+
   await page.getByTestId('run-check').click();
   await expect(page.getByTestId('solved')).toBeVisible();
   await expect(page.getByText('What you learned')).toBeVisible();
-  await expect(page.getByTestId('next-puzzle')).toBeVisible();
-
-  // A sample token animates along the solved path.
+  await expect(page.getByText('Your prediction was right.')).toBeVisible();
   await expect(page.locator('.react-flow__node-sampleToken')).toBeVisible();
 });
 
-test('running with no wires shows a hint instead of success', async ({ page }) => {
-  await page.goto('/');
-  await page.getByTestId('theme-data').click();
-  await page.getByTestId('puzzle-link-puzzle-01').click();
-  await expect(page.locator('.react-flow__node[data-id="n-a"]')).toBeVisible();
+test('a same-typed but wrong-behaved machine (Shredder) is rejected', async ({ page }) => {
+  await openPuzzle1(page);
+
+  // The Shredder is also A→B (same color), but it produces the wrong value.
+  await connect(page, right('n-a'), left('n-shred'));
+  await connect(page, right('n-shred'), left('n-b'));
 
   await page.getByTestId('run-check').click();
   await expect(page.getByText('Not quite yet')).toBeVisible();
+  // The "Produced:" chip shows the wrong value it actually made (rose-tinted).
+  await expect(page.locator('.bg-rose-100').filter({ hasText: 'shredded mess' })).toBeVisible();
   await expect(page.getByTestId('solved')).toHaveCount(0);
 });

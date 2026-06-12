@@ -11,137 +11,67 @@
   },
   "conceptTags": ["object", "morphism"],
   "intro": {
-    "data": "Every system begins with something that can be transformed. Here you have one starting input, one machine, and one goal. Connect them so the machine can turn the start into the goal.",
-    "alchemy": "Every craft begins with a raw material that can be transformed. Here you have one starting material, one apparatus, and one goal. Connect them so the apparatus can turn the start into the goal.",
-    "spellcraft": "Every working begins with a spark that can be transformed. Here you have one starting essence, one rune, and one goal. Connect them so the rune can turn the start into the goal.",
-    "abstract": "Every system begins with something that can be transformed. Here you have one starting object, one process, and one goal. Connect them so the process can turn the start into the goal."
+    "data": "A process turns one thing into another. Two machines both accept the messy spreadsheet — but they do different things to it. Before you run, predict what each would produce, then build the one that makes a clean table.",
+    "alchemy": "A process turns one material into another. Two apparatuses both accept the raw ore — but they do different things to it. Predict what each would produce, then build the one that makes a pure ingot.",
+    "spellcraft": "A working turns one essence into another. Two runes both accept the wild spark — but they do different things to it. Predict what each would produce, then build the one that makes a steady flame.",
+    "abstract": "A morphism turns one object into another. Two machines both accept the input value but produce different outputs. Build the one that yields the goal."
   },
   "goal": {
-    "data": "Connect the starting input to the machine, then connect the machine to the goal.",
-    "alchemy": "Connect the starting material to the apparatus, then connect the apparatus to the goal.",
-    "spellcraft": "Connect the starting essence to the rune, then connect the rune to the goal.",
-    "abstract": "Connect the start object to the process, then connect the process to the goal."
+    "data": "Wire the input through a machine so it comes out as the clean table.",
+    "alchemy": "Wire the input through an apparatus so it comes out as the pure ingot.",
+    "spellcraft": "Wire the input through a rune so it comes out as the steady flame.",
+    "abstract": "Wire the input through a machine so it produces the goal value."
   },
   "objects": [
-    {
-      "id": "obj-a",
-      "formalLabel": "A",
-      "labels": {
-        "data": "Raw CSV",
-        "alchemy": "Ore",
-        "spellcraft": "Spark",
-        "abstract": "A"
-      },
-      "description": {
-        "data": "A messy, unparsed spreadsheet.",
-        "alchemy": "Unrefined ore dug from the mountain.",
-        "spellcraft": "A raw spark of untamed energy.",
-        "abstract": "A source object."
-      },
-      "colorToken": "sky"
-    },
-    {
-      "id": "obj-b",
-      "formalLabel": "B",
-      "labels": {
-        "data": "Clean Table",
-        "alchemy": "Ingot",
-        "spellcraft": "Flame",
-        "abstract": "B"
-      },
-      "description": {
-        "data": "A clean, structured table.",
-        "alchemy": "A refined metal ingot.",
-        "spellcraft": "A steady, usable flame.",
-        "abstract": "A target object."
-      },
-      "colorToken": "emerald"
-    }
+    { "id": "obj-a", "formalLabel": "A", "labels": { "data": "Raw CSV", "alchemy": "Ore", "spellcraft": "Spark", "abstract": "A" }, "colorToken": "sky" },
+    { "id": "obj-b", "formalLabel": "B", "labels": { "data": "Clean Table", "alchemy": "Ingot", "spellcraft": "Flame", "abstract": "B" }, "colorToken": "emerald" }
   ],
   "morphisms": [
-    {
-      "id": "mor-f",
-      "formalLabel": "f",
-      "sourceObjectId": "obj-a",
-      "targetObjectId": "obj-b",
-      "labels": {
-        "data": "Parser",
-        "alchemy": "Smelter",
-        "spellcraft": "Ignition",
-        "abstract": "f"
-      },
-      "description": {
-        "data": "Parses a raw CSV into a clean table.",
-        "alchemy": "Smelts ore into a refined ingot.",
-        "spellcraft": "Ignites a raw spark into a steady flame.",
-        "abstract": "A process from A to B."
-      },
-      "examples": [
-        {
-          "input": {
-            "data": "messy spreadsheet",
-            "alchemy": "raw ore",
-            "spellcraft": "a stray spark",
-            "abstract": "a value of A"
-          },
-          "output": {
-            "data": "clean table",
-            "alchemy": "metal ingot",
-            "spellcraft": "a steady flame",
-            "abstract": "a value of B"
-          }
-        }
-      ]
-    }
+    { "id": "mor-parser", "formalLabel": "f", "sourceObjectId": "obj-a", "targetObjectId": "obj-b", "labels": { "data": "Parser", "alchemy": "Smelter", "spellcraft": "Ignition", "abstract": "f" }, "description": { "data": "cleans the data", "alchemy": "refines the ore", "spellcraft": "tames the spark", "abstract": "A → B" }, "action": { "v-messy": "v-clean" } },
+    { "id": "mor-shred", "formalLabel": "g", "sourceObjectId": "obj-a", "targetObjectId": "obj-b", "labels": { "data": "Shredder", "alchemy": "Crusher", "spellcraft": "Smother", "abstract": "g" }, "description": { "data": "wrecks the data", "alchemy": "cracks the ore", "spellcraft": "chokes the spark", "abstract": "A → B" }, "action": { "v-messy": "v-shred" } }
+  ],
+  "samples": [
+    { "id": "v-messy", "objectId": "obj-a", "labels": { "data": "messy spreadsheet", "alchemy": "raw ore", "spellcraft": "wild spark", "abstract": "a" } },
+    { "id": "v-clean", "objectId": "obj-b", "labels": { "data": "clean table", "alchemy": "pure ingot", "spellcraft": "steady flame", "abstract": "b" } },
+    { "id": "v-shred", "objectId": "obj-b", "labels": { "data": "shredded mess", "alchemy": "cracked ingot", "spellcraft": "sputtering flame", "abstract": "b′" } }
   ],
   "initialGraph": {
     "nodes": [
-      { "kind": "object", "nodeId": "n-a", "objectId": "obj-a", "role": "start", "position": { "x": 40, "y": 140 } },
-      { "kind": "morphism", "nodeId": "n-f", "morphismId": "mor-f", "position": { "x": 340, "y": 140 } },
-      { "kind": "object", "nodeId": "n-b", "objectId": "obj-b", "role": "goal", "position": { "x": 640, "y": 140 } }
+      { "kind": "object", "nodeId": "n-a", "objectId": "obj-a", "role": "start", "position": { "x": 40, "y": 180 } },
+      { "kind": "morphism", "nodeId": "n-parser", "morphismId": "mor-parser", "position": { "x": 340, "y": 90 } },
+      { "kind": "morphism", "nodeId": "n-shred", "morphismId": "mor-shred", "position": { "x": 340, "y": 270 } },
+      { "kind": "object", "nodeId": "n-b", "objectId": "obj-b", "role": "goal", "position": { "x": 640, "y": 180 } }
     ],
     "edges": []
   },
-  "allowedMorphismIds": ["mor-f"],
+  "allowedMorphismIds": ["mor-parser", "mor-shred"],
   "validation": [
-    { "type": "allowed-morphisms-only", "morphismIds": ["mor-f"] },
-    { "type": "required-final-object", "objectId": "obj-b" },
-    { "type": "concept-tag-required", "conceptTag": "morphism" }
-  ],
-  "samples": [
-    {
-      "id": "sample-a1",
-      "objectId": "obj-a",
-      "labels": {
-        "data": "messy spreadsheet",
-        "alchemy": "raw ore",
-        "spellcraft": "a stray spark",
-        "abstract": "a value of A"
-      }
-    }
+    { "type": "type-valid-wiring" },
+    { "type": "required-output", "inputValueId": "v-messy", "outputValueId": "v-clean" }
   ],
   "reveal": {
     "afterSuccess": {
-      "data": "You built one valid transformation. In category theory, the things being transformed are called objects, and the process between them is called an arrow or morphism.",
-      "alchemy": "You built one valid transformation. In category theory, the materials being transformed are called objects, and the process between them is called an arrow or morphism.",
-      "spellcraft": "You built one valid transformation. In category theory, the essences being transformed are called objects, and the working between them is called an arrow or morphism.",
-      "abstract": "You built one valid transformation. In category theory, the things being transformed are called objects, and the process between them is called an arrow or morphism."
+      "data": "You watched the messy spreadsheet become a clean table. Both machines were the same type, but only one behaved the way you wanted — a process is defined by what it does, not just what it connects.",
+      "alchemy": "You watched the raw ore become a pure ingot. Both apparatuses were the same type, but only one behaved the way you wanted — a process is defined by what it does.",
+      "spellcraft": "You watched the wild spark become a steady flame. Both runes were the same type, but only one behaved the way you wanted — a working is defined by what it does.",
+      "abstract": "The input became the goal value. Same-typed morphisms can do different things; a morphism is defined by its behavior."
     },
-    "summary": "A process transforms one thing into another. What it starts from and what it produces are objects; the process between them is an arrow, also called a morphism.",
+    "summary": "The things being transformed are objects; the process between them is an arrow, or morphism. Two morphisms with the same source and target can still behave differently.",
     "notation": ["A --f--> B", "f: A → B"],
-    "moreFormal": "An object is a labelled point in a diagram. A morphism f: A → B is a directed arrow with a single source object A and a single target object B. It need not be a set-function — only that it has one source and one target.",
-    "programmerAnalogy": "f: (input: A) => B"
+    "moreFormal": "A morphism f: A → B has one source and one target. Knowing its type (A → B) is not the same as knowing what it does.",
+    "programmerAnalogy": "f: (input: A) => B — two functions with the same signature can compute different things."
   },
   "glossaryUnlocks": ["object", "morphism"],
   "referenceSolution": {
     "nodes": [
-      { "kind": "object", "nodeId": "n-a", "objectId": "obj-a", "role": "start", "position": { "x": 40, "y": 140 } },
-      { "kind": "morphism", "nodeId": "n-f", "morphismId": "mor-f", "position": { "x": 340, "y": 140 } },
-      { "kind": "object", "nodeId": "n-b", "objectId": "obj-b", "role": "goal", "position": { "x": 640, "y": 140 } }
+      { "kind": "object", "nodeId": "n-a", "objectId": "obj-a", "role": "start", "position": { "x": 40, "y": 180 } },
+      { "kind": "morphism", "nodeId": "n-parser", "morphismId": "mor-parser", "position": { "x": 340, "y": 90 } },
+      { "kind": "morphism", "nodeId": "n-shred", "morphismId": "mor-shred", "position": { "x": 340, "y": 270 } },
+      { "kind": "object", "nodeId": "n-b", "objectId": "obj-b", "role": "goal", "position": { "x": 640, "y": 180 } }
     ],
     "edges": [
-      { "id": "e-a-f", "sourceNodeId": "n-a", "targetNodeId": "n-f" },
-      { "id": "e-f-b", "sourceNodeId": "n-f", "targetNodeId": "n-b" }
+      { "id": "e-a-parser", "sourceNodeId": "n-a", "targetNodeId": "n-parser" },
+      { "id": "e-parser-b", "sourceNodeId": "n-parser", "targetNodeId": "n-b" }
     ]
   }
 }

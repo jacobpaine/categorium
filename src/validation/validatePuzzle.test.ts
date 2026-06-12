@@ -24,35 +24,31 @@ describe('validatePuzzle — puzzle-01', () => {
     expect(result.ok).toBe(true);
   });
 
-  it('fails required-final-object when the path does not reach the goal', () => {
-    // Start present, nothing wired: path ends at the start object, not obj-b.
+  it('fails required-output when nothing is wired (input never reaches the goal value)', () => {
     const graph: PuzzleGraph = {
       nodes: [{ kind: 'object', nodeId: 'n-a', objectId: 'obj-a', role: 'start' }],
       edges: [],
     };
     const result = validatePuzzle(input, graph);
     expect(result.ok).toBe(false);
-    if (!result.ok) {
-      expect(result.firstFailure.rule.type).toBe('required-final-object');
-    }
+    if (!result.ok) expect(result.firstFailure.rule.type).toBe('required-output');
   });
 
-  it('fails allowed-morphisms-only when a disallowed machine is used', () => {
+  it('fails required-output when the wrong-behaved machine (Shredder) is wired', () => {
+    // mor-shred is the same type (A→B) but turns the input into the wrong value.
     const graph: PuzzleGraph = {
       nodes: [
         { kind: 'object', nodeId: 'n-a', objectId: 'obj-a', role: 'start' },
-        { kind: 'morphism', nodeId: 'n-x', morphismId: 'mor-x' },
+        { kind: 'morphism', nodeId: 'n-shred', morphismId: 'mor-shred' },
         { kind: 'object', nodeId: 'n-b', objectId: 'obj-b', role: 'goal' },
       ],
       edges: [
-        { id: 'e1', sourceNodeId: 'n-a', targetNodeId: 'n-x' },
-        { id: 'e2', sourceNodeId: 'n-x', targetNodeId: 'n-b' },
+        { id: 'e1', sourceNodeId: 'n-a', targetNodeId: 'n-shred' },
+        { id: 'e2', sourceNodeId: 'n-shred', targetNodeId: 'n-b' },
       ],
     };
     const result = validatePuzzle(input, graph);
     expect(result.ok).toBe(false);
-    if (!result.ok) {
-      expect(result.firstFailure.rule.type).toBe('allowed-morphisms-only');
-    }
+    if (!result.ok) expect(result.firstFailure.rule.type).toBe('required-output');
   });
 });

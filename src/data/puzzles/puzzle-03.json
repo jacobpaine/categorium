@@ -11,107 +11,80 @@
   },
   "conceptTags": ["composition"],
   "intro": {
-    "data": "One machine can’t get you all the way. Run the first machine, then feed its output straight into the second to reach the goal.",
-    "alchemy": "One apparatus can’t get you all the way. Run the first, then feed its output straight into the second to reach the goal.",
-    "spellcraft": "One rune can’t get you all the way. Cast the first, then feed its result straight into the second to reach the goal.",
-    "abstract": "One process can’t get you all the way. Apply the first, then feed its output straight into the second to reach the goal."
+    "data": "One machine won't reach the chart. Chain two — but watch what flows between them: feed the wrong table into the second machine and it jams or draws the wrong chart. Plan the chain that lands on the clear chart.",
+    "alchemy": "One apparatus won't reach the tool. Chain two — but watch what flows between them: feed the wrong ingot into the second and it jams or makes a blunt tool. Plan the chain that makes the fine tool.",
+    "spellcraft": "One rune won't reach the beacon. Chain two — but watch what flows between them: feed the wrong flame into the second and it jams or makes a dim beacon. Plan the chain that makes the bright beacon.",
+    "abstract": "One step won't reach C. Chain two; only one chain's behavior lands on the goal value."
   },
   "goal": {
-    "data": "Wire the start through both machines in order — A to B to C — ending at the goal.",
-    "alchemy": "Wire the start through both apparatuses in order — A to B to C — ending at the goal.",
-    "spellcraft": "Wire the start through both runes in order — A to B to C — ending at the goal.",
-    "abstract": "Wire the start through both processes in order — A to B to C — ending at the goal."
+    "data": "Chain machines so the messy spreadsheet becomes the clear chart.",
+    "alchemy": "Chain apparatuses so the raw ore becomes the fine tool.",
+    "spellcraft": "Chain runes so the wild spark becomes the bright beacon.",
+    "abstract": "Chain machines so the input becomes the goal value at C."
   },
   "objects": [
-    {
-      "id": "obj-a",
-      "formalLabel": "A",
-      "labels": { "data": "Raw CSV", "alchemy": "Ore", "spellcraft": "Spark", "abstract": "A" },
-      "colorToken": "sky"
-    },
-    {
-      "id": "obj-b",
-      "formalLabel": "B",
-      "labels": { "data": "Clean Table", "alchemy": "Ingot", "spellcraft": "Flame", "abstract": "B" },
-      "colorToken": "emerald"
-    },
-    {
-      "id": "obj-c",
-      "formalLabel": "C",
-      "labels": { "data": "Chart", "alchemy": "Tool", "spellcraft": "Beacon", "abstract": "C" },
-      "colorToken": "amber"
-    }
+    { "id": "obj-a", "formalLabel": "A", "labels": { "data": "Raw CSV", "alchemy": "Ore", "spellcraft": "Spark", "abstract": "A" }, "colorToken": "sky" },
+    { "id": "obj-b", "formalLabel": "B", "labels": { "data": "Clean Table", "alchemy": "Ingot", "spellcraft": "Flame", "abstract": "B" }, "colorToken": "emerald" },
+    { "id": "obj-c", "formalLabel": "C", "labels": { "data": "Chart", "alchemy": "Tool", "spellcraft": "Beacon", "abstract": "C" }, "colorToken": "amber" }
   ],
   "morphisms": [
-    {
-      "id": "mor-f",
-      "formalLabel": "f",
-      "sourceObjectId": "obj-a",
-      "targetObjectId": "obj-b",
-      "labels": { "data": "Parser", "alchemy": "Smelter", "spellcraft": "Ignition", "abstract": "f" },
-      "description": {
-        "data": "Raw CSV → Clean Table",
-        "alchemy": "Ore → Ingot",
-        "spellcraft": "Spark → Flame",
-        "abstract": "A → B"
-      }
-    },
-    {
-      "id": "mor-g",
-      "formalLabel": "g",
-      "sourceObjectId": "obj-b",
-      "targetObjectId": "obj-c",
-      "labels": { "data": "Charter", "alchemy": "Toolsmith", "spellcraft": "Kindler", "abstract": "g" },
-      "description": {
-        "data": "Clean Table → Chart",
-        "alchemy": "Ingot → Tool",
-        "spellcraft": "Flame → Beacon",
-        "abstract": "B → C"
-      }
-    }
+    { "id": "mor-parser", "formalLabel": "f", "sourceObjectId": "obj-a", "targetObjectId": "obj-b", "labels": { "data": "Parser", "alchemy": "Smelter", "spellcraft": "Ignition", "abstract": "f" }, "action": { "v-messy": "v-clean" } },
+    { "id": "mor-shred", "formalLabel": "g", "sourceObjectId": "obj-a", "targetObjectId": "obj-b", "labels": { "data": "Shredder", "alchemy": "Crusher", "spellcraft": "Smother", "abstract": "g" }, "action": { "v-messy": "v-shred" } },
+    { "id": "mor-charter", "formalLabel": "h", "sourceObjectId": "obj-b", "targetObjectId": "obj-c", "labels": { "data": "Charter", "alchemy": "Toolsmith", "spellcraft": "Kindler", "abstract": "h" }, "description": { "data": "charts a clean table; jams on a mess", "alchemy": "shapes a pure ingot; jams on a crack", "spellcraft": "kindles a steady flame; jams on a sputter", "abstract": "B → C" }, "action": { "v-clean": "v-chart" } },
+    { "id": "mor-scribbler", "formalLabel": "k", "sourceObjectId": "obj-b", "targetObjectId": "obj-c", "labels": { "data": "Scribbler", "alchemy": "Bodger", "spellcraft": "Flicker", "abstract": "k" }, "description": { "data": "always scribbles", "alchemy": "always bodges", "spellcraft": "always flickers", "abstract": "B → C" }, "action": { "v-clean": "v-doodle" } }
+  ],
+  "samples": [
+    { "id": "v-messy", "objectId": "obj-a", "labels": { "data": "messy spreadsheet", "alchemy": "raw ore", "spellcraft": "wild spark", "abstract": "a" } },
+    { "id": "v-clean", "objectId": "obj-b", "labels": { "data": "clean table", "alchemy": "pure ingot", "spellcraft": "steady flame", "abstract": "b" } },
+    { "id": "v-shred", "objectId": "obj-b", "labels": { "data": "shredded mess", "alchemy": "cracked ingot", "spellcraft": "sputtering flame", "abstract": "b′" } },
+    { "id": "v-chart", "objectId": "obj-c", "labels": { "data": "clear chart", "alchemy": "fine tool", "spellcraft": "bright beacon", "abstract": "c" } },
+    { "id": "v-doodle", "objectId": "obj-c", "labels": { "data": "scribbled chart", "alchemy": "blunt tool", "spellcraft": "dim beacon", "abstract": "c′" } }
   ],
   "initialGraph": {
     "nodes": [
-      { "kind": "object", "nodeId": "n-a", "objectId": "obj-a", "role": "start", "position": { "x": 40, "y": 180 } },
-      { "kind": "morphism", "nodeId": "n-f", "morphismId": "mor-f", "position": { "x": 210, "y": 180 } },
-      { "kind": "object", "nodeId": "n-b", "objectId": "obj-b", "position": { "x": 380, "y": 180 } },
-      { "kind": "morphism", "nodeId": "n-g", "morphismId": "mor-g", "position": { "x": 550, "y": 180 } },
-      { "kind": "object", "nodeId": "n-c", "objectId": "obj-c", "role": "goal", "position": { "x": 720, "y": 180 } }
+      { "kind": "object", "nodeId": "n-a", "objectId": "obj-a", "role": "start", "position": { "x": 30, "y": 200 } },
+      { "kind": "morphism", "nodeId": "n-parser", "morphismId": "mor-parser", "position": { "x": 210, "y": 110 } },
+      { "kind": "morphism", "nodeId": "n-shred", "morphismId": "mor-shred", "position": { "x": 210, "y": 300 } },
+      { "kind": "object", "nodeId": "n-b", "objectId": "obj-b", "position": { "x": 400, "y": 200 } },
+      { "kind": "morphism", "nodeId": "n-charter", "morphismId": "mor-charter", "position": { "x": 580, "y": 110 } },
+      { "kind": "morphism", "nodeId": "n-scribbler", "morphismId": "mor-scribbler", "position": { "x": 580, "y": 300 } },
+      { "kind": "object", "nodeId": "n-c", "objectId": "obj-c", "role": "goal", "position": { "x": 770, "y": 200 } }
     ],
     "edges": []
   },
-  "allowedMorphismIds": ["mor-f", "mor-g"],
+  "allowedMorphismIds": ["mor-parser", "mor-shred", "mor-charter", "mor-scribbler"],
   "validation": [
     { "type": "type-valid-wiring" },
-    { "type": "required-final-object", "objectId": "obj-c" },
-    { "type": "concept-tag-required", "conceptTag": "composition" }
+    { "type": "required-output", "inputValueId": "v-messy", "outputValueId": "v-chart" }
   ],
   "reveal": {
     "afterSuccess": {
-      "data": "You chained two machines into one longer transformation. Feeding the output of one process into another is called composition.",
-      "alchemy": "You chained two apparatuses into one longer transformation. Feeding the output of one process into another is called composition.",
-      "spellcraft": "You chained two runes into one longer working. Feeding the result of one process into another is called composition.",
-      "abstract": "You chained two processes into one longer arrow. Feeding the output of one into another is called composition."
+      "data": "Parser then Charter did it — but only because the clean table is exactly what Charter can handle. Shred first and Charter jams; Scribbler always draws the wrong chart. Composition is about behaviors lining up, not just types.",
+      "alchemy": "Smelter then Toolsmith did it — only because the pure ingot is what Toolsmith can shape. Composition is about behaviors lining up, not just types.",
+      "spellcraft": "Ignition then Kindler did it — only because the steady flame is what Kindler can kindle. Composition is about behaviors lining up, not just types.",
+      "abstract": "g ∘ f reaches the goal only when the intermediate value is what the second machine expects."
     },
-    "summary": "When the target of one morphism matches the source of the next, you can compose them into a single arrow from the first source to the last target.",
-    "notation": ["A --f--> B --g--> C", "g ∘ f : A → C", "g ∘ f means do f first, then g."],
-    "moreFormal": "Given f : A → B and g : B → C, the composite g ∘ f : A → C is defined because target(f) = source(g) = B. Composition is read right-to-left, but applied first-to-last.",
-    "programmerAnalogy": "const gf = (x: A): C => g(f(x));"
+    "summary": "Composition chains processes: the output of one becomes the input of the next. g ∘ f means do f first, then g — and the value f produces must be one g can act on.",
+    "notation": ["A --f--> B --g--> C", "g ∘ f: A → C"],
+    "moreFormal": "Composition needs target(f) = source(g) for the types, AND the value f yields must be in the part of B that g handles — otherwise the pipeline jams or diverges.",
+    "programmerAnalogy": "g(f(x)) — but f(x) must be something g is actually defined on."
   },
   "glossaryUnlocks": ["composition"],
   "referenceSolution": {
     "nodes": [
-      { "kind": "object", "nodeId": "n-a", "objectId": "obj-a", "role": "start", "position": { "x": 40, "y": 180 } },
-      { "kind": "morphism", "nodeId": "n-f", "morphismId": "mor-f", "position": { "x": 210, "y": 180 } },
-      { "kind": "object", "nodeId": "n-b", "objectId": "obj-b", "position": { "x": 380, "y": 180 } },
-      { "kind": "morphism", "nodeId": "n-g", "morphismId": "mor-g", "position": { "x": 550, "y": 180 } },
-      { "kind": "object", "nodeId": "n-c", "objectId": "obj-c", "role": "goal", "position": { "x": 720, "y": 180 } }
+      { "kind": "object", "nodeId": "n-a", "objectId": "obj-a", "role": "start", "position": { "x": 30, "y": 200 } },
+      { "kind": "morphism", "nodeId": "n-parser", "morphismId": "mor-parser", "position": { "x": 210, "y": 110 } },
+      { "kind": "morphism", "nodeId": "n-shred", "morphismId": "mor-shred", "position": { "x": 210, "y": 300 } },
+      { "kind": "object", "nodeId": "n-b", "objectId": "obj-b", "position": { "x": 400, "y": 200 } },
+      { "kind": "morphism", "nodeId": "n-charter", "morphismId": "mor-charter", "position": { "x": 580, "y": 110 } },
+      { "kind": "morphism", "nodeId": "n-scribbler", "morphismId": "mor-scribbler", "position": { "x": 580, "y": 300 } },
+      { "kind": "object", "nodeId": "n-c", "objectId": "obj-c", "role": "goal", "position": { "x": 770, "y": 200 } }
     ],
     "edges": [
-      { "id": "e-a-f", "sourceNodeId": "n-a", "targetNodeId": "n-f" },
-      { "id": "e-f-b", "sourceNodeId": "n-f", "targetNodeId": "n-b" },
-      { "id": "e-b-g", "sourceNodeId": "n-b", "targetNodeId": "n-g" },
-      { "id": "e-g-c", "sourceNodeId": "n-g", "targetNodeId": "n-c" }
+      { "id": "e-a-parser", "sourceNodeId": "n-a", "targetNodeId": "n-parser" },
+      { "id": "e-parser-b", "sourceNodeId": "n-parser", "targetNodeId": "n-b" },
+      { "id": "e-b-charter", "sourceNodeId": "n-b", "targetNodeId": "n-charter" },
+      { "id": "e-charter-c", "sourceNodeId": "n-charter", "targetNodeId": "n-c" }
     ]
   }
 }

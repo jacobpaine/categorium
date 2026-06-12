@@ -61,13 +61,20 @@ describe('puzzle-04 — identity', () => {
   });
 });
 
-describe('puzzle-05 — commutative diagram', () => {
+describe('puzzle-05 — commutative diagram (behavior)', () => {
   const input = () => toValidationInput(getPuzzle('puzzle-05') as never);
 
-  it('fails to reach the goal when no second path is built', () => {
+  it('fails required-output when no second route is built', () => {
     const res = validatePuzzle(input(), wire('puzzle-05', []));
     expect(res.ok).toBe(false);
-    if (!res.ok) expect(res.firstFailure.rule.type).toBe('required-final-object');
+    if (!res.ok) expect(res.firstFailure.rule.type).toBe('required-output');
+  });
+
+  it('rejects the route that produces a different value (Skewer)', () => {
+    // h then k′ : raw → sample → a DIFFERENT report.
+    const res = validatePuzzle(input(), wire('puzzle-05', [['n-a', 'n-h'], ['n-h', 'n-d'], ['n-d', 'n-skew'], ['n-skew', 'n-c']]));
+    expect(res.ok).toBe(false);
+    if (!res.ok) expect(res.firstFailure.rule.type).toBe('required-output');
   });
 });
 
@@ -79,6 +86,27 @@ describe('puzzle-06 — identity law', () => {
     const res = validatePuzzle(input(), wire('puzzle-06', [['n-a', 'n-f'], ['n-f', 'n-b']]));
     expect(res.ok).toBe(false);
     if (!res.ok) expect(res.firstFailure.rule.type).toBe('concept-tag-required');
+  });
+});
+
+describe('puzzle-03 — composition by behavior', () => {
+  const input = () => toValidationInput(getPuzzle('puzzle-03') as never);
+
+  it('the correct behavior chain (Parser then Charter) produces the goal value', () => {
+    const res = validatePuzzle(input(), wire('puzzle-03', [['n-a', 'n-parser'], ['n-parser', 'n-b'], ['n-b', 'n-charter'], ['n-charter', 'n-c']]));
+    expect(res.ok).toBe(true);
+  });
+
+  it('a wrong intermediate jams the second machine (Shredder then Charter)', () => {
+    const res = validatePuzzle(input(), wire('puzzle-03', [['n-a', 'n-shred'], ['n-shred', 'n-b'], ['n-b', 'n-charter'], ['n-charter', 'n-c']]));
+    expect(res.ok).toBe(false);
+    if (!res.ok) expect(res.firstFailure.rule.type).toBe('required-output');
+  });
+
+  it('a type-valid chain that produces the wrong chart is rejected (Parser then Scribbler)', () => {
+    const res = validatePuzzle(input(), wire('puzzle-03', [['n-a', 'n-parser'], ['n-parser', 'n-b'], ['n-b', 'n-scribbler'], ['n-scribbler', 'n-c']]));
+    expect(res.ok).toBe(false);
+    if (!res.ok) expect(res.firstFailure.rule.type).toBe('required-output');
   });
 });
 
