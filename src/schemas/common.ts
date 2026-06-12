@@ -97,6 +97,13 @@ export const puzzleGraphSchema = z.object({
   edges: z.array(graphEdgeSchema),
 });
 
+/** A read-only diagram shown for context (e.g. the "plain world" a lifting puzzle transports). */
+export const referenceDiagramSchema = z.object({
+  objects: z.array(categoryObjectSchema).min(1),
+  morphisms: z.array(morphismSchema),
+  graph: puzzleGraphSchema,
+});
+
 export const validationRuleSchema = z.discriminatedUnion('type', [
   z.object({ type: z.literal('type-valid-wiring') }),
   z.object({

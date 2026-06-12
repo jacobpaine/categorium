@@ -11,11 +11,11 @@ import {
   pathSchema,
   pathEquivalenceSchema,
   puzzleGraphSchema,
+  referenceDiagramSchema,
   validationRuleSchema,
   sampleValueSchema,
   formalRevealSchema,
 } from './common';
-import { functorPuzzleSchema, type FunctorPuzzle } from './functor.schema';
 import {
   naturalTransformationPuzzleSchema,
   type NaturalTransformationPuzzle,
@@ -54,13 +54,16 @@ export const puzzleAuthoredSchema = z.object({
   reveal: formalRevealSchema,
   glossaryUnlocks: z.array(z.string().min(1)),
   referenceSolution: puzzleGraphSchema.optional(),
+  /** Optional read-only context diagram (e.g. the plain pipeline a lifting puzzle transports). */
+  referenceDiagram: referenceDiagramSchema.optional(),
+  /** Heading for the reference diagram panel. */
+  referenceLabel: themeTextSchema.optional(),
 });
 
 // Plain union (not discriminated): all authored kinds share status 'authored' but differ on
 // `kind`, and each carries a distinct body, so the variants never overlap.
 export const puzzleSchema = z.union([
   puzzleAuthoredSchema,
-  functorPuzzleSchema,
   naturalTransformationPuzzleSchema,
   puzzleStubSchema,
 ]);
@@ -68,7 +71,7 @@ export const puzzleSchema = z.union([
 export type AuthoredPuzzle = z.infer<typeof puzzleAuthoredSchema>;
 export type PuzzleStub = z.infer<typeof puzzleStubSchema>;
 export type Puzzle = z.infer<typeof puzzleSchema>;
-export type { FunctorPuzzle, NaturalTransformationPuzzle };
+export type { NaturalTransformationPuzzle };
 
 /** Parse a puzzle, THROWING on failure (loud, for dev / build-time fixtures). */
 export function parsePuzzle(input: unknown): Puzzle {
@@ -85,19 +88,12 @@ export function isAuthored(p: Puzzle): p is AuthoredPuzzle {
   return p.status === 'authored' && (p as { kind?: string }).kind !== 'functor';
 }
 
-/** A functor puzzle (Chapter 4): two categories + a mapping to build. */
-export function isFunctorPuzzle(p: Puzzle): p is FunctorPuzzle {
-  return p.status === 'authored' && (p as { kind?: string }).kind === 'functor';
-}
-
 /** A natural-transformation puzzle (Chapter 6): two functors + components to build. */
 export function isNaturalTransformationPuzzle(p: Puzzle): p is NaturalTransformationPuzzle {
   return p.status === 'authored' && (p as { kind?: string }).kind === 'natural-transformation';
 }
 
 /** Any puzzle the player can actually open and solve. */
-export function isPlayable(
-  p: Puzzle,
-): p is AuthoredPuzzle | FunctorPuzzle | NaturalTransformationPuzzle {
-  return isAuthored(p) || isFunctorPuzzle(p) || isNaturalTransformationPuzzle(p);
+export function isPlayable(p: Puzzle): p is AuthoredPuzzle | NaturalTransformationPuzzle {
+  return isAuthored(p) || isNaturalTransformationPuzzle(p);
 }

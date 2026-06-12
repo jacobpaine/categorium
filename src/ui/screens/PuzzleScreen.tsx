@@ -2,8 +2,7 @@ import { useCallback, useMemo, useRef, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { ArrowLeft, ArrowRight, CheckCircle2, Lightbulb, Play, RotateCcw } from 'lucide-react';
 import { getPuzzle, PUZZLES, toDiagram, toValidationInput, THEMES } from '../../data';
-import { isAuthored, isFunctorPuzzle, isNaturalTransformationPuzzle } from '../../schemas';
-import { FunctorPuzzleScreen } from './FunctorPuzzleScreen';
+import { isAuthored, isNaturalTransformationPuzzle } from '../../schemas';
 import { NaturalTransformationPuzzleScreen } from './NaturalTransformationPuzzleScreen';
 import { validatePuzzle, type ValidationResult } from '../../validation';
 import { useProgressStore } from '../../state/progressStore';
@@ -23,9 +22,6 @@ type RunStatus = 'editing' | 'success' | 'error';
 export function PuzzleScreen() {
   const { puzzleId } = useParams();
   const puzzle = puzzleId ? getPuzzle(puzzleId) : undefined;
-  if (puzzle && isFunctorPuzzle(puzzle)) {
-    return <FunctorPuzzleScreen key={puzzleId} puzzle={puzzle} />;
-  }
   if (puzzle && isNaturalTransformationPuzzle(puzzle)) {
     return <NaturalTransformationPuzzleScreen key={puzzleId} puzzle={puzzle} />;
   }
@@ -177,6 +173,24 @@ function PuzzleScreenInner({ puzzleId }: { puzzleId?: string }) {
           <div className="font-medium text-slate-600">Goal</div>
           <p className="text-slate-700">{authored.goal[theme]}</p>
         </div>
+
+        {authored.referenceDiagram && (
+          <div className="mt-3 rounded-lg border border-slate-200 p-2 text-sm">
+            <div className="text-[11px] font-medium uppercase tracking-wide text-slate-400">
+              {authored.referenceLabel?.[theme] ?? 'For reference'}
+            </div>
+            <div className="mt-1">
+              <SolutionPreview
+                diagram={{
+                  objects: authored.referenceDiagram.objects,
+                  morphisms: authored.referenceDiagram.morphisms,
+                }}
+                graph={authored.referenceDiagram.graph}
+                theme={theme}
+              />
+            </div>
+          </div>
+        )}
 
         {isBehavior && behaviorRule && (
           <BehaviorPanel
