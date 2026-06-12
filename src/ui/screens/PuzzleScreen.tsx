@@ -10,8 +10,11 @@ import { useProgressStore } from '../../state/progressStore';
 import { useDebugStore } from '../../devtools/debugStore';
 import { DebugPanel } from '../../devtools/DebugPanel';
 import type { PuzzleGraph, ThemeId } from '../../domain';
+import { tracePath, runChain } from '../../domain';
 import { PuzzleCanvas } from '../canvas/PuzzleCanvas';
+import type { BehaviorContext } from '../canvas/sampleAnimation';
 import { RevealPanel } from '../components/RevealPanel';
+import { BehaviorPanel } from '../components/BehaviorPanel';
 import { SolutionPreview } from '../components/SolutionPreview';
 
 type RunStatus = 'editing' | 'success' | 'error';
@@ -48,9 +51,30 @@ function PuzzleScreenInner({ puzzleId }: { puzzleId?: string }) {
   const [result, setResult] = useState<ValidationResult | null>(null);
   const [status, setStatus] = useState<RunStatus>('editing');
   const [resetToken, setResetToken] = useState(0);
+  const [predictedId, setPredictedId] = useState<string | null>(null);
+  const [runSignal, setRunSignal] = useState(0);
+  const [actualOutputId, setActualOutputId] = useState<string | null>(null);
   const graphRef = useRef<PuzzleGraph | null>(null);
 
   const diagram = useMemo(() => (authored ? toDiagram(authored) : null), [authored]);
+
+  // Behavior puzzles carry sample values + a `required-output` rule. When present, the player
+  // predicts and runs real values through the machines (see BehaviorPanel / the value runtime).
+  const behaviorRule = authored?.validation.find((r) => r.type === 'required-output');
+  const samples = authored?.samples ?? [];
+  const isBehavior = Boolean(behaviorRule && samples.length > 0);
+
+  const labelOf = useCallback(
+    (valueId: string) => samples.find((s) => s.id === valueId)?.labels[theme] ?? valueId,
+    [samples, theme],
+  );
+  const behaviorFlow = useMemo<BehaviorContext | undefined>(
+    () =>
+      isBehavior && diagram && behaviorRule
+        ? { diagram, inputValueId: behaviorRule.inputValueId, labelOf }
+        : undefined,
+    [isBehavior, diagram, behaviorRule, labelOf],
+  );
 
   // Theme-resolved value shown on the flowing sample token at each object (sample > label).
   const tokenValueByObjectId = useMemo(() => {
@@ -93,6 +117,15 @@ function PuzzleScreenInner({ puzzleId }: { puzzleId?: string }) {
     const graph = graphRef.current ?? initialGraph;
     const res = validatePuzzle(toValidationInput(authored!), graph);
     setResult(res);
+
+    // Behavior puzzles: run the real value through to show (and report) what was produced.
+    if (isBehavior && behaviorRule && diagram) {
+      const traced = tracePath(diagram, graph);
+      const out = traced.ok ? runChain(diagram, traced.value.morphismIds, behaviorRule.inputValueId) : null;
+      setActualOutputId(out && out.ok ? out.value : null);
+      setRunSignal((s) => s + 1);
+    }
+
     if (res.ok) {
       setStatus('success');
       completePuzzle(authored!.id);
@@ -115,6 +148,8 @@ function PuzzleScreenInner({ puzzleId }: { puzzleId?: string }) {
     setResult(null);
     setStatus('editing');
     setResetToken((t) => t + 1);
+    setActualOutputId(null);
+    setPredictedId(null);
   }
 
   return (
@@ -142,6 +177,20 @@ function PuzzleScreenInner({ puzzleId }: { puzzleId?: string }) {
           <div className="font-medium text-slate-600">Goal</div>
           <p className="text-slate-700">{authored.goal[theme]}</p>
         </div>
+
+        {isBehavior && behaviorRule && (
+          <BehaviorPanel
+            samples={samples}
+            theme={theme}
+            inputValueId={behaviorRule.inputValueId}
+            goalValueId={behaviorRule.outputValueId}
+            predictedId={predictedId}
+            onPredict={setPredictedId}
+            actualOutputId={actualOutputId}
+            ran={runSignal > 0}
+            locked={status === 'success'}
+          />
+        )}
 
         {/* Controls */}
         <div className="mt-4 flex flex-wrap items-center gap-2">
@@ -261,6 +310,8 @@ function PuzzleScreenInner({ puzzleId }: { puzzleId?: string }) {
           animated={status === 'success'}
           locked={status === 'success'}
           tokenValueByObjectId={tokenValueByObjectId}
+          behaviorFlow={behaviorFlow}
+          runSignal={runSignal}
           onGraphChange={onGraphChange}
         />
       </div>

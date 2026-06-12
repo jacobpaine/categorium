@@ -38,7 +38,7 @@ import {
   SAMPLE_TOKEN_TYPE,
   type SampleTokenData,
 } from './nodes/SampleTokenNode';
-import { computeSampleFrames } from './sampleAnimation';
+import { computeSampleFrames, type BehaviorContext, type SampleFrame } from './sampleAnimation';
 
 type RFNodeData = ObjectNodeData | MachineNodeData;
 
@@ -57,6 +57,10 @@ export type PuzzleCanvasProps = {
   tokenValueByObjectId?: Record<string, string>;
   /** Play the sample-flow token on success. Off for static previews (e.g. reference solution). */
   animateSampleFlow?: boolean;
+  /** When set, the token carries a real value transformed by the machines (behavior puzzles). */
+  behaviorFlow?: BehaviorContext;
+  /** Increment to replay the behavior value-flow on each Run (right or wrong). */
+  runSignal?: number;
   onGraphChange: (graph: PuzzleGraph) => void;
 };
 
@@ -69,6 +73,8 @@ export function PuzzleCanvas({
   locked = false,
   tokenValueByObjectId = {},
   animateSampleFlow = true,
+  behaviorFlow,
+  runSignal = 0,
   onGraphChange,
 }: PuzzleCanvasProps) {
   const initial = useMemo(
@@ -85,7 +91,49 @@ export function PuzzleCanvas({
   // The sample token lives outside `nodes` so it never reaches onGraphChange / validation.
   const [token, setToken] = useState<Node<SampleTokenData> | null>(null);
   const timers = useRef<ReturnType<typeof setTimeout>[]>([]);
-  const sampleRan = useRef(false);
+
+  const clearTimers = useCallback(() => {
+    timers.current.forEach(clearTimeout);
+    timers.current = [];
+  }, []);
+
+  const playFrames = useCallback(
+    (frames: SampleFrame[]) => {
+      clearTimers();
+      const reduce =
+        typeof window !== 'undefined' &&
+        window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches;
+      if (reduce || frames.length === 0) {
+        setToken(null);
+        return;
+      }
+      setToken({
+        id: SAMPLE_TOKEN_ID,
+        type: SAMPLE_TOKEN_TYPE,
+        position: frames[0].position,
+        data: { label: frames[0].label, jam: frames[0].jam },
+        draggable: false,
+        selectable: false,
+        connectable: false,
+        zIndex: 1000,
+      });
+      frames.slice(1).forEach((f, i) => {
+        timers.current.push(
+          setTimeout(() => {
+            setToken((t) => (t ? { ...t, position: f.position, data: { label: f.label, jam: f.jam } } : t));
+          }, (i + 1) * STEP_MS),
+        );
+      });
+      const doneAt = frames.length * STEP_MS;
+      if (!frames[frames.length - 1].jam) {
+        timers.current.push(
+          setTimeout(() => setToken((t) => (t ? { ...t, data: { ...t.data, done: true } } : t)), doneAt),
+        );
+      }
+      timers.current.push(setTimeout(() => setToken(null), doneAt + 1200));
+    },
+    [clearTimers],
+  );
 
   // Keep wire animation in sync without losing the graph.
   useEffect(() => {
@@ -97,60 +145,26 @@ export function PuzzleCanvas({
     onGraphChange(fromReactFlow(nodes as RFNode[], edges));
   }, [nodes, edges, onGraphChange]);
 
-  // Drive the sample-flow animation once when the puzzle is solved.
+  // Structural puzzles: animate the labelled token once on success.
   useEffect(() => {
-    const clear = () => {
-      timers.current.forEach(clearTimeout);
-      timers.current = [];
-    };
+    if (behaviorFlow) return;
     if (!animated || !animateSampleFlow) {
-      sampleRan.current = false;
-      clear();
+      clearTimers();
       setToken(null);
       return;
     }
-    if (sampleRan.current) return;
-    sampleRan.current = true;
-
-    const reduce =
-      typeof window !== 'undefined' &&
-      window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches;
-    if (reduce) return;
-
-    const frames = computeSampleFrames(nodes as Node[], edges, tokenValueByObjectId);
-    if (frames.length < 2) return;
-
-    setToken({
-      id: SAMPLE_TOKEN_ID,
-      type: SAMPLE_TOKEN_TYPE,
-      position: frames[0].position,
-      data: { label: frames[0].label },
-      draggable: false,
-      selectable: false,
-      connectable: false,
-      zIndex: 1000,
-    });
-
-    frames.slice(1).forEach((f, i) => {
-      timers.current.push(
-        setTimeout(() => {
-          setToken((t) => (t ? { ...t, position: f.position, data: { label: f.label } } : t));
-        }, (i + 1) * STEP_MS),
-      );
-    });
-
-    const doneAt = frames.length * STEP_MS;
-    timers.current.push(
-      setTimeout(() => {
-        setToken((t) => (t ? { ...t, data: { ...t.data, done: true } } : t));
-      }, doneAt),
-    );
-    timers.current.push(setTimeout(() => setToken(null), doneAt + 1000));
-
-    return clear;
-    // Intentionally only re-run when `animated` flips; nodes/edges are read at trigger time.
+    playFrames(computeSampleFrames(nodes as Node[], edges, tokenValueByObjectId));
+    return clearTimers;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [animated]);
+
+  // Behavior puzzles: run the real value through the machines on every Run (right or wrong).
+  useEffect(() => {
+    if (!behaviorFlow || !animateSampleFlow || !runSignal) return;
+    playFrames(computeSampleFrames(nodes as Node[], edges, tokenValueByObjectId, behaviorFlow));
+    return clearTimers;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [runSignal]);
 
   const isValidConnection = useCallback(
     (c: Connection) => c.source !== null && c.target !== null && c.source !== c.target,
