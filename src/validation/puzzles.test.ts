@@ -145,9 +145,10 @@ describe('puzzle-09 — associativity', () => {
     if (!res.ok) expect(res.firstFailure.rule.type).toBe('type-valid-wiring');
   });
 
-  it('fails to reach the goal when nothing is wired', () => {
-    const res = validatePuzzle(input(), wire('puzzle-09', []));
+  it('the fake composite produces the wrong value, so the report never appears', () => {
+    // mor-gfbad : A→C but ≠ g∘f, so it makes the wrong chart and Reporter jams / wrong output.
+    const res = validatePuzzle(input(), wire('puzzle-09', [['n-a', 'n-gfbad'], ['n-gfbad', 'n-h'], ['n-h', 'n-d']]));
     expect(res.ok).toBe(false);
-    if (!res.ok) expect(res.firstFailure.rule.type).toBe('required-final-object');
+    if (!res.ok) expect(res.firstFailure.rule.type).toBe('required-output');
   });
 });

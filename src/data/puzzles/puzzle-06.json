@@ -3,97 +3,65 @@
   "id": "puzzle-06",
   "chapterId": "chapter-02-laws",
   "order": 6,
-  "title": {
-    "data": "Do Nothing First",
-    "alchemy": "Do Nothing First",
-    "spellcraft": "Do Nothing First",
-    "abstract": "Do Nothing First"
-  },
+  "title": { "data": "Do Nothing First", "alchemy": "Do Nothing First", "spellcraft": "Do Nothing First", "abstract": "Do Nothing First" },
   "conceptTags": ["identity-law"],
   "intro": {
-    "data": "A do-nothing step can sit in front of any machine. Pass the start through Pass Through, then through the Parser — you should still reach the goal, unchanged.",
-    "alchemy": "A do-nothing step can sit in front of any apparatus. Pass the start through Preserve, then through the Smelter — you should still reach the goal, unchanged.",
-    "spellcraft": "A do-nothing step can sit in front of any rune. Pass the start through Echo, then through Ignition — you should still reach the goal, unchanged.",
-    "abstract": "A do-nothing step can sit in front of any process. Apply id_A, then f — you should still reach the goal, unchanged."
+    "data": "A do-nothing step before a machine should change nothing. Two A→A steps are offered: one truly passes the value through, the other quietly smudges it (and then the Parser jams). Insert the real do-nothing step, then the Parser.",
+    "alchemy": "A do-nothing step before an apparatus should change nothing. Two A→A steps are offered: one truly preserves the material, the other taints it (and the Smelter jams). Insert the real do-nothing step, then the Smelter.",
+    "spellcraft": "A do-nothing step before a rune should change nothing. Two A→A steps are offered: one truly echoes the essence, the other warps it (and Ignition jams). Insert the real do-nothing step, then Ignition.",
+    "abstract": "A do-nothing step before f should change nothing. Of the two A→A steps, only the true identity leaves the value so f can act. Insert it, then f."
   },
-  "goal": {
-    "data": "Wire the start through Pass Through and then the Parser to reach the goal.",
-    "alchemy": "Wire the start through Preserve and then the Smelter to reach the goal.",
-    "spellcraft": "Wire the start through Echo and then Ignition to reach the goal.",
-    "abstract": "Wire the start through id_A and then f to reach the goal."
-  },
+  "goal": { "data": "Pass the input through a do-nothing step and then the Parser to reach the clean table.", "alchemy": "Preserve the input, then run the Smelter to reach the ingot.", "spellcraft": "Echo the input, then run Ignition to reach the flame.", "abstract": "id_A then f, reaching the goal value." },
   "objects": [
-    {
-      "id": "obj-a",
-      "formalLabel": "A",
-      "labels": { "data": "Raw CSV", "alchemy": "Ore", "spellcraft": "Spark", "abstract": "A" },
-      "colorToken": "sky"
-    },
-    {
-      "id": "obj-b",
-      "formalLabel": "B",
-      "labels": { "data": "Clean Table", "alchemy": "Ingot", "spellcraft": "Flame", "abstract": "B" },
-      "colorToken": "emerald"
-    }
+    { "id": "obj-a", "formalLabel": "A", "labels": { "data": "Raw CSV", "alchemy": "Ore", "spellcraft": "Spark", "abstract": "A" }, "colorToken": "sky" },
+    { "id": "obj-b", "formalLabel": "B", "labels": { "data": "Clean Table", "alchemy": "Ingot", "spellcraft": "Flame", "abstract": "B" }, "colorToken": "emerald" }
   ],
   "morphisms": [
-    {
-      "id": "mor-idA",
-      "formalLabel": "id_A",
-      "sourceObjectId": "obj-a",
-      "targetObjectId": "obj-a",
-      "labels": { "data": "Pass Through", "alchemy": "Preserve", "spellcraft": "Echo", "abstract": "id_A" },
-      "description": { "data": "A → A", "alchemy": "A → A", "spellcraft": "A → A", "abstract": "A → A" }
-    },
-    {
-      "id": "mor-f",
-      "formalLabel": "f",
-      "sourceObjectId": "obj-a",
-      "targetObjectId": "obj-b",
-      "labels": { "data": "Parser", "alchemy": "Smelter", "spellcraft": "Ignition", "abstract": "f" },
-      "description": { "data": "A → B", "alchemy": "A → B", "spellcraft": "A → B", "abstract": "A → B" }
-    }
+    { "id": "mor-idA", "formalLabel": "id_A", "sourceObjectId": "obj-a", "targetObjectId": "obj-a", "labels": { "data": "Pass Through", "alchemy": "Preserve", "spellcraft": "Echo", "abstract": "id_A" }, "action": { "v-a": "v-a" } },
+    { "id": "mor-tweak", "formalLabel": "t", "sourceObjectId": "obj-a", "targetObjectId": "obj-a", "labels": { "data": "Smudger", "alchemy": "Tainter", "spellcraft": "Warper", "abstract": "t" }, "description": { "data": "looks like id, but alters it", "alchemy": "looks like id, but alters it", "spellcraft": "looks like id, but alters it", "abstract": "A → A, not identity" }, "action": { "v-a": "v-a2" } },
+    { "id": "mor-f", "formalLabel": "f", "sourceObjectId": "obj-a", "targetObjectId": "obj-b", "labels": { "data": "Parser", "alchemy": "Smelter", "spellcraft": "Ignition", "abstract": "f" }, "action": { "v-a": "v-b" } }
   ],
-  "paths": [
-    { "id": "path-idf", "morphismIds": ["mor-idA", "mor-f"] },
-    { "id": "path-f", "morphismIds": ["mor-f"] }
+  "samples": [
+    { "id": "v-a", "objectId": "obj-a", "labels": { "data": "messy spreadsheet", "alchemy": "raw ore", "spellcraft": "wild spark", "abstract": "a" } },
+    { "id": "v-a2", "objectId": "obj-a", "labels": { "data": "smudged spreadsheet", "alchemy": "tainted ore", "spellcraft": "warped spark", "abstract": "a′" } },
+    { "id": "v-b", "objectId": "obj-b", "labels": { "data": "clean table", "alchemy": "pure ingot", "spellcraft": "steady flame", "abstract": "b" } }
   ],
-  "equivalences": [{ "id": "eq-1", "leftPathId": "path-idf", "rightPathId": "path-f" }],
   "initialGraph": {
     "nodes": [
-      { "kind": "object", "nodeId": "n-a", "objectId": "obj-a", "role": "start", "position": { "x": 40, "y": 160 } },
-      { "kind": "morphism", "nodeId": "n-id", "morphismId": "mor-idA", "position": { "x": 250, "y": 160 } },
-      { "kind": "morphism", "nodeId": "n-f", "morphismId": "mor-f", "position": { "x": 460, "y": 160 } },
-      { "kind": "object", "nodeId": "n-b", "objectId": "obj-b", "role": "goal", "position": { "x": 680, "y": 160 } }
+      { "kind": "object", "nodeId": "n-a", "objectId": "obj-a", "role": "start", "position": { "x": 30, "y": 190 } },
+      { "kind": "morphism", "nodeId": "n-id", "morphismId": "mor-idA", "position": { "x": 220, "y": 90 } },
+      { "kind": "morphism", "nodeId": "n-tweak", "morphismId": "mor-tweak", "position": { "x": 220, "y": 290 } },
+      { "kind": "morphism", "nodeId": "n-f", "morphismId": "mor-f", "position": { "x": 450, "y": 190 } },
+      { "kind": "object", "nodeId": "n-b", "objectId": "obj-b", "role": "goal", "position": { "x": 680, "y": 190 } }
     ],
     "edges": []
   },
-  "allowedMorphismIds": ["mor-idA", "mor-f"],
+  "allowedMorphismIds": ["mor-idA", "mor-tweak", "mor-f"],
   "validation": [
     { "type": "type-valid-wiring" },
-    { "type": "required-final-object", "objectId": "obj-b" },
     { "type": "concept-tag-required", "conceptTag": "identity" },
-    { "type": "path-equivalence", "leftPathId": "path-idf", "rightPathId": "path-f" }
+    { "type": "required-output", "inputValueId": "v-a", "outputValueId": "v-b" }
   ],
   "reveal": {
     "afterSuccess": {
-      "data": "The Pass Through step did nothing, and you still reached the goal. Composing a machine with a do-nothing step gives back the same machine.",
-      "alchemy": "The Preserve step did nothing, and you still reached the goal. Composing an apparatus with a do-nothing step gives back the same apparatus.",
-      "spellcraft": "The Echo step did nothing, and you still reached the goal. Composing a rune with a do-nothing step gives back the same rune.",
-      "abstract": "The identity step did nothing, and you still reached the goal. Composing a morphism with identity gives back the same morphism."
+      "data": "The real Pass Through left the value untouched, so the Parser saw exactly what it always sees. The Smudger looked identical in type but changed the value and jammed the Parser. f ∘ id_A = f only for the true identity.",
+      "alchemy": "Preserve left the material untouched, so the Smelter saw what it always sees. The Tainter changed it and jammed. f ∘ id_A = f only for the true identity.",
+      "spellcraft": "Echo left the essence untouched, so Ignition saw what it always sees. The Warper changed it and jammed. f ∘ id_A = f only for the true identity.",
+      "abstract": "The identity left the value unchanged, so f behaved as itself: f ∘ id_A = f. The look-alike altered it and broke the chain."
     },
-    "summary": "This is the identity law: putting an identity step before a process leaves it unchanged. f ∘ id_A is just f.",
+    "summary": "The identity law: composing a process with the identity leaves it unchanged. f ∘ id_A = f — but only for the genuine identity, which leaves every value exactly as it found it.",
     "notation": ["f ∘ id_A = f"],
-    "moreFormal": "For every object A there is an identity morphism id_A. It is neutral for composition: for any f : A → B, f ∘ id_A = f. (And on the other side, id_B ∘ f = f.)",
-    "programmerAnalogy": "f(id(x)) === f(x), where id = (x) => x."
+    "moreFormal": "id_A is the two-sided unit for composition. Being A → A is not enough; identity must act as the do-nothing map on values.",
+    "programmerAnalogy": "f(id(x)) === f(x), where id = (x) => x — a mutating look-alike would break this."
   },
   "glossaryUnlocks": ["identity-law"],
   "referenceSolution": {
     "nodes": [
-      { "kind": "object", "nodeId": "n-a", "objectId": "obj-a", "role": "start", "position": { "x": 40, "y": 160 } },
-      { "kind": "morphism", "nodeId": "n-id", "morphismId": "mor-idA", "position": { "x": 250, "y": 160 } },
-      { "kind": "morphism", "nodeId": "n-f", "morphismId": "mor-f", "position": { "x": 460, "y": 160 } },
-      { "kind": "object", "nodeId": "n-b", "objectId": "obj-b", "role": "goal", "position": { "x": 680, "y": 160 } }
+      { "kind": "object", "nodeId": "n-a", "objectId": "obj-a", "role": "start", "position": { "x": 30, "y": 190 } },
+      { "kind": "morphism", "nodeId": "n-id", "morphismId": "mor-idA", "position": { "x": 220, "y": 90 } },
+      { "kind": "morphism", "nodeId": "n-tweak", "morphismId": "mor-tweak", "position": { "x": 220, "y": 290 } },
+      { "kind": "morphism", "nodeId": "n-f", "morphismId": "mor-f", "position": { "x": 450, "y": 190 } },
+      { "kind": "object", "nodeId": "n-b", "objectId": "obj-b", "role": "goal", "position": { "x": 680, "y": 190 } }
     ],
     "edges": [
       { "id": "e-a-id", "sourceNodeId": "n-a", "targetNodeId": "n-id" },

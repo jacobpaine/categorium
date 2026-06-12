@@ -3,123 +3,73 @@
   "id": "puzzle-08",
   "chapterId": "chapter-02-laws",
   "order": 8,
-  "title": {
-    "data": "Redundant Steps",
-    "alchemy": "Redundant Steps",
-    "spellcraft": "Redundant Steps",
-    "abstract": "Redundant Steps"
-  },
+  "title": { "data": "Redundant Steps", "alchemy": "Redundant Steps", "spellcraft": "Redundant Steps", "abstract": "Redundant Steps" },
   "conceptTags": ["identity-law"],
   "intro": {
-    "data": "Do-nothing steps can be sprinkled anywhere in a pipeline. Build the long route — Pass Through, Parser, Pass Through, Charter — and you still get the same result as the plain two-machine chain.",
-    "alchemy": "Do-nothing steps can be sprinkled anywhere. Build the long route — Preserve, Smelter, Preserve, Toolsmith — and you still get the same result as the plain two-apparatus chain.",
-    "spellcraft": "Do-nothing steps can be sprinkled anywhere. Build the long route — Echo, Ignition, Echo, Kindler — and you still get the same result as the plain two-rune chain.",
-    "abstract": "Identity steps can be inserted anywhere. Build the long route — id_A, f, id_B, g — and you still get the same result as the plain chain g ∘ f."
+    "data": "Do-nothing steps can sit anywhere — as long as they really do nothing. Sprinkle Pass Through steps into the Parser→Charter pipeline and still land on the clear chart. Beware the Smudger that only looks like a do-nothing.",
+    "alchemy": "Do-nothing steps can sit anywhere — as long as they really do nothing. Sprinkle Preserve steps into the pipeline and still land on the fine tool. Beware the Tainter.",
+    "spellcraft": "Do-nothing steps can sit anywhere — as long as they really do nothing. Sprinkle Echo steps into the working and still land on the bright beacon. Beware the Warper.",
+    "abstract": "Identity steps can be inserted anywhere they truly leave the value alone. Build id_A, f, id_B, g and still reach the goal value."
   },
-  "goal": {
-    "data": "Chain all four machines from the start to the goal, do-nothing steps included.",
-    "alchemy": "Chain all four apparatuses from the start to the goal, do-nothing steps included.",
-    "spellcraft": "Chain all four runes from the start to the goal, do-nothing steps included.",
-    "abstract": "Chain id_A, f, id_B, g from the start to the goal."
-  },
+  "goal": { "data": "Chain the pipeline with do-nothing steps and still produce the clear chart.", "alchemy": "Chain the pipeline with do-nothing steps and still produce the fine tool.", "spellcraft": "Chain the working with do-nothing steps and still produce the bright beacon.", "abstract": "Reach the goal value with identity steps inserted." },
   "objects": [
-    {
-      "id": "obj-a",
-      "formalLabel": "A",
-      "labels": { "data": "Raw CSV", "alchemy": "Ore", "spellcraft": "Spark", "abstract": "A" },
-      "colorToken": "sky"
-    },
-    {
-      "id": "obj-b",
-      "formalLabel": "B",
-      "labels": { "data": "Clean Table", "alchemy": "Ingot", "spellcraft": "Flame", "abstract": "B" },
-      "colorToken": "emerald"
-    },
-    {
-      "id": "obj-c",
-      "formalLabel": "C",
-      "labels": { "data": "Chart", "alchemy": "Tool", "spellcraft": "Beacon", "abstract": "C" },
-      "colorToken": "amber"
-    }
+    { "id": "obj-a", "formalLabel": "A", "labels": { "data": "Raw CSV", "alchemy": "Ore", "spellcraft": "Spark", "abstract": "A" }, "colorToken": "sky" },
+    { "id": "obj-b", "formalLabel": "B", "labels": { "data": "Clean Table", "alchemy": "Ingot", "spellcraft": "Flame", "abstract": "B" }, "colorToken": "emerald" },
+    { "id": "obj-c", "formalLabel": "C", "labels": { "data": "Chart", "alchemy": "Tool", "spellcraft": "Beacon", "abstract": "C" }, "colorToken": "amber" }
   ],
   "morphisms": [
-    {
-      "id": "mor-idA",
-      "formalLabel": "id_A",
-      "sourceObjectId": "obj-a",
-      "targetObjectId": "obj-a",
-      "labels": { "data": "Pass Through", "alchemy": "Preserve", "spellcraft": "Echo", "abstract": "id_A" },
-      "description": { "data": "A → A", "alchemy": "A → A", "spellcraft": "A → A", "abstract": "A → A" }
-    },
-    {
-      "id": "mor-f",
-      "formalLabel": "f",
-      "sourceObjectId": "obj-a",
-      "targetObjectId": "obj-b",
-      "labels": { "data": "Parser", "alchemy": "Smelter", "spellcraft": "Ignition", "abstract": "f" },
-      "description": { "data": "A → B", "alchemy": "A → B", "spellcraft": "A → B", "abstract": "A → B" }
-    },
-    {
-      "id": "mor-idB",
-      "formalLabel": "id_B",
-      "sourceObjectId": "obj-b",
-      "targetObjectId": "obj-b",
-      "labels": { "data": "Pass Through", "alchemy": "Preserve", "spellcraft": "Echo", "abstract": "id_B" },
-      "description": { "data": "B → B", "alchemy": "B → B", "spellcraft": "B → B", "abstract": "B → B" }
-    },
-    {
-      "id": "mor-g",
-      "formalLabel": "g",
-      "sourceObjectId": "obj-b",
-      "targetObjectId": "obj-c",
-      "labels": { "data": "Charter", "alchemy": "Toolsmith", "spellcraft": "Kindler", "abstract": "g" },
-      "description": { "data": "B → C", "alchemy": "B → C", "spellcraft": "B → C", "abstract": "B → C" }
-    }
+    { "id": "mor-idA", "formalLabel": "id_A", "sourceObjectId": "obj-a", "targetObjectId": "obj-a", "labels": { "data": "Pass Through", "alchemy": "Preserve", "spellcraft": "Echo", "abstract": "id_A" }, "action": { "v-a": "v-a" } },
+    { "id": "mor-tweak", "formalLabel": "t", "sourceObjectId": "obj-a", "targetObjectId": "obj-a", "labels": { "data": "Smudger", "alchemy": "Tainter", "spellcraft": "Warper", "abstract": "t" }, "description": { "data": "A → A, not identity", "alchemy": "A → A, not identity", "spellcraft": "A → A, not identity", "abstract": "A → A, not identity" }, "action": { "v-a": "v-a2" } },
+    { "id": "mor-f", "formalLabel": "f", "sourceObjectId": "obj-a", "targetObjectId": "obj-b", "labels": { "data": "Parser", "alchemy": "Smelter", "spellcraft": "Ignition", "abstract": "f" }, "action": { "v-a": "v-b" } },
+    { "id": "mor-idB", "formalLabel": "id_B", "sourceObjectId": "obj-b", "targetObjectId": "obj-b", "labels": { "data": "Pass Through", "alchemy": "Preserve", "spellcraft": "Echo", "abstract": "id_B" }, "action": { "v-b": "v-b" } },
+    { "id": "mor-g", "formalLabel": "g", "sourceObjectId": "obj-b", "targetObjectId": "obj-c", "labels": { "data": "Charter", "alchemy": "Toolsmith", "spellcraft": "Kindler", "abstract": "g" }, "action": { "v-b": "v-c" } }
   ],
-  "paths": [
-    { "id": "path-messy", "morphismIds": ["mor-idA", "mor-f", "mor-idB", "mor-g"] },
-    { "id": "path-clean", "morphismIds": ["mor-f", "mor-g"] }
+  "samples": [
+    { "id": "v-a", "objectId": "obj-a", "labels": { "data": "messy spreadsheet", "alchemy": "raw ore", "spellcraft": "wild spark", "abstract": "a" } },
+    { "id": "v-a2", "objectId": "obj-a", "labels": { "data": "smudged spreadsheet", "alchemy": "tainted ore", "spellcraft": "warped spark", "abstract": "a′" } },
+    { "id": "v-b", "objectId": "obj-b", "labels": { "data": "clean table", "alchemy": "pure ingot", "spellcraft": "steady flame", "abstract": "b" } },
+    { "id": "v-c", "objectId": "obj-c", "labels": { "data": "clear chart", "alchemy": "fine tool", "spellcraft": "bright beacon", "abstract": "c" } }
   ],
-  "equivalences": [{ "id": "eq-1", "leftPathId": "path-messy", "rightPathId": "path-clean" }],
   "initialGraph": {
     "nodes": [
-      { "kind": "object", "nodeId": "n-a", "objectId": "obj-a", "role": "start", "position": { "x": 20, "y": 160 } },
-      { "kind": "morphism", "nodeId": "n-idA", "morphismId": "mor-idA", "position": { "x": 180, "y": 160 } },
-      { "kind": "morphism", "nodeId": "n-f", "morphismId": "mor-f", "position": { "x": 340, "y": 160 } },
-      { "kind": "morphism", "nodeId": "n-idB", "morphismId": "mor-idB", "position": { "x": 500, "y": 160 } },
-      { "kind": "morphism", "nodeId": "n-g", "morphismId": "mor-g", "position": { "x": 660, "y": 160 } },
-      { "kind": "object", "nodeId": "n-c", "objectId": "obj-c", "role": "goal", "position": { "x": 820, "y": 160 } }
+      { "kind": "object", "nodeId": "n-a", "objectId": "obj-a", "role": "start", "position": { "x": 20, "y": 200 } },
+      { "kind": "morphism", "nodeId": "n-idA", "morphismId": "mor-idA", "position": { "x": 150, "y": 110 } },
+      { "kind": "morphism", "nodeId": "n-tweak", "morphismId": "mor-tweak", "position": { "x": 150, "y": 300 } },
+      { "kind": "morphism", "nodeId": "n-f", "morphismId": "mor-f", "position": { "x": 300, "y": 200 } },
+      { "kind": "morphism", "nodeId": "n-idB", "morphismId": "mor-idB", "position": { "x": 450, "y": 110 } },
+      { "kind": "morphism", "nodeId": "n-g", "morphismId": "mor-g", "position": { "x": 600, "y": 200 } },
+      { "kind": "object", "nodeId": "n-c", "objectId": "obj-c", "role": "goal", "position": { "x": 750, "y": 200 } }
     ],
     "edges": []
   },
-  "allowedMorphismIds": ["mor-idA", "mor-f", "mor-idB", "mor-g"],
+  "allowedMorphismIds": ["mor-idA", "mor-tweak", "mor-f", "mor-idB", "mor-g"],
   "validation": [
     { "type": "type-valid-wiring" },
-    { "type": "required-final-object", "objectId": "obj-c" },
     { "type": "concept-tag-required", "conceptTag": "identity" },
-    { "type": "path-equivalence", "leftPathId": "path-messy", "rightPathId": "path-clean" }
+    { "type": "required-output", "inputValueId": "v-a", "outputValueId": "v-c" }
   ],
   "reveal": {
     "afterSuccess": {
-      "data": "Two do-nothing steps, and the result was identical to the plain Parser-then-Charter chain. Identities can sit anywhere in a pipeline without changing it.",
-      "alchemy": "Two do-nothing steps, and the result was identical to the plain Smelter-then-Toolsmith chain. Identities can sit anywhere without changing it.",
-      "spellcraft": "Two do-nothing steps, and the result was identical to the plain Ignition-then-Kindler chain. Identities can sit anywhere without changing it.",
-      "abstract": "Two identity steps, and the result was identical to g ∘ f. Identities can sit anywhere in a chain without changing it."
+      "data": "Two real do-nothing steps, and the result was identical to the plain Parser→Charter pipeline. Genuine identities can be inserted anywhere; a smudging look-alike cannot.",
+      "alchemy": "Two real do-nothing steps, identical to the plain pipeline. Genuine identities insert anywhere; a tainting look-alike cannot.",
+      "spellcraft": "Two real do-nothing steps, identical to the plain working. Genuine identities insert anywhere; a warping look-alike cannot.",
+      "abstract": "Identities collapse out of the composite: g ∘ id_B ∘ f ∘ id_A = g ∘ f — only the real ones."
     },
-    "summary": "Because every identity step is neutral, you can insert or remove them freely: id_A, f, id_B, g composes to exactly the same arrow as g ∘ f.",
+    "summary": "Because each genuine identity leaves every value unchanged, you can insert or remove them freely without changing the composite.",
     "notation": ["g ∘ id_B ∘ f ∘ id_A = g ∘ f"],
-    "moreFormal": "Repeatedly applying the identity law collapses every identity in a chain. Only the non-identity steps determine the composite.",
+    "moreFormal": "Repeated use of the identity law removes every identity from a chain. Only the non-identity steps determine the result.",
     "programmerAnalogy": "g(id(f(id(x)))) === g(f(x))."
   },
   "glossaryUnlocks": [],
   "referenceSolution": {
     "nodes": [
-      { "kind": "object", "nodeId": "n-a", "objectId": "obj-a", "role": "start", "position": { "x": 20, "y": 160 } },
-      { "kind": "morphism", "nodeId": "n-idA", "morphismId": "mor-idA", "position": { "x": 180, "y": 160 } },
-      { "kind": "morphism", "nodeId": "n-f", "morphismId": "mor-f", "position": { "x": 340, "y": 160 } },
-      { "kind": "morphism", "nodeId": "n-idB", "morphismId": "mor-idB", "position": { "x": 500, "y": 160 } },
-      { "kind": "morphism", "nodeId": "n-g", "morphismId": "mor-g", "position": { "x": 660, "y": 160 } },
-      { "kind": "object", "nodeId": "n-c", "objectId": "obj-c", "role": "goal", "position": { "x": 820, "y": 160 } }
+      { "kind": "object", "nodeId": "n-a", "objectId": "obj-a", "role": "start", "position": { "x": 20, "y": 200 } },
+      { "kind": "morphism", "nodeId": "n-idA", "morphismId": "mor-idA", "position": { "x": 150, "y": 110 } },
+      { "kind": "morphism", "nodeId": "n-tweak", "morphismId": "mor-tweak", "position": { "x": 150, "y": 300 } },
+      { "kind": "morphism", "nodeId": "n-f", "morphismId": "mor-f", "position": { "x": 300, "y": 200 } },
+      { "kind": "morphism", "nodeId": "n-idB", "morphismId": "mor-idB", "position": { "x": 450, "y": 110 } },
+      { "kind": "morphism", "nodeId": "n-g", "morphismId": "mor-g", "position": { "x": 600, "y": 200 } },
+      { "kind": "object", "nodeId": "n-c", "objectId": "obj-c", "role": "goal", "position": { "x": 750, "y": 200 } }
     ],
     "edges": [
       { "id": "e-a-idA", "sourceNodeId": "n-a", "targetNodeId": "n-idA" },
