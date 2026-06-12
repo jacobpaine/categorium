@@ -119,6 +119,26 @@ describe('puzzle-17 — product (project out)', () => {
     expect(res.ok).toBe(false);
     if (!res.ok) expect(res.firstFailure.rule.type).toBe('type-valid-wiring');
   });
+
+  it('rejects the look-alike projection that returns the wrong name', () => {
+    const res = validatePuzzle(input(), wire('puzzle-17', [['n-p', 'n-pi1bad'], ['n-pi1bad', 'n-a']]));
+    expect(res.ok).toBe(false);
+    if (!res.ok) expect(res.firstFailure.rule.type).toBe('required-output');
+  });
+});
+
+describe('puzzle-19 — coproduct must handle BOTH cases', () => {
+  const input = () => toValidationInput(getPuzzle('puzzle-19') as never);
+
+  it('the genuine case-split handles card and cash', () => {
+    expect(validatePuzzle(input(), wire('puzzle-19', [['n-s', 'n-case'], ['n-case', 'n-y']])).ok).toBe(true);
+  });
+
+  it('the look-alike that mishandles the card case is rejected', () => {
+    const res = validatePuzzle(input(), wire('puzzle-19', [['n-s', 'n-casebad'], ['n-casebad', 'n-y']]));
+    expect(res.ok).toBe(false);
+    if (!res.ok) expect(res.firstFailure.rule.type).toBe('required-output');
+  });
 });
 
 describe('puzzle-12 — isomorphism (choose the true inverse)', () => {

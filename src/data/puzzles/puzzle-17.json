@@ -3,67 +3,66 @@
   "id": "puzzle-17",
   "chapterId": "chapter-05-products",
   "order": 17,
-  "title": {
-    "data": "Project Out",
-    "alchemy": "Project Out",
-    "spellcraft": "Project Out",
-    "abstract": "Project Out"
-  },
+  "title": { "data": "Project Out", "alchemy": "Project Out", "spellcraft": "Project Out", "abstract": "Project Out" },
   "conceptTags": ["product"],
   "intro": {
-    "data": "A product bundles two things into one. A Record holds a Name and an Age together — and it comes with two projections to pull each part back out. Recover the Name.",
-    "alchemy": "A product bundles two things into one. A Compound holds Salt and Sulfur together — and it comes with two projections to pull each part back out. Recover the Salt.",
-    "spellcraft": "A product bundles two things into one. A Blend holds Light and Heat together — and it comes with two projections to pull each part back out. Recover the Light.",
-    "abstract": "A product A×B bundles two objects, with projections π₁ and π₂ to recover each. Recover A."
+    "data": "A record bundles a name and an age. Pull the NAME back out. Two extractors return an A — one gives the right name, the other gives the wrong one. Pick the genuine projection.",
+    "alchemy": "A compound bundles salt and sulfur. Pull the SALT back out. Two extractors return an A — one right, one wrong. Pick the genuine projection.",
+    "spellcraft": "A blend bundles light and heat. Pull the LIGHT back out. Two extractors return an A — one right, one wrong. Pick the genuine projection.",
+    "abstract": "A×B bundles A and B. Recover A with the projection that returns the right component value."
   },
-  "goal": {
-    "data": "Wire the Record through the projection that recovers the Name.",
-    "alchemy": "Wire the Compound through the projection that recovers the Salt.",
-    "spellcraft": "Wire the Blend through the projection that recovers the Light.",
-    "abstract": "Wire A×B through π₁ to reach A."
-  },
+  "goal": { "data": "Project the record to recover the name (Ada).", "alchemy": "Project the compound to recover the salt.", "spellcraft": "Project the blend to recover the light.", "abstract": "Recover the A-component value." },
   "objects": [
     { "id": "obj-p", "formalLabel": "A×B", "labels": { "data": "Record", "alchemy": "Compound", "spellcraft": "Blend", "abstract": "A×B" }, "colorToken": "violet" },
     { "id": "obj-a", "formalLabel": "A", "labels": { "data": "Name", "alchemy": "Salt", "spellcraft": "Light", "abstract": "A" }, "colorToken": "sky" },
     { "id": "obj-b", "formalLabel": "B", "labels": { "data": "Age", "alchemy": "Sulfur", "spellcraft": "Heat", "abstract": "B" }, "colorToken": "emerald" }
   ],
   "morphisms": [
-    { "id": "mor-pi1", "formalLabel": "π₁", "sourceObjectId": "obj-p", "targetObjectId": "obj-a", "labels": { "data": "getName", "alchemy": "Salt Out", "spellcraft": "Draw Light", "abstract": "π₁" }, "description": { "data": "A×B → A", "alchemy": "A×B → A", "spellcraft": "A×B → A", "abstract": "A×B → A" } },
-    { "id": "mor-pi2", "formalLabel": "π₂", "sourceObjectId": "obj-p", "targetObjectId": "obj-b", "labels": { "data": "getAge", "alchemy": "Sulfur Out", "spellcraft": "Draw Heat", "abstract": "π₂" }, "description": { "data": "A×B → B", "alchemy": "A×B → B", "spellcraft": "A×B → B", "abstract": "A×B → B" } }
+    { "id": "mor-pi1", "formalLabel": "π₁", "sourceObjectId": "obj-p", "targetObjectId": "obj-a", "labels": { "data": "getName", "alchemy": "Salt Out", "spellcraft": "Draw Light", "abstract": "π₁" }, "description": { "data": "the true first projection", "alchemy": "the true first projection", "spellcraft": "the true first projection", "abstract": "A×B → A" }, "action": { "v-rec": "v-name" } },
+    { "id": "mor-pi1bad", "formalLabel": "π₁?", "sourceObjectId": "obj-p", "targetObjectId": "obj-a", "labels": { "data": "Misread Name", "alchemy": "Mis-Salt", "spellcraft": "Mis-Light", "abstract": "π₁?" }, "description": { "data": "returns the wrong name", "alchemy": "returns the wrong salt", "spellcraft": "returns the wrong light", "abstract": "A×B → A, but wrong" }, "action": { "v-rec": "v-wrong" } },
+    { "id": "mor-pi2", "formalLabel": "π₂", "sourceObjectId": "obj-p", "targetObjectId": "obj-b", "labels": { "data": "getAge", "alchemy": "Sulfur Out", "spellcraft": "Draw Heat", "abstract": "π₂" }, "action": { "v-rec": "v-age" } }
+  ],
+  "samples": [
+    { "id": "v-rec", "objectId": "obj-p", "labels": { "data": "record {Ada, 30}", "alchemy": "salt+sulfur compound", "spellcraft": "light+heat blend", "abstract": "(a,b)" } },
+    { "id": "v-name", "objectId": "obj-a", "labels": { "data": "Ada", "alchemy": "the salt", "spellcraft": "the light", "abstract": "a" } },
+    { "id": "v-age", "objectId": "obj-b", "labels": { "data": "30", "alchemy": "the sulfur", "spellcraft": "the heat", "abstract": "b" } },
+    { "id": "v-wrong", "objectId": "obj-a", "labels": { "data": "Bob (wrong)", "alchemy": "wrong salt", "spellcraft": "wrong light", "abstract": "a′" } }
   ],
   "initialGraph": {
     "nodes": [
-      { "kind": "object", "nodeId": "n-p", "objectId": "obj-p", "role": "start", "position": { "x": 40, "y": 170 } },
+      { "kind": "object", "nodeId": "n-p", "objectId": "obj-p", "role": "start", "position": { "x": 40, "y": 200 } },
       { "kind": "morphism", "nodeId": "n-pi1", "morphismId": "mor-pi1", "position": { "x": 300, "y": 80 } },
-      { "kind": "morphism", "nodeId": "n-pi2", "morphismId": "mor-pi2", "position": { "x": 300, "y": 270 } },
-      { "kind": "object", "nodeId": "n-a", "objectId": "obj-a", "role": "goal", "position": { "x": 560, "y": 170 } }
+      { "kind": "morphism", "nodeId": "n-pi1bad", "morphismId": "mor-pi1bad", "position": { "x": 300, "y": 200 } },
+      { "kind": "morphism", "nodeId": "n-pi2", "morphismId": "mor-pi2", "position": { "x": 300, "y": 320 } },
+      { "kind": "object", "nodeId": "n-a", "objectId": "obj-a", "role": "goal", "position": { "x": 560, "y": 200 } }
     ],
     "edges": []
   },
-  "allowedMorphismIds": ["mor-pi1", "mor-pi2"],
+  "allowedMorphismIds": ["mor-pi1", "mor-pi1bad", "mor-pi2"],
   "validation": [
     { "type": "type-valid-wiring" },
-    { "type": "required-final-object", "objectId": "obj-a" }
+    { "type": "required-output", "inputValueId": "v-rec", "outputValueId": "v-name" }
   ],
   "reveal": {
     "afterSuccess": {
-      "data": "The projection pulled the Name back out of the Record. A product always comes with two projections — getName and getAge — one for each part it bundles.",
-      "alchemy": "The projection pulled the Salt back out of the Compound. A product always comes with two projections, one for each part it bundles.",
-      "spellcraft": "The projection pulled the Light back out of the Blend. A product always comes with two projections, one for each part it bundles.",
-      "abstract": "π₁ recovered A from A×B. A product comes with two projections π₁, π₂ — one for each factor."
+      "data": "getName recovered exactly the name that went into the record. The look-alike was the same type but returned the wrong name. A product's projections faithfully read each component back out.",
+      "alchemy": "Salt Out recovered exactly the salt in the compound. The look-alike returned the wrong one. Projections faithfully read each component.",
+      "spellcraft": "Draw Light recovered exactly the light in the blend. The look-alike returned the wrong one. Projections faithfully read each component.",
+      "abstract": "The true projection returned the bundled component; the look-alike did not."
     },
-    "summary": "A product A×B bundles two objects and provides projections π₁ : A×B → A and π₂ : A×B → B to read each component back out.",
+    "summary": "A product A×B has projections π₁ : A×B → A and π₂ : A×B → B that read each component back. They must return the actual bundled value.",
     "notation": ["π₁ : A×B → A", "π₂ : A×B → B"],
-    "moreFormal": "What makes A×B a product isn't just the projections — it's the universal property: any pair of maps into A and B factors uniquely through A×B. That's the next puzzle.",
-    "programmerAnalogy": "record.name and record.age — a tuple with two accessors."
+    "moreFormal": "What makes A×B a product is the universal property (next puzzle): any pair of maps into A and B factors uniquely through it.",
+    "programmerAnalogy": "record.name and record.age — accessors that return the stored value."
   },
   "glossaryUnlocks": ["product"],
   "referenceSolution": {
     "nodes": [
-      { "kind": "object", "nodeId": "n-p", "objectId": "obj-p", "role": "start", "position": { "x": 40, "y": 170 } },
+      { "kind": "object", "nodeId": "n-p", "objectId": "obj-p", "role": "start", "position": { "x": 40, "y": 200 } },
       { "kind": "morphism", "nodeId": "n-pi1", "morphismId": "mor-pi1", "position": { "x": 300, "y": 80 } },
-      { "kind": "morphism", "nodeId": "n-pi2", "morphismId": "mor-pi2", "position": { "x": 300, "y": 270 } },
-      { "kind": "object", "nodeId": "n-a", "objectId": "obj-a", "role": "goal", "position": { "x": 560, "y": 170 } }
+      { "kind": "morphism", "nodeId": "n-pi1bad", "morphismId": "mor-pi1bad", "position": { "x": 300, "y": 200 } },
+      { "kind": "morphism", "nodeId": "n-pi2", "morphismId": "mor-pi2", "position": { "x": 300, "y": 320 } },
+      { "kind": "object", "nodeId": "n-a", "objectId": "obj-a", "role": "goal", "position": { "x": 560, "y": 200 } }
     ],
     "edges": [
       { "id": "e-p-pi1", "sourceNodeId": "n-p", "targetNodeId": "n-pi1" },

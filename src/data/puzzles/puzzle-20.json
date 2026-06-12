@@ -3,78 +3,61 @@
   "id": "puzzle-20",
   "chapterId": "chapter-05-products",
   "order": 20,
-  "title": {
-    "data": "Make a Copy",
-    "alchemy": "Make a Copy",
-    "spellcraft": "Make a Copy",
-    "abstract": "Make a Copy"
-  },
+  "title": { "data": "Make a Copy", "alchemy": "Make a Copy", "spellcraft": "Make a Copy", "abstract": "Make a Copy" },
   "conceptTags": ["product"],
   "intro": {
-    "data": "Pairing is powerful: pair a thing with itself and you get a duplicator. Build the Diagonal that turns one value into a pair of identical copies — projecting either side gives the original back.",
-    "alchemy": "Pairing is powerful: pair a thing with itself and you get a duplicator. Build the Diagonal that turns one material into a pair of identical copies — projecting either side gives the original back.",
-    "spellcraft": "Pairing is powerful: pair a thing with itself and you get a duplicator. Build the Diagonal that turns one essence into a pair of identical copies — drawing either side gives the original back.",
-    "abstract": "Pair an object with itself: Δ = ⟨id, id⟩ : A → A×A. Build it, so π₁∘Δ = id_A and π₂∘Δ = id_A."
+    "data": "Pair a thing with itself and you get a duplicator. Build the Diagonal that copies the name into a pair of IDENTICAL copies — so both projections return the original. One machine makes a true twin; the other makes a mismatched pair. Pick the real Diagonal.",
+    "alchemy": "Pair a thing with itself and you get a duplicator. Build the Diagonal that copies the salt into identical twins. One makes a true twin; the other a mismatch. Pick the real Diagonal.",
+    "spellcraft": "Pair a thing with itself and you get a duplicator. Build the Diagonal that copies the light into identical twins. One is a true twin; the other a mismatch. Pick the real Diagonal.",
+    "abstract": "Δ = ⟨id, id⟩ : A→A×A. Pick the one that makes an equal pair, so π₁∘Δ = π₂∘Δ = id."
   },
-  "goal": {
-    "data": "Wire the Name through the Diagonal to produce the pair of copies.",
-    "alchemy": "Wire the Salt through the Diagonal to produce the pair of copies.",
-    "spellcraft": "Wire the Light through the Diagonal to produce the pair of copies.",
-    "abstract": "Wire A through Δ to reach A×A."
-  },
+  "goal": { "data": "Duplicate the name into an identical pair.", "alchemy": "Duplicate the salt into identical twins.", "spellcraft": "Duplicate the light into identical twins.", "abstract": "Build A×A as two equal copies of A." },
   "objects": [
     { "id": "obj-a", "formalLabel": "A", "labels": { "data": "Name", "alchemy": "Salt", "spellcraft": "Light", "abstract": "A" }, "colorToken": "sky" },
     { "id": "obj-p", "formalLabel": "A×A", "labels": { "data": "Two Names", "alchemy": "Salt Pair", "spellcraft": "Twin Light", "abstract": "A×A" }, "colorToken": "violet" }
   ],
   "morphisms": [
-    { "id": "mor-delta", "formalLabel": "Δ", "sourceObjectId": "obj-a", "targetObjectId": "obj-p", "labels": { "data": "duplicate", "alchemy": "Twin", "spellcraft": "Mirror", "abstract": "Δ" }, "description": { "data": "A → A×A", "alchemy": "A → A×A", "spellcraft": "A → A×A", "abstract": "A → A×A" } },
-    { "id": "mor-pi1", "formalLabel": "π₁", "sourceObjectId": "obj-p", "targetObjectId": "obj-a", "labels": { "data": "first", "alchemy": "Left Out", "spellcraft": "Draw First", "abstract": "π₁" }, "description": { "data": "A×A → A", "alchemy": "A×A → A", "spellcraft": "A×A → A", "abstract": "A×A → A" } },
-    { "id": "mor-pi2", "formalLabel": "π₂", "sourceObjectId": "obj-p", "targetObjectId": "obj-a", "labels": { "data": "second", "alchemy": "Right Out", "spellcraft": "Draw Second", "abstract": "π₂" }, "description": { "data": "A×A → A", "alchemy": "A×A → A", "spellcraft": "A×A → A", "abstract": "A×A → A" } },
-    { "id": "mor-idA", "formalLabel": "id_A", "sourceObjectId": "obj-a", "targetObjectId": "obj-a", "labels": { "data": "Pass Through", "alchemy": "Preserve", "spellcraft": "Echo", "abstract": "id_A" }, "description": { "data": "A → A", "alchemy": "A → A", "spellcraft": "A → A", "abstract": "A → A" } }
+    { "id": "mor-delta", "formalLabel": "Δ", "sourceObjectId": "obj-a", "targetObjectId": "obj-p", "labels": { "data": "Duplicate", "alchemy": "Twin", "spellcraft": "Mirror", "abstract": "Δ" }, "description": { "data": "two identical copies", "alchemy": "two identical copies", "spellcraft": "two identical copies", "abstract": "⟨id, id⟩" }, "action": { "v-a": "v-pair" } },
+    { "id": "mor-deltabad", "formalLabel": "Δ?", "sourceObjectId": "obj-a", "targetObjectId": "obj-p", "labels": { "data": "Mispair", "alchemy": "Mis-Twin", "spellcraft": "Mis-Mirror", "abstract": "Δ?" }, "description": { "data": "a mismatched pair", "alchemy": "a mismatched pair", "spellcraft": "a mismatched pair", "abstract": "not the diagonal" }, "action": { "v-a": "v-pairbad" } }
   ],
-  "paths": [
-    { "id": "path-d-pi1", "morphismIds": ["mor-delta", "mor-pi1"] },
-    { "id": "path-d-pi2", "morphismIds": ["mor-delta", "mor-pi2"] },
-    { "id": "path-idA", "morphismIds": ["mor-idA"] }
-  ],
-  "equivalences": [
-    { "id": "eq-1", "leftPathId": "path-d-pi1", "rightPathId": "path-idA" },
-    { "id": "eq-2", "leftPathId": "path-d-pi2", "rightPathId": "path-idA" }
+  "samples": [
+    { "id": "v-a", "objectId": "obj-a", "labels": { "data": "Ada", "alchemy": "the salt", "spellcraft": "the light", "abstract": "a" } },
+    { "id": "v-pair", "objectId": "obj-p", "labels": { "data": "{Ada, Ada}", "alchemy": "salt + same salt", "spellcraft": "light + same light", "abstract": "(a,a)" } },
+    { "id": "v-pairbad", "objectId": "obj-p", "labels": { "data": "{Ada, Bob}", "alchemy": "salt + other salt", "spellcraft": "light + other light", "abstract": "(a,a′)" } }
   ],
   "initialGraph": {
     "nodes": [
-      { "kind": "object", "nodeId": "n-a", "objectId": "obj-a", "role": "start", "position": { "x": 40, "y": 160 } },
-      { "kind": "morphism", "nodeId": "n-delta", "morphismId": "mor-delta", "position": { "x": 320, "y": 160 } },
-      { "kind": "object", "nodeId": "n-p", "objectId": "obj-p", "role": "goal", "position": { "x": 600, "y": 160 } }
+      { "kind": "object", "nodeId": "n-a", "objectId": "obj-a", "role": "start", "position": { "x": 40, "y": 190 } },
+      { "kind": "morphism", "nodeId": "n-delta", "morphismId": "mor-delta", "position": { "x": 320, "y": 90 } },
+      { "kind": "morphism", "nodeId": "n-deltabad", "morphismId": "mor-deltabad", "position": { "x": 320, "y": 290 } },
+      { "kind": "object", "nodeId": "n-p", "objectId": "obj-p", "role": "goal", "position": { "x": 620, "y": 190 } }
     ],
     "edges": []
   },
-  "allowedMorphismIds": ["mor-delta"],
+  "allowedMorphismIds": ["mor-delta", "mor-deltabad"],
   "validation": [
     { "type": "type-valid-wiring" },
-    { "type": "allowed-morphisms-only", "morphismIds": ["mor-delta"] },
-    { "type": "required-final-object", "objectId": "obj-p" },
-    { "type": "path-equivalence", "leftPathId": "path-d-pi1", "rightPathId": "path-idA" },
-    { "type": "path-equivalence", "leftPathId": "path-d-pi2", "rightPathId": "path-idA" }
+    { "type": "required-output", "inputValueId": "v-a", "outputValueId": "v-pair" }
   ],
   "reveal": {
     "afterSuccess": {
-      "data": "The Diagonal is just ⟨id, id⟩ — pairing a thing with itself. Both projections give back the original, so it's a faithful copy. The product's universal property gives you duplication for free.",
-      "alchemy": "The Diagonal is just ⟨id, id⟩ — pairing a thing with itself. Both projections give back the original, so it's a faithful copy. The product gives you duplication for free.",
-      "spellcraft": "The Diagonal is just ⟨id, id⟩ — pairing a thing with itself. Both draws give back the original, so it's a faithful copy. The product gives you duplication for free.",
-      "abstract": "Δ = ⟨id_A, id_A⟩, so π₁∘Δ = π₂∘Δ = id_A. The diagonal copies A into A×A."
+      "data": "The Diagonal made two identical copies, so projecting either side gives back the original — π₁∘Δ = π₂∘Δ = id. The mismatched pair would fail that. The product gives you faithful duplication for free.",
+      "alchemy": "The Diagonal made identical twins; either projection gives back the salt. The mismatch would fail. The product gives duplication for free.",
+      "spellcraft": "The Diagonal made identical twins; either projection gives back the light. The mismatch would fail. The product gives duplication for free.",
+      "abstract": "Δ = ⟨id, id⟩, so π₁∘Δ = π₂∘Δ = id. The mismatched pair is not the diagonal."
     },
-    "summary": "The diagonal Δ : A → A×A pairs an object with itself. Both projections recover the original: π₁ ∘ Δ = π₂ ∘ Δ = id_A.",
-    "notation": ["Δ = ⟨id_A, id_A⟩", "π₁ ∘ Δ = id_A", "π₂ ∘ Δ = id_A"],
-    "moreFormal": "The diagonal is a special pairing built from the universal property. It is what lets a category model duplication of data — not every category has it, but any with products does.",
-    "programmerAnalogy": "const dup = (x) => [x, x]; both [0] and [1] give x back."
+    "summary": "The diagonal Δ : A → A×A pairs an object with itself; both projections recover the original: π₁∘Δ = π₂∘Δ = id_A.",
+    "notation": ["Δ = ⟨id_A, id_A⟩", "π₁ ∘ Δ = π₂ ∘ Δ = id_A"],
+    "moreFormal": "The diagonal is the pairing of identity with itself — duplication, available in any category with products.",
+    "programmerAnalogy": "const dup = (x) => [x, x]; both [0] and [1] return x."
   },
   "glossaryUnlocks": [],
   "referenceSolution": {
     "nodes": [
-      { "kind": "object", "nodeId": "n-a", "objectId": "obj-a", "role": "start", "position": { "x": 40, "y": 160 } },
-      { "kind": "morphism", "nodeId": "n-delta", "morphismId": "mor-delta", "position": { "x": 320, "y": 160 } },
-      { "kind": "object", "nodeId": "n-p", "objectId": "obj-p", "role": "goal", "position": { "x": 600, "y": 160 } }
+      { "kind": "object", "nodeId": "n-a", "objectId": "obj-a", "role": "start", "position": { "x": 40, "y": 190 } },
+      { "kind": "morphism", "nodeId": "n-delta", "morphismId": "mor-delta", "position": { "x": 320, "y": 90 } },
+      { "kind": "morphism", "nodeId": "n-deltabad", "morphismId": "mor-deltabad", "position": { "x": 320, "y": 290 } },
+      { "kind": "object", "nodeId": "n-p", "objectId": "obj-p", "role": "goal", "position": { "x": 620, "y": 190 } }
     ],
     "edges": [
       { "id": "e-a-delta", "sourceNodeId": "n-a", "targetNodeId": "n-delta" },
