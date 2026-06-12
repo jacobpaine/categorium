@@ -164,8 +164,10 @@ unlocked concept-by-concept.
 | 4 Use Identity | identity | `id_A : A → A`  (analogy `x => x`) |
 | 5 Equivalent Paths | commutative diagram | `g ∘ f = k ∘ h` |
 
-Chapter 2 (`chapter-02-laws`, "The Laws of Composition") is a **locked placeholder** in the
-MVP (likely: identity law, associativity law; later: isomorphisms). No broad roadmap shown.
+Chapter 2 (`chapter-02-laws`, "The Laws of Composition") is **authored** — it makes the
+identity law and associativity law explicit and demonstrated by construction (see `PUZZLES.md`).
+Chapters 3+ (isomorphisms, functors, …) are titled locked placeholders. The full curriculum
+arc and a worked complex example live in [`ROADMAP.md`](./ROADMAP.md).
 
 ## 7. Glossary
 

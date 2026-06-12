@@ -4,8 +4,9 @@ A category-theory learning game platform. Players solve transformation puzzles u
 metaphors (machines, ports, wires) and gradually discover the category-theory ideas underneath.
 The first game mode is a visual-programming / Zachtronics-style / proof-builder hybrid.
 
-See [`SPEC.md`](./SPEC.md) for the full design and architecture, and
-[`PUZZLES.md`](./PUZZLES.md) for puzzle content structure.
+See [`SPEC.md`](./SPEC.md) for the full design and architecture,
+[`PUZZLES.md`](./PUZZLES.md) for puzzle content structure, and
+[`ROADMAP.md`](./ROADMAP.md) for the full curriculum arc and a worked complex example.
 
 ## Setup
 
