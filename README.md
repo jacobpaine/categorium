@@ -135,10 +135,22 @@ and unit-testable without React.
 
 **Now: 23 puzzles across 6 unlocked chapters.**
 
+**Built and working (Session 10 — behavior runtime, piloted on Chapter 1):**
+- A **value runtime** (`domain/evaluate.ts`): machines carry a declared `action` table (input
+  sample-value → output value); `runChain` folds a value through a path, jamming if a machine
+  can't process what reaches it. Two same-typed machines now produce different results.
+- New **`required-output`** rule: the wired path must turn the input value into the goal value —
+  so a same-colored, wrong-behaved machine fails. Color-matching no longer solves puzzles.
+- **Predict-then-run** UI (`BehaviorPanel`): the player predicts the output, then the sample token
+  animates the *real* value transforming through the machines (with visible jams) and reports what
+  was produced and whether the prediction was right.
+- **Chapter 1 rebuilt** around behavior with type-valid-but-wrong distractors; equivalence (P5) is
+  now checked by actually running values. Addresses "the game only drags arrows between colors."
+- Additive + gated per puzzle: Ch2–6 unchanged. Rolls out to later chapters if the mechanic lands.
+
 **Deferred (next):**
-Full keyboard graph construction (mouse-first for now), locked-puzzle deep-link screen, e2e
-solves for the remaining puzzles, composing natural transformations (the functor-category
-algebra), and true products-as-limits (needs multi-input morphisms).
+Roll the behavior runtime into Chapters 2–6; keyboard graph construction; locked-puzzle deep-link
+screen; composing natural transformations; products-as-limits (multi-input morphisms).
 
 **Known limitations:**
 - Morphisms are unary only (multi-input/output is a marked future extension point); Chapter 5
@@ -149,10 +161,10 @@ algebra), and true products-as-limits (needs multi-input morphisms).
 
 ## Next steps
 
-1. Chapter 7: composing natural transformations (the functor-category algebra) — see `ROADMAP.md`.
-2. Keyboard-accessible graph construction; React Flow a11y pass (incl. the functor / NT canvases).
-3. Locked-puzzle deep-link screen (opening a not-yet-unlocked puzzle by URL).
-4. Extend Playwright e2e to cover more puzzles across all chapters.
+1. Roll the **behavior runtime** out to Chapters 2–6 (the Ch1 pilot proved the mechanic).
+2. Chapter 7: composing natural transformations (the functor-category algebra) — see `ROADMAP.md`.
+3. Keyboard-accessible graph construction; React Flow a11y pass (incl. the functor / NT canvases).
+4. Locked-puzzle deep-link screen; extend e2e across more puzzles.
 
 ## Debug mode
 

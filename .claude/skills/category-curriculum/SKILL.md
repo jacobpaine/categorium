@@ -23,6 +23,13 @@ Guards the hidden curriculum and the accuracy of every explanation in Categorium
 Chapter 1 implies the category laws *through play*; it does not yet formally state the
 identity or associativity laws (that is Chapter 2).
 
+**Chapter 1 uses the behavior runtime.** Each puzzle has `samples` + machine `action` tables + a
+`required-output` rule, so it's solved by producing the right output *value*, and every puzzle has
+a **type-valid-but-wrong** distractor (same type/colour, different behaviour). Author these so
+colour-matching can't solve them: the player must reason about what each machine *does* and predict
+before running. Identity is "the value comes out unchanged"; commutativity is "the second route
+produces the same value." See `src/domain/evaluate.ts`. (Chapters 2–6 are still structural.)
+
 ## Chapter 2 teaching order — "The Laws of Composition" (now formally taught)
 1. Identity law, right side — `f ∘ id_A = f` (insert a do-nothing step before a process).
 2. Identity law, left side — `id_B ∘ f = f` (insert it after).

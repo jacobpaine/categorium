@@ -38,10 +38,11 @@ test('solving requires the right BEHAVIOR, not just a matching type', async ({ p
   await connect(page, right('n-parser'), left('n-b'));
 
   await page.getByTestId('run-check').click();
+  // The value token animates immediately (transient) — check it first.
+  await expect(page.locator('.react-flow__node-sampleToken')).toBeVisible();
   await expect(page.getByTestId('solved')).toBeVisible();
   await expect(page.getByText('What you learned')).toBeVisible();
   await expect(page.getByText('Your prediction was right.')).toBeVisible();
-  await expect(page.locator('.react-flow__node-sampleToken')).toBeVisible();
 });
 
 test('a same-typed but wrong-behaved machine (Shredder) is rejected', async ({ page }) => {

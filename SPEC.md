@@ -102,6 +102,7 @@ type ConceptTag =
 
 type PuzzleValidationRule =
   | { type: 'type-valid-wiring' }                       // every wire connects compatible ports
+  | { type: 'required-output'; inputValueId: string; outputValueId: string } // behavior: run it
   | { type: 'required-final-object'; objectId: string }
   | { type: 'allowed-morphisms-only'; morphismIds: string[] }  // a *wired* machine counts
   | { type: 'path-equivalence'; leftPathId: string; rightPathId: string }
@@ -131,6 +132,15 @@ type Puzzle = {
 failing rule with a theme-first message and an optional "near concept" hint. **Multiple valid
 solutions are allowed.** There is no fail state — invalid constructions simply cannot complete
 a puzzle.
+
+**Behavior puzzles (value runtime).** A machine may carry an `action` table (input
+sample-value id → output value id); `src/domain/evaluate.ts` runs a value through a wired path,
+*jamming* if a machine can't process what reaches it. A puzzle with `samples` + a
+`required-output` rule is a **behavior puzzle**: it's solved by producing the right output
+*value*, so two same-typed machines are distinguishable by what they do, and the player
+**predicts then runs** (the sample token shows the real transformation). Equivalence is then
+checked by actually running values, not just declared. Chapter 1 uses this; the rest are
+structural for now (additive, gated on data).
 
 ## 5. Themes
 

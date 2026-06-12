@@ -30,6 +30,7 @@ Multiple valid solutions are allowed — rules describe constraints, not a singl
 | Rule | Meaning |
 |---|---|
 | `type-valid-wiring` | Every wire must connect type-compatible ports (a machine's input/output type must match what it's wired to; no thing-to-thing wires). |
+| `required-output` | **Behavior**: running `inputValueId` through the wired path (machine `action` tables, `domain/evaluate.ts`) must produce `outputValueId`. A same-typed but wrong-behaved machine fails; a machine that can't process its input jams. |
 | `required-final-object` | The constructed path must end at this object/type. |
 | `allowed-morphisms-only` | Only these machines/morphisms may be used (a *wired* machine counts; merely placed distractors do not). |
 | `path-equivalence` | Two declared paths must be equivalent (commutative diagram). |
@@ -38,48 +39,27 @@ Multiple valid solutions are allowed — rules describe constraints, not a singl
 Path equivalence uses **puzzle-declared** equivalence, optionally corroborated by running
 sample values through both paths. The engine does not infer deep categorical equality.
 
-## Chapter 1 — `chapter-01-transformations`
+## Chapter 1 — `chapter-01-transformations`  *(behavior pilot)*
 
-> "The Shape of Transformation." Teaches object/morphism → typed transform → composition →
-> identity → commutative diagram. Category laws are *implied through play*, not yet formally
-> taught.
+> "The Shape of Transformation." Object/morphism → typed transform → composition → identity →
+> commutative diagram. **Rebuilt around the behavior runtime**: each puzzle has `samples` +
+> machine `action` tables + a `required-output` rule, so it's solved by producing the right output
+> *value*, not by matching colors. Every chapter-1 puzzle includes a **type-valid-but-wrong**
+> distractor (same type/color, different behavior), and the player **predicts then runs**.
 
-### Puzzle 1 — One Transformation  *(fully authored)*
+| Puzzle | Concept | The consideration |
+|---|---|---|
+| 1 One Transformation | object / morphism | two `A→B` machines (Parser vs **Shredder**); only one makes the *clean table*. Same color, different result. |
+| 2 Choose the Valid Transformation | typed transform | one machine has the wrong source type (won't connect / jams); of the ones that fit, only one produces the goal value. |
+| 3 Chain Two Transformations | composition | a palette of `A→B` and `B→C` machines; a wrong intermediate **jams** the second machine or yields the wrong chart — only one chain's *behavior* reaches the goal. |
+| 4 Use Identity | identity | the goal value **equals** the input; Pass Through returns it unchanged, the look-alike **Smudger** alters it — "do nothing" is now observable. |
+| 5 Equivalent Paths | commutative diagram | build a second route that produces the **same value** as the known route; the decoy finisher makes a *different* report. Commutativity checked by running the value. |
 
-Connect one machine from object A to object B. Formal structure `f: A → B`.
-
-| Theme | Mapping |
-|---|---|
-| Data Refinery | Raw CSV → **Parser** → Clean Table |
-| Alchemy Workshop | Ore → **Smelter** → Ingot |
-| Spellcraft System | Spark → **Ignition** → Flame |
-| Abstract Machine World | A → **f** → B |
-
-- **Goal:** connect the starting thing to the machine, then the machine to the goal.
-- **Intro (≤5 sentences):** "Every system begins with something that can be transformed. In
-  this puzzle, you have one starting thing, one machine, and one goal. Connect them so the
-  machine can turn the start into the goal."
-- **After success:** "You built one valid transformation. In category theory, the things being
-  transformed are called *objects*, and the process between them is called an *arrow* or
-  *morphism*."
-- **Formal reveal:** `A --f--> B`,  `f: A → B`. Programmer analogy (opt-in): `f: (input: A) => B`.
-- **Glossary unlocks:** object, morphism.
-
-### Puzzles 2–5 — *(fully authored)*
-
-| Puzzle | Concept | How it's validated | Reveal |
-|---|---|---|---|
-| 2 Choose the Valid Transformation | typed transform — three machines, only one fits | `type-valid-wiring` (the two distractors are wrong-input / wrong-output) + `required-final-object` | type-matched ports, `f: A → B` |
-| 3 Chain Two Transformations | composition `A → B → C` | `type-valid-wiring` + `required-final-object` C + `concept-tag-required composition` (≥2 chained) | `g ∘ f : A → C` ("do f first, then g") |
-| 4 Use Identity | a do-nothing machine `A → A` (Pass Through / Preserve / Echo / Identity) | `type-valid-wiring` (distractor `f: A → B` can't reach goal A) + `required-final-object` A + `concept-tag-required identity` | `id_A : A → A`  (`x => x`) |
-| 5 Equivalent Paths | build a second route to the same goal | `type-valid-wiring` + `allowed-morphisms-only [h,k]` + `required-final-object` C + `path-equivalence` of the two declared paths | `g ∘ f = k ∘ h` |
-
-Notes on the design:
-- A machine merely placed on the canvas is not "used"; only a **wired** machine counts (so
-  puzzle 2/4 distractors don't trip rules until connected).
-- Puzzle 5's known `f;g` route is described in the intro/reveal but not placed on the editable
-  canvas — the player builds the alternate `h;k` route, and the `path-equivalence` rule
-  confirms the two declared routes are parallel (`A → C`).
+Design notes:
+- Machine behavior is a declared `action` table (`domain/evaluate.ts`); a missing entry = the
+  machine jams on that input. Two same-typed machines therefore differ in what they produce.
+- Color is now a *gentle* aid, not the answer key: the meaningful distractors share type/color.
+- Chapters 2–6 remain structural (no `samples`/`required-output`); behavior is additive and gated.
 
 ## Chapter 2 — `chapter-02-laws`  *(fully authored)*
 

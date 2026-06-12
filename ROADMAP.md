@@ -177,9 +177,10 @@ shows their shape, without pretending to be a theorem prover.
 | Ch 4 | functors | two-category model (`domain/functor.ts`) + `FunctorCanvas` mapping mechanic | ✅ done |
 | Ch 5 | products / coproducts | **none** — universal-property model with unary morphisms | ✅ done |
 | Ch 6 | natural transformations | composition table on D (`domain/naturalTransformation.ts`) + `NaturalTransformationCanvas`; genuine naturality check | ✅ done |
+| Ch 1 | behavior runtime | value evaluator (`domain/evaluate.ts`) + `required-output` rule + predict-then-run; equivalence checked on real values | ✅ done (pilot) |
+| Future | behavior runtime, Ch 2–6 | roll the value runtime out to the remaining chapters | 🔒 |
 | Future | composing natural transformations | the functor-category algebra (vertical/horizontal composition, id_F) | 🔒 |
 | Future | products-as-limits | multi-input/output morphisms (extension point already marked) | 🔒 |
-| Future | sample-value semantics | a value evaluator so equivalence can be *checked* on samples, not only declared | 🔒 |
 
 ## Non-curriculum roadmap (product)
 
