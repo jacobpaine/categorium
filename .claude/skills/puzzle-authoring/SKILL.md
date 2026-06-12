@@ -1,0 +1,40 @@
+---
+name: puzzle-authoring
+description: Create or edit Categorium puzzle JSON — objects, morphisms, initial graph, validation rules, reference solutions. Use when adding a puzzle or filling in a stub.
+---
+
+# puzzle-authoring
+
+Authors puzzle JSON in `src/data/puzzles/` that conforms to `src/schemas/puzzle.schema.ts`.
+
+## A puzzle is `authored` or `stub`
+- `stub`: `status:"stub"` + id, chapterId, order, conceptTags, title, intro, goal. Lists on
+  the chapter map as a preview/locked entry.
+- `authored`: `status:"authored"` + the full body (objects, morphisms, initialGraph,
+  allowedMorphismIds, validation, reveal, glossaryUnlocks, optional samples/paths/equivalences/
+  referenceSolution).
+
+## Graph model
+Nodes are `{kind:"object", nodeId, objectId, role?}` or `{kind:"morphism", nodeId, morphismId}`.
+Edges are `{id, sourceNodeId, targetNodeId}` (a wire). `initialGraph` is what the player starts
+with; `referenceSolution` is the canonical completed graph.
+
+## Validation rules (evaluated in order; first failure shown)
+- `required-final-object` — the traced path must end at this object.
+- `allowed-morphisms-only` — only these machines may be used.
+- `path-equivalence` — two declared `paths` must be parallel & author-equivalent.
+- `concept-tag-required` — the constructed graph must demonstrate this concept
+  (composition needs ≥2 chained morphisms; identity needs a self-loop morphism — see
+  `src/validation/concepts.ts`).
+
+## Authoring checklist
+- All four ThemeId keys present in every theme-text bundle (`data`, `alchemy`, `spellcraft`, `abstract`).
+- Every `sourceObjectId`/`targetObjectId`/`allowedMorphismIds`/`glossaryUnlocks` resolves.
+- At least one rule pins the required result.
+- `referenceSolution` actually passes `validatePuzzle` (add/extend a test in
+  `src/validation/*.test.ts`).
+- Keep `intro` ≤ 5 sentences.
+
+## Verify
+`npm run test` includes an "every bundled puzzle parses" test and Puzzle-1 validation tests.
+Add a validation test asserting the new puzzle's reference solution returns `ok`.
