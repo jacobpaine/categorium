@@ -21,7 +21,8 @@ export type ConceptTag =
   | 'isomorphism'
   | 'functor'
   | 'product'
-  | 'coproduct';
+  | 'coproduct'
+  | 'natural-transformation';
 
 export const CONCEPT_TAGS: readonly ConceptTag[] = [
   'object',
@@ -36,6 +37,7 @@ export const CONCEPT_TAGS: readonly ConceptTag[] = [
   'functor',
   'product',
   'coproduct',
+  'natural-transformation',
 ];
 
 /**

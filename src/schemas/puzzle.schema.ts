@@ -16,6 +16,10 @@ import {
   formalRevealSchema,
 } from './common';
 import { functorPuzzleSchema, type FunctorPuzzle } from './functor.schema';
+import {
+  naturalTransformationPuzzleSchema,
+  type NaturalTransformationPuzzle,
+} from './naturalTransformation.schema';
 
 export const puzzleStubSchema = z.object({
   status: z.literal('stub'),
@@ -52,14 +56,19 @@ export const puzzleAuthoredSchema = z.object({
   referenceSolution: puzzleGraphSchema.optional(),
 });
 
-// Plain union (not discriminated): both authored kinds share status 'authored' but differ on
-// `kind`, and a functor puzzle lacks the transformation body, so the variants never overlap.
-export const puzzleSchema = z.union([puzzleAuthoredSchema, functorPuzzleSchema, puzzleStubSchema]);
+// Plain union (not discriminated): all authored kinds share status 'authored' but differ on
+// `kind`, and each carries a distinct body, so the variants never overlap.
+export const puzzleSchema = z.union([
+  puzzleAuthoredSchema,
+  functorPuzzleSchema,
+  naturalTransformationPuzzleSchema,
+  puzzleStubSchema,
+]);
 
 export type AuthoredPuzzle = z.infer<typeof puzzleAuthoredSchema>;
 export type PuzzleStub = z.infer<typeof puzzleStubSchema>;
 export type Puzzle = z.infer<typeof puzzleSchema>;
-export type { FunctorPuzzle };
+export type { FunctorPuzzle, NaturalTransformationPuzzle };
 
 /** Parse a puzzle, THROWING on failure (loud, for dev / build-time fixtures). */
 export function parsePuzzle(input: unknown): Puzzle {
@@ -81,7 +90,14 @@ export function isFunctorPuzzle(p: Puzzle): p is FunctorPuzzle {
   return p.status === 'authored' && (p as { kind?: string }).kind === 'functor';
 }
 
+/** A natural-transformation puzzle (Chapter 6): two functors + components to build. */
+export function isNaturalTransformationPuzzle(p: Puzzle): p is NaturalTransformationPuzzle {
+  return p.status === 'authored' && (p as { kind?: string }).kind === 'natural-transformation';
+}
+
 /** Any puzzle the player can actually open and solve. */
-export function isPlayable(p: Puzzle): p is AuthoredPuzzle | FunctorPuzzle {
-  return isAuthored(p) || isFunctorPuzzle(p);
+export function isPlayable(
+  p: Puzzle,
+): p is AuthoredPuzzle | FunctorPuzzle | NaturalTransformationPuzzle {
+  return isAuthored(p) || isFunctorPuzzle(p) || isNaturalTransformationPuzzle(p);
 }
