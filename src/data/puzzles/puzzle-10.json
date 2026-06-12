@@ -3,107 +3,66 @@
   "id": "puzzle-10",
   "chapterId": "chapter-03-isomorphisms",
   "order": 10,
-  "title": {
-    "data": "Build the Inverse",
-    "alchemy": "Build the Inverse",
-    "spellcraft": "Build the Inverse",
-    "abstract": "Build the Inverse"
-  },
+  "title": { "data": "Build the Inverse", "alchemy": "Build the Inverse", "spellcraft": "Build the Inverse", "abstract": "Build the Inverse" },
   "conceptTags": ["isomorphism"],
   "intro": {
-    "data": "Some processes can be undone. Encode turns the start into a packed form; find the machine that decodes it back, so encoding then decoding returns the original.",
-    "alchemy": "Some processes can be undone. Grind turns the bar into dust; find the apparatus that recasts it, so grinding then casting returns the original.",
-    "spellcraft": "Some workings can be undone. Etch turns the sigil into a glyph; find the rune that reads it back, so etching then reading returns the original.",
-    "abstract": "Some morphisms can be undone. f maps A to B; find g that maps back, so doing f then g returns to A."
+    "data": "Encode packs the file. To undo it you need a decoder that returns the EXACT original. Two decoders are offered — one restores the file, the other returns something corrupted. Encode, then pick the true inverse.",
+    "alchemy": "Grind turns the bar to dust. To undo it you need a recast that returns the EXACT original. Two are offered — one restores the bar, the other returns something impure. Grind, then pick the true inverse.",
+    "spellcraft": "Etch turns the sigil to a glyph. To undo it you need a reading that returns the EXACT original. Two are offered — one restores the sigil, the other returns something broken. Etch, then pick the true inverse.",
+    "abstract": "f maps A→B. Pick the g : B→A whose round trip returns the original value, not a corrupted one."
   },
-  "goal": {
-    "data": "Wire the start through Encode and then Decode, returning to the original.",
-    "alchemy": "Wire the start through Grind and then Cast, returning to the original.",
-    "spellcraft": "Wire the start through Etch and then Read, returning to the original.",
-    "abstract": "Wire the start through f and then g, returning to A."
-  },
+  "goal": { "data": "Encode, then decode back to the very same file you started with.", "alchemy": "Grind, then recast back to the very same bar.", "spellcraft": "Etch, then read back to the very same sigil.", "abstract": "Round-trip back to the original value." },
   "objects": [
-    {
-      "id": "obj-a",
-      "formalLabel": "A",
-      "labels": { "data": "Raw CSV", "alchemy": "Gold Bar", "spellcraft": "Sigil", "abstract": "A" },
-      "colorToken": "sky"
-    },
-    {
-      "id": "obj-b",
-      "formalLabel": "B",
-      "labels": { "data": "Packed Blob", "alchemy": "Gold Dust", "spellcraft": "Glyph", "abstract": "B" },
-      "colorToken": "emerald"
-    }
+    { "id": "obj-a", "formalLabel": "A", "labels": { "data": "Raw CSV", "alchemy": "Gold Bar", "spellcraft": "Sigil", "abstract": "A" }, "colorToken": "sky" },
+    { "id": "obj-b", "formalLabel": "B", "labels": { "data": "Packed Blob", "alchemy": "Gold Dust", "spellcraft": "Glyph", "abstract": "B" }, "colorToken": "emerald" }
   ],
   "morphisms": [
-    {
-      "id": "mor-f",
-      "formalLabel": "f",
-      "sourceObjectId": "obj-a",
-      "targetObjectId": "obj-b",
-      "labels": { "data": "Encode", "alchemy": "Grind", "spellcraft": "Etch", "abstract": "f" },
-      "description": { "data": "A → B", "alchemy": "A → B", "spellcraft": "A → B", "abstract": "A → B" }
-    },
-    {
-      "id": "mor-g",
-      "formalLabel": "g",
-      "sourceObjectId": "obj-b",
-      "targetObjectId": "obj-a",
-      "labels": { "data": "Decode", "alchemy": "Cast", "spellcraft": "Read", "abstract": "g" },
-      "description": { "data": "B → A", "alchemy": "B → A", "spellcraft": "B → A", "abstract": "B → A" }
-    },
-    {
-      "id": "mor-idA",
-      "formalLabel": "id_A",
-      "sourceObjectId": "obj-a",
-      "targetObjectId": "obj-a",
-      "labels": { "data": "Pass Through", "alchemy": "Preserve", "spellcraft": "Echo", "abstract": "id_A" },
-      "description": { "data": "A → A", "alchemy": "A → A", "spellcraft": "A → A", "abstract": "A → A" }
-    }
+    { "id": "mor-f", "formalLabel": "f", "sourceObjectId": "obj-a", "targetObjectId": "obj-b", "labels": { "data": "Encode", "alchemy": "Grind", "spellcraft": "Etch", "abstract": "f" }, "action": { "v-a": "v-b" } },
+    { "id": "mor-g", "formalLabel": "g", "sourceObjectId": "obj-b", "targetObjectId": "obj-a", "labels": { "data": "Decode", "alchemy": "Recast", "spellcraft": "Read", "abstract": "g" }, "description": { "data": "the true inverse", "alchemy": "the true inverse", "spellcraft": "the true inverse", "abstract": "B → A, inverts f" }, "action": { "v-b": "v-a" } },
+    { "id": "mor-gbad", "formalLabel": "g′", "sourceObjectId": "obj-b", "targetObjectId": "obj-a", "labels": { "data": "Garble", "alchemy": "Miscast", "spellcraft": "Misread", "abstract": "g′" }, "description": { "data": "returns a corrupted file", "alchemy": "returns an impure bar", "spellcraft": "returns a broken sigil", "abstract": "B → A, but not an inverse" }, "action": { "v-b": "v-a2" } }
   ],
-  "paths": [
-    { "id": "path-fg", "morphismIds": ["mor-f", "mor-g"] },
-    { "id": "path-idA", "morphismIds": ["mor-idA"] }
+  "samples": [
+    { "id": "v-a", "objectId": "obj-a", "labels": { "data": "the original file", "alchemy": "the gold bar", "spellcraft": "the sigil", "abstract": "a" } },
+    { "id": "v-b", "objectId": "obj-b", "labels": { "data": "packed blob", "alchemy": "gold dust", "spellcraft": "glyph", "abstract": "b" } },
+    { "id": "v-a2", "objectId": "obj-a", "labels": { "data": "corrupted file", "alchemy": "impure bar", "spellcraft": "broken sigil", "abstract": "a′" } }
   ],
-  "equivalences": [{ "id": "eq-1", "leftPathId": "path-fg", "rightPathId": "path-idA" }],
   "initialGraph": {
     "nodes": [
-      { "kind": "object", "nodeId": "n-a-start", "objectId": "obj-a", "role": "start", "position": { "x": 40, "y": 160 } },
-      { "kind": "morphism", "nodeId": "n-f", "morphismId": "mor-f", "position": { "x": 200, "y": 160 } },
-      { "kind": "object", "nodeId": "n-b", "objectId": "obj-b", "position": { "x": 360, "y": 160 } },
-      { "kind": "morphism", "nodeId": "n-g", "morphismId": "mor-g", "position": { "x": 520, "y": 160 } },
-      { "kind": "object", "nodeId": "n-a-goal", "objectId": "obj-a", "role": "goal", "position": { "x": 680, "y": 160 } }
+      { "kind": "object", "nodeId": "n-a-start", "objectId": "obj-a", "role": "start", "position": { "x": 30, "y": 190 } },
+      { "kind": "morphism", "nodeId": "n-f", "morphismId": "mor-f", "position": { "x": 210, "y": 190 } },
+      { "kind": "object", "nodeId": "n-b", "objectId": "obj-b", "position": { "x": 390, "y": 190 } },
+      { "kind": "morphism", "nodeId": "n-g", "morphismId": "mor-g", "position": { "x": 560, "y": 90 } },
+      { "kind": "morphism", "nodeId": "n-gbad", "morphismId": "mor-gbad", "position": { "x": 560, "y": 290 } },
+      { "kind": "object", "nodeId": "n-a-goal", "objectId": "obj-a", "role": "goal", "position": { "x": 740, "y": 190 } }
     ],
     "edges": []
   },
-  "allowedMorphismIds": ["mor-f", "mor-g"],
+  "allowedMorphismIds": ["mor-f", "mor-g", "mor-gbad"],
   "validation": [
     { "type": "type-valid-wiring" },
-    { "type": "required-final-object", "objectId": "obj-a" },
-    { "type": "allowed-morphisms-only", "morphismIds": ["mor-f", "mor-g"] },
-    { "type": "path-equivalence", "leftPathId": "path-fg", "rightPathId": "path-idA" }
+    { "type": "required-output", "inputValueId": "v-a", "outputValueId": "v-a" }
   ],
   "reveal": {
     "afterSuccess": {
-      "data": "Encoding then decoding returned the original, unchanged. Decode undoes Encode: it is its inverse.",
-      "alchemy": "Grinding then casting returned the original, unchanged. Cast undoes Grind: it is its inverse.",
-      "spellcraft": "Etching then reading returned the original, unchanged. Read undoes Etch: it is its inverse.",
-      "abstract": "Doing f then g returned to A, unchanged. g undoes f: it is a left inverse of f."
+      "data": "Decode brought back the exact original — encoding then decoding changed nothing. Garble was the same type but returned a corrupted file, so it is no inverse. g ∘ f = id_A holds only for the true decoder.",
+      "alchemy": "Recast brought back the exact bar. Miscast returned something impure, so it is no inverse. g ∘ f = id_A holds only for the true recast.",
+      "spellcraft": "Reading brought back the exact sigil. Misreading returned something broken, so it is no inverse. g ∘ f = id_A holds only for the true reading.",
+      "abstract": "The true inverse returned the original: g ∘ f = id_A. The look-alike corrupted it."
     },
-    "summary": "When g ∘ f = id_A, g is a (left) inverse of f — following f and then g lands you exactly back where you started.",
+    "summary": "An inverse must return you to the exact starting value. When g ∘ f = id_A, g is a left inverse of f — verified here by running the round trip.",
     "notation": ["g ∘ f = id_A"],
-    "moreFormal": "A left inverse g of f : A → B satisfies g ∘ f = id_A. The app trusts the author that g genuinely undoes f; it checks the round trip is well-typed and returns to A, not the values themselves.",
-    "programmerAnalogy": "decode(encode(x)) === x."
+    "moreFormal": "A left inverse g of f : A → B satisfies g ∘ f = id_A. Same type as a real inverse is not enough — it must actually restore every value.",
+    "programmerAnalogy": "decode(encode(x)) === x — a lossy 'decoder' fails this."
   },
   "glossaryUnlocks": ["isomorphism", "inverse"],
   "referenceSolution": {
     "nodes": [
-      { "kind": "object", "nodeId": "n-a-start", "objectId": "obj-a", "role": "start", "position": { "x": 40, "y": 160 } },
-      { "kind": "morphism", "nodeId": "n-f", "morphismId": "mor-f", "position": { "x": 200, "y": 160 } },
-      { "kind": "object", "nodeId": "n-b", "objectId": "obj-b", "position": { "x": 360, "y": 160 } },
-      { "kind": "morphism", "nodeId": "n-g", "morphismId": "mor-g", "position": { "x": 520, "y": 160 } },
-      { "kind": "object", "nodeId": "n-a-goal", "objectId": "obj-a", "role": "goal", "position": { "x": 680, "y": 160 } }
+      { "kind": "object", "nodeId": "n-a-start", "objectId": "obj-a", "role": "start", "position": { "x": 30, "y": 190 } },
+      { "kind": "morphism", "nodeId": "n-f", "morphismId": "mor-f", "position": { "x": 210, "y": 190 } },
+      { "kind": "object", "nodeId": "n-b", "objectId": "obj-b", "position": { "x": 390, "y": 190 } },
+      { "kind": "morphism", "nodeId": "n-g", "morphismId": "mor-g", "position": { "x": 560, "y": 90 } },
+      { "kind": "morphism", "nodeId": "n-gbad", "morphismId": "mor-gbad", "position": { "x": 560, "y": 290 } },
+      { "kind": "object", "nodeId": "n-a-goal", "objectId": "obj-a", "role": "goal", "position": { "x": 740, "y": 190 } }
     ],
     "edges": [
       { "id": "e-a-f", "sourceNodeId": "n-a-start", "targetNodeId": "n-f" },

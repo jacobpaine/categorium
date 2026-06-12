@@ -3,122 +3,70 @@
   "id": "puzzle-12",
   "chapterId": "chapter-03-isomorphisms",
   "order": 12,
-  "title": {
-    "data": "Choose the True Inverse",
-    "alchemy": "Choose the True Inverse",
-    "spellcraft": "Choose the True Inverse",
-    "abstract": "Choose the True Inverse"
-  },
+  "title": { "data": "Choose the True Inverse", "alchemy": "Choose the True Inverse", "spellcraft": "Choose the True Inverse", "abstract": "Choose the True Inverse" },
   "conceptTags": ["isomorphism"],
   "intro": {
-    "data": "Not every backward machine is an inverse. One returns you to the start; the other shreds the data into something you can't undo. Pick the one that gets you home.",
-    "alchemy": "Not every backward apparatus is an inverse. One returns you to the start; the other burns the dust into slag you can't undo. Pick the one that gets you home.",
-    "spellcraft": "Not every backward rune is an inverse. One returns you to the start; the other scorches the glyph into ash you can't undo. Pick the one that gets you home.",
-    "abstract": "Not every backward morphism is an inverse. Only one returns to A; the other lands at C, a dead end. Pick the one that gets you home."
+    "data": "Three decoders all fit the type B→A, but only one truly undoes Encode and returns the exact original file. The other two return something else. Encode, then run each in your head — pick the genuine inverse.",
+    "alchemy": "Three recasts all fit B→A, but only one truly undoes Grind. The others return something else. Grind, then pick the genuine inverse.",
+    "spellcraft": "Three readings all fit B→A, but only one truly undoes Etch. The others return something else. Etch, then pick the genuine inverse.",
+    "abstract": "Three candidates fit B→A; only one makes the round trip return the original. Pick it."
   },
-  "goal": {
-    "data": "Wire the start through Encode, then the machine that truly returns you to the original.",
-    "alchemy": "Wire the start through Grind, then the apparatus that truly returns you to the original.",
-    "spellcraft": "Wire the start through Etch, then the rune that truly returns you to the original.",
-    "abstract": "Wire the start through f, then the morphism that truly returns you to A."
-  },
+  "goal": { "data": "Encode, then choose the decoder that returns the exact original file.", "alchemy": "Grind, then choose the recast that returns the exact bar.", "spellcraft": "Etch, then choose the reading that returns the exact sigil.", "abstract": "Round-trip back to the original value." },
   "objects": [
-    {
-      "id": "obj-a",
-      "formalLabel": "A",
-      "labels": { "data": "Raw CSV", "alchemy": "Gold Bar", "spellcraft": "Sigil", "abstract": "A" },
-      "colorToken": "sky"
-    },
-    {
-      "id": "obj-b",
-      "formalLabel": "B",
-      "labels": { "data": "Packed Blob", "alchemy": "Gold Dust", "spellcraft": "Glyph", "abstract": "B" },
-      "colorToken": "emerald"
-    },
-    {
-      "id": "obj-c",
-      "formalLabel": "C",
-      "labels": { "data": "Shredded", "alchemy": "Slag", "spellcraft": "Ash", "abstract": "C" },
-      "colorToken": "rose"
-    }
+    { "id": "obj-a", "formalLabel": "A", "labels": { "data": "Raw CSV", "alchemy": "Gold Bar", "spellcraft": "Sigil", "abstract": "A" }, "colorToken": "sky" },
+    { "id": "obj-b", "formalLabel": "B", "labels": { "data": "Packed Blob", "alchemy": "Gold Dust", "spellcraft": "Glyph", "abstract": "B" }, "colorToken": "emerald" }
   ],
   "morphisms": [
-    {
-      "id": "mor-f",
-      "formalLabel": "f",
-      "sourceObjectId": "obj-a",
-      "targetObjectId": "obj-b",
-      "labels": { "data": "Encode", "alchemy": "Grind", "spellcraft": "Etch", "abstract": "f" },
-      "description": { "data": "A → B", "alchemy": "A → B", "spellcraft": "A → B", "abstract": "A → B" }
-    },
-    {
-      "id": "mor-g",
-      "formalLabel": "g",
-      "sourceObjectId": "obj-b",
-      "targetObjectId": "obj-a",
-      "labels": { "data": "Decode", "alchemy": "Cast", "spellcraft": "Read", "abstract": "g" },
-      "description": { "data": "B → A (the inverse)", "alchemy": "B → A (the inverse)", "spellcraft": "B → A (the inverse)", "abstract": "B → A (the inverse)" }
-    },
-    {
-      "id": "mor-bad",
-      "formalLabel": "h",
-      "sourceObjectId": "obj-b",
-      "targetObjectId": "obj-c",
-      "labels": { "data": "Shred", "alchemy": "Burn", "spellcraft": "Scorch", "abstract": "h" },
-      "description": { "data": "B → C (a dead end)", "alchemy": "B → C (a dead end)", "spellcraft": "B → C (a dead end)", "abstract": "B → C (a dead end)" }
-    },
-    {
-      "id": "mor-idA",
-      "formalLabel": "id_A",
-      "sourceObjectId": "obj-a",
-      "targetObjectId": "obj-a",
-      "labels": { "data": "Pass Through", "alchemy": "Preserve", "spellcraft": "Echo", "abstract": "id_A" },
-      "description": { "data": "A → A", "alchemy": "A → A", "spellcraft": "A → A", "abstract": "A → A" }
-    }
+    { "id": "mor-f", "formalLabel": "f", "sourceObjectId": "obj-a", "targetObjectId": "obj-b", "labels": { "data": "Encode", "alchemy": "Grind", "spellcraft": "Etch", "abstract": "f" }, "action": { "v-a": "v-b" } },
+    { "id": "mor-g", "formalLabel": "g", "sourceObjectId": "obj-b", "targetObjectId": "obj-a", "labels": { "data": "Decode", "alchemy": "Recast", "spellcraft": "Read", "abstract": "g" }, "description": { "data": "the true inverse", "alchemy": "the true inverse", "spellcraft": "the true inverse", "abstract": "inverts f" }, "action": { "v-b": "v-a" } },
+    { "id": "mor-g1", "formalLabel": "g₁", "sourceObjectId": "obj-b", "targetObjectId": "obj-a", "labels": { "data": "Unzip", "alchemy": "Reheat", "spellcraft": "Recite", "abstract": "g₁" }, "description": { "data": "returns a stale file", "alchemy": "returns a stale bar", "spellcraft": "returns a faded sigil", "abstract": "not an inverse" }, "action": { "v-b": "v-a2" } },
+    { "id": "mor-g2", "formalLabel": "g₂", "sourceObjectId": "obj-b", "targetObjectId": "obj-a", "labels": { "data": "Extract", "alchemy": "Refine", "spellcraft": "Trace", "abstract": "g₂" }, "description": { "data": "returns a partial file", "alchemy": "returns a partial bar", "spellcraft": "returns a partial sigil", "abstract": "not an inverse" }, "action": { "v-b": "v-a3" } }
   ],
-  "paths": [
-    { "id": "path-fg", "morphismIds": ["mor-f", "mor-g"] },
-    { "id": "path-idA", "morphismIds": ["mor-idA"] }
+  "samples": [
+    { "id": "v-a", "objectId": "obj-a", "labels": { "data": "the original file", "alchemy": "the bar", "spellcraft": "the sigil", "abstract": "a" } },
+    { "id": "v-b", "objectId": "obj-b", "labels": { "data": "packed blob", "alchemy": "gold dust", "spellcraft": "glyph", "abstract": "b" } },
+    { "id": "v-a2", "objectId": "obj-a", "labels": { "data": "stale file", "alchemy": "stale bar", "spellcraft": "faded sigil", "abstract": "a′" } },
+    { "id": "v-a3", "objectId": "obj-a", "labels": { "data": "partial file", "alchemy": "partial bar", "spellcraft": "partial sigil", "abstract": "a″" } }
   ],
-  "equivalences": [{ "id": "eq-1", "leftPathId": "path-fg", "rightPathId": "path-idA" }],
   "initialGraph": {
     "nodes": [
-      { "kind": "object", "nodeId": "n-a-start", "objectId": "obj-a", "role": "start", "position": { "x": 40, "y": 170 } },
-      { "kind": "morphism", "nodeId": "n-f", "morphismId": "mor-f", "position": { "x": 210, "y": 170 } },
-      { "kind": "object", "nodeId": "n-b", "objectId": "obj-b", "position": { "x": 380, "y": 170 } },
+      { "kind": "object", "nodeId": "n-a-start", "objectId": "obj-a", "role": "start", "position": { "x": 20, "y": 200 } },
+      { "kind": "morphism", "nodeId": "n-f", "morphismId": "mor-f", "position": { "x": 200, "y": 200 } },
+      { "kind": "object", "nodeId": "n-b", "objectId": "obj-b", "position": { "x": 380, "y": 200 } },
       { "kind": "morphism", "nodeId": "n-g", "morphismId": "mor-g", "position": { "x": 560, "y": 80 } },
-      { "kind": "morphism", "nodeId": "n-bad", "morphismId": "mor-bad", "position": { "x": 560, "y": 270 } },
-      { "kind": "object", "nodeId": "n-a-goal", "objectId": "obj-a", "role": "goal", "position": { "x": 760, "y": 170 } }
+      { "kind": "morphism", "nodeId": "n-g1", "morphismId": "mor-g1", "position": { "x": 560, "y": 200 } },
+      { "kind": "morphism", "nodeId": "n-g2", "morphismId": "mor-g2", "position": { "x": 560, "y": 320 } },
+      { "kind": "object", "nodeId": "n-a-goal", "objectId": "obj-a", "role": "goal", "position": { "x": 760, "y": 200 } }
     ],
     "edges": []
   },
-  "allowedMorphismIds": ["mor-f", "mor-g", "mor-bad"],
+  "allowedMorphismIds": ["mor-f", "mor-g", "mor-g1", "mor-g2"],
   "validation": [
     { "type": "type-valid-wiring" },
-    { "type": "required-final-object", "objectId": "obj-a" },
-    { "type": "path-equivalence", "leftPathId": "path-fg", "rightPathId": "path-idA" }
+    { "type": "required-output", "inputValueId": "v-a", "outputValueId": "v-a" }
   ],
   "reveal": {
     "afterSuccess": {
-      "data": "Shred would have stranded you at a dead end — there's no way back. Only Decode returns you to the original, so only Decode is an inverse.",
-      "alchemy": "Burn would have stranded you at slag — there's no way back. Only Cast returns you to the original, so only Cast is an inverse.",
-      "spellcraft": "Scorch would have stranded you at ash — there's no way back. Only Read returns you to the original, so only Read is an inverse.",
-      "abstract": "h would have stranded you at C — no way back. Only g returns you to A, so only g is an inverse."
+      "data": "Only Decode returned the exact original — the other two were the right type but lost information. Type narrows the field; behavior decides which is the inverse.",
+      "alchemy": "Only Recast returned the exact bar — the others lost something. Type narrows the field; behavior decides the inverse.",
+      "spellcraft": "Only Read returned the exact sigil — the others lost something. Type narrows the field; behavior decides the inverse.",
+      "abstract": "Only the genuine inverse restored the original; the type-valid look-alikes did not."
     },
-    "summary": "An inverse must land you back at the start. A morphism out of B that ends anywhere else cannot undo f.",
-    "notation": ["g ∘ f = id_A", "h ∘ f : A → C  (not an identity)"],
-    "moreFormal": "The app checks the route is well-typed and returns to A; it trusts the author that g is the genuine inverse rather than running values to prove it.",
-    "programmerAnalogy": "decode(encode(x)) === x, but shred(encode(x)) loses information."
+    "summary": "Many morphisms can share the inverse's type, but only one actually inverts — the one whose round trip is the identity on values.",
+    "notation": ["g ∘ f = id_A"],
+    "moreFormal": "The inverse, when it exists, is unique. Being B → A is necessary but far from sufficient.",
+    "programmerAnalogy": "Several B→A functions type-check; only the true inverse round-trips."
   },
   "glossaryUnlocks": [],
   "referenceSolution": {
     "nodes": [
-      { "kind": "object", "nodeId": "n-a-start", "objectId": "obj-a", "role": "start", "position": { "x": 40, "y": 170 } },
-      { "kind": "morphism", "nodeId": "n-f", "morphismId": "mor-f", "position": { "x": 210, "y": 170 } },
-      { "kind": "object", "nodeId": "n-b", "objectId": "obj-b", "position": { "x": 380, "y": 170 } },
+      { "kind": "object", "nodeId": "n-a-start", "objectId": "obj-a", "role": "start", "position": { "x": 20, "y": 200 } },
+      { "kind": "morphism", "nodeId": "n-f", "morphismId": "mor-f", "position": { "x": 200, "y": 200 } },
+      { "kind": "object", "nodeId": "n-b", "objectId": "obj-b", "position": { "x": 380, "y": 200 } },
       { "kind": "morphism", "nodeId": "n-g", "morphismId": "mor-g", "position": { "x": 560, "y": 80 } },
-      { "kind": "morphism", "nodeId": "n-bad", "morphismId": "mor-bad", "position": { "x": 560, "y": 270 } },
-      { "kind": "object", "nodeId": "n-a-goal", "objectId": "obj-a", "role": "goal", "position": { "x": 760, "y": 170 } }
+      { "kind": "morphism", "nodeId": "n-g1", "morphismId": "mor-g1", "position": { "x": 560, "y": 200 } },
+      { "kind": "morphism", "nodeId": "n-g2", "morphismId": "mor-g2", "position": { "x": 560, "y": 320 } },
+      { "kind": "object", "nodeId": "n-a-goal", "objectId": "obj-a", "role": "goal", "position": { "x": 760, "y": 200 } }
     ],
     "edges": [
       { "id": "e-a-f", "sourceNodeId": "n-a-start", "targetNodeId": "n-f" },

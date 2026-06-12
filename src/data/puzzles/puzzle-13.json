@@ -3,99 +3,68 @@
   "id": "puzzle-13",
   "chapterId": "chapter-03-isomorphisms",
   "order": 13,
-  "title": {
-    "data": "Same as Same",
-    "alchemy": "Same as Same",
-    "spellcraft": "Same as Same",
-    "abstract": "Same as Same"
-  },
+  "title": { "data": "Same as Same", "alchemy": "Same as Same", "spellcraft": "Same as Same", "abstract": "Same as Same" },
   "conceptTags": ["isomorphism"],
   "intro": {
-    "data": "Encode is reversible, and so is Compress. Chain two reversible steps and the whole journey is reversible too — the start and the end are interchangeable.",
-    "alchemy": "Grind is reversible, and so is Mint. Chain two reversible steps and the whole journey is reversible too — the start and the end are interchangeable.",
-    "spellcraft": "Etch is reversible, and so is Seal. Chain two reversible steps and the whole working is reversible too — the start and the end are interchangeable.",
-    "abstract": "f is an isomorphism, and so is h. Chain two isomorphisms and the composite is one too — A and C are interchangeable."
+    "data": "Encode is reversible, and so is Compress. Chain two reversible steps and the whole journey is reversible. But one finishing machine isn't truly reversible — it loses detail. Pick the lossless one to reach the archive.",
+    "alchemy": "Grind is reversible, and so is Mint. Chain two reversible steps and the whole journey is reversible. One finisher loses detail — pick the lossless one to reach the coin.",
+    "spellcraft": "Etch is reversible, and so is Seal. Chain two reversible steps and the whole working is reversible. One finisher loses detail — pick the lossless one to reach the ward.",
+    "abstract": "f and the right h are isomorphisms; chained, the composite is too. Avoid the lossy look-alike."
   },
-  "goal": {
-    "data": "Chain the two reversible machines from the start to the goal.",
-    "alchemy": "Chain the two reversible apparatuses from the start to the goal.",
-    "spellcraft": "Chain the two reversible runes from the start to the goal.",
-    "abstract": "Chain the two isomorphisms f and h from A to C."
-  },
+  "goal": { "data": "Chain two lossless machines to reach the archive.", "alchemy": "Chain two lossless apparatuses to reach the coin.", "spellcraft": "Chain two lossless runes to reach the ward.", "abstract": "Reach C via two reversible steps." },
   "objects": [
-    {
-      "id": "obj-a",
-      "formalLabel": "A",
-      "labels": { "data": "Raw CSV", "alchemy": "Gold Bar", "spellcraft": "Sigil", "abstract": "A" },
-      "colorToken": "sky"
-    },
-    {
-      "id": "obj-b",
-      "formalLabel": "B",
-      "labels": { "data": "Packed Blob", "alchemy": "Gold Dust", "spellcraft": "Glyph", "abstract": "B" },
-      "colorToken": "emerald"
-    },
-    {
-      "id": "obj-c",
-      "formalLabel": "C",
-      "labels": { "data": "Archive", "alchemy": "Coin", "spellcraft": "Ward", "abstract": "C" },
-      "colorToken": "amber"
-    }
+    { "id": "obj-a", "formalLabel": "A", "labels": { "data": "Raw CSV", "alchemy": "Gold Bar", "spellcraft": "Sigil", "abstract": "A" }, "colorToken": "sky" },
+    { "id": "obj-b", "formalLabel": "B", "labels": { "data": "Packed Blob", "alchemy": "Gold Dust", "spellcraft": "Glyph", "abstract": "B" }, "colorToken": "emerald" },
+    { "id": "obj-c", "formalLabel": "C", "labels": { "data": "Archive", "alchemy": "Coin", "spellcraft": "Ward", "abstract": "C" }, "colorToken": "amber" }
   ],
   "morphisms": [
-    {
-      "id": "mor-f",
-      "formalLabel": "f",
-      "sourceObjectId": "obj-a",
-      "targetObjectId": "obj-b",
-      "labels": { "data": "Encode", "alchemy": "Grind", "spellcraft": "Etch", "abstract": "f" },
-      "description": { "data": "A → B (reversible)", "alchemy": "A → B (reversible)", "spellcraft": "A → B (reversible)", "abstract": "A → B (iso)" }
-    },
-    {
-      "id": "mor-h",
-      "formalLabel": "h",
-      "sourceObjectId": "obj-b",
-      "targetObjectId": "obj-c",
-      "labels": { "data": "Compress", "alchemy": "Mint", "spellcraft": "Seal", "abstract": "h" },
-      "description": { "data": "B → C (reversible)", "alchemy": "B → C (reversible)", "spellcraft": "B → C (reversible)", "abstract": "B → C (iso)" }
-    }
+    { "id": "mor-f", "formalLabel": "f", "sourceObjectId": "obj-a", "targetObjectId": "obj-b", "labels": { "data": "Encode", "alchemy": "Grind", "spellcraft": "Etch", "abstract": "f" }, "action": { "v-a": "v-b" } },
+    { "id": "mor-h", "formalLabel": "h", "sourceObjectId": "obj-b", "targetObjectId": "obj-c", "labels": { "data": "Compress", "alchemy": "Mint", "spellcraft": "Seal", "abstract": "h" }, "description": { "data": "lossless (reversible)", "alchemy": "lossless (reversible)", "spellcraft": "lossless (reversible)", "abstract": "an isomorphism B → C" }, "action": { "v-b": "v-c" } },
+    { "id": "mor-hbad", "formalLabel": "h′", "sourceObjectId": "obj-b", "targetObjectId": "obj-c", "labels": { "data": "Flatten", "alchemy": "Melt", "spellcraft": "Smear", "abstract": "h′" }, "description": { "data": "lossy (not reversible)", "alchemy": "lossy (not reversible)", "spellcraft": "lossy (not reversible)", "abstract": "B → C, not an iso" }, "action": { "v-b": "v-cx" } }
+  ],
+  "samples": [
+    { "id": "v-a", "objectId": "obj-a", "labels": { "data": "the file", "alchemy": "the bar", "spellcraft": "the sigil", "abstract": "a" } },
+    { "id": "v-b", "objectId": "obj-b", "labels": { "data": "packed blob", "alchemy": "gold dust", "spellcraft": "glyph", "abstract": "b" } },
+    { "id": "v-c", "objectId": "obj-c", "labels": { "data": "the archive", "alchemy": "the coin", "spellcraft": "the ward", "abstract": "c" } },
+    { "id": "v-cx", "objectId": "obj-c", "labels": { "data": "a flattened blob", "alchemy": "a melted lump", "spellcraft": "a smeared mark", "abstract": "c′" } }
   ],
   "initialGraph": {
     "nodes": [
-      { "kind": "object", "nodeId": "n-a", "objectId": "obj-a", "role": "start", "position": { "x": 40, "y": 160 } },
-      { "kind": "morphism", "nodeId": "n-f", "morphismId": "mor-f", "position": { "x": 210, "y": 160 } },
-      { "kind": "object", "nodeId": "n-b", "objectId": "obj-b", "position": { "x": 380, "y": 160 } },
-      { "kind": "morphism", "nodeId": "n-h", "morphismId": "mor-h", "position": { "x": 550, "y": 160 } },
-      { "kind": "object", "nodeId": "n-c", "objectId": "obj-c", "role": "goal", "position": { "x": 720, "y": 160 } }
+      { "kind": "object", "nodeId": "n-a", "objectId": "obj-a", "role": "start", "position": { "x": 30, "y": 190 } },
+      { "kind": "morphism", "nodeId": "n-f", "morphismId": "mor-f", "position": { "x": 210, "y": 190 } },
+      { "kind": "object", "nodeId": "n-b", "objectId": "obj-b", "position": { "x": 390, "y": 190 } },
+      { "kind": "morphism", "nodeId": "n-h", "morphismId": "mor-h", "position": { "x": 560, "y": 90 } },
+      { "kind": "morphism", "nodeId": "n-hbad", "morphismId": "mor-hbad", "position": { "x": 560, "y": 290 } },
+      { "kind": "object", "nodeId": "n-c", "objectId": "obj-c", "role": "goal", "position": { "x": 740, "y": 190 } }
     ],
     "edges": []
   },
-  "allowedMorphismIds": ["mor-f", "mor-h"],
+  "allowedMorphismIds": ["mor-f", "mor-h", "mor-hbad"],
   "validation": [
     { "type": "type-valid-wiring" },
-    { "type": "required-final-object", "objectId": "obj-c" },
-    { "type": "allowed-morphisms-only", "morphismIds": ["mor-f", "mor-h"] }
+    { "type": "required-output", "inputValueId": "v-a", "outputValueId": "v-c" }
   ],
   "reveal": {
     "afterSuccess": {
-      "data": "Two reversible steps in a row make a reversible whole: to undo it, just run Compress backward then Encode backward. So the start and the goal are the same up to renaming.",
-      "alchemy": "Two reversible steps in a row make a reversible whole: to undo it, run Mint backward then Grind backward. So the start and the goal are the same up to renaming.",
-      "spellcraft": "Two reversible steps in a row make a reversible whole: to undo it, run Seal backward then Etch backward. So the start and the goal are the same up to renaming.",
-      "abstract": "Two isomorphisms in a row compose to an isomorphism, with inverse f⁻¹ ∘ h⁻¹. So A and C are the same up to renaming."
+      "data": "Two lossless steps make a lossless whole — Encode then Compress can be undone (decompress, then decode), so the start and the archive are the same up to renaming. Flatten would have lost detail and broken reversibility.",
+      "alchemy": "Two lossless steps make a lossless whole — the coin can be returned to the bar. Melt would have lost detail.",
+      "spellcraft": "Two lossless steps make a lossless whole — the ward can be returned to the sigil. Smear would have lost detail.",
+      "abstract": "Two isomorphisms compose to an isomorphism; the lossy look-alike does not. A ≅ C."
     },
-    "summary": "Isomorphisms compose: if A ≅ B and B ≅ C then A ≅ C. Being \"the same up to renaming\" chains together.",
-    "notation": ["A ≅ B  and  B ≅ C  ⟹  A ≅ C", "(h ∘ f)⁻¹ = f⁻¹ ∘ h⁻¹"],
-    "moreFormal": "If f and h are isomorphisms, so is h ∘ f, with inverse f⁻¹ ∘ h⁻¹ (note the reversed order). Isomorphism is therefore an equivalence relation on objects.",
-    "programmerAnalogy": "If both steps round-trip, the pipeline round-trips — decode in reverse order."
+    "summary": "Isomorphisms compose: if A ≅ B and B ≅ C then A ≅ C, with inverse f⁻¹ ∘ h⁻¹. A lossy step breaks reversibility.",
+    "notation": ["A ≅ B and B ≅ C ⟹ A ≅ C", "(h ∘ f)⁻¹ = f⁻¹ ∘ h⁻¹"],
+    "moreFormal": "Isomorphism is an equivalence relation on objects; it composes and reverses. Reversibility is exactly losing no information.",
+    "programmerAnalogy": "Compose two lossless codecs and you can still round-trip; one lossy step ruins it."
   },
   "glossaryUnlocks": [],
   "referenceSolution": {
     "nodes": [
-      { "kind": "object", "nodeId": "n-a", "objectId": "obj-a", "role": "start", "position": { "x": 40, "y": 160 } },
-      { "kind": "morphism", "nodeId": "n-f", "morphismId": "mor-f", "position": { "x": 210, "y": 160 } },
-      { "kind": "object", "nodeId": "n-b", "objectId": "obj-b", "position": { "x": 380, "y": 160 } },
-      { "kind": "morphism", "nodeId": "n-h", "morphismId": "mor-h", "position": { "x": 550, "y": 160 } },
-      { "kind": "object", "nodeId": "n-c", "objectId": "obj-c", "role": "goal", "position": { "x": 720, "y": 160 } }
+      { "kind": "object", "nodeId": "n-a", "objectId": "obj-a", "role": "start", "position": { "x": 30, "y": 190 } },
+      { "kind": "morphism", "nodeId": "n-f", "morphismId": "mor-f", "position": { "x": 210, "y": 190 } },
+      { "kind": "object", "nodeId": "n-b", "objectId": "obj-b", "position": { "x": 390, "y": 190 } },
+      { "kind": "morphism", "nodeId": "n-h", "morphismId": "mor-h", "position": { "x": 560, "y": 90 } },
+      { "kind": "morphism", "nodeId": "n-hbad", "morphismId": "mor-hbad", "position": { "x": 560, "y": 290 } },
+      { "kind": "object", "nodeId": "n-c", "objectId": "obj-c", "role": "goal", "position": { "x": 740, "y": 190 } }
     ],
     "edges": [
       { "id": "e-a-f", "sourceNodeId": "n-a", "targetNodeId": "n-f" },

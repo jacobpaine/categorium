@@ -124,14 +124,15 @@ describe('puzzle-17 — product (project out)', () => {
 describe('puzzle-12 — isomorphism (choose the true inverse)', () => {
   const input = () => toValidationInput(getPuzzle('puzzle-12') as never);
 
-  it('rejects the lossy machine that cannot return to the start (type mismatch)', () => {
-    // mor-bad: B -> C, so wiring it into the goal A is ill-typed.
-    const res = validatePuzzle(
-      input(),
-      wire('puzzle-12', [['n-a-start', 'n-f'], ['n-f', 'n-b'], ['n-b', 'n-bad'], ['n-bad', 'n-a-goal']]),
-    );
+  it('accepts only the decoder whose round trip restores the original value', () => {
+    const ok = validatePuzzle(input(), wire('puzzle-12', [['n-a-start', 'n-f'], ['n-f', 'n-b'], ['n-b', 'n-g'], ['n-g', 'n-a-goal']]));
+    expect(ok.ok).toBe(true);
+  });
+
+  it('rejects a same-typed decoder that returns a different value (g₁)', () => {
+    const res = validatePuzzle(input(), wire('puzzle-12', [['n-a-start', 'n-f'], ['n-f', 'n-b'], ['n-b', 'n-g1'], ['n-g1', 'n-a-goal']]));
     expect(res.ok).toBe(false);
-    if (!res.ok) expect(res.firstFailure.rule.type).toBe('type-valid-wiring');
+    if (!res.ok) expect(res.firstFailure.rule.type).toBe('required-output');
   });
 });
 
