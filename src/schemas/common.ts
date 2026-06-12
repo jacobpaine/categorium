@@ -66,17 +66,21 @@ export const sampleValueSchema = z.object({
   labels: themeTextSchema,
 });
 
+export const graphPositionSchema = z.object({ x: z.number(), y: z.number() });
+
 export const graphNodeSchema = z.discriminatedUnion('kind', [
   z.object({
     kind: z.literal('object'),
     nodeId: z.string().min(1),
     objectId: z.string().min(1),
     role: z.enum(['start', 'goal']).optional(),
+    position: graphPositionSchema.optional(),
   }),
   z.object({
     kind: z.literal('morphism'),
     nodeId: z.string().min(1),
     morphismId: z.string().min(1),
+    position: graphPositionSchema.optional(),
   }),
 ]);
 

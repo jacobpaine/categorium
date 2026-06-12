@@ -11,9 +11,18 @@
 import type { Diagram, Result } from './types';
 import { getMorphism } from './compose';
 
+/** Optional author-provided canvas layout for a node (presentation only; logic ignores it). */
+export type GraphPosition = { x: number; y: number };
+
 export type GraphNode =
-  | { kind: 'object'; nodeId: string; objectId: string; role?: 'start' | 'goal' }
-  | { kind: 'morphism'; nodeId: string; morphismId: string };
+  | {
+      kind: 'object';
+      nodeId: string;
+      objectId: string;
+      role?: 'start' | 'goal';
+      position?: GraphPosition;
+    }
+  | { kind: 'morphism'; nodeId: string; morphismId: string; position?: GraphPosition };
 
 export type GraphEdge = {
   id: string;

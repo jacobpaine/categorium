@@ -34,18 +34,18 @@ src/
   themes/      ThemeId + label resolution (presentation only)
   glossary/    glossary types + unlock tracking
   state/       Zustand progress store (localStorage)
-  flow/        React Flow adapter (domain graph ↔ RF nodes/edges)  — stub this session
-  ui/          React components (game names)                       — route shell this session
-  devtools/    debug tools                                         — stub this session
+  flow/        React Flow adapter (domain graph ↔ RF nodes/edges)
+  ui/          React components (game names): screens/ + canvas/ (PuzzleCanvas, nodes)
+  devtools/    debug tools                                         — stub
 ```
 
 The central rule: formal category-theory names live only in `domain/`, game/metaphor names
 only in `ui/`, theme vocabulary only in `data/` and `themes/`. Domain + validation are pure
 and unit-testable without React.
 
-## Current status (Session 1 — Foundation)
+## Current status (Sessions 1–2)
 
-**Built and working:**
+**Built and working (Session 1 — Foundation):**
 - Documentation: `SPEC.md`, `README.md`, `PUZZLES.md`, `TESTING.md`, `DEPLOYMENT.md`
 - Vite + React + TS (strict) + Tailwind + Router + Zustand + Zod + React Flow + Vitest scaffold
 - Pure domain model: objects, morphisms, paths, composition, path-equivalence
@@ -57,26 +57,36 @@ and unit-testable without React.
 - Real `.claude/` skills (5) and agents (3)
 - Vitest tests: domain, validation, schema parsing
 
-**Stubbed:**
-- Puzzles 2–5 (id, chapter, order, concept tags, brief intro/goal only)
-- `src/flow/` React Flow adapter (interface + TODO)
-- `src/devtools/` debug panel
-- UI screens render placeholders
+**Built and working (Session 2 — playable vertical slice):**
+- React Flow adapter (`src/flow/adapter.ts`): the sole domain ↔ RF bridge (`toReactFlow` /
+  `fromReactFlow`), with a round-trip test
+- `PuzzleCanvas` with custom `ObjectTerminal` (start/goal terminals) and `MachineNode` nodes,
+  type-colored ports, curved arrow wires, animated after Run
+- Run/Check wired to `validatePuzzle`; theme-first failure feedback; success state
+- Post-success formal reveal (theme language → notation → "more formal" → opt-in code analogy)
+- App-start flow: theme selection cards → chapter map → puzzle screen
+- Theme switching that preserves the constructed graph (parent remounts the canvas; the graph
+  is restored from the saved progress)
+- Glossary screen (unlocks gate entries) and Settings (theme + clear-all-progress)
+- Progress store fully wired: completions, concept/glossary unlocks, per-puzzle saved graph
 
-**Deferred to next session (the playable vertical slice):**
-React Flow puzzle canvas (terminals, machine nodes, ports, wires), live + Run/Check
-validation, sample animation, theme-switch UI, formal-reveal UI, glossary popovers/page,
-debug panel, app-start screens (theme cards, chapter map, settings).
+**Stubbed:**
+- Puzzles 2–5 (id, chapter, order, concept tags, brief intro/goal only — listed as "Coming soon")
+- `src/devtools/` debug panel
+
+**Deferred (next):**
+Sample-value animation through machines, debug panel + `?debug=true`, full keyboard graph
+construction (mouse-first for now), Puzzles 2–5 authored content, locked-puzzle deep-link screen.
 
 **Known limitations:**
-- No graph editing UI yet — the domain/validation core is exercised via tests, not the browser.
 - Morphisms are unary only (products/sums/multi-input are a marked future extension point).
-- No accounts/backend; progress is localStorage only.
+- `tracePath` follows a single linear path; the commutative-diagram puzzle (5) will consume
+  declared `paths` rather than re-trace.
+- Graph editing is mouse-first; no accounts/backend (progress is localStorage only).
 
 ## Next steps
 
-1. Build the React Flow adapter in `src/flow/` and the `PuzzleCanvas` in `src/ui/`.
-2. Wire Run/Check to `validatePuzzle`; add sample animation and success feedback.
-3. Theme-switch UI, formal-reveal panel, glossary popovers.
-4. Wire the progress store to the UI and the chapter map.
-5. Add the debug panel and `?debug=true` flag handling.
+1. Author Puzzles 2–5 (the engine, schema, and canvas already support them).
+2. Sample-value animation on Run; subtle completion effects.
+3. Debug panel behind `?debug=true` (puzzle JSON, parse result, graph, validation, mappings).
+4. Keyboard-accessible graph construction; React Flow a11y pass.

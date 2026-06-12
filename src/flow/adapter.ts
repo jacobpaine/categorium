@@ -1,26 +1,145 @@
 /**
- * React Flow adapter — STUB (next session).
+ * React Flow adapter — the ONLY module that knows both the domain `PuzzleGraph` and React
+ * Flow's node/edge shapes. This preserves the rule that `src/domain` and `src/validation`
+ * never import `reactflow`.
  *
- * This is the ONLY place that knows about both the domain `PuzzleGraph` and React Flow's
- * node/edge shape. Keeping the mapping here preserves the rule that the domain stays
- * framework-independent. The next session implements:
+ *   toReactFlow(graph, diagram, opts) : domain graph -> RF nodes/edges (for rendering)
+ *   fromReactFlow(nodes, edges)       : RF nodes/edges -> domain graph (for validation/saving)
  *
- *   toReactFlow(graph, diagram, theme): { nodes, edges }   // domain -> RF for rendering
- *   fromReactFlow(nodes, edges): PuzzleGraph               // RF -> domain for validation
- *
- * Node mapping: object node -> ObjectTerminal node, morphism node -> MachineNode.
- * Edge mapping: GraphEdge -> Wire, colored by the object/type where practical.
+ * Node mapping: object node -> 'objectTerminal' node, morphism node -> 'machine' node.
+ * Edge mapping: GraphEdge -> Wire.
  */
-import type { PuzzleGraph } from '../domain';
+import type { Node, Edge } from 'reactflow';
+import { MarkerType } from 'reactflow';
+import type { Diagram, PuzzleGraph, GraphNode, ThemeId } from '../domain';
+import { getObject, getMorphism } from '../domain';
 
-export type ReactFlowGraph = {
-  // Typed as unknown[] until the next session pulls in reactflow's Node/Edge types, so the
-  // domain build stays free of a React Flow dependency.
-  nodes: unknown[];
-  edges: unknown[];
+export const OBJECT_NODE_TYPE = 'objectTerminal';
+export const MACHINE_NODE_TYPE = 'machine';
+
+export type ObjectNodeData = {
+  objectId: string;
+  /** Theme display label. */
+  label: string;
+  formalLabel?: string;
+  description?: string;
+  role?: 'start' | 'goal';
+  colorToken?: string;
+  /** Whether to surface the formal label (concept unlocked). */
+  showFormal: boolean;
 };
 
-// TODO(next-session): implement domain <-> React Flow mapping (see module comment).
-export function toReactFlow(_graph: PuzzleGraph): ReactFlowGraph {
-  throw new Error('React Flow adapter not implemented yet (next session).');
+export type MachineNodeData = {
+  morphismId: string;
+  label: string;
+  formalLabel?: string;
+  description?: string;
+  sourceObjectId: string;
+  targetObjectId: string;
+  /** Color tokens of the input/output object types, for port coloring. */
+  inputColorToken?: string;
+  outputColorToken?: string;
+  showFormal: boolean;
+};
+
+export type ObjectNode = Node<ObjectNodeData, typeof OBJECT_NODE_TYPE>;
+export type MachineNode = Node<MachineNodeData, typeof MACHINE_NODE_TYPE>;
+export type RFNode = ObjectNode | MachineNode;
+
+export type ToReactFlowOptions = {
+  theme: ThemeId;
+  /** Concepts the player has unlocked, controlling formal-label visibility. */
+  showFormalLabels?: boolean;
+  /** Animate wires (after a successful Run). */
+  animated?: boolean;
+};
+
+/** Fallback layout when an authored node carries no position. */
+function fallbackPosition(node: GraphNode, index: number): { x: number; y: number } {
+  return node.position ?? { x: 40 + index * 300, y: 140 };
+}
+
+export function toReactFlow(
+  graph: PuzzleGraph,
+  diagram: Diagram,
+  opts: ToReactFlowOptions,
+): { nodes: RFNode[]; edges: Edge[] } {
+  const showFormal = Boolean(opts.showFormalLabels);
+
+  const nodes: RFNode[] = graph.nodes.map((node, index) => {
+    const position = fallbackPosition(node, index);
+    if (node.kind === 'object') {
+      const obj = getObject(diagram, node.objectId);
+      const data: ObjectNodeData = {
+        objectId: node.objectId,
+        label: obj?.labels[opts.theme] ?? node.objectId,
+        formalLabel: obj?.formalLabel,
+        description: obj?.description?.[opts.theme],
+        role: node.role,
+        colorToken: obj?.colorToken,
+        showFormal,
+      };
+      return { id: node.nodeId, type: OBJECT_NODE_TYPE, position, data };
+    }
+    const mor = getMorphism(diagram, node.morphismId);
+    const inputObj = mor ? getObject(diagram, mor.sourceObjectId) : undefined;
+    const outputObj = mor ? getObject(diagram, mor.targetObjectId) : undefined;
+    const data: MachineNodeData = {
+      morphismId: node.morphismId,
+      label: mor?.labels[opts.theme] ?? node.morphismId,
+      formalLabel: mor?.formalLabel,
+      description: mor?.description?.[opts.theme],
+      sourceObjectId: mor?.sourceObjectId ?? '',
+      targetObjectId: mor?.targetObjectId ?? '',
+      inputColorToken: inputObj?.colorToken,
+      outputColorToken: outputObj?.colorToken,
+      showFormal,
+    };
+    return { id: node.nodeId, type: MACHINE_NODE_TYPE, position, data };
+  });
+
+  const edges: Edge[] = graph.edges.map((e) => ({
+    id: e.id,
+    source: e.sourceNodeId,
+    target: e.targetNodeId,
+    type: 'default',
+    animated: Boolean(opts.animated),
+    markerEnd: { type: MarkerType.ArrowClosed },
+  }));
+
+  return { nodes, edges };
+}
+
+/**
+ * Map React Flow nodes/edges back into a domain `PuzzleGraph`. Node kind is recovered from the
+ * RF node `type`; positions are preserved so saved in-progress graphs keep their layout.
+ */
+export function fromReactFlow(nodes: RFNode[], edges: Edge[]): PuzzleGraph {
+  const graphNodes: GraphNode[] = nodes.map((n) => {
+    const position = { x: n.position.x, y: n.position.y };
+    if (n.type === MACHINE_NODE_TYPE) {
+      return {
+        kind: 'morphism',
+        nodeId: n.id,
+        morphismId: (n.data as MachineNodeData).morphismId,
+        position,
+      };
+    }
+    const data = n.data as ObjectNodeData;
+    return {
+      kind: 'object',
+      nodeId: n.id,
+      objectId: data.objectId,
+      ...(data.role ? { role: data.role } : {}),
+      position,
+    };
+  });
+
+  const graphEdges = edges.map((e) => ({
+    id: e.id,
+    sourceNodeId: e.source,
+    targetNodeId: e.target,
+  }));
+
+  return { nodes: graphNodes, edges: graphEdges };
 }

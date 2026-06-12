@@ -1,66 +1,56 @@
-import { Routes, Route, Link, useParams } from 'react-router-dom';
+import { Routes, Route, Link, NavLink } from 'react-router-dom';
+import { ThemeSelect } from './screens/ThemeSelect';
+import { ChapterMap } from './screens/ChapterMap';
+import { PuzzleScreen } from './screens/PuzzleScreen';
+import { GlossaryScreen } from './screens/GlossaryScreen';
+import { SettingsScreen } from './screens/SettingsScreen';
 
-/**
- * Minimal route shell for the foundation session. Each screen renders a placeholder.
- * The playable vertical slice (PuzzleCanvas, theme cards, chapter map, glossary UI,
- * settings) is built next session — see SPEC.md §10.
- */
 export default function App() {
   return (
-    <div className="min-h-full bg-slate-50 text-slate-900">
-      <header className="border-b border-slate-200 px-6 py-3">
+    <div className="flex min-h-full flex-col bg-slate-50 text-slate-900">
+      <header className="border-b border-slate-200 bg-white px-6 py-3">
         <nav className="flex items-center gap-4 text-sm">
           <Link to="/" className="font-semibold">
             Categorium
           </Link>
-          <Link to="/chapters" className="text-slate-600 hover:text-slate-900">
-            Chapters
-          </Link>
-          <Link to="/glossary" className="text-slate-600 hover:text-slate-900">
-            Glossary
-          </Link>
-          <Link to="/settings" className="text-slate-600 hover:text-slate-900">
-            Settings
-          </Link>
+          {[
+            { to: '/chapters', label: 'Chapters' },
+            { to: '/glossary', label: 'Glossary' },
+            { to: '/settings', label: 'Settings' },
+          ].map((l) => (
+            <NavLink
+              key={l.to}
+              to={l.to}
+              className={({ isActive }) =>
+                isActive ? 'text-slate-900' : 'text-slate-500 hover:text-slate-900'
+              }
+            >
+              {l.label}
+            </NavLink>
+          ))}
         </nav>
       </header>
-      <main className="px-6 py-8">
+      <main className="flex-1">
         <Routes>
-          <Route path="/" element={<Placeholder title="Theme Selection" />} />
-          <Route path="/chapters" element={<Placeholder title="Chapter Map" />} />
-          <Route
-            path="/chapter/:chapterId/puzzle/:puzzleId"
-            element={<PuzzlePlaceholder />}
-          />
-          <Route path="/glossary" element={<Placeholder title="Glossary" />} />
-          <Route path="/settings" element={<Placeholder title="Settings" />} />
-          <Route path="*" element={<Placeholder title="Not Found" />} />
+          <Route path="/" element={<ThemeSelect />} />
+          <Route path="/chapters" element={<ChapterMap />} />
+          <Route path="/chapter/:chapterId/puzzle/:puzzleId" element={<PuzzleScreen />} />
+          <Route path="/glossary" element={<GlossaryScreen />} />
+          <Route path="/settings" element={<SettingsScreen />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
     </div>
   );
 }
 
-function Placeholder({ title }: { title: string }) {
+function NotFound() {
   return (
-    <section>
-      <h1 className="text-2xl font-bold">{title}</h1>
-      <p className="mt-2 text-slate-600">
-        Placeholder screen. UI is built in the next session — see <code>SPEC.md</code> §10.
-      </p>
-    </section>
-  );
-}
-
-function PuzzlePlaceholder() {
-  const { chapterId, puzzleId } = useParams();
-  return (
-    <section>
-      <h1 className="text-2xl font-bold">Puzzle</h1>
-      <p className="mt-2 text-slate-600">
-        Chapter <code>{chapterId}</code>, puzzle <code>{puzzleId}</code>. The React Flow
-        canvas is built next session.
-      </p>
+    <section className="px-6 py-8">
+      <h1 className="text-2xl font-bold">Not found</h1>
+      <Link to="/" className="mt-2 inline-block text-sky-700 hover:underline">
+        Back to start
+      </Link>
     </section>
   );
 }
