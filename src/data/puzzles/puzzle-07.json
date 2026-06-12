@@ -1,0 +1,104 @@
+{
+  "status": "authored",
+  "id": "puzzle-07",
+  "chapterId": "chapter-02-laws",
+  "order": 7,
+  "title": {
+    "data": "Do Nothing After",
+    "alchemy": "Do Nothing After",
+    "spellcraft": "Do Nothing After",
+    "abstract": "Do Nothing After"
+  },
+  "conceptTags": ["identity-law"],
+  "intro": {
+    "data": "The do-nothing step works on the other side too. Run the Parser, then pass the result through Pass Through — the goal is unchanged.",
+    "alchemy": "The do-nothing step works on the other side too. Run the Smelter, then pass the result through Preserve — the goal is unchanged.",
+    "spellcraft": "The do-nothing step works on the other side too. Cast Ignition, then pass the result through Echo — the goal is unchanged.",
+    "abstract": "Identity works on the other side too. Apply f, then id_B — the goal is unchanged."
+  },
+  "goal": {
+    "data": "Wire the start through the Parser and then Pass Through to reach the goal.",
+    "alchemy": "Wire the start through the Smelter and then Preserve to reach the goal.",
+    "spellcraft": "Wire the start through Ignition and then Echo to reach the goal.",
+    "abstract": "Wire the start through f and then id_B to reach the goal."
+  },
+  "objects": [
+    {
+      "id": "obj-a",
+      "formalLabel": "A",
+      "labels": { "data": "Raw CSV", "alchemy": "Ore", "spellcraft": "Spark", "abstract": "A" },
+      "colorToken": "sky"
+    },
+    {
+      "id": "obj-b",
+      "formalLabel": "B",
+      "labels": { "data": "Clean Table", "alchemy": "Ingot", "spellcraft": "Flame", "abstract": "B" },
+      "colorToken": "emerald"
+    }
+  ],
+  "morphisms": [
+    {
+      "id": "mor-f",
+      "formalLabel": "f",
+      "sourceObjectId": "obj-a",
+      "targetObjectId": "obj-b",
+      "labels": { "data": "Parser", "alchemy": "Smelter", "spellcraft": "Ignition", "abstract": "f" },
+      "description": { "data": "A → B", "alchemy": "A → B", "spellcraft": "A → B", "abstract": "A → B" }
+    },
+    {
+      "id": "mor-idB",
+      "formalLabel": "id_B",
+      "sourceObjectId": "obj-b",
+      "targetObjectId": "obj-b",
+      "labels": { "data": "Pass Through", "alchemy": "Preserve", "spellcraft": "Echo", "abstract": "id_B" },
+      "description": { "data": "B → B", "alchemy": "B → B", "spellcraft": "B → B", "abstract": "B → B" }
+    }
+  ],
+  "paths": [
+    { "id": "path-fid", "morphismIds": ["mor-f", "mor-idB"] },
+    { "id": "path-f", "morphismIds": ["mor-f"] }
+  ],
+  "equivalences": [{ "id": "eq-1", "leftPathId": "path-fid", "rightPathId": "path-f" }],
+  "initialGraph": {
+    "nodes": [
+      { "kind": "object", "nodeId": "n-a", "objectId": "obj-a", "role": "start", "position": { "x": 40, "y": 160 } },
+      { "kind": "morphism", "nodeId": "n-f", "morphismId": "mor-f", "position": { "x": 250, "y": 160 } },
+      { "kind": "morphism", "nodeId": "n-id", "morphismId": "mor-idB", "position": { "x": 460, "y": 160 } },
+      { "kind": "object", "nodeId": "n-b", "objectId": "obj-b", "role": "goal", "position": { "x": 680, "y": 160 } }
+    ],
+    "edges": []
+  },
+  "allowedMorphismIds": ["mor-f", "mor-idB"],
+  "validation": [
+    { "type": "type-valid-wiring" },
+    { "type": "required-final-object", "objectId": "obj-b" },
+    { "type": "concept-tag-required", "conceptTag": "identity" },
+    { "type": "path-equivalence", "leftPathId": "path-fid", "rightPathId": "path-f" }
+  ],
+  "reveal": {
+    "afterSuccess": {
+      "data": "Adding a do-nothing step after the Parser changed nothing. An identity step is neutral on either side of a process.",
+      "alchemy": "Adding a do-nothing step after the Smelter changed nothing. An identity step is neutral on either side of a process.",
+      "spellcraft": "Adding a do-nothing step after Ignition changed nothing. An identity step is neutral on either side of a working.",
+      "abstract": "Adding identity after f changed nothing. An identity step is neutral on either side of a morphism."
+    },
+    "summary": "The other half of the identity law: putting an identity step after a process also leaves it unchanged. id_B ∘ f is just f.",
+    "notation": ["id_B ∘ f = f", "f ∘ id_A = f"],
+    "moreFormal": "Identity morphisms are two-sided units for composition: for any f : A → B, both id_B ∘ f = f and f ∘ id_A = f.",
+    "programmerAnalogy": "id(f(x)) === f(x)."
+  },
+  "glossaryUnlocks": [],
+  "referenceSolution": {
+    "nodes": [
+      { "kind": "object", "nodeId": "n-a", "objectId": "obj-a", "role": "start", "position": { "x": 40, "y": 160 } },
+      { "kind": "morphism", "nodeId": "n-f", "morphismId": "mor-f", "position": { "x": 250, "y": 160 } },
+      { "kind": "morphism", "nodeId": "n-id", "morphismId": "mor-idB", "position": { "x": 460, "y": 160 } },
+      { "kind": "object", "nodeId": "n-b", "objectId": "obj-b", "role": "goal", "position": { "x": 680, "y": 160 } }
+    ],
+    "edges": [
+      { "id": "e-a-f", "sourceNodeId": "n-a", "targetNodeId": "n-f" },
+      { "id": "e-f-id", "sourceNodeId": "n-f", "targetNodeId": "n-id" },
+      { "id": "e-id-b", "sourceNodeId": "n-id", "targetNodeId": "n-b" }
+    ]
+  }
+}

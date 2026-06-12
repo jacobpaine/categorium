@@ -15,15 +15,16 @@ describe('puzzle schema', () => {
     expect(p.status).toBe('authored');
   });
 
-  it('all five bundled puzzles pass validation and load', () => {
-    // src/data/index.ts drops invalid puzzles, so a full set means all parsed.
-    expect(PUZZLES.map((p) => p.id)).toEqual([
-      'puzzle-01',
-      'puzzle-02',
-      'puzzle-03',
-      'puzzle-04',
-      'puzzle-05',
-    ]);
+  it('all bundled puzzles pass validation, load, and sort by order', () => {
+    // src/data/index.ts drops invalid puzzles, so the full set means all parsed.
+    const ids = PUZZLES.map((p) => p.id);
+    // Chapter 1 (01–05) and Chapter 2 (06–09) are all authored and present.
+    for (const expected of ['puzzle-01', 'puzzle-05', 'puzzle-06', 'puzzle-09']) {
+      expect(ids).toContain(expected);
+    }
+    expect(PUZZLES.length).toBeGreaterThanOrEqual(9);
+    const orders = PUZZLES.map((p) => p.order);
+    expect(orders).toEqual([...orders].sort((a, b) => a - b));
   });
 
   it('rejects a malformed puzzle with a useful path', () => {

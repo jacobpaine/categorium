@@ -73,5 +73,35 @@
     "formalDefinition": "A diagram commutes when any two paths sharing the same start and end object are equal as morphisms. For a square with f: A → B, g: B → C, h: A → D, k: D → C, commuting means g ∘ f = k ∘ h.",
     "programmerAnalogy": "Two different implementations that pass exactly the same tests.",
     "notationExamples": ["g ∘ f = k ∘ h"]
+  },
+  {
+    "id": "identity-law",
+    "term": "Identity law",
+    "unlockedByConcept": "identity-law",
+    "shortDefinition": "Composing with a do-nothing step changes nothing.",
+    "themeExplanation": {
+      "data": "Putting a Pass Through before or after a machine gives the same result as the machine alone.",
+      "alchemy": "Putting a Preserve before or after an apparatus gives the same result as the apparatus alone.",
+      "spellcraft": "Putting an Echo before or after a rune gives the same result as the rune alone.",
+      "abstract": "Composing a morphism with an identity arrow leaves it unchanged."
+    },
+    "formalDefinition": "Identity morphisms are two-sided units for composition: for every f : A → B, f ∘ id_A = f and id_B ∘ f = f.",
+    "programmerAnalogy": "f(id(x)) === f(x) and id(f(x)) === f(x), where id = x => x.",
+    "notationExamples": ["f ∘ id_A = f", "id_B ∘ f = f"]
+  },
+  {
+    "id": "associativity",
+    "term": "Associativity law",
+    "unlockedByConcept": "associativity",
+    "shortDefinition": "How you group a chain of steps doesn't change the result.",
+    "themeExplanation": {
+      "data": "Whether you pre-bundle the first two machines or the last two, the pipeline behaves the same.",
+      "alchemy": "Whether you pre-bundle the first two apparatuses or the last two, the process behaves the same.",
+      "spellcraft": "Whether you pre-bundle the first two runes or the last two, the working behaves the same.",
+      "abstract": "Re-parenthesizing a chain of morphisms does not change the composite."
+    },
+    "formalDefinition": "Composition is associative: for f : A → B, g : B → C, h : C → D, (h ∘ g) ∘ f = h ∘ (g ∘ f). So chains can be written h ∘ g ∘ f without parentheses. Identity + associativity are exactly what make objects and morphisms a category.",
+    "programmerAnalogy": "compose(compose(h, g), f) === compose(h, compose(g, f)).",
+    "notationExamples": ["(h ∘ g) ∘ f = h ∘ (g ∘ f)"]
   }
 ]

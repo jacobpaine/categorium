@@ -1,0 +1,150 @@
+{
+  "status": "authored",
+  "id": "puzzle-09",
+  "chapterId": "chapter-02-laws",
+  "order": 9,
+  "title": {
+    "data": "Grouping Doesn't Matter",
+    "alchemy": "Grouping Doesn't Matter",
+    "spellcraft": "Grouping Doesn't Matter",
+    "abstract": "Grouping Doesn't Matter"
+  },
+  "conceptTags": ["associativity"],
+  "intro": {
+    "data": "Three steps lead from the start to the goal: Parser, Charter, Reporter. You can pre-bundle the first two (Tabulate = Charter ∘ Parser) and then run Reporter — or bundle the last two and run them after Parser. Build the pre-bundled route here.",
+    "alchemy": "Three steps lead from the start to the goal: Smelter, Toolsmith, Caster. You can pre-bundle the first two (Forge = Toolsmith ∘ Smelter) and then run Caster — or bundle the last two and run them after Smelter. Build the pre-bundled route here.",
+    "spellcraft": "Three steps lead from the start to the goal: Ignition, Kindler, Warder. You can pre-bundle the first two (Conjure = Kindler ∘ Ignition) and then run Warder — or bundle the last two after Ignition. Build the pre-bundled route here.",
+    "abstract": "Three steps lead A → D: f, g, h. You can pre-bundle g ∘ f and then apply h — or bundle h ∘ g and apply it after f. Build the (g ∘ f)-bundled route here."
+  },
+  "goal": {
+    "data": "Wire the start through Tabulate (the bundled first two steps) and then Reporter to reach the goal.",
+    "alchemy": "Wire the start through Forge (the bundled first two steps) and then Caster to reach the goal.",
+    "spellcraft": "Wire the start through Conjure (the bundled first two steps) and then Warder to reach the goal.",
+    "abstract": "Wire the start through g ∘ f and then h to reach the goal."
+  },
+  "objects": [
+    {
+      "id": "obj-a",
+      "formalLabel": "A",
+      "labels": { "data": "Raw CSV", "alchemy": "Ore", "spellcraft": "Spark", "abstract": "A" },
+      "colorToken": "sky"
+    },
+    {
+      "id": "obj-b",
+      "formalLabel": "B",
+      "labels": { "data": "Clean Table", "alchemy": "Ingot", "spellcraft": "Flame", "abstract": "B" },
+      "colorToken": "emerald"
+    },
+    {
+      "id": "obj-c",
+      "formalLabel": "C",
+      "labels": { "data": "Chart", "alchemy": "Tool", "spellcraft": "Beacon", "abstract": "C" },
+      "colorToken": "amber"
+    },
+    {
+      "id": "obj-d",
+      "formalLabel": "D",
+      "labels": { "data": "Report", "alchemy": "Alloy", "spellcraft": "Ward", "abstract": "D" },
+      "colorToken": "violet"
+    }
+  ],
+  "morphisms": [
+    {
+      "id": "mor-f",
+      "formalLabel": "f",
+      "sourceObjectId": "obj-a",
+      "targetObjectId": "obj-b",
+      "labels": { "data": "Parser", "alchemy": "Smelter", "spellcraft": "Ignition", "abstract": "f" },
+      "description": { "data": "A → B", "alchemy": "A → B", "spellcraft": "A → B", "abstract": "A → B" }
+    },
+    {
+      "id": "mor-g",
+      "formalLabel": "g",
+      "sourceObjectId": "obj-b",
+      "targetObjectId": "obj-c",
+      "labels": { "data": "Charter", "alchemy": "Toolsmith", "spellcraft": "Kindler", "abstract": "g" },
+      "description": { "data": "B → C", "alchemy": "B → C", "spellcraft": "B → C", "abstract": "B → C" }
+    },
+    {
+      "id": "mor-h",
+      "formalLabel": "h",
+      "sourceObjectId": "obj-c",
+      "targetObjectId": "obj-d",
+      "labels": { "data": "Reporter", "alchemy": "Caster", "spellcraft": "Warder", "abstract": "h" },
+      "description": { "data": "C → D", "alchemy": "C → D", "spellcraft": "C → D", "abstract": "C → D" }
+    },
+    {
+      "id": "mor-gf",
+      "formalLabel": "g∘f",
+      "sourceObjectId": "obj-a",
+      "targetObjectId": "obj-c",
+      "labels": { "data": "Tabulate", "alchemy": "Forge", "spellcraft": "Conjure", "abstract": "g∘f" },
+      "description": {
+        "data": "Bundles Charter ∘ Parser (A → C).",
+        "alchemy": "Bundles Toolsmith ∘ Smelter (A → C).",
+        "spellcraft": "Bundles Kindler ∘ Ignition (A → C).",
+        "abstract": "g ∘ f : A → C (bundled)."
+      }
+    },
+    {
+      "id": "mor-hg",
+      "formalLabel": "h∘g",
+      "sourceObjectId": "obj-b",
+      "targetObjectId": "obj-d",
+      "labels": { "data": "Publish", "alchemy": "Temper", "spellcraft": "Bind", "abstract": "h∘g" },
+      "description": {
+        "data": "Bundles Reporter ∘ Charter (B → D).",
+        "alchemy": "Bundles Caster ∘ Toolsmith (B → D).",
+        "spellcraft": "Bundles Warder ∘ Kindler (B → D).",
+        "abstract": "h ∘ g : B → D (bundled)."
+      }
+    }
+  ],
+  "paths": [
+    { "id": "path-left", "morphismIds": ["mor-gf", "mor-h"] },
+    { "id": "path-right", "morphismIds": ["mor-f", "mor-hg"] }
+  ],
+  "equivalences": [{ "id": "eq-1", "leftPathId": "path-left", "rightPathId": "path-right" }],
+  "initialGraph": {
+    "nodes": [
+      { "kind": "object", "nodeId": "n-a", "objectId": "obj-a", "role": "start", "position": { "x": 40, "y": 160 } },
+      { "kind": "morphism", "nodeId": "n-gf", "morphismId": "mor-gf", "position": { "x": 260, "y": 160 } },
+      { "kind": "morphism", "nodeId": "n-h", "morphismId": "mor-h", "position": { "x": 480, "y": 160 } },
+      { "kind": "object", "nodeId": "n-d", "objectId": "obj-d", "role": "goal", "position": { "x": 700, "y": 160 } }
+    ],
+    "edges": []
+  },
+  "allowedMorphismIds": ["mor-gf", "mor-h"],
+  "validation": [
+    { "type": "type-valid-wiring" },
+    { "type": "allowed-morphisms-only", "morphismIds": ["mor-gf", "mor-h"] },
+    { "type": "required-final-object", "objectId": "obj-d" },
+    { "type": "path-equivalence", "leftPathId": "path-left", "rightPathId": "path-right" }
+  ],
+  "reveal": {
+    "afterSuccess": {
+      "data": "You reached the goal by bundling the first two machines, then running Reporter. Bundling the last two instead and running them after Parser reaches the exact same place. The grouping is free.",
+      "alchemy": "You reached the goal by bundling the first two apparatuses, then running Caster. Bundling the last two instead and running them after Smelter reaches the exact same place. The grouping is free.",
+      "spellcraft": "You reached the goal by bundling the first two runes, then running Warder. Bundling the last two instead and running them after Ignition reaches the exact same place. The grouping is free.",
+      "abstract": "You reached the goal by bundling g ∘ f, then applying h. Bundling h ∘ g and applying it after f reaches the exact same place. The grouping is free."
+    },
+    "summary": "This is the associativity law: when you compose a chain of steps, how you parenthesize them makes no difference. (h ∘ g) ∘ f = h ∘ (g ∘ f).",
+    "notation": ["(h ∘ g) ∘ f = h ∘ (g ∘ f)", "h ∘ g ∘ f"],
+    "moreFormal": "Composition is associative, so chains of morphisms need no parentheses at all — h ∘ g ∘ f is unambiguous. Together with the identity law, this is what makes objects and morphisms a category.",
+    "programmerAnalogy": "compose(compose(h, g), f) === compose(h, compose(g, f))."
+  },
+  "glossaryUnlocks": ["associativity"],
+  "referenceSolution": {
+    "nodes": [
+      { "kind": "object", "nodeId": "n-a", "objectId": "obj-a", "role": "start", "position": { "x": 40, "y": 160 } },
+      { "kind": "morphism", "nodeId": "n-gf", "morphismId": "mor-gf", "position": { "x": 260, "y": 160 } },
+      { "kind": "morphism", "nodeId": "n-h", "morphismId": "mor-h", "position": { "x": 480, "y": 160 } },
+      { "kind": "object", "nodeId": "n-d", "objectId": "obj-d", "role": "goal", "position": { "x": 700, "y": 160 } }
+    ],
+    "edges": [
+      { "id": "e-a-gf", "sourceNodeId": "n-a", "targetNodeId": "n-gf" },
+      { "id": "e-gf-h", "sourceNodeId": "n-gf", "targetNodeId": "n-h" },
+      { "id": "e-h-d", "sourceNodeId": "n-h", "targetNodeId": "n-d" }
+    ]
+  }
+}

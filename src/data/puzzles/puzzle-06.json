@@ -1,0 +1,104 @@
+{
+  "status": "authored",
+  "id": "puzzle-06",
+  "chapterId": "chapter-02-laws",
+  "order": 6,
+  "title": {
+    "data": "Do Nothing First",
+    "alchemy": "Do Nothing First",
+    "spellcraft": "Do Nothing First",
+    "abstract": "Do Nothing First"
+  },
+  "conceptTags": ["identity-law"],
+  "intro": {
+    "data": "A do-nothing step can sit in front of any machine. Pass the start through Pass Through, then through the Parser — you should still reach the goal, unchanged.",
+    "alchemy": "A do-nothing step can sit in front of any apparatus. Pass the start through Preserve, then through the Smelter — you should still reach the goal, unchanged.",
+    "spellcraft": "A do-nothing step can sit in front of any rune. Pass the start through Echo, then through Ignition — you should still reach the goal, unchanged.",
+    "abstract": "A do-nothing step can sit in front of any process. Apply id_A, then f — you should still reach the goal, unchanged."
+  },
+  "goal": {
+    "data": "Wire the start through Pass Through and then the Parser to reach the goal.",
+    "alchemy": "Wire the start through Preserve and then the Smelter to reach the goal.",
+    "spellcraft": "Wire the start through Echo and then Ignition to reach the goal.",
+    "abstract": "Wire the start through id_A and then f to reach the goal."
+  },
+  "objects": [
+    {
+      "id": "obj-a",
+      "formalLabel": "A",
+      "labels": { "data": "Raw CSV", "alchemy": "Ore", "spellcraft": "Spark", "abstract": "A" },
+      "colorToken": "sky"
+    },
+    {
+      "id": "obj-b",
+      "formalLabel": "B",
+      "labels": { "data": "Clean Table", "alchemy": "Ingot", "spellcraft": "Flame", "abstract": "B" },
+      "colorToken": "emerald"
+    }
+  ],
+  "morphisms": [
+    {
+      "id": "mor-idA",
+      "formalLabel": "id_A",
+      "sourceObjectId": "obj-a",
+      "targetObjectId": "obj-a",
+      "labels": { "data": "Pass Through", "alchemy": "Preserve", "spellcraft": "Echo", "abstract": "id_A" },
+      "description": { "data": "A → A", "alchemy": "A → A", "spellcraft": "A → A", "abstract": "A → A" }
+    },
+    {
+      "id": "mor-f",
+      "formalLabel": "f",
+      "sourceObjectId": "obj-a",
+      "targetObjectId": "obj-b",
+      "labels": { "data": "Parser", "alchemy": "Smelter", "spellcraft": "Ignition", "abstract": "f" },
+      "description": { "data": "A → B", "alchemy": "A → B", "spellcraft": "A → B", "abstract": "A → B" }
+    }
+  ],
+  "paths": [
+    { "id": "path-idf", "morphismIds": ["mor-idA", "mor-f"] },
+    { "id": "path-f", "morphismIds": ["mor-f"] }
+  ],
+  "equivalences": [{ "id": "eq-1", "leftPathId": "path-idf", "rightPathId": "path-f" }],
+  "initialGraph": {
+    "nodes": [
+      { "kind": "object", "nodeId": "n-a", "objectId": "obj-a", "role": "start", "position": { "x": 40, "y": 160 } },
+      { "kind": "morphism", "nodeId": "n-id", "morphismId": "mor-idA", "position": { "x": 250, "y": 160 } },
+      { "kind": "morphism", "nodeId": "n-f", "morphismId": "mor-f", "position": { "x": 460, "y": 160 } },
+      { "kind": "object", "nodeId": "n-b", "objectId": "obj-b", "role": "goal", "position": { "x": 680, "y": 160 } }
+    ],
+    "edges": []
+  },
+  "allowedMorphismIds": ["mor-idA", "mor-f"],
+  "validation": [
+    { "type": "type-valid-wiring" },
+    { "type": "required-final-object", "objectId": "obj-b" },
+    { "type": "concept-tag-required", "conceptTag": "identity" },
+    { "type": "path-equivalence", "leftPathId": "path-idf", "rightPathId": "path-f" }
+  ],
+  "reveal": {
+    "afterSuccess": {
+      "data": "The Pass Through step did nothing, and you still reached the goal. Composing a machine with a do-nothing step gives back the same machine.",
+      "alchemy": "The Preserve step did nothing, and you still reached the goal. Composing an apparatus with a do-nothing step gives back the same apparatus.",
+      "spellcraft": "The Echo step did nothing, and you still reached the goal. Composing a rune with a do-nothing step gives back the same rune.",
+      "abstract": "The identity step did nothing, and you still reached the goal. Composing a morphism with identity gives back the same morphism."
+    },
+    "summary": "This is the identity law: putting an identity step before a process leaves it unchanged. f ∘ id_A is just f.",
+    "notation": ["f ∘ id_A = f"],
+    "moreFormal": "For every object A there is an identity morphism id_A. It is neutral for composition: for any f : A → B, f ∘ id_A = f. (And on the other side, id_B ∘ f = f.)",
+    "programmerAnalogy": "f(id(x)) === f(x), where id = (x) => x."
+  },
+  "glossaryUnlocks": ["identity-law"],
+  "referenceSolution": {
+    "nodes": [
+      { "kind": "object", "nodeId": "n-a", "objectId": "obj-a", "role": "start", "position": { "x": 40, "y": 160 } },
+      { "kind": "morphism", "nodeId": "n-id", "morphismId": "mor-idA", "position": { "x": 250, "y": 160 } },
+      { "kind": "morphism", "nodeId": "n-f", "morphismId": "mor-f", "position": { "x": 460, "y": 160 } },
+      { "kind": "object", "nodeId": "n-b", "objectId": "obj-b", "role": "goal", "position": { "x": 680, "y": 160 } }
+    ],
+    "edges": [
+      { "id": "e-a-id", "sourceNodeId": "n-a", "targetNodeId": "n-id" },
+      { "id": "e-id-f", "sourceNodeId": "n-id", "targetNodeId": "n-f" },
+      { "id": "e-f-b", "sourceNodeId": "n-f", "targetNodeId": "n-b" }
+    ]
+  }
+}
