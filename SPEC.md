@@ -164,12 +164,15 @@ unlocked concept-by-concept.
 | 4 Use Identity | identity | `id_A : A → A`  (analogy `x => x`) |
 | 5 Equivalent Paths | commutative diagram | `g ∘ f = k ∘ h` |
 
-Chapters 2–5 are **authored** (20 puzzles total): Ch2 laws of composition, Ch3 isomorphisms,
-Ch4 functors, Ch5 products & coproducts. Chapter 4 introduces a second puzzle **kind**
-(`kind: "functor"`) with its own board (`FunctorCanvas`) and validator (`validateFunctor`) —
-the player maps one category onto another. All others are transformation (wiring) puzzles. The
-full curriculum arc, the worked complex example, and the engine-extension map live in
-[`ROADMAP.md`](./ROADMAP.md).
+Chapters 2–6 are **authored** (23 puzzles total): Ch2 laws of composition, Ch3 isomorphisms,
+Ch4 functors, Ch5 products & coproducts, Ch6 natural transformations. Two chapters introduce
+their own puzzle **kind** with a dedicated board + validator: `kind: "functor"` (Ch4 —
+`FunctorCanvas` / `validateFunctor`, map one category onto another) and
+`kind: "natural-transformation"` (Ch6 — `NaturalTransformationCanvas` /
+`validateNaturalTransformation`, choose a component at each object; naturality is checked
+genuinely against an author-declared composition table). All other puzzles are transformation
+(wiring) puzzles. The full curriculum arc, the worked complex example, and the engine-extension
+map live in [`ROADMAP.md`](./ROADMAP.md).
 
 ## 7. Glossary
 

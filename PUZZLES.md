@@ -147,7 +147,25 @@ the stated laws (a mis-pointed image fails the structural check).
 | 19 Either Way | coproduct (dual) | `[f,g]∘ι₁ = f`, `[f,g]∘ι₂ = g` |
 | 20 Make a Copy | the diagonal `Δ = ⟨id, id⟩` | `π₁∘Δ = π₂∘Δ = id_A` |
 
-See [`ROADMAP.md`](./ROADMAP.md) for the arc beyond Chapter 5.
+## Chapter 6 — `chapter-06-natural-transformations`  *(fully authored — a third puzzle kind)*
+
+> "Between the Maps." A natural transformation `α : F ⇒ G` is a component `α_A : F(A) → G(A)` at
+> every object of C, with all naturality squares commuting. Puzzles use
+> `kind: "natural-transformation"`: two categories C and D (D with a **composition table**), two
+> functors `functorF`/`functorG`, and `referenceComponents`. The board is the
+> `NaturalTransformationCanvas`; the check is `validateNaturalTransformation`.
+
+| Puzzle | Concept | How it's validated |
+|---|---|---|
+| 21 Build a Transformation | a family of components (`safeHead : List ⇒ Optional`) | totality + component typing `α_A : F(A) → G(A)` |
+| 22 Make the Square Commute | naturality — typed isn't enough | **genuine** naturality: the engine computes `α_B∘F(f)` vs `G(f)∘α_A` from D's composition table; `headOrDefault` (typed but non-natural) fails |
+| 23 The Identity Transformation | `id_F : F ⇒ F` (F = G) | identity components commute trivially; a `pad` distractor breaks the square |
+
+This is the engine's **most genuine** check: naturality is computed against D's author-declared
+composition table, not merely declared. The remaining trust is that the table faithfully
+describes D.
+
+See [`ROADMAP.md`](./ROADMAP.md) for the arc beyond Chapter 6.
 
 ## Authoring checklist
 

@@ -75,12 +75,24 @@ choose one (injections `ι₁,ι₂`, a unique case-split `[f,g]`). Built engine
 *unary* morphisms, and the laws (`π₁∘⟨f,g⟩ = f`) are `path-equivalence`s. No multi-input
 morphisms required.
 
-### Beyond — Natural transformations & limits  🔒 *future*
+### Chapter 6 — Natural Transformations  ✅ *authored*
+`chapter-06-natural-transformations`
 
-Natural transformations as maps *between functors* (needs functor categories), and true
-products-as-limits / multi-input morphisms (the domain model marks this extension point in
-`src/domain/types.ts`). These are the eventual goal: by here, a player who started by wiring a
-CSV parser is reasoning about universal constructions.
+A map *between two functors* `F, G : C → D`: a component `α_A : F(A) → G(A)` at every object,
+with every naturality square commuting (`α_B ∘ F(f) = G(f) ∘ α_A`).
+
+Engine support: **the second real extension** — `src/domain/naturalTransformation.ts` gives the
+target category D an author-declared **composition table** and checks naturality *genuinely*
+(it computes both composites around each square and compares), so a correctly-typed but
+non-natural family really fails. The UI is `NaturalTransformationCanvas` (components drawn from
+C-objects to candidate D-morphisms). Anchored on `safeHead : List ⇒ Optional`.
+
+### Beyond — The functor category & limits  🔒 *future*
+
+Composing natural transformations (vertical/horizontal) and the identity transformation — the
+full algebra of the functor category `[C, D]`; and true products-as-limits / multi-input
+morphisms (the domain model marks this extension point in `src/domain/types.ts`). By here, a
+player who started by wiring a CSV parser is reasoning about universal constructions.
 
 ---
 
@@ -164,7 +176,8 @@ shows their shape, without pretending to be a theorem prover.
 | Ch 3 | isomorphisms | round-trip via identity paths + `path-equivalence` | ✅ done |
 | Ch 4 | functors | two-category model (`domain/functor.ts`) + `FunctorCanvas` mapping mechanic | ✅ done |
 | Ch 5 | products / coproducts | **none** — universal-property model with unary morphisms | ✅ done |
-| Future | natural transformations | functor categories (maps between functors) | 🔒 |
+| Ch 6 | natural transformations | composition table on D (`domain/naturalTransformation.ts`) + `NaturalTransformationCanvas`; genuine naturality check | ✅ done |
+| Future | composing natural transformations | the functor-category algebra (vertical/horizontal composition, id_F) | 🔒 |
 | Future | products-as-limits | multi-input/output morphisms (extension point already marked) | 🔒 |
 | Future | sample-value semantics | a value evaluator so equivalence can be *checked* on samples, not only declared | 🔒 |
 

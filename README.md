@@ -123,12 +123,22 @@ and unit-testable without React.
 - New concept tags + glossary: isomorphism, inverse, functor, product, coproduct
 - All reference solutions / mappings unit-tested; functor mapping covered by a new e2e
 
-**Now: 20 puzzles across 5 unlocked chapters.**
+**Built and working (Session 9 — Chapter 6 Natural Transformations):**
+- A second real engine extension (functor categories): `domain/naturalTransformation.ts` with an
+  author-declared **composition table** on D, so naturality is checked *genuinely* —
+  `checkNaturalTransformation` computes `α_B∘F(f)` vs `G(f)∘α_A` and compares. A correctly-typed
+  but non-natural family really fails (more honest than declared commutativity elsewhere).
+- A new **NaturalTransformationCanvas**: the player draws a component `α_A : F(A) → G(A)` at each
+  object of C, between two given functors F, G.
+- 3 puzzles: build a transformation (`safeHead : List ⇒ Optional`), make the square commute, and
+  the identity transformation. New glossary entry + a browser e2e.
+
+**Now: 23 puzzles across 6 unlocked chapters.**
 
 **Deferred (next):**
-Full keyboard graph construction (mouse-first for now), locked-puzzle deep-link screen,
-e2e solves for the remaining puzzles, natural transformations (needs functor categories), and
-true products-as-limits (needs multi-input morphisms).
+Full keyboard graph construction (mouse-first for now), locked-puzzle deep-link screen, e2e
+solves for the remaining puzzles, composing natural transformations (the functor-category
+algebra), and true products-as-limits (needs multi-input morphisms).
 
 **Known limitations:**
 - Morphisms are unary only (multi-input/output is a marked future extension point); Chapter 5
@@ -139,10 +149,10 @@ true products-as-limits (needs multi-input morphisms).
 
 ## Next steps
 
-1. Extend Playwright e2e to cover more puzzles across Chapters 2–5.
-2. Keyboard-accessible graph construction; React Flow a11y pass (incl. the functor canvas).
+1. Chapter 7: composing natural transformations (the functor-category algebra) — see `ROADMAP.md`.
+2. Keyboard-accessible graph construction; React Flow a11y pass (incl. the functor / NT canvases).
 3. Locked-puzzle deep-link screen (opening a not-yet-unlocked puzzle by URL).
-4. Chapter 6: natural transformations (needs functor categories) — see `ROADMAP.md`.
+4. Extend Playwright e2e to cover more puzzles across all chapters.
 
 ## Debug mode
 

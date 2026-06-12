@@ -56,9 +56,21 @@ Use the **universal-property** model (unary morphisms only — no multi-input mo
 3. Either way — the coproduct is the dual: injections `ι₁, ι₂` and a unique case-split `[f,g]`.
 4. Make a copy — the diagonal `Δ = ⟨id, id⟩`. Products = "and", coproducts = "or".
 
-## Curriculum arc beyond Chapter 5
-See `ROADMAP.md`: natural transformations (maps between functors) and products-as-limits
-(needs multi-input morphisms). Keep new chapters honest about what the engine checks vs. declares.
+## Chapter 6 teaching order — "Between the Maps" (natural transformations)
+A natural transformation is a NEW puzzle kind (`kind: "natural-transformation"`): given two
+functors F, G : C → D, the player chooses a component `α_A : F(A) → G(A)` at each object of C.
+1. Build a transformation — a family of components, one per object (`safeHead : List ⇒ Optional`).
+2. Make the square commute — naturality (`α_B ∘ F(f) = G(f) ∘ α_A`); correct typing isn't enough.
+3. The identity transformation — `id_F : F ⇒ F`; the identity morphism of the functor category `[C,D]`.
+Unique to this chapter: naturality is checked **genuinely** against D's author-declared
+composition table (the engine computes both composites and compares) — so a typed-but-non-natural
+family really fails. Say so; it's a step up from declared commutativity. See
+`src/domain/naturalTransformation.ts`.
+
+## Curriculum arc beyond Chapter 6
+See `ROADMAP.md`: composing natural transformations (the functor-category algebra) and
+products-as-limits (needs multi-input morphisms). Keep new chapters honest about what the engine
+checks vs. declares.
 
 ## Per-concept reveal pattern
 metaphor language → optional programmer analogy → short formal reveal → expandable
