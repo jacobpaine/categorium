@@ -89,6 +89,36 @@ describe('puzzle-06 — identity law', () => {
   });
 });
 
+describe('puzzle-14 — functor lift (behavior)', () => {
+  const input = () => toValidationInput(getPuzzle('puzzle-14') as never);
+
+  it('the faithful lift F(f) produces the cleaned batch', () => {
+    expect(validatePuzzle(input(), wire('puzzle-14', [['n-fa', 'n-Ff'], ['n-Ff', 'n-fb']])).ok).toBe(true);
+  });
+
+  it('the impostor lift (same type) produces the wrong batch', () => {
+    const res = validatePuzzle(input(), wire('puzzle-14', [['n-fa', 'n-Ffbad'], ['n-Ffbad', 'n-fb']]));
+    expect(res.ok).toBe(false);
+    if (!res.ok) expect(res.firstFailure.rule.type).toBe('required-output');
+  });
+});
+
+describe('puzzle-16 — functor preserves identity (behavior)', () => {
+  const input = () => toValidationInput(getPuzzle('puzzle-16') as never);
+
+  it('the tampering identity-lift makes F(f) jam', () => {
+    const res = validatePuzzle(input(), wire('puzzle-16', [['n-fa', 'n-tamper'], ['n-tamper', 'n-Ff'], ['n-Ff', 'n-fb']]));
+    expect(res.ok).toBe(false);
+    if (!res.ok) expect(res.firstFailure.rule.type).toBe('required-output');
+  });
+
+  it('skipping the lifted identity fails the identity requirement', () => {
+    const res = validatePuzzle(input(), wire('puzzle-16', [['n-fa', 'n-Ff'], ['n-Ff', 'n-fb']]));
+    expect(res.ok).toBe(false);
+    if (!res.ok) expect(res.firstFailure.rule.type).toBe('concept-tag-required');
+  });
+});
+
 describe('puzzle-03 — composition by behavior', () => {
   const input = () => toValidationInput(getPuzzle('puzzle-03') as never);
 
