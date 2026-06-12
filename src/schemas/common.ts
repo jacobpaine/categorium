@@ -47,6 +47,8 @@ export const morphismSchema = z.object({
   labels: themeTextSchema,
   description: themeTextSchema.optional(),
   examples: z.array(sampleExampleSchema).optional(),
+  /** Behavior: input sample-value id -> output sample-value id (see domain/evaluate.ts). */
+  action: z.record(z.string(), z.string()).optional(),
 });
 
 export const pathSchema = z.object({

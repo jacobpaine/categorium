@@ -63,6 +63,12 @@ export type Morphism = {
   labels: ThemeText;
   description?: ThemeText;
   examples?: SampleExample[];
+  /**
+   * The machine's BEHAVIOR: a declared table from an input sample-value id to the output
+   * sample-value id it produces. A missing entry means the machine jams on that input (it can't
+   * process it). This is what the value runtime (`evaluate.ts`) executes.
+   */
+  action?: Record<string, string>;
 };
 
 /** A composable sequence of morphisms, referenced by id. */
