@@ -40,6 +40,15 @@ function PuzzleScreenInner({ puzzleId }: { puzzleId?: string }) {
 
   const diagram = useMemo(() => (authored ? toDiagram(authored) : null), [authored]);
 
+  // Theme-resolved value shown on the flowing sample token at each object (sample > label).
+  const tokenValueByObjectId = useMemo(() => {
+    const map: Record<string, string> = {};
+    if (!authored || !diagram) return map;
+    for (const o of diagram.objects) map[o.id] = o.labels[theme];
+    for (const s of authored.samples ?? []) map[s.objectId] = s.labels[theme];
+    return map;
+  }, [authored, diagram, theme]);
+
   const onGraphChange = useCallback(
     (g: PuzzleGraph) => {
       graphRef.current = g;
@@ -239,6 +248,7 @@ function PuzzleScreenInner({ puzzleId }: { puzzleId?: string }) {
           showFormalLabels={showFormal}
           animated={status === 'success'}
           locked={status === 'success'}
+          tokenValueByObjectId={tokenValueByObjectId}
           onGraphChange={onGraphChange}
         />
       </div>

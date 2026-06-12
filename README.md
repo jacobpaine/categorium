@@ -97,13 +97,19 @@ and unit-testable without React.
   Ch3 (isomorphisms) and Ch4 (functors)
 - New `identity-law` / `associativity` concept tags + glossary entries
 
+**Built and working (Session 6 — sample-value animation):**
+- On a successful Run, a sample token animates along the solved path, carrying the value as it
+  transforms through each machine (e.g. "messy spreadsheet" → "Clean Table"), with a completion
+  pulse. Lives in its own canvas state (never leaks into the validated graph); respects
+  `prefers-reduced-motion`; verified in the Playwright e2e
+- Uses authored `samples` where present, falling back to object labels
+
 **Stubbed:**
 - `src/devtools/` debug panel; Chapters 3–4 (titled placeholders, no puzzles yet)
 
 **Deferred (next):**
-Sample-value animation through machines, debug panel + `?debug=true`, full keyboard graph
-construction (mouse-first for now), locked-puzzle deep-link screen, e2e solves for puzzles 2–9,
-and authoring Chapter 3 (isomorphisms).
+Debug panel + `?debug=true`, full keyboard graph construction (mouse-first for now),
+locked-puzzle deep-link screen, e2e solves for puzzles 2–9, and authoring Chapter 3 (isomorphisms).
 
 **Known limitations:**
 - Morphisms are unary only (products/sums/multi-input are a marked future extension point).
@@ -113,8 +119,9 @@ and authoring Chapter 3 (isomorphisms).
 
 ## Next steps
 
-1. Sample-value animation on Run; subtle completion effects.
-2. Debug panel behind `?debug=true` (puzzle JSON, parse result, graph, validation, mappings).
-3. Extend Playwright e2e to solve Puzzles 2–5.
+1. Debug panel behind `?debug=true` (puzzle JSON, parse result, graph, validation, mappings)
+   plus a dev unlock to jump to any chapter/puzzle.
+2. Extend Playwright e2e to solve Puzzles 2–9.
+3. Author Chapter 3 (isomorphisms).
 4. Keyboard-accessible graph construction; React Flow a11y pass.
 5. Locked-puzzle deep-link screen (opening a not-yet-unlocked puzzle by URL).

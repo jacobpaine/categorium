@@ -26,6 +26,7 @@ export function SolutionPreview({
         showFormalLabels={false}
         animated
         locked
+        animateSampleFlow={false}
         onGraphChange={NOOP}
       />
     </div>

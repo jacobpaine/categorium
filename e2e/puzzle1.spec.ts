@@ -49,6 +49,9 @@ test('a player can solve Puzzle 1 by wiring the machine', async ({ page }) => {
   await expect(page.getByTestId('solved')).toBeVisible();
   await expect(page.getByText('What you learned')).toBeVisible();
   await expect(page.getByTestId('next-puzzle')).toBeVisible();
+
+  // A sample token animates along the solved path.
+  await expect(page.locator('.react-flow__node-sampleToken')).toBeVisible();
 });
 
 test('running with no wires shows a hint instead of success', async ({ page }) => {

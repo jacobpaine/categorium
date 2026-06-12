@@ -12,3 +12,30 @@ body,
   height: 100%;
   margin: 0;
 }
+
+/* Sample token glides between waypoints; React Flow sets the wrapper transform, we ease it. */
+.react-flow__node-sampleToken {
+  transition: transform 700ms ease-in-out;
+}
+
+@keyframes sampleTokenPulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.25);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.sample-token-done {
+  animation: sampleTokenPulse 400ms ease-in-out 2;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .react-flow__node-sampleToken {
+    transition: none;
+  }
+}
