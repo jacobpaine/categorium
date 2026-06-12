@@ -1,0 +1,84 @@
+{
+  "status": "authored",
+  "id": "puzzle-20",
+  "chapterId": "chapter-05-products",
+  "order": 20,
+  "title": {
+    "data": "Make a Copy",
+    "alchemy": "Make a Copy",
+    "spellcraft": "Make a Copy",
+    "abstract": "Make a Copy"
+  },
+  "conceptTags": ["product"],
+  "intro": {
+    "data": "Pairing is powerful: pair a thing with itself and you get a duplicator. Build the Diagonal that turns one value into a pair of identical copies — projecting either side gives the original back.",
+    "alchemy": "Pairing is powerful: pair a thing with itself and you get a duplicator. Build the Diagonal that turns one material into a pair of identical copies — projecting either side gives the original back.",
+    "spellcraft": "Pairing is powerful: pair a thing with itself and you get a duplicator. Build the Diagonal that turns one essence into a pair of identical copies — drawing either side gives the original back.",
+    "abstract": "Pair an object with itself: Δ = ⟨id, id⟩ : A → A×A. Build it, so π₁∘Δ = id_A and π₂∘Δ = id_A."
+  },
+  "goal": {
+    "data": "Wire the Name through the Diagonal to produce the pair of copies.",
+    "alchemy": "Wire the Salt through the Diagonal to produce the pair of copies.",
+    "spellcraft": "Wire the Light through the Diagonal to produce the pair of copies.",
+    "abstract": "Wire A through Δ to reach A×A."
+  },
+  "objects": [
+    { "id": "obj-a", "formalLabel": "A", "labels": { "data": "Name", "alchemy": "Salt", "spellcraft": "Light", "abstract": "A" }, "colorToken": "sky" },
+    { "id": "obj-p", "formalLabel": "A×A", "labels": { "data": "Two Names", "alchemy": "Salt Pair", "spellcraft": "Twin Light", "abstract": "A×A" }, "colorToken": "violet" }
+  ],
+  "morphisms": [
+    { "id": "mor-delta", "formalLabel": "Δ", "sourceObjectId": "obj-a", "targetObjectId": "obj-p", "labels": { "data": "duplicate", "alchemy": "Twin", "spellcraft": "Mirror", "abstract": "Δ" }, "description": { "data": "A → A×A", "alchemy": "A → A×A", "spellcraft": "A → A×A", "abstract": "A → A×A" } },
+    { "id": "mor-pi1", "formalLabel": "π₁", "sourceObjectId": "obj-p", "targetObjectId": "obj-a", "labels": { "data": "first", "alchemy": "Left Out", "spellcraft": "Draw First", "abstract": "π₁" }, "description": { "data": "A×A → A", "alchemy": "A×A → A", "spellcraft": "A×A → A", "abstract": "A×A → A" } },
+    { "id": "mor-pi2", "formalLabel": "π₂", "sourceObjectId": "obj-p", "targetObjectId": "obj-a", "labels": { "data": "second", "alchemy": "Right Out", "spellcraft": "Draw Second", "abstract": "π₂" }, "description": { "data": "A×A → A", "alchemy": "A×A → A", "spellcraft": "A×A → A", "abstract": "A×A → A" } },
+    { "id": "mor-idA", "formalLabel": "id_A", "sourceObjectId": "obj-a", "targetObjectId": "obj-a", "labels": { "data": "Pass Through", "alchemy": "Preserve", "spellcraft": "Echo", "abstract": "id_A" }, "description": { "data": "A → A", "alchemy": "A → A", "spellcraft": "A → A", "abstract": "A → A" } }
+  ],
+  "paths": [
+    { "id": "path-d-pi1", "morphismIds": ["mor-delta", "mor-pi1"] },
+    { "id": "path-d-pi2", "morphismIds": ["mor-delta", "mor-pi2"] },
+    { "id": "path-idA", "morphismIds": ["mor-idA"] }
+  ],
+  "equivalences": [
+    { "id": "eq-1", "leftPathId": "path-d-pi1", "rightPathId": "path-idA" },
+    { "id": "eq-2", "leftPathId": "path-d-pi2", "rightPathId": "path-idA" }
+  ],
+  "initialGraph": {
+    "nodes": [
+      { "kind": "object", "nodeId": "n-a", "objectId": "obj-a", "role": "start", "position": { "x": 40, "y": 160 } },
+      { "kind": "morphism", "nodeId": "n-delta", "morphismId": "mor-delta", "position": { "x": 320, "y": 160 } },
+      { "kind": "object", "nodeId": "n-p", "objectId": "obj-p", "role": "goal", "position": { "x": 600, "y": 160 } }
+    ],
+    "edges": []
+  },
+  "allowedMorphismIds": ["mor-delta"],
+  "validation": [
+    { "type": "type-valid-wiring" },
+    { "type": "allowed-morphisms-only", "morphismIds": ["mor-delta"] },
+    { "type": "required-final-object", "objectId": "obj-p" },
+    { "type": "path-equivalence", "leftPathId": "path-d-pi1", "rightPathId": "path-idA" },
+    { "type": "path-equivalence", "leftPathId": "path-d-pi2", "rightPathId": "path-idA" }
+  ],
+  "reveal": {
+    "afterSuccess": {
+      "data": "The Diagonal is just ⟨id, id⟩ — pairing a thing with itself. Both projections give back the original, so it's a faithful copy. The product's universal property gives you duplication for free.",
+      "alchemy": "The Diagonal is just ⟨id, id⟩ — pairing a thing with itself. Both projections give back the original, so it's a faithful copy. The product gives you duplication for free.",
+      "spellcraft": "The Diagonal is just ⟨id, id⟩ — pairing a thing with itself. Both draws give back the original, so it's a faithful copy. The product gives you duplication for free.",
+      "abstract": "Δ = ⟨id_A, id_A⟩, so π₁∘Δ = π₂∘Δ = id_A. The diagonal copies A into A×A."
+    },
+    "summary": "The diagonal Δ : A → A×A pairs an object with itself. Both projections recover the original: π₁ ∘ Δ = π₂ ∘ Δ = id_A.",
+    "notation": ["Δ = ⟨id_A, id_A⟩", "π₁ ∘ Δ = id_A", "π₂ ∘ Δ = id_A"],
+    "moreFormal": "The diagonal is a special pairing built from the universal property. It is what lets a category model duplication of data — not every category has it, but any with products does.",
+    "programmerAnalogy": "const dup = (x) => [x, x]; both [0] and [1] give x back."
+  },
+  "glossaryUnlocks": [],
+  "referenceSolution": {
+    "nodes": [
+      { "kind": "object", "nodeId": "n-a", "objectId": "obj-a", "role": "start", "position": { "x": 40, "y": 160 } },
+      { "kind": "morphism", "nodeId": "n-delta", "morphismId": "mor-delta", "position": { "x": 320, "y": 160 } },
+      { "kind": "object", "nodeId": "n-p", "objectId": "obj-p", "role": "goal", "position": { "x": 600, "y": 160 } }
+    ],
+    "edges": [
+      { "id": "e-a-delta", "sourceNodeId": "n-a", "targetNodeId": "n-delta" },
+      { "id": "e-delta-p", "sourceNodeId": "n-delta", "targetNodeId": "n-p" }
+    ]
+  }
+}

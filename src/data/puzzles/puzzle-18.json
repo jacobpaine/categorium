@@ -1,0 +1,88 @@
+{
+  "status": "authored",
+  "id": "puzzle-18",
+  "chapterId": "chapter-05-products",
+  "order": 18,
+  "title": {
+    "data": "Pair It Up",
+    "alchemy": "Pair It Up",
+    "spellcraft": "Pair It Up",
+    "abstract": "Pair It Up"
+  },
+  "conceptTags": ["product"],
+  "intro": {
+    "data": "You already have readName and readAge from a Form. Build the single machine that produces the whole Record at once — so projecting it back out gives exactly readName and readAge.",
+    "alchemy": "You already have two extractions from a Seed. Build the single apparatus that produces the whole Compound at once — so projecting it back out gives exactly those extractions.",
+    "spellcraft": "You already have two draws from a Caster. Build the single rune that produces the whole Blend at once — so projecting it back out gives exactly those draws.",
+    "abstract": "Given f : X→A and g : X→B, build the unique pairing ⟨f,g⟩ : X→A×B so that π₁∘⟨f,g⟩ = f and π₂∘⟨f,g⟩ = g."
+  },
+  "goal": {
+    "data": "Wire the Form through the pairing machine to build the Record.",
+    "alchemy": "Wire the Seed through the pairing apparatus to build the Compound.",
+    "spellcraft": "Wire the Caster through the pairing rune to build the Blend.",
+    "abstract": "Wire X through ⟨f,g⟩ to reach A×B."
+  },
+  "objects": [
+    { "id": "obj-x", "formalLabel": "X", "labels": { "data": "Form", "alchemy": "Seed", "spellcraft": "Caster", "abstract": "X" }, "colorToken": "amber" },
+    { "id": "obj-a", "formalLabel": "A", "labels": { "data": "Name", "alchemy": "Salt", "spellcraft": "Light", "abstract": "A" }, "colorToken": "sky" },
+    { "id": "obj-b", "formalLabel": "B", "labels": { "data": "Age", "alchemy": "Sulfur", "spellcraft": "Heat", "abstract": "B" }, "colorToken": "emerald" },
+    { "id": "obj-p", "formalLabel": "A×B", "labels": { "data": "Record", "alchemy": "Compound", "spellcraft": "Blend", "abstract": "A×B" }, "colorToken": "violet" }
+  ],
+  "morphisms": [
+    { "id": "mor-f", "formalLabel": "f", "sourceObjectId": "obj-x", "targetObjectId": "obj-a", "labels": { "data": "readName", "alchemy": "Salt From Seed", "spellcraft": "Light From Caster", "abstract": "f" }, "description": { "data": "X → A", "alchemy": "X → A", "spellcraft": "X → A", "abstract": "X → A" } },
+    { "id": "mor-g", "formalLabel": "g", "sourceObjectId": "obj-x", "targetObjectId": "obj-b", "labels": { "data": "readAge", "alchemy": "Sulfur From Seed", "spellcraft": "Heat From Caster", "abstract": "g" }, "description": { "data": "X → B", "alchemy": "X → B", "spellcraft": "X → B", "abstract": "X → B" } },
+    { "id": "mor-pi1", "formalLabel": "π₁", "sourceObjectId": "obj-p", "targetObjectId": "obj-a", "labels": { "data": "getName", "alchemy": "Salt Out", "spellcraft": "Draw Light", "abstract": "π₁" }, "description": { "data": "A×B → A", "alchemy": "A×B → A", "spellcraft": "A×B → A", "abstract": "A×B → A" } },
+    { "id": "mor-pi2", "formalLabel": "π₂", "sourceObjectId": "obj-p", "targetObjectId": "obj-b", "labels": { "data": "getAge", "alchemy": "Sulfur Out", "spellcraft": "Draw Heat", "abstract": "π₂" }, "description": { "data": "A×B → B", "alchemy": "A×B → B", "spellcraft": "A×B → B", "abstract": "A×B → B" } },
+    { "id": "mor-pair", "formalLabel": "⟨f,g⟩", "sourceObjectId": "obj-x", "targetObjectId": "obj-p", "labels": { "data": "buildRecord", "alchemy": "Combine", "spellcraft": "Weave", "abstract": "⟨f,g⟩" }, "description": { "data": "X → A×B", "alchemy": "X → A×B", "spellcraft": "X → A×B", "abstract": "X → A×B" } }
+  ],
+  "paths": [
+    { "id": "path-pair-pi1", "morphismIds": ["mor-pair", "mor-pi1"] },
+    { "id": "path-f", "morphismIds": ["mor-f"] },
+    { "id": "path-pair-pi2", "morphismIds": ["mor-pair", "mor-pi2"] },
+    { "id": "path-g", "morphismIds": ["mor-g"] }
+  ],
+  "equivalences": [
+    { "id": "eq-1", "leftPathId": "path-pair-pi1", "rightPathId": "path-f" },
+    { "id": "eq-2", "leftPathId": "path-pair-pi2", "rightPathId": "path-g" }
+  ],
+  "initialGraph": {
+    "nodes": [
+      { "kind": "object", "nodeId": "n-x", "objectId": "obj-x", "role": "start", "position": { "x": 40, "y": 160 } },
+      { "kind": "morphism", "nodeId": "n-pair", "morphismId": "mor-pair", "position": { "x": 320, "y": 160 } },
+      { "kind": "object", "nodeId": "n-p", "objectId": "obj-p", "role": "goal", "position": { "x": 600, "y": 160 } }
+    ],
+    "edges": []
+  },
+  "allowedMorphismIds": ["mor-pair"],
+  "validation": [
+    { "type": "type-valid-wiring" },
+    { "type": "allowed-morphisms-only", "morphismIds": ["mor-pair"] },
+    { "type": "required-final-object", "objectId": "obj-p" },
+    { "type": "path-equivalence", "leftPathId": "path-pair-pi1", "rightPathId": "path-f" },
+    { "type": "path-equivalence", "leftPathId": "path-pair-pi2", "rightPathId": "path-g" }
+  ],
+  "reveal": {
+    "afterSuccess": {
+      "data": "The pairing built the whole Record in one step, and projecting it gives back exactly readName and readAge. There is only one machine that does this — that uniqueness is what defines the product.",
+      "alchemy": "The pairing built the whole Compound in one step, and projecting it gives back exactly the two extractions. There is only one apparatus that does this — that uniqueness defines the product.",
+      "spellcraft": "The pairing built the whole Blend in one step, and projecting it gives back exactly the two draws. There is only one rune that does this — that uniqueness defines the product.",
+      "abstract": "⟨f,g⟩ builds the product in one step; the projections recover f and g. It is the unique such map — the universal property."
+    },
+    "summary": "The universal property of the product: for any f : X→A and g : X→B there is a unique ⟨f,g⟩ : X→A×B with π₁∘⟨f,g⟩ = f and π₂∘⟨f,g⟩ = g.",
+    "notation": ["π₁ ∘ ⟨f,g⟩ = f", "π₂ ∘ ⟨f,g⟩ = g"],
+    "moreFormal": "This universal property determines A×B up to isomorphism. The app confirms the two triangles commute; it trusts the author that the pairing is the unique one.",
+    "programmerAnalogy": "x => ({ name: f(x), age: g(x) }) — and reading .name/.age gives f, g back."
+  },
+  "glossaryUnlocks": [],
+  "referenceSolution": {
+    "nodes": [
+      { "kind": "object", "nodeId": "n-x", "objectId": "obj-x", "role": "start", "position": { "x": 40, "y": 160 } },
+      { "kind": "morphism", "nodeId": "n-pair", "morphismId": "mor-pair", "position": { "x": 320, "y": 160 } },
+      { "kind": "object", "nodeId": "n-p", "objectId": "obj-p", "role": "goal", "position": { "x": 600, "y": 160 } }
+    ],
+    "edges": [
+      { "id": "e-x-pair", "sourceNodeId": "n-x", "targetNodeId": "n-pair" },
+      { "id": "e-pair-p", "sourceNodeId": "n-pair", "targetNodeId": "n-p" }
+    ]
+  }
+}

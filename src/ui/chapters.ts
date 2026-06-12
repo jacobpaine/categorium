@@ -44,6 +44,13 @@ export const CHAPTERS: ChapterMeta[] = [
     concepts: ['functor', 'structure-preserving map'],
     status: 'available',
   },
+  {
+    id: 'chapter-05-products',
+    title: 'Combining and Choosing',
+    summary: 'Products bundle two things together; coproducts let you pick one or the other.',
+    concepts: ['product', 'coproduct', 'universal property'],
+    status: 'available',
+  },
 ];
 
 export const FIRST_CHAPTER_ID = CHAPTERS[0].id;

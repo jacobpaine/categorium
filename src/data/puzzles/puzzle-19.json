@@ -1,0 +1,88 @@
+{
+  "status": "authored",
+  "id": "puzzle-19",
+  "chapterId": "chapter-05-products",
+  "order": 19,
+  "title": {
+    "data": "Either Way",
+    "alchemy": "Either Way",
+    "spellcraft": "Either Way",
+    "abstract": "Either Way"
+  },
+  "conceptTags": ["coproduct"],
+  "intro": {
+    "data": "A coproduct is the mirror image of a product: instead of bundling both, it holds either one. A Payment is either Card or Cash. Given a way to handle each, build the single machine that handles a Payment.",
+    "alchemy": "A coproduct is the mirror image of a product: instead of bundling both, it holds either one. A Reagent is either Acid or Base. Given a way to handle each, build the single apparatus that handles a Reagent.",
+    "spellcraft": "A coproduct is the mirror image of a product: instead of bundling both, it holds either one. A Charm is either Ward or Hex. Given a way to handle each, build the single rune that handles a Charm.",
+    "abstract": "A coproduct A+B holds either an A or a B, with injections ι₁, ι₂. Given f : A→Y and g : B→Y, build [f,g] : A+B→Y."
+  },
+  "goal": {
+    "data": "Wire the Payment through the single handler that covers both cases to the Receipt.",
+    "alchemy": "Wire the Reagent through the single handler that covers both cases to the Result.",
+    "spellcraft": "Wire the Charm through the single handler that covers both cases to the Effect.",
+    "abstract": "Wire A+B through [f,g] to reach Y."
+  },
+  "objects": [
+    { "id": "obj-s", "formalLabel": "A+B", "labels": { "data": "Payment", "alchemy": "Reagent", "spellcraft": "Charm", "abstract": "A+B" }, "colorToken": "violet" },
+    { "id": "obj-a", "formalLabel": "A", "labels": { "data": "Card", "alchemy": "Acid", "spellcraft": "Ward", "abstract": "A" }, "colorToken": "sky" },
+    { "id": "obj-b", "formalLabel": "B", "labels": { "data": "Cash", "alchemy": "Base", "spellcraft": "Hex", "abstract": "B" }, "colorToken": "emerald" },
+    { "id": "obj-y", "formalLabel": "Y", "labels": { "data": "Receipt", "alchemy": "Result", "spellcraft": "Effect", "abstract": "Y" }, "colorToken": "amber" }
+  ],
+  "morphisms": [
+    { "id": "mor-i1", "formalLabel": "ι₁", "sourceObjectId": "obj-a", "targetObjectId": "obj-s", "labels": { "data": "asCard", "alchemy": "asAcid", "spellcraft": "asWard", "abstract": "ι₁" }, "description": { "data": "A → A+B", "alchemy": "A → A+B", "spellcraft": "A → A+B", "abstract": "A → A+B" } },
+    { "id": "mor-i2", "formalLabel": "ι₂", "sourceObjectId": "obj-b", "targetObjectId": "obj-s", "labels": { "data": "asCash", "alchemy": "asBase", "spellcraft": "asHex", "abstract": "ι₂" }, "description": { "data": "B → A+B", "alchemy": "B → A+B", "spellcraft": "B → A+B", "abstract": "B → A+B" } },
+    { "id": "mor-f", "formalLabel": "f", "sourceObjectId": "obj-a", "targetObjectId": "obj-y", "labels": { "data": "chargeCard", "alchemy": "neutralizeAcid", "spellcraft": "castWard", "abstract": "f" }, "description": { "data": "A → Y", "alchemy": "A → Y", "spellcraft": "A → Y", "abstract": "A → Y" } },
+    { "id": "mor-g", "formalLabel": "g", "sourceObjectId": "obj-b", "targetObjectId": "obj-y", "labels": { "data": "logCash", "alchemy": "neutralizeBase", "spellcraft": "castHex", "abstract": "g" }, "description": { "data": "B → Y", "alchemy": "B → Y", "spellcraft": "B → Y", "abstract": "B → Y" } },
+    { "id": "mor-case", "formalLabel": "[f,g]", "sourceObjectId": "obj-s", "targetObjectId": "obj-y", "labels": { "data": "process", "alchemy": "neutralize", "spellcraft": "resolve", "abstract": "[f,g]" }, "description": { "data": "A+B → Y", "alchemy": "A+B → Y", "spellcraft": "A+B → Y", "abstract": "A+B → Y" } }
+  ],
+  "paths": [
+    { "id": "path-i1-case", "morphismIds": ["mor-i1", "mor-case"] },
+    { "id": "path-f", "morphismIds": ["mor-f"] },
+    { "id": "path-i2-case", "morphismIds": ["mor-i2", "mor-case"] },
+    { "id": "path-g", "morphismIds": ["mor-g"] }
+  ],
+  "equivalences": [
+    { "id": "eq-1", "leftPathId": "path-i1-case", "rightPathId": "path-f" },
+    { "id": "eq-2", "leftPathId": "path-i2-case", "rightPathId": "path-g" }
+  ],
+  "initialGraph": {
+    "nodes": [
+      { "kind": "object", "nodeId": "n-s", "objectId": "obj-s", "role": "start", "position": { "x": 40, "y": 160 } },
+      { "kind": "morphism", "nodeId": "n-case", "morphismId": "mor-case", "position": { "x": 320, "y": 160 } },
+      { "kind": "object", "nodeId": "n-y", "objectId": "obj-y", "role": "goal", "position": { "x": 600, "y": 160 } }
+    ],
+    "edges": []
+  },
+  "allowedMorphismIds": ["mor-case"],
+  "validation": [
+    { "type": "type-valid-wiring" },
+    { "type": "allowed-morphisms-only", "morphismIds": ["mor-case"] },
+    { "type": "required-final-object", "objectId": "obj-y" },
+    { "type": "path-equivalence", "leftPathId": "path-i1-case", "rightPathId": "path-f" },
+    { "type": "path-equivalence", "leftPathId": "path-i2-case", "rightPathId": "path-g" }
+  ],
+  "reveal": {
+    "afterSuccess": {
+      "data": "One handler covered both cases: a Card goes through chargeCard, a Cash through logCash, exactly as the case-split promises. The coproduct is the product turned around — injections in, one map out.",
+      "alchemy": "One handler covered both cases, exactly as the case-split promises. The coproduct is the product turned around — injections in, one map out.",
+      "spellcraft": "One handler covered both cases, exactly as the case-split promises. The coproduct is the product turned around — injections in, one map out.",
+      "abstract": "[f,g] handles both cases via the injections: [f,g]∘ι₁ = f and [f,g]∘ι₂ = g. The coproduct is the product with every arrow reversed."
+    },
+    "summary": "The universal property of the coproduct: for any f : A→Y and g : B→Y there is a unique [f,g] : A+B→Y with [f,g]∘ι₁ = f and [f,g]∘ι₂ = g.",
+    "notation": ["[f,g] ∘ ι₁ = f", "[f,g] ∘ ι₂ = g"],
+    "moreFormal": "Coproduct is the dual of product: reverse every arrow in the product's universal property and you get the coproduct's. Products are 'and'; coproducts are 'or'.",
+    "programmerAnalogy": "type Payment = Card | Cash; match it: (p) => p.kind === 'card' ? f(p) : g(p)."
+  },
+  "glossaryUnlocks": ["coproduct"],
+  "referenceSolution": {
+    "nodes": [
+      { "kind": "object", "nodeId": "n-s", "objectId": "obj-s", "role": "start", "position": { "x": 40, "y": 160 } },
+      { "kind": "morphism", "nodeId": "n-case", "morphismId": "mor-case", "position": { "x": 320, "y": 160 } },
+      { "kind": "object", "nodeId": "n-y", "objectId": "obj-y", "role": "goal", "position": { "x": 600, "y": 160 } }
+    ],
+    "edges": [
+      { "id": "e-s-case", "sourceNodeId": "n-s", "targetNodeId": "n-case" },
+      { "id": "e-case-y", "sourceNodeId": "n-case", "targetNodeId": "n-y" }
+    ]
+  }
+}

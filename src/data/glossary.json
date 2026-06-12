@@ -148,5 +148,35 @@
     "formalDefinition": "A functor F : C → D assigns to each object A an object F(A) and to each morphism f : A → B a morphism F(f) : F(A) → F(B), such that F(id_A) = id_F(A) and F(g ∘ f) = F(g) ∘ F(f). It carries every commuting diagram in C to one in D.",
     "programmerAnalogy": "A type constructor with a lawful map, e.g. List or Optional.",
     "notationExamples": ["F : C → D", "F(f) : F(A) → F(B)", "F(g ∘ f) = F(g) ∘ F(f)"]
+  },
+  {
+    "id": "product",
+    "term": "Product",
+    "unlockedByConcept": "product",
+    "shortDefinition": "An object bundling two things, with a projection to recover each.",
+    "themeExplanation": {
+      "data": "A record holding both fields at once — with getName and getAge to read each back.",
+      "alchemy": "A compound holding both ingredients at once — with a way to extract each back.",
+      "spellcraft": "A blend holding both essences at once — with a way to draw each back.",
+      "abstract": "An object A×B with projections π₁, π₂, universal among maps into A and B."
+    },
+    "formalDefinition": "A product A×B comes with projections π₁ : A×B → A and π₂ : A×B → B such that for every f : X→A and g : X→B there is a unique ⟨f,g⟩ : X→A×B with π₁∘⟨f,g⟩ = f and π₂∘⟨f,g⟩ = g. This universal property determines A×B up to isomorphism.",
+    "programmerAnalogy": "A tuple / record type: [A, B] with .0 and .1.",
+    "notationExamples": ["π₁ : A×B → A", "π₁ ∘ ⟨f,g⟩ = f"]
+  },
+  {
+    "id": "coproduct",
+    "term": "Coproduct",
+    "unlockedByConcept": "coproduct",
+    "shortDefinition": "An object holding either one thing or another — the dual of a product.",
+    "themeExplanation": {
+      "data": "A value that is either a Card or Cash — with a way to inject each, and one handler covering both cases.",
+      "alchemy": "A reagent that is either Acid or Base — with a way to inject each, and one handler for both cases.",
+      "spellcraft": "A charm that is either Ward or Hex — with a way to inject each, and one rune for both cases.",
+      "abstract": "An object A+B with injections ι₁, ι₂, universal among maps out of A and B."
+    },
+    "formalDefinition": "A coproduct A+B comes with injections ι₁ : A → A+B and ι₂ : B → A+B such that for every f : A→Y and g : B→Y there is a unique [f,g] : A+B→Y with [f,g]∘ι₁ = f and [f,g]∘ι₂ = g. It is the product with every arrow reversed.",
+    "programmerAnalogy": "A tagged union / sum type: Card | Cash, handled by a match.",
+    "notationExamples": ["ι₁ : A → A+B", "[f,g] ∘ ι₁ = f"]
   }
 ]

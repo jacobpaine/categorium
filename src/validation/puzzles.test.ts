@@ -82,6 +82,17 @@ describe('puzzle-06 — identity law', () => {
   });
 });
 
+describe('puzzle-17 — product (project out)', () => {
+  const input = () => toValidationInput(getPuzzle('puzzle-17') as never);
+
+  it('rejects the wrong projection (π₂ lands at B, not the goal A)', () => {
+    // mor-pi2 : A×B → B, so wiring it into the goal A is ill-typed.
+    const res = validatePuzzle(input(), wire('puzzle-17', [['n-p', 'n-pi2'], ['n-pi2', 'n-a']]));
+    expect(res.ok).toBe(false);
+    if (!res.ok) expect(res.firstFailure.rule.type).toBe('type-valid-wiring');
+  });
+});
+
 describe('puzzle-12 — isomorphism (choose the true inverse)', () => {
   const input = () => toValidationInput(getPuzzle('puzzle-12') as never);
 

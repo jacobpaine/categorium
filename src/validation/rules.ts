@@ -19,7 +19,9 @@ export type ConceptTag =
   | 'identity-law'
   | 'associativity'
   | 'isomorphism'
-  | 'functor';
+  | 'functor'
+  | 'product'
+  | 'coproduct';
 
 export const CONCEPT_TAGS: readonly ConceptTag[] = [
   'object',
@@ -32,6 +34,8 @@ export const CONCEPT_TAGS: readonly ConceptTag[] = [
   'associativity',
   'isomorphism',
   'functor',
+  'product',
+  'coproduct',
 ];
 
 /**
