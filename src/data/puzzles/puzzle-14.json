@@ -1,93 +1,88 @@
 {
   "status": "authored",
-  "kind": "functor",
   "id": "puzzle-14",
   "chapterId": "chapter-04-functors",
   "order": 14,
-  "title": {
-    "data": "Map the Arrow",
-    "alchemy": "Map the Arrow",
-    "spellcraft": "Map the Arrow",
-    "abstract": "Map the Arrow"
-  },
+  "title": { "data": "Lift a Machine", "alchemy": "Lift a Machine", "spellcraft": "Lift a Machine", "abstract": "Lift a Machine" },
   "conceptTags": ["functor"],
   "intro": {
-    "data": "A functor copies a whole world into another. Here the List functor wraps each type in a list, and each function into \"apply it to every element.\" Map each source piece to its image.",
-    "alchemy": "A functor copies a whole world into another. Here the Bundle functor wraps each material into a bundle, and each apparatus into \"apply it to each.\" Map each source piece to its image.",
-    "spellcraft": "A functor copies a whole world into another. Here the Set functor wraps each essence into a set, and each rune into \"cast it on each.\" Map each source piece to its image.",
-    "abstract": "A functor F sends each object and morphism of C to one in D. Map each source piece to its image under F."
+    "data": "A functor lifts a whole world into another. In the plain world, the Cleaner turns one raw record into a clean one. The Batch world holds MANY records at once. Lift the Cleaner: find the machine that cleans every record in a batch. One does; the other crumples them.",
+    "alchemy": "A functor lifts a whole world into another. In the plain world, the Smelter refines one ore into an ingot. The Crate world holds many at once. Lift the Smelter: find the machine that refines each ore in a crate. One does; the other crushes them.",
+    "spellcraft": "A functor lifts a whole world into another. In the plain world, Kindler turns one spark into a flame. The Flock world holds many at once. Lift Kindler: find the machine that kindles each spark in a flock. One does; the other smothers them.",
+    "abstract": "A functor F lifts each machine into another world. f cleans one thing; build F(f), which does the same job to a whole F(A). The impostor does not."
   },
-  "goal": {
-    "data": "Map A and B to their list versions, and f to its mapped version.",
-    "alchemy": "Map A and B to their bundled versions, and f to its per-element version.",
-    "spellcraft": "Map A and B to their set versions, and f to its per-element version.",
-    "abstract": "Map A → F(A), B → F(B), and f → F(f)."
-  },
-  "sourceCategory": {
+  "goal": { "data": "Turn a batch of raw records into a batch of clean records — by lifting the Cleaner.", "alchemy": "Turn a crate of ore into a crate of ingots — by lifting the Smelter.", "spellcraft": "Turn a flock of sparks into a flock of flames — by lifting Kindler.", "abstract": "Take F(A) to F(B) with F(f)." },
+  "referenceLabel": { "data": "Plain world (one record)", "alchemy": "Plain world (one ore)", "spellcraft": "Plain world (one spark)", "abstract": "Plain world C" },
+  "referenceDiagram": {
     "objects": [
-      {
-        "id": "obj-a",
-        "formalLabel": "A",
-        "labels": { "data": "User", "alchemy": "Herb", "spellcraft": "Rune", "abstract": "A" },
-        "colorToken": "sky"
-      },
-      {
-        "id": "obj-b",
-        "formalLabel": "B",
-        "labels": { "data": "Email", "alchemy": "Essence", "spellcraft": "Spark", "abstract": "B" },
-        "colorToken": "emerald"
-      }
+      { "id": "pa", "formalLabel": "A", "labels": { "data": "Record", "alchemy": "Ore", "spellcraft": "Spark", "abstract": "A" }, "colorToken": "sky" },
+      { "id": "pb", "formalLabel": "B", "labels": { "data": "Clean Record", "alchemy": "Ingot", "spellcraft": "Flame", "abstract": "B" }, "colorToken": "emerald" }
     ],
     "morphisms": [
-      {
-        "id": "mor-f",
-        "formalLabel": "f",
-        "sourceObjectId": "obj-a",
-        "targetObjectId": "obj-b",
-        "labels": { "data": "getEmail", "alchemy": "Extract", "spellcraft": "Invoke", "abstract": "f" }
-      }
-    ]
-  },
-  "targetCategory": {
-    "objects": [
-      {
-        "id": "tobj-a",
-        "formalLabel": "F(A)",
-        "labels": { "data": "List of Users", "alchemy": "Bundle of Herbs", "spellcraft": "Rune Set", "abstract": "F(A)" },
-        "colorToken": "sky"
-      },
-      {
-        "id": "tobj-b",
-        "formalLabel": "F(B)",
-        "labels": { "data": "List of Emails", "alchemy": "Bundle of Essences", "spellcraft": "Spark Set", "abstract": "F(B)" },
-        "colorToken": "emerald"
-      }
+      { "id": "pf", "formalLabel": "f", "sourceObjectId": "pa", "targetObjectId": "pb", "labels": { "data": "Cleaner", "alchemy": "Smelter", "spellcraft": "Kindler", "abstract": "f" } }
     ],
-    "morphisms": [
-      {
-        "id": "tmor-f",
-        "formalLabel": "F(f)",
-        "sourceObjectId": "tobj-a",
-        "targetObjectId": "tobj-b",
-        "labels": { "data": "map getEmail", "alchemy": "Extract Each", "spellcraft": "Invoke Each", "abstract": "F(f)" }
-      }
-    ]
+    "graph": {
+      "nodes": [
+        { "kind": "object", "nodeId": "rp-a", "objectId": "pa", "role": "start", "position": { "x": 20, "y": 60 } },
+        { "kind": "morphism", "nodeId": "rp-f", "morphismId": "pf", "position": { "x": 150, "y": 60 } },
+        { "kind": "object", "nodeId": "rp-b", "objectId": "pb", "role": "goal", "position": { "x": 290, "y": 60 } }
+      ],
+      "edges": [
+        { "id": "rp-e1", "sourceNodeId": "rp-a", "targetNodeId": "rp-f" },
+        { "id": "rp-e2", "sourceNodeId": "rp-f", "targetNodeId": "rp-b" }
+      ]
+    }
   },
-  "referenceMapping": {
-    "objectMap": { "obj-a": "tobj-a", "obj-b": "tobj-b" },
-    "morphismMap": { "mor-f": "tmor-f" }
+  "objects": [
+    { "id": "obj-fa", "formalLabel": "F(A)", "labels": { "data": "Batch of Raw", "alchemy": "Crate of Ore", "spellcraft": "Flock of Sparks", "abstract": "F(A)" }, "colorToken": "sky" },
+    { "id": "obj-fb", "formalLabel": "F(B)", "labels": { "data": "Batch of Clean", "alchemy": "Crate of Ingots", "spellcraft": "Flock of Flames", "abstract": "F(B)" }, "colorToken": "emerald" }
+  ],
+  "morphisms": [
+    { "id": "mor-Ff", "formalLabel": "F(f)", "sourceObjectId": "obj-fa", "targetObjectId": "obj-fb", "labels": { "data": "Clean Each", "alchemy": "Smelt Each", "spellcraft": "Kindle Each", "abstract": "F(f)" }, "description": { "data": "cleans every record in the batch", "alchemy": "refines every ore in the crate", "spellcraft": "kindles every spark in the flock", "abstract": "the lift of f" }, "action": { "box-raw": "box-clean" } },
+    { "id": "mor-Ffbad", "formalLabel": "F(f)?", "sourceObjectId": "obj-fa", "targetObjectId": "obj-fb", "labels": { "data": "Crumple Each", "alchemy": "Crush Each", "spellcraft": "Smother Each", "abstract": "F(f)?" }, "description": { "data": "wrecks every record", "alchemy": "crushes every ore", "spellcraft": "smothers every spark", "abstract": "not the lift of f" }, "action": { "box-raw": "box-garbage" } }
+  ],
+  "samples": [
+    { "id": "box-raw", "objectId": "obj-fa", "labels": { "data": "a batch of raw records", "alchemy": "a crate of ore", "spellcraft": "a flock of sparks", "abstract": "F(a)" } },
+    { "id": "box-clean", "objectId": "obj-fb", "labels": { "data": "a batch of clean records", "alchemy": "a crate of ingots", "spellcraft": "a flock of flames", "abstract": "F(b)" } },
+    { "id": "box-garbage", "objectId": "obj-fb", "labels": { "data": "a batch of shredded records", "alchemy": "a crate of slag", "spellcraft": "a flock of cinders", "abstract": "F(b)?" } }
+  ],
+  "initialGraph": {
+    "nodes": [
+      { "kind": "object", "nodeId": "n-fa", "objectId": "obj-fa", "role": "start", "position": { "x": 40, "y": 180 } },
+      { "kind": "morphism", "nodeId": "n-Ff", "morphismId": "mor-Ff", "position": { "x": 330, "y": 90 } },
+      { "kind": "morphism", "nodeId": "n-Ffbad", "morphismId": "mor-Ffbad", "position": { "x": 330, "y": 270 } },
+      { "kind": "object", "nodeId": "n-fb", "objectId": "obj-fb", "role": "goal", "position": { "x": 640, "y": 180 } }
+    ],
+    "edges": []
   },
+  "allowedMorphismIds": ["mor-Ff", "mor-Ffbad"],
+  "validation": [
+    { "type": "type-valid-wiring" },
+    { "type": "required-output", "inputValueId": "box-raw", "outputValueId": "box-clean" }
+  ],
   "reveal": {
     "afterSuccess": {
-      "data": "You mapped a whole little world into another: each type to its list, and the function to \"map\" of it. That assignment is a functor.",
-      "alchemy": "You mapped a whole little world into another: each material to its bundle, and the apparatus to its per-element form. That assignment is a functor.",
-      "spellcraft": "You mapped a whole little world into another: each essence to its set, and the rune to its per-element form. That assignment is a functor.",
-      "abstract": "You mapped a whole little world into another, sending objects to objects and morphisms to morphisms. That assignment is a functor."
+      "data": "You lifted the Cleaner into the Batch world: F(f) cleans every record, doing to a whole batch what f did to one. That assignment — each type A to F(A), each machine f to F(f) — is a functor.",
+      "alchemy": "You lifted the Smelter into the Crate world: F(f) refines every ore. Each type A to F(A), each machine f to F(f) — that is a functor.",
+      "spellcraft": "You lifted Kindler into the Flock world: F(f) kindles every spark. Each essence A to F(A), each rune f to F(f) — that is a functor.",
+      "abstract": "You built F(f), the lift of f. Sending each object A to F(A) and each morphism f to F(f) is a functor."
     },
-    "summary": "A functor F : C → D sends each object A to F(A) and each morphism f : A → B to F(f) : F(A) → F(B) — it preserves sources and targets.",
+    "summary": "A functor F : C → D lifts a whole category into another: each object A to F(A), each morphism f : A → B to F(f) : F(A) → F(B) that does the same job in the new world.",
     "notation": ["F : C → D", "F(f) : F(A) → F(B)"],
-    "moreFormal": "A functor must also preserve identities and composition: F(id_A) = id_F(A) and F(g ∘ f) = F(g) ∘ F(f). The app checks the structural part — that every image points the right way.",
+    "moreFormal": "F must also preserve identities and composition (next puzzles). List, Optional, and Batch are all functors: F(A) wraps A, and F(f) = \"apply f inside\".",
     "programmerAnalogy": "List is a functor: List<A>, and map(f): List<A> => List<B>."
   },
-  "glossaryUnlocks": ["functor"]
+  "glossaryUnlocks": ["functor"],
+  "referenceSolution": {
+    "nodes": [
+      { "kind": "object", "nodeId": "n-fa", "objectId": "obj-fa", "role": "start", "position": { "x": 40, "y": 180 } },
+      { "kind": "morphism", "nodeId": "n-Ff", "morphismId": "mor-Ff", "position": { "x": 330, "y": 90 } },
+      { "kind": "morphism", "nodeId": "n-Ffbad", "morphismId": "mor-Ffbad", "position": { "x": 330, "y": 270 } },
+      { "kind": "object", "nodeId": "n-fb", "objectId": "obj-fb", "role": "goal", "position": { "x": 640, "y": 180 } }
+    ],
+    "edges": [
+      { "id": "e-fa-Ff", "sourceNodeId": "n-fa", "targetNodeId": "n-Ff" },
+      { "id": "e-Ff-fb", "sourceNodeId": "n-Ff", "targetNodeId": "n-fb" }
+    ]
+  }
 }

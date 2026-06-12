@@ -1,65 +1,72 @@
 {
   "status": "authored",
-  "kind": "functor",
   "id": "puzzle-16",
   "chapterId": "chapter-04-functors",
   "order": 16,
-  "title": {
-    "data": "Respect Every Arrow",
-    "alchemy": "Respect Every Arrow",
-    "spellcraft": "Respect Every Arrow",
-    "abstract": "Respect Every Arrow"
-  },
+  "title": { "data": "A Faithful Functor", "alchemy": "A Faithful Functor", "spellcraft": "A Faithful Functor", "abstract": "A Faithful Functor" },
   "conceptTags": ["functor"],
   "intro": {
-    "data": "The target world here is unlabeled — P, Q, R, with arrows u : P→Q and w : Q→R. You can't read off where each thing goes; you must DEDUCE it. A functor must send every source arrow to a target arrow with matching ends, so the objects can only line up one way. Map the chain.",
-    "alchemy": "The target world is unlabeled — P, Q, R with arrows u : P→Q and w : Q→R. Deduce the mapping: every source arrow must land on a target arrow with matching ends. Map the chain.",
-    "spellcraft": "The target world is unlabeled — P, Q, R with arrows u : P→Q and w : Q→R. Deduce the mapping: every source arrow must land on a target arrow with matching ends. Map the chain.",
-    "abstract": "The target is unlabeled (P, Q, R; u : P→Q, w : Q→R). Deduce the functor: every source arrow must land on a target arrow with matching ends."
+    "data": "A functor must also lift the do-nothing step to a do-nothing step. The plain pipeline is \"hold, then Clean\" — Hold changes nothing. One lift here truly holds the batch unchanged; the other tampers with it (and then Clean Each jams). Use the faithful lift, then Clean Each.",
+    "alchemy": "A functor must lift the do-nothing step to a do-nothing step. The plain pipeline is \"hold, then Smelt.\" One lift holds the crate unchanged; the other taints it (then Smelt Each jams). Use the faithful lift.",
+    "spellcraft": "A functor must lift the do-nothing step to a do-nothing step. The plain pipeline is \"hold, then Kindle.\" One lift holds the flock unchanged; the other warps it (then Kindle Each jams). Use the faithful lift.",
+    "abstract": "A functor must preserve identity: F(id) = id. One candidate truly does nothing to F(A); the other tampers, so F(f) then jams. Use the faithful one, then F(f)."
   },
-  "goal": {
-    "data": "Map the chain A → B → C onto its Optional version so both steps still connect.",
-    "alchemy": "Map the chain A → B → C onto its Trace version so both steps still connect.",
-    "spellcraft": "Map the chain A → B → C onto its Echo version so both steps still connect.",
-    "abstract": "Map A, B, C and f, g so every arrow's endpoints are preserved."
-  },
-  "sourceCategory": {
-    "objects": [
-      { "id": "obj-a", "formalLabel": "A", "labels": { "data": "User", "alchemy": "Herb", "spellcraft": "Rune", "abstract": "A" }, "colorToken": "sky" },
-      { "id": "obj-b", "formalLabel": "B", "labels": { "data": "Email", "alchemy": "Essence", "spellcraft": "Spark", "abstract": "B" }, "colorToken": "emerald" },
-      { "id": "obj-c", "formalLabel": "C", "labels": { "data": "Domain", "alchemy": "Vapor", "spellcraft": "Flame", "abstract": "C" }, "colorToken": "amber" }
+  "goal": { "data": "Hold the batch unchanged, then clean it — using a faithful lift.", "alchemy": "Hold the crate unchanged, then smelt it.", "spellcraft": "Hold the flock unchanged, then kindle it.", "abstract": "Apply the lifted identity, then F(f), reaching the goal." },
+  "objects": [
+    { "id": "obj-fa", "formalLabel": "F(A)", "labels": { "data": "Batch of Raw", "alchemy": "Crate of Ore", "spellcraft": "Flock of Sparks", "abstract": "F(A)" }, "colorToken": "sky" },
+    { "id": "obj-fb", "formalLabel": "F(B)", "labels": { "data": "Batch of Clean", "alchemy": "Crate of Ingots", "spellcraft": "Flock of Flames", "abstract": "F(B)" }, "colorToken": "emerald" }
+  ],
+  "morphisms": [
+    { "id": "mor-Fid", "formalLabel": "F(id_A)", "sourceObjectId": "obj-fa", "targetObjectId": "obj-fa", "labels": { "data": "Hold Each", "alchemy": "Preserve Each", "spellcraft": "Echo Each", "abstract": "F(id_A)" }, "description": { "data": "the faithful lifted identity — changes nothing", "alchemy": "the faithful lifted identity — changes nothing", "spellcraft": "the faithful lifted identity — changes nothing", "abstract": "= id of F(A)" }, "action": { "box-raw": "box-raw" } },
+    { "id": "mor-tamper", "formalLabel": "F(id)?", "sourceObjectId": "obj-fa", "targetObjectId": "obj-fa", "labels": { "data": "Tamper Each", "alchemy": "Taint Each", "spellcraft": "Warp Each", "abstract": "F(id)?" }, "description": { "data": "F(A) → F(A), but alters the batch", "alchemy": "F(A) → F(A), but alters the crate", "spellcraft": "F(A) → F(A), but alters the flock", "abstract": "not the lifted identity" }, "action": { "box-raw": "box-tampered" } },
+    { "id": "mor-Ff", "formalLabel": "F(f)", "sourceObjectId": "obj-fa", "targetObjectId": "obj-fb", "labels": { "data": "Clean Each", "alchemy": "Smelt Each", "spellcraft": "Kindle Each", "abstract": "F(f)" }, "action": { "box-raw": "box-clean" } }
+  ],
+  "samples": [
+    { "id": "box-raw", "objectId": "obj-fa", "labels": { "data": "a batch of raw records", "alchemy": "a crate of ore", "spellcraft": "a flock of sparks", "abstract": "F(a)" } },
+    { "id": "box-tampered", "objectId": "obj-fa", "labels": { "data": "a batch of tampered records", "alchemy": "a crate of tainted ore", "spellcraft": "a flock of warped sparks", "abstract": "F(a)?" } },
+    { "id": "box-clean", "objectId": "obj-fb", "labels": { "data": "a batch of clean records", "alchemy": "a crate of ingots", "spellcraft": "a flock of flames", "abstract": "F(b)" } }
+  ],
+  "initialGraph": {
+    "nodes": [
+      { "kind": "object", "nodeId": "n-fa", "objectId": "obj-fa", "role": "start", "position": { "x": 30, "y": 190 } },
+      { "kind": "morphism", "nodeId": "n-Fid", "morphismId": "mor-Fid", "position": { "x": 220, "y": 90 } },
+      { "kind": "morphism", "nodeId": "n-tamper", "morphismId": "mor-tamper", "position": { "x": 220, "y": 290 } },
+      { "kind": "morphism", "nodeId": "n-Ff", "morphismId": "mor-Ff", "position": { "x": 450, "y": 190 } },
+      { "kind": "object", "nodeId": "n-fb", "objectId": "obj-fb", "role": "goal", "position": { "x": 680, "y": 190 } }
     ],
-    "morphisms": [
-      { "id": "mor-f", "formalLabel": "f", "sourceObjectId": "obj-a", "targetObjectId": "obj-b", "labels": { "data": "getEmail", "alchemy": "Extract", "spellcraft": "Invoke", "abstract": "f" } },
-      { "id": "mor-g", "formalLabel": "g", "sourceObjectId": "obj-b", "targetObjectId": "obj-c", "labels": { "data": "getDomain", "alchemy": "Distil", "spellcraft": "Kindle", "abstract": "g" } }
-    ]
+    "edges": []
   },
-  "targetCategory": {
-    "objects": [
-      { "id": "tobj-a", "formalLabel": "P", "labels": { "data": "P", "alchemy": "P", "spellcraft": "P", "abstract": "P" }, "colorToken": "slate" },
-      { "id": "tobj-b", "formalLabel": "Q", "labels": { "data": "Q", "alchemy": "Q", "spellcraft": "Q", "abstract": "Q" }, "colorToken": "slate" },
-      { "id": "tobj-c", "formalLabel": "R", "labels": { "data": "R", "alchemy": "R", "spellcraft": "R", "abstract": "R" }, "colorToken": "slate" }
-    ],
-    "morphisms": [
-      { "id": "tmor-u", "formalLabel": "u", "sourceObjectId": "tobj-a", "targetObjectId": "tobj-b", "labels": { "data": "u", "alchemy": "u", "spellcraft": "u", "abstract": "u" } },
-      { "id": "tmor-w", "formalLabel": "w", "sourceObjectId": "tobj-b", "targetObjectId": "tobj-c", "labels": { "data": "w", "alchemy": "w", "spellcraft": "w", "abstract": "w" } }
-    ]
-  },
-  "referenceMapping": {
-    "objectMap": { "obj-a": "tobj-a", "obj-b": "tobj-b", "obj-c": "tobj-c" },
-    "morphismMap": { "mor-f": "tmor-u", "mor-g": "tmor-w" }
-  },
+  "allowedMorphismIds": ["mor-Fid", "mor-tamper", "mor-Ff"],
+  "validation": [
+    { "type": "type-valid-wiring" },
+    { "type": "concept-tag-required", "conceptTag": "identity" },
+    { "type": "required-output", "inputValueId": "box-raw", "outputValueId": "box-clean" }
+  ],
   "reveal": {
     "afterSuccess": {
-      "data": "You deduced the whole mapping from the arrows alone — no labels needed. Because each arrow's ends are fixed, the objects could only line up one way; swap the middle and a step would have nowhere to land. A functor must respect every arrow.",
-      "alchemy": "You deduced the whole mapping from the arrows alone. Each arrow's ends are fixed, so the objects line up only one way. A functor must respect every arrow.",
-      "spellcraft": "You deduced the whole mapping from the arrows alone. Each arrow's ends are fixed, so the objects line up only one way. A functor must respect every arrow.",
-      "abstract": "You deduced the mapping from the arrows alone. Each arrow's ends are fixed, so the objects line up only one way — a functor must respect every arrow. (And many functors can exist between the same two categories.)"
+      "data": "The faithful lift held the batch unchanged, so Clean Each saw exactly the records it expected. The tampering look-alike was the same type but altered the batch and jammed the next step. A functor must lift identity to identity: F(id_A) = id_F(A).",
+      "alchemy": "The faithful lift held the crate unchanged. The tainting look-alike jammed the next step. A functor must lift identity to identity: F(id_A) = id_F(A).",
+      "spellcraft": "The faithful lift held the flock unchanged. The warping look-alike jammed the next step. A functor must lift identity to identity: F(id_A) = id_F(A).",
+      "abstract": "The genuine functor lifts identity to identity; the look-alike does not. F(id_A) = id_F(A)."
     },
-    "summary": "A functor must preserve every arrow's source and target, so the object and morphism assignments have to agree. Different functors (List, Optional, …) give different — but all valid — maps.",
-    "notation": ["G(f) : G(A) → G(B)", "G(g) : G(B) → G(C)"],
-    "moreFormal": "There is usually more than one functor C → D. Each is a complete, structure-preserving copy of C inside D; the identity functor and constant functors are always available too.",
-    "programmerAnalogy": "Both List and Optional are functors with their own map; you pick which world to map into."
+    "summary": "A functor preserves identities and composition: F(id_A) = id_F(A) and F(g ∘ f) = F(g) ∘ F(f). These two laws are exactly what make a lift a functor.",
+    "notation": ["F(id_A) = id_F(A)", "F(g ∘ f) = F(g) ∘ F(f)"],
+    "moreFormal": "A bare assignment of objects and morphisms is a functor only if it respects identities and composition. List, Optional, and Batch all do; a tampering 'lift' does not.",
+    "programmerAnalogy": "map(id) === id and map(g ∘ f) === map(g) ∘ map(f) — the Functor laws."
   },
-  "glossaryUnlocks": []
+  "glossaryUnlocks": [],
+  "referenceSolution": {
+    "nodes": [
+      { "kind": "object", "nodeId": "n-fa", "objectId": "obj-fa", "role": "start", "position": { "x": 30, "y": 190 } },
+      { "kind": "morphism", "nodeId": "n-Fid", "morphismId": "mor-Fid", "position": { "x": 220, "y": 90 } },
+      { "kind": "morphism", "nodeId": "n-tamper", "morphismId": "mor-tamper", "position": { "x": 220, "y": 290 } },
+      { "kind": "morphism", "nodeId": "n-Ff", "morphismId": "mor-Ff", "position": { "x": 450, "y": 190 } },
+      { "kind": "object", "nodeId": "n-fb", "objectId": "obj-fb", "role": "goal", "position": { "x": 680, "y": 190 } }
+    ],
+    "edges": [
+      { "id": "e-fa-Fid", "sourceNodeId": "n-fa", "targetNodeId": "n-Fid" },
+      { "id": "e-Fid-Ff", "sourceNodeId": "n-Fid", "targetNodeId": "n-Ff" },
+      { "id": "e-Ff-fb", "sourceNodeId": "n-Ff", "targetNodeId": "n-fb" }
+    ]
+  }
 }
