@@ -12,10 +12,10 @@
   },
   "conceptTags": ["functor"],
   "intro": {
-    "data": "Here's a different functor: Optional wraps each type in \"maybe.\" A functor isn't a free-for-all relabeling — follow the arrows so every step still connects. Map the chain.",
-    "alchemy": "Here's a different functor: Trace wraps each material in \"a trace of.\" A functor isn't a free relabeling — follow the arrows so every step still connects. Map the chain.",
-    "spellcraft": "Here's a different functor: Echo wraps each essence in \"a whisper of.\" A functor isn't a free relabeling — follow the arrows so every step still connects. Map the chain.",
-    "abstract": "Here's a different functor G. A functor isn't a free relabeling — every source arrow must land on a target arrow with matching ends. Map the chain."
+    "data": "The target world here is unlabeled — P, Q, R, with arrows u : P→Q and w : Q→R. You can't read off where each thing goes; you must DEDUCE it. A functor must send every source arrow to a target arrow with matching ends, so the objects can only line up one way. Map the chain.",
+    "alchemy": "The target world is unlabeled — P, Q, R with arrows u : P→Q and w : Q→R. Deduce the mapping: every source arrow must land on a target arrow with matching ends. Map the chain.",
+    "spellcraft": "The target world is unlabeled — P, Q, R with arrows u : P→Q and w : Q→R. Deduce the mapping: every source arrow must land on a target arrow with matching ends. Map the chain.",
+    "abstract": "The target is unlabeled (P, Q, R; u : P→Q, w : Q→R). Deduce the functor: every source arrow must land on a target arrow with matching ends."
   },
   "goal": {
     "data": "Map the chain A → B → C onto its Optional version so both steps still connect.",
@@ -36,13 +36,13 @@
   },
   "targetCategory": {
     "objects": [
-      { "id": "tobj-a", "formalLabel": "G(A)", "labels": { "data": "Optional User", "alchemy": "Trace of Herb", "spellcraft": "Whisper of Rune", "abstract": "G(A)" }, "colorToken": "sky" },
-      { "id": "tobj-b", "formalLabel": "G(B)", "labels": { "data": "Optional Email", "alchemy": "Trace of Essence", "spellcraft": "Whisper of Spark", "abstract": "G(B)" }, "colorToken": "emerald" },
-      { "id": "tobj-c", "formalLabel": "G(C)", "labels": { "data": "Optional Domain", "alchemy": "Trace of Vapor", "spellcraft": "Whisper of Flame", "abstract": "G(C)" }, "colorToken": "amber" }
+      { "id": "tobj-a", "formalLabel": "P", "labels": { "data": "P", "alchemy": "P", "spellcraft": "P", "abstract": "P" }, "colorToken": "slate" },
+      { "id": "tobj-b", "formalLabel": "Q", "labels": { "data": "Q", "alchemy": "Q", "spellcraft": "Q", "abstract": "Q" }, "colorToken": "slate" },
+      { "id": "tobj-c", "formalLabel": "R", "labels": { "data": "R", "alchemy": "R", "spellcraft": "R", "abstract": "R" }, "colorToken": "slate" }
     ],
     "morphisms": [
-      { "id": "tmor-u", "formalLabel": "G(f)", "sourceObjectId": "tobj-a", "targetObjectId": "tobj-b", "labels": { "data": "map? getEmail", "alchemy": "Trace Extract", "spellcraft": "Whisper Invoke", "abstract": "G(f)" } },
-      { "id": "tmor-w", "formalLabel": "G(g)", "sourceObjectId": "tobj-b", "targetObjectId": "tobj-c", "labels": { "data": "map? getDomain", "alchemy": "Trace Distil", "spellcraft": "Whisper Kindle", "abstract": "G(g)" } }
+      { "id": "tmor-u", "formalLabel": "u", "sourceObjectId": "tobj-a", "targetObjectId": "tobj-b", "labels": { "data": "u", "alchemy": "u", "spellcraft": "u", "abstract": "u" } },
+      { "id": "tmor-w", "formalLabel": "w", "sourceObjectId": "tobj-b", "targetObjectId": "tobj-c", "labels": { "data": "w", "alchemy": "w", "spellcraft": "w", "abstract": "w" } }
     ]
   },
   "referenceMapping": {
@@ -51,10 +51,10 @@
   },
   "reveal": {
     "afterSuccess": {
-      "data": "Because each arrow's ends are fixed, the objects can only line up one way. Swap the middle and a step would have nowhere to land. Optional is just as much a functor as List — there can be many.",
-      "alchemy": "Because each arrow's ends are fixed, the objects can only line up one way. Swap the middle and a step would have nowhere to land. Trace is just as much a functor as Bundle.",
-      "spellcraft": "Because each arrow's ends are fixed, the objects can only line up one way. Swap the middle and a step would have nowhere to land. Echo is just as much a functor as Set.",
-      "abstract": "Because each arrow's ends are fixed, the objects can only line up one way. A functor must respect every arrow — and many different functors can exist between the same two categories."
+      "data": "You deduced the whole mapping from the arrows alone — no labels needed. Because each arrow's ends are fixed, the objects could only line up one way; swap the middle and a step would have nowhere to land. A functor must respect every arrow.",
+      "alchemy": "You deduced the whole mapping from the arrows alone. Each arrow's ends are fixed, so the objects line up only one way. A functor must respect every arrow.",
+      "spellcraft": "You deduced the whole mapping from the arrows alone. Each arrow's ends are fixed, so the objects line up only one way. A functor must respect every arrow.",
+      "abstract": "You deduced the mapping from the arrows alone. Each arrow's ends are fixed, so the objects line up only one way — a functor must respect every arrow. (And many functors can exist between the same two categories.)"
     },
     "summary": "A functor must preserve every arrow's source and target, so the object and morphism assignments have to agree. Different functors (List, Optional, …) give different — but all valid — maps.",
     "notation": ["G(f) : G(A) → G(B)", "G(g) : G(B) → G(C)"],
