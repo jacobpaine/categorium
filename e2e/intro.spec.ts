@@ -1,0 +1,59 @@
+import { test, expect, type Page } from '@playwright/test';
+
+async function connect(page: Page, fromSelector: string, toSelector: string) {
+  const a = await page.locator(fromSelector).boundingBox();
+  const b = await page.locator(toSelector).boundingBox();
+  if (!a || !b) throw new Error(`missing handle: ${fromSelector} -> ${toSelector}`);
+  const ax = a.x + a.width / 2;
+  const ay = a.y + a.height / 2;
+  const bx = b.x + b.width / 2;
+  const by = b.y + b.height / 2;
+  await page.mouse.move(ax, ay);
+  await page.mouse.down();
+  await page.mouse.move((ax + bx) / 2, (ay + by) / 2, { steps: 6 });
+  await page.mouse.move(bx, by, { steps: 6 });
+  await page.mouse.up();
+}
+
+const right = (id: string) => `.react-flow__node[data-id="${id}"] .react-flow__handle-right`;
+const left = (id: string) => `.react-flow__node[data-id="${id}"] .react-flow__handle-left`;
+
+test('the theme picker offers the walkthrough', async ({ page }) => {
+  await page.goto('/');
+  await expect(page.getByTestId('start-walkthrough')).toBeVisible();
+  await page.getByTestId('start-walkthrough').click();
+  await expect(page.getByTestId('tour-progress')).toHaveText('Step 1 of 5');
+});
+
+test('walkthrough: solving the first step advances to the next', async ({ page }) => {
+  await page.goto('/intro');
+  await expect(page.locator('.react-flow__node[data-id="n-f"]')).toBeVisible();
+  await page.waitForTimeout(400);
+
+  // Predict, then build A -> f -> B and run.
+  await page.getByRole('button', { name: 'clean table', exact: true }).click();
+  await connect(page, right('n-a'), left('n-f'));
+  await connect(page, right('n-f'), left('n-b'));
+  await page.getByTestId('run-check').click();
+
+  await expect(page.getByTestId('solved')).toBeVisible();
+  await expect(page.getByText('What you learned')).toBeVisible();
+
+  await page.getByTestId('tour-next').click();
+  await expect(page.getByTestId('tour-progress')).toHaveText('Step 2 of 5');
+});
+
+test('hovering an element reveals what it represents', async ({ page }) => {
+  await page.goto('/intro');
+  const machine = page.locator('.react-flow__node[data-id="n-f"]');
+  await expect(machine).toBeVisible();
+  await page.waitForTimeout(400);
+
+  // The hover-card is a role="tooltip" inside the node, revealed on hover (pure CSS).
+  const card = machine.getByRole('tooltip');
+  await expect(card).toBeHidden();
+  await machine.hover();
+  await expect(card).toBeVisible();
+  await expect(card).toContainText('cleans the data');
+  await expect(card).toContainText('A → B');
+});
