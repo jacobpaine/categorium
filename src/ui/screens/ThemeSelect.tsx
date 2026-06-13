@@ -1,5 +1,5 @@
-import { useNavigate } from 'react-router-dom';
-import { Check, Sparkles } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
+import { Check, GraduationCap, Sparkles } from 'lucide-react';
 import { THEMES } from '../../data';
 import { useProgressStore } from '../../state/progressStore';
 import type { ThemeId } from '../../domain';
@@ -21,6 +21,24 @@ export function ThemeSelect() {
         Every theme uses the same puzzles and the same rules — only the labels and flavor change.
         You can switch themes at any time without losing progress.
       </p>
+
+      <Link
+        to="/intro"
+        data-testid="start-walkthrough"
+        className="mt-6 flex items-center justify-between gap-3 rounded-xl border-2 border-sky-200 bg-sky-50 p-4 transition hover:border-sky-400 hover:shadow"
+      >
+        <span className="flex items-center gap-3">
+          <GraduationCap className="h-6 w-6 text-sky-600" aria-hidden />
+          <span>
+            <span className="block font-semibold text-sky-900">New here? Take the walkthrough</span>
+            <span className="block text-sm text-sky-700">
+              A 5-minute hands-on tour of every core idea — morphisms, composition, identity,
+              isomorphisms, and functors — played on real boards.
+            </span>
+          </span>
+        </span>
+        <span className="shrink-0 text-sm font-semibold text-sky-700">Start →</span>
+      </Link>
 
       <div className="mt-8 grid gap-4 sm:grid-cols-2">
         {THEMES.map((theme) => {

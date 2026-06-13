@@ -2,6 +2,7 @@ import { Routes, Route, Link, NavLink } from 'react-router-dom';
 import { ThemeSelect } from './screens/ThemeSelect';
 import { ChapterMap } from './screens/ChapterMap';
 import { PuzzleScreen } from './screens/PuzzleScreen';
+import { TourScreen } from './screens/TourScreen';
 import { GlossaryScreen } from './screens/GlossaryScreen';
 import { SettingsScreen } from './screens/SettingsScreen';
 import { useDebugStore } from '../devtools/debugStore';
@@ -18,6 +19,7 @@ export default function App() {
             Categorium
           </Link>
           {[
+            { to: '/intro', label: 'Walkthrough' },
             { to: '/chapters', label: 'Chapters' },
             { to: '/glossary', label: 'Glossary' },
             { to: '/settings', label: 'Settings' },
@@ -46,6 +48,7 @@ export default function App() {
       <main className="flex-1">
         <Routes>
           <Route path="/" element={<ThemeSelect />} />
+          <Route path="/intro" element={<TourScreen />} />
           <Route path="/chapters" element={<ChapterMap />} />
           <Route path="/chapter/:chapterId/puzzle/:puzzleId" element={<PuzzleScreen />} />
           <Route path="/glossary" element={<GlossaryScreen />} />

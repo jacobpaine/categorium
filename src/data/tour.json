@@ -1,0 +1,368 @@
+{
+  "steps": [
+    {
+      "status": "authored",
+      "id": "tour-1",
+      "chapterId": "tour",
+      "order": 1,
+      "title": { "data": "Your First Transformation", "alchemy": "Your First Transformation", "spellcraft": "Your First Transformation", "abstract": "Your First Transformation" },
+      "conceptTags": ["object", "morphism"],
+      "intro": {
+        "data": "Welcome. Everything here is built from two ideas. The rounded pills are THINGS (we call them objects). The boxes between them are PROCESSES that turn one thing into another — a process is a morphism. Drag from the Start into a machine, then into the Goal. Two machines fit; only one actually makes a clean table. Run it to see.",
+        "alchemy": "Welcome. Everything here is built from two ideas. The rounded pills are THINGS (objects). The boxes are PROCESSES that turn one thing into another — a process is a morphism. Drag from the Start into an apparatus, then into the Goal. Two fit; only one makes a pure ingot. Run it to see.",
+        "spellcraft": "Welcome. Everything here is built from two ideas. The rounded pills are THINGS (objects). The boxes are WORKINGS that turn one thing into another — a working is a morphism. Drag from the Start into a rune, then into the Goal. Two fit; only one makes a steady flame. Run it to see.",
+        "abstract": "Two ideas underlie everything. Pills are objects. Boxes are morphisms: processes A → B. Wire the input through a machine to the goal. Two are type-valid; only one produces the goal value."
+      },
+      "goal": { "data": "Wire the input through a machine so it comes out as the clean table.", "alchemy": "Wire the input through an apparatus so it comes out as the pure ingot.", "spellcraft": "Wire the input through a rune so it comes out as the steady flame.", "abstract": "Produce the goal object's value." },
+      "objects": [
+        { "id": "obj-a", "formalLabel": "A", "labels": { "data": "Raw CSV", "alchemy": "Ore", "spellcraft": "Spark", "abstract": "A" }, "description": { "data": "the messy input you start with", "alchemy": "the raw material you start with", "spellcraft": "the wild essence you start with", "abstract": "the source object" }, "colorToken": "sky" },
+        { "id": "obj-b", "formalLabel": "B", "labels": { "data": "Clean Table", "alchemy": "Ingot", "spellcraft": "Flame", "abstract": "B" }, "description": { "data": "the tidy result you want", "alchemy": "the refined result you want", "spellcraft": "the steady result you want", "abstract": "the target object" }, "colorToken": "emerald" }
+      ],
+      "morphisms": [
+        { "id": "mor-f", "formalLabel": "f", "sourceObjectId": "obj-a", "targetObjectId": "obj-b", "labels": { "data": "Parser", "alchemy": "Smelter", "spellcraft": "Ignition", "abstract": "f" }, "description": { "data": "cleans the data", "alchemy": "refines the ore", "spellcraft": "tames the spark", "abstract": "a morphism A → B" }, "action": { "v-raw": "v-clean" } },
+        { "id": "mor-g", "formalLabel": "g", "sourceObjectId": "obj-a", "targetObjectId": "obj-b", "labels": { "data": "Shredder", "alchemy": "Crusher", "spellcraft": "Smother", "abstract": "g" }, "description": { "data": "wrecks the data", "alchemy": "cracks the ore", "spellcraft": "chokes the spark", "abstract": "another morphism A → B" }, "action": { "v-raw": "v-bad" } }
+      ],
+      "samples": [
+        { "id": "v-raw", "objectId": "obj-a", "labels": { "data": "messy spreadsheet", "alchemy": "raw ore", "spellcraft": "wild spark", "abstract": "a" } },
+        { "id": "v-clean", "objectId": "obj-b", "labels": { "data": "clean table", "alchemy": "pure ingot", "spellcraft": "steady flame", "abstract": "b" } },
+        { "id": "v-bad", "objectId": "obj-b", "labels": { "data": "shredded mess", "alchemy": "cracked ingot", "spellcraft": "sputtering flame", "abstract": "b′" } }
+      ],
+      "initialGraph": {
+        "nodes": [
+          { "kind": "object", "nodeId": "n-a", "objectId": "obj-a", "role": "start", "position": { "x": 40, "y": 180 } },
+          { "kind": "morphism", "nodeId": "n-f", "morphismId": "mor-f", "position": { "x": 340, "y": 90 } },
+          { "kind": "morphism", "nodeId": "n-g", "morphismId": "mor-g", "position": { "x": 340, "y": 270 } },
+          { "kind": "object", "nodeId": "n-b", "objectId": "obj-b", "role": "goal", "position": { "x": 640, "y": 180 } }
+        ],
+        "edges": []
+      },
+      "allowedMorphismIds": ["mor-f", "mor-g"],
+      "validation": [
+        { "type": "type-valid-wiring" },
+        { "type": "required-output", "inputValueId": "v-raw", "outputValueId": "v-clean" }
+      ],
+      "reveal": {
+        "afterSuccess": {
+          "data": "That arrow you drew is a morphism — a process from one object to another. Both machines were the same type (Raw → Clean), but they behaved differently. A process is defined by what it DOES, not just what it connects.",
+          "alchemy": "That arrow is a morphism — a process from one object to another. Both apparatuses were the same type, but behaved differently. A process is defined by what it DOES.",
+          "spellcraft": "That arrow is a morphism — a working from one object to another. Both runes were the same type, but behaved differently. A working is defined by what it DOES.",
+          "abstract": "The arrow is a morphism. Same-typed morphisms can behave differently; a morphism is defined by its action, not just its type."
+        },
+        "summary": "The things are objects; a process between them is a morphism (an arrow). Two morphisms A → B can still do different things.",
+        "notation": ["A --f--> B", "f: A → B"],
+        "programmerAnalogy": "f: (input: A) => B — two functions with the same signature can compute different things."
+      },
+      "glossaryUnlocks": ["object", "morphism"],
+      "referenceSolution": {
+        "nodes": [
+          { "kind": "object", "nodeId": "n-a", "objectId": "obj-a", "role": "start", "position": { "x": 40, "y": 180 } },
+          { "kind": "morphism", "nodeId": "n-f", "morphismId": "mor-f", "position": { "x": 340, "y": 90 } },
+          { "kind": "morphism", "nodeId": "n-g", "morphismId": "mor-g", "position": { "x": 340, "y": 270 } },
+          { "kind": "object", "nodeId": "n-b", "objectId": "obj-b", "role": "goal", "position": { "x": 640, "y": 180 } }
+        ],
+        "edges": [
+          { "id": "e-a-f", "sourceNodeId": "n-a", "targetNodeId": "n-f" },
+          { "id": "e-f-b", "sourceNodeId": "n-f", "targetNodeId": "n-b" }
+        ]
+      }
+    },
+    {
+      "status": "authored",
+      "id": "tour-2",
+      "chapterId": "tour",
+      "order": 2,
+      "title": { "data": "Chain Two Steps", "alchemy": "Chain Two Steps", "spellcraft": "Chain Two Steps", "abstract": "Chain Two Steps" },
+      "conceptTags": ["composition"],
+      "intro": {
+        "data": "One process is rarely enough. The output of one machine can feed the input of the next — that chaining is called composition. Clean the data, THEN chart it. Wire Start → Parser → middle → Charter → Goal, then run a value all the way through.",
+        "alchemy": "One process is rarely enough. The output of one apparatus can feed the next — that chaining is composition. Refine the ore, THEN shape it. Wire Start → Smelter → middle → Toolsmith → Goal, then run a value through.",
+        "spellcraft": "One working is rarely enough. The output of one rune can feed the next — that chaining is composition. Tame the spark, THEN kindle it. Wire Start → Ignition → middle → Kindler → Goal, then run a value through.",
+        "abstract": "Compose two morphisms: the output of f feeds g. Wire A → f → B → g → C so the value flows the whole way."
+      },
+      "goal": { "data": "Build the two-step chain that turns the raw input into the finished report.", "alchemy": "Build the two-step chain that turns raw ore into the finished tool.", "spellcraft": "Build the two-step chain that turns the wild spark into the bound ward.", "abstract": "Build g ∘ f : A → C." },
+      "objects": [
+        { "id": "obj-a", "formalLabel": "A", "labels": { "data": "Raw CSV", "alchemy": "Ore", "spellcraft": "Spark", "abstract": "A" }, "description": { "data": "the raw input", "alchemy": "the raw material", "spellcraft": "the wild essence", "abstract": "the source object" }, "colorToken": "sky" },
+        { "id": "obj-b", "formalLabel": "B", "labels": { "data": "Clean Table", "alchemy": "Ingot", "spellcraft": "Flame", "abstract": "B" }, "description": { "data": "the cleaned middle result", "alchemy": "the refined middle result", "spellcraft": "the steadied middle result", "abstract": "the intermediate object" }, "colorToken": "amber" },
+        { "id": "obj-c", "formalLabel": "C", "labels": { "data": "Report", "alchemy": "Tool", "spellcraft": "Ward", "abstract": "C" }, "description": { "data": "the finished output", "alchemy": "the finished tool", "spellcraft": "the bound ward", "abstract": "the target object" }, "colorToken": "emerald" }
+      ],
+      "morphisms": [
+        { "id": "mor-f", "formalLabel": "f", "sourceObjectId": "obj-a", "targetObjectId": "obj-b", "labels": { "data": "Parser", "alchemy": "Smelter", "spellcraft": "Ignition", "abstract": "f" }, "description": { "data": "cleans the data", "alchemy": "refines the ore", "spellcraft": "tames the spark", "abstract": "a morphism A → B" }, "action": { "v-raw": "v-clean" } },
+        { "id": "mor-g", "formalLabel": "g", "sourceObjectId": "obj-b", "targetObjectId": "obj-c", "labels": { "data": "Charter", "alchemy": "Toolsmith", "spellcraft": "Kindler", "abstract": "g" }, "description": { "data": "charts a clean table into a report", "alchemy": "shapes an ingot into a tool", "spellcraft": "binds a flame into a ward", "abstract": "a morphism B → C" }, "action": { "v-clean": "v-report" } }
+      ],
+      "samples": [
+        { "id": "v-raw", "objectId": "obj-a", "labels": { "data": "messy spreadsheet", "alchemy": "raw ore", "spellcraft": "wild spark", "abstract": "a" } },
+        { "id": "v-clean", "objectId": "obj-b", "labels": { "data": "clean table", "alchemy": "pure ingot", "spellcraft": "steady flame", "abstract": "b" } },
+        { "id": "v-report", "objectId": "obj-c", "labels": { "data": "finished report", "alchemy": "finished tool", "spellcraft": "bound ward", "abstract": "c" } }
+      ],
+      "initialGraph": {
+        "nodes": [
+          { "kind": "object", "nodeId": "n-a", "objectId": "obj-a", "role": "start", "position": { "x": 40, "y": 180 } },
+          { "kind": "morphism", "nodeId": "n-f", "morphismId": "mor-f", "position": { "x": 280, "y": 90 } },
+          { "kind": "object", "nodeId": "n-b", "objectId": "obj-b", "position": { "x": 520, "y": 180 } },
+          { "kind": "morphism", "nodeId": "n-g", "morphismId": "mor-g", "position": { "x": 760, "y": 90 } },
+          { "kind": "object", "nodeId": "n-c", "objectId": "obj-c", "role": "goal", "position": { "x": 1000, "y": 180 } }
+        ],
+        "edges": []
+      },
+      "allowedMorphismIds": ["mor-f", "mor-g"],
+      "validation": [
+        { "type": "type-valid-wiring" },
+        { "type": "concept-tag-required", "conceptTag": "composition" },
+        { "type": "required-output", "inputValueId": "v-raw", "outputValueId": "v-report" }
+      ],
+      "reveal": {
+        "afterSuccess": {
+          "data": "You composed two processes: Parser then Charter. The clean table that came out of the first machine became the input to the second. Written as one combined process, that is g ∘ f — \"g after f\".",
+          "alchemy": "You composed two processes: Smelter then Toolsmith. The ingot from the first fed the second. Combined, that is g ∘ f — \"g after f\".",
+          "spellcraft": "You composed two workings: Ignition then Kindler. The flame from the first fed the second. Combined, that is g ∘ f — \"g after f\".",
+          "abstract": "You composed g after f. The output of f became the input of g, giving one combined morphism g ∘ f : A → C."
+        },
+        "summary": "Composition chains processes: if f : A → B and g : B → C, then g ∘ f : A → C runs f, then g. The middle types must match.",
+        "notation": ["g ∘ f : A → C", "(g ∘ f)(x) = g(f(x))"],
+        "programmerAnalogy": "const gf = (x: A) => g(f(x)) — function composition."
+      },
+      "glossaryUnlocks": ["composition"],
+      "referenceSolution": {
+        "nodes": [
+          { "kind": "object", "nodeId": "n-a", "objectId": "obj-a", "role": "start", "position": { "x": 40, "y": 180 } },
+          { "kind": "morphism", "nodeId": "n-f", "morphismId": "mor-f", "position": { "x": 280, "y": 90 } },
+          { "kind": "object", "nodeId": "n-b", "objectId": "obj-b", "position": { "x": 520, "y": 180 } },
+          { "kind": "morphism", "nodeId": "n-g", "morphismId": "mor-g", "position": { "x": 760, "y": 90 } },
+          { "kind": "object", "nodeId": "n-c", "objectId": "obj-c", "role": "goal", "position": { "x": 1000, "y": 180 } }
+        ],
+        "edges": [
+          { "id": "e-a-f", "sourceNodeId": "n-a", "targetNodeId": "n-f" },
+          { "id": "e-f-b", "sourceNodeId": "n-f", "targetNodeId": "n-b" },
+          { "id": "e-b-g", "sourceNodeId": "n-b", "targetNodeId": "n-g" },
+          { "id": "e-g-c", "sourceNodeId": "n-g", "targetNodeId": "n-c" }
+        ]
+      }
+    },
+    {
+      "status": "authored",
+      "id": "tour-3",
+      "chapterId": "tour",
+      "order": 3,
+      "title": { "data": "The Do-Nothing Step", "alchemy": "The Do-Nothing Step", "spellcraft": "The Do-Nothing Step", "abstract": "The Do-Nothing Step" },
+      "conceptTags": ["identity"],
+      "intro": {
+        "data": "Every object has one special process that changes nothing: it takes a thing and hands back the very same thing. It's called the identity. Start and Goal are the SAME object here. One machine returns it untouched; the other quietly smudges it. Pick the one that truly leaves it unchanged, then run it.",
+        "alchemy": "Every object has one special process that changes nothing: it hands back the very same material. It's called the identity. Start and Goal are the SAME object. One apparatus returns it untouched; the other taints it. Pick the untouched one, then run it.",
+        "spellcraft": "Every object has one special working that changes nothing: it hands back the very same essence. It's called the identity. Start and Goal are the SAME object. One rune returns it untouched; the other warps it. Pick the untouched one, then run it.",
+        "abstract": "Every object A has an identity morphism id_A : A → A that returns its input unchanged. Start and Goal are the same A. Pick the morphism that truly leaves the value alone."
+      },
+      "goal": { "data": "Return the record to the goal exactly as it started — using the do-nothing step.", "alchemy": "Return the sample to the goal exactly as it started — using the do-nothing step.", "spellcraft": "Return the essence to the goal exactly as it started — using the do-nothing step.", "abstract": "Reach the goal A with id_A so the value is unchanged." },
+      "objects": [
+        { "id": "obj-a", "formalLabel": "A", "labels": { "data": "Record", "alchemy": "Sample", "spellcraft": "Essence", "abstract": "A" }, "description": { "data": "a thing you can transform — here, it must arrive unchanged", "alchemy": "a thing you can transform — here, it must arrive unchanged", "spellcraft": "a thing you can transform — here, it must arrive unchanged", "abstract": "an object" }, "colorToken": "sky" }
+      ],
+      "morphisms": [
+        { "id": "mor-id", "formalLabel": "id", "sourceObjectId": "obj-a", "targetObjectId": "obj-a", "labels": { "data": "Hold", "alchemy": "Rest", "spellcraft": "Stillness", "abstract": "id" }, "description": { "data": "returns the record exactly as it was", "alchemy": "returns the sample exactly as it was", "spellcraft": "returns the essence exactly as it was", "abstract": "the identity id_A : A → A" }, "action": { "v-a": "v-a" } },
+        { "id": "mor-smudge", "formalLabel": "s", "sourceObjectId": "obj-a", "targetObjectId": "obj-a", "labels": { "data": "Smudge", "alchemy": "Taint", "spellcraft": "Warp", "abstract": "s" }, "description": { "data": "looks harmless, but alters the record", "alchemy": "looks harmless, but taints the sample", "spellcraft": "looks harmless, but warps the essence", "abstract": "a self-loop that is NOT the identity" }, "action": { "v-a": "v-a-smudged" } }
+      ],
+      "samples": [
+        { "id": "v-a", "objectId": "obj-a", "labels": { "data": "the original record", "alchemy": "the original sample", "spellcraft": "the original essence", "abstract": "a" } },
+        { "id": "v-a-smudged", "objectId": "obj-a", "labels": { "data": "a smudged record", "alchemy": "a tainted sample", "spellcraft": "a warped essence", "abstract": "a′" } }
+      ],
+      "initialGraph": {
+        "nodes": [
+          { "kind": "object", "nodeId": "n-a-start", "objectId": "obj-a", "role": "start", "position": { "x": 40, "y": 180 } },
+          { "kind": "morphism", "nodeId": "n-id", "morphismId": "mor-id", "position": { "x": 340, "y": 90 } },
+          { "kind": "morphism", "nodeId": "n-smudge", "morphismId": "mor-smudge", "position": { "x": 340, "y": 270 } },
+          { "kind": "object", "nodeId": "n-a-goal", "objectId": "obj-a", "role": "goal", "position": { "x": 640, "y": 180 } }
+        ],
+        "edges": []
+      },
+      "allowedMorphismIds": ["mor-id", "mor-smudge"],
+      "validation": [
+        { "type": "type-valid-wiring" },
+        { "type": "concept-tag-required", "conceptTag": "identity" },
+        { "type": "required-output", "inputValueId": "v-a", "outputValueId": "v-a" }
+      ],
+      "reveal": {
+        "afterSuccess": {
+          "data": "Hold is the identity on this object: it returns exactly what it received. Smudge had the same type (Record → Record) but changed the value — so it is NOT an identity. Every object has exactly one identity.",
+          "alchemy": "Rest is the identity on this object: it returns exactly what it received. Taint had the same type but changed the sample — so it is NOT an identity. Every object has exactly one identity.",
+          "spellcraft": "Stillness is the identity on this object: it returns exactly what it received. Warp had the same type but changed the essence — so it is NOT an identity. Every object has exactly one identity.",
+          "abstract": "id_A returns its input unchanged. A same-typed self-loop that alters the value is not an identity. Each object has exactly one id_A."
+        },
+        "summary": "The identity id_A : A → A is the do-nothing process on an object. Composing with it changes nothing: f ∘ id = f = id ∘ f.",
+        "notation": ["id_A : A → A", "id_A(x) = x"],
+        "programmerAnalogy": "const id = (x: A) => x — the identity function."
+      },
+      "glossaryUnlocks": ["identity"],
+      "referenceSolution": {
+        "nodes": [
+          { "kind": "object", "nodeId": "n-a-start", "objectId": "obj-a", "role": "start", "position": { "x": 40, "y": 180 } },
+          { "kind": "morphism", "nodeId": "n-id", "morphismId": "mor-id", "position": { "x": 340, "y": 90 } },
+          { "kind": "morphism", "nodeId": "n-smudge", "morphismId": "mor-smudge", "position": { "x": 340, "y": 270 } },
+          { "kind": "object", "nodeId": "n-a-goal", "objectId": "obj-a", "role": "goal", "position": { "x": 640, "y": 180 } }
+        ],
+        "edges": [
+          { "id": "e-start-id", "sourceNodeId": "n-a-start", "targetNodeId": "n-id" },
+          { "id": "e-id-goal", "sourceNodeId": "n-id", "targetNodeId": "n-a-goal" }
+        ]
+      }
+    },
+    {
+      "status": "authored",
+      "id": "tour-4",
+      "chapterId": "tour",
+      "order": 4,
+      "title": { "data": "There and Back", "alchemy": "There and Back", "spellcraft": "There and Back", "abstract": "There and Back" },
+      "conceptTags": ["isomorphism"],
+      "intro": {
+        "data": "Some processes can be perfectly undone. Encode the original, then decode it — and if you get the EXACT original back, the two processes are inverses and the objects are isomorphic (\"the same up to renaming\"). Two decoders are offered; only one restores the original exactly. Build the round trip Start → encode → decode → Goal and run it.",
+        "alchemy": "Some processes can be perfectly undone. Transmute the original, then revert it — if you get the EXACT original back, the two are inverses and the objects are isomorphic. Two reverters are offered; only one restores it exactly. Build the round trip and run it.",
+        "spellcraft": "Some workings can be perfectly undone. Seal the original, then unseal it — if you get the EXACT original back, the two are inverses and the objects are isomorphic. Two unsealings are offered; only one restores it exactly. Build the round trip and run it.",
+        "abstract": "An isomorphism f : A → B has an inverse g : B → A with g ∘ f = id_A. Build the round trip A → f → B → g → A; only the true inverse restores the original value."
+      },
+      "goal": { "data": "Make the round trip return the EXACT original — pick the decoder that truly inverts the encoder.", "alchemy": "Make the round trip return the EXACT original — pick the reverter that truly inverts.", "spellcraft": "Make the round trip return the EXACT original — pick the unsealing that truly inverts.", "abstract": "Build g ∘ f = id_A with the true inverse g." },
+      "objects": [
+        { "id": "obj-a", "formalLabel": "A", "labels": { "data": "Plain Text", "alchemy": "Lead", "spellcraft": "Sigil", "abstract": "A" }, "description": { "data": "the original — you must get it back unchanged", "alchemy": "the original — you must get it back unchanged", "spellcraft": "the original — you must get it back unchanged", "abstract": "object A" }, "colorToken": "sky" },
+        { "id": "obj-b", "formalLabel": "B", "labels": { "data": "Cipher", "alchemy": "Gold", "spellcraft": "Seal", "abstract": "B" }, "description": { "data": "the encoded form", "alchemy": "the transmuted form", "spellcraft": "the sealed form", "abstract": "object B" }, "colorToken": "violet" }
+      ],
+      "morphisms": [
+        { "id": "mor-f", "formalLabel": "f", "sourceObjectId": "obj-a", "targetObjectId": "obj-b", "labels": { "data": "Encode", "alchemy": "Transmute", "spellcraft": "Seal", "abstract": "f" }, "description": { "data": "encodes the text into cipher", "alchemy": "transmutes lead into gold", "spellcraft": "seals the sigil", "abstract": "a morphism A → B" }, "action": { "v-a": "v-b" } },
+        { "id": "mor-g", "formalLabel": "g", "sourceObjectId": "obj-b", "targetObjectId": "obj-a", "labels": { "data": "Decode", "alchemy": "Revert", "spellcraft": "Unseal", "abstract": "g" }, "description": { "data": "decodes back to the exact original text", "alchemy": "reverts gold to the exact original lead", "spellcraft": "unseals back to the exact original sigil", "abstract": "the inverse B → A" }, "action": { "v-b": "v-a" } },
+        { "id": "mor-g1", "formalLabel": "g₁", "sourceObjectId": "obj-b", "targetObjectId": "obj-a", "labels": { "data": "Lossy Decode", "alchemy": "Rough Revert", "spellcraft": "Cracked Unseal", "abstract": "g₁" }, "description": { "data": "decodes, but corrupts a little — not a true inverse", "alchemy": "reverts, but loses some metal — not a true inverse", "spellcraft": "unseals, but frays the sigil — not a true inverse", "abstract": "a same-typed map that is NOT the inverse" }, "action": { "v-b": "v-a-lossy" } }
+      ],
+      "samples": [
+        { "id": "v-a", "objectId": "obj-a", "labels": { "data": "the original message", "alchemy": "the original lead", "spellcraft": "the original sigil", "abstract": "a" } },
+        { "id": "v-b", "objectId": "obj-b", "labels": { "data": "the encoded cipher", "alchemy": "the gold", "spellcraft": "the seal", "abstract": "b" } },
+        { "id": "v-a-lossy", "objectId": "obj-a", "labels": { "data": "a garbled message", "alchemy": "diminished lead", "spellcraft": "a frayed sigil", "abstract": "a′" } }
+      ],
+      "initialGraph": {
+        "nodes": [
+          { "kind": "object", "nodeId": "n-a-start", "objectId": "obj-a", "role": "start", "position": { "x": 40, "y": 180 } },
+          { "kind": "morphism", "nodeId": "n-f", "morphismId": "mor-f", "position": { "x": 260, "y": 180 } },
+          { "kind": "object", "nodeId": "n-b", "objectId": "obj-b", "position": { "x": 480, "y": 180 } },
+          { "kind": "morphism", "nodeId": "n-g", "morphismId": "mor-g", "position": { "x": 700, "y": 90 } },
+          { "kind": "morphism", "nodeId": "n-g1", "morphismId": "mor-g1", "position": { "x": 700, "y": 270 } },
+          { "kind": "object", "nodeId": "n-a-goal", "objectId": "obj-a", "role": "goal", "position": { "x": 920, "y": 180 } }
+        ],
+        "edges": []
+      },
+      "allowedMorphismIds": ["mor-f", "mor-g", "mor-g1"],
+      "validation": [
+        { "type": "type-valid-wiring" },
+        { "type": "required-output", "inputValueId": "v-a", "outputValueId": "v-a" }
+      ],
+      "reveal": {
+        "afterSuccess": {
+          "data": "Decode is the inverse of Encode: the round trip returned the EXACT original, so g ∘ f = id. Lossy Decode had the right type but corrupted the message, so it was not a true inverse. When a process has an inverse, it is an isomorphism, and its two objects are \"the same up to renaming\".",
+          "alchemy": "Revert is the inverse of Transmute: the round trip returned the EXACT original, so g ∘ f = id. Rough Revert had the right type but lost metal, so it was not a true inverse. A process with an inverse is an isomorphism.",
+          "spellcraft": "Unseal is the inverse of Seal: the round trip returned the EXACT original, so g ∘ f = id. Cracked Unseal had the right type but frayed the sigil, so it was not a true inverse. A working with an inverse is an isomorphism.",
+          "abstract": "g ∘ f = id_A, so g is the inverse of f and f is an isomorphism. A same-typed map that doesn't restore the value is not an inverse."
+        },
+        "summary": "If f : A → B has an inverse g : B → A with g ∘ f = id_A and f ∘ g = id_B, then f is an isomorphism and A ≅ B — the objects are interchangeable up to renaming.",
+        "notation": ["f: A → B", "g ∘ f = id_A", "A ≅ B"],
+        "programmerAnalogy": "encode/decode that round-trips: decode(encode(x)) === x."
+      },
+      "glossaryUnlocks": ["isomorphism", "inverse"],
+      "referenceSolution": {
+        "nodes": [
+          { "kind": "object", "nodeId": "n-a-start", "objectId": "obj-a", "role": "start", "position": { "x": 40, "y": 180 } },
+          { "kind": "morphism", "nodeId": "n-f", "morphismId": "mor-f", "position": { "x": 260, "y": 180 } },
+          { "kind": "object", "nodeId": "n-b", "objectId": "obj-b", "position": { "x": 480, "y": 180 } },
+          { "kind": "morphism", "nodeId": "n-g", "morphismId": "mor-g", "position": { "x": 700, "y": 90 } },
+          { "kind": "morphism", "nodeId": "n-g1", "morphismId": "mor-g1", "position": { "x": 700, "y": 270 } },
+          { "kind": "object", "nodeId": "n-a-goal", "objectId": "obj-a", "role": "goal", "position": { "x": 920, "y": 180 } }
+        ],
+        "edges": [
+          { "id": "e-start-f", "sourceNodeId": "n-a-start", "targetNodeId": "n-f" },
+          { "id": "e-f-b", "sourceNodeId": "n-f", "targetNodeId": "n-b" },
+          { "id": "e-b-g", "sourceNodeId": "n-b", "targetNodeId": "n-g" },
+          { "id": "e-g-goal", "sourceNodeId": "n-g", "targetNodeId": "n-a-goal" }
+        ]
+      }
+    },
+    {
+      "status": "authored",
+      "id": "tour-5",
+      "chapterId": "tour",
+      "order": 5,
+      "title": { "data": "Lift the Whole World", "alchemy": "Lift the Whole World", "spellcraft": "Lift the Whole World", "abstract": "Lift the Whole World" },
+      "conceptTags": ["functor"],
+      "intro": {
+        "data": "The last big idea: a functor lifts an ENTIRE world into another. On the right is the plain world — one Cleaner turning one record into one clean record. The Batch world holds many records at once. \"Lifting\" the Cleaner means finding the machine that cleans EVERY record in a batch. One machine does; the other crumples them. Lift it, then run a batch through.",
+        "alchemy": "The last big idea: a functor lifts an ENTIRE world into another. On the right is the plain world — one Smelter refining one ore. The Crate world holds many at once. \"Lifting\" the Smelter means finding the machine that refines EVERY ore in a crate. One does; the other crushes them. Lift it, then run a crate through.",
+        "spellcraft": "The last big idea: a functor lifts an ENTIRE world into another. On the right is the plain world — one Kindler turning one spark into one flame. The Flock world holds many at once. \"Lifting\" Kindler means finding the working that kindles EVERY spark in a flock. One does; the other smothers them. Lift it, then run a flock through.",
+        "abstract": "A functor F lifts a whole world into another: each object A to F(A), each morphism f to F(f) doing the same job in the new world. Build F(f) : F(A) → F(B). The impostor is not the lift of f."
+      },
+      "goal": { "data": "Turn a batch of raw records into a batch of clean records — by lifting the Cleaner.", "alchemy": "Turn a crate of ore into a crate of ingots — by lifting the Smelter.", "spellcraft": "Turn a flock of sparks into a flock of flames — by lifting Kindler.", "abstract": "Take F(A) to F(B) with F(f)." },
+      "referenceLabel": { "data": "Plain world (one record)", "alchemy": "Plain world (one ore)", "spellcraft": "Plain world (one spark)", "abstract": "Plain world C" },
+      "referenceDiagram": {
+        "objects": [
+          { "id": "pa", "formalLabel": "A", "labels": { "data": "Record", "alchemy": "Ore", "spellcraft": "Spark", "abstract": "A" }, "colorToken": "sky" },
+          { "id": "pb", "formalLabel": "B", "labels": { "data": "Clean Record", "alchemy": "Ingot", "spellcraft": "Flame", "abstract": "B" }, "colorToken": "emerald" }
+        ],
+        "morphisms": [
+          { "id": "pf", "formalLabel": "f", "sourceObjectId": "pa", "targetObjectId": "pb", "labels": { "data": "Cleaner", "alchemy": "Smelter", "spellcraft": "Kindler", "abstract": "f" } }
+        ],
+        "graph": {
+          "nodes": [
+            { "kind": "object", "nodeId": "rp-a", "objectId": "pa", "role": "start", "position": { "x": 20, "y": 60 } },
+            { "kind": "morphism", "nodeId": "rp-f", "morphismId": "pf", "position": { "x": 150, "y": 60 } },
+            { "kind": "object", "nodeId": "rp-b", "objectId": "pb", "role": "goal", "position": { "x": 290, "y": 60 } }
+          ],
+          "edges": [
+            { "id": "rp-e1", "sourceNodeId": "rp-a", "targetNodeId": "rp-f" },
+            { "id": "rp-e2", "sourceNodeId": "rp-f", "targetNodeId": "rp-b" }
+          ]
+        }
+      },
+      "objects": [
+        { "id": "obj-fa", "formalLabel": "F(A)", "labels": { "data": "Batch of Raw", "alchemy": "Crate of Ore", "spellcraft": "Flock of Sparks", "abstract": "F(A)" }, "description": { "data": "a whole batch of raw records, lifted into the Batch world", "alchemy": "a whole crate of ore, lifted into the Crate world", "spellcraft": "a whole flock of sparks, lifted into the Flock world", "abstract": "F(A) — A lifted by the functor" }, "colorToken": "sky" },
+        { "id": "obj-fb", "formalLabel": "F(B)", "labels": { "data": "Batch of Clean", "alchemy": "Crate of Ingots", "spellcraft": "Flock of Flames", "abstract": "F(B)" }, "description": { "data": "a whole batch of clean records", "alchemy": "a whole crate of ingots", "spellcraft": "a whole flock of flames", "abstract": "F(B) — B lifted by the functor" }, "colorToken": "emerald" }
+      ],
+      "morphisms": [
+        { "id": "mor-Ff", "formalLabel": "F(f)", "sourceObjectId": "obj-fa", "targetObjectId": "obj-fb", "labels": { "data": "Clean Each", "alchemy": "Smelt Each", "spellcraft": "Kindle Each", "abstract": "F(f)" }, "description": { "data": "cleans every record in the batch — the lift of the Cleaner", "alchemy": "refines every ore in the crate — the lift of the Smelter", "spellcraft": "kindles every spark in the flock — the lift of Kindler", "abstract": "F(f) — the lift of f" }, "action": { "box-raw": "box-clean" } },
+        { "id": "mor-Ffbad", "formalLabel": "F(f)?", "sourceObjectId": "obj-fa", "targetObjectId": "obj-fb", "labels": { "data": "Crumple Each", "alchemy": "Crush Each", "spellcraft": "Smother Each", "abstract": "F(f)?" }, "description": { "data": "wrecks every record — same type, but NOT the lift of f", "alchemy": "crushes every ore — same type, but NOT the lift of f", "spellcraft": "smothers every spark — same type, but NOT the lift of f", "abstract": "not the lift of f" }, "action": { "box-raw": "box-garbage" } }
+      ],
+      "samples": [
+        { "id": "box-raw", "objectId": "obj-fa", "labels": { "data": "a batch of raw records", "alchemy": "a crate of ore", "spellcraft": "a flock of sparks", "abstract": "F(a)" } },
+        { "id": "box-clean", "objectId": "obj-fb", "labels": { "data": "a batch of clean records", "alchemy": "a crate of ingots", "spellcraft": "a flock of flames", "abstract": "F(b)" } },
+        { "id": "box-garbage", "objectId": "obj-fb", "labels": { "data": "a batch of shredded records", "alchemy": "a crate of slag", "spellcraft": "a flock of cinders", "abstract": "F(b)?" } }
+      ],
+      "initialGraph": {
+        "nodes": [
+          { "kind": "object", "nodeId": "n-fa", "objectId": "obj-fa", "role": "start", "position": { "x": 40, "y": 180 } },
+          { "kind": "morphism", "nodeId": "n-Ff", "morphismId": "mor-Ff", "position": { "x": 330, "y": 90 } },
+          { "kind": "morphism", "nodeId": "n-Ffbad", "morphismId": "mor-Ffbad", "position": { "x": 330, "y": 270 } },
+          { "kind": "object", "nodeId": "n-fb", "objectId": "obj-fb", "role": "goal", "position": { "x": 640, "y": 180 } }
+        ],
+        "edges": []
+      },
+      "allowedMorphismIds": ["mor-Ff", "mor-Ffbad"],
+      "validation": [
+        { "type": "type-valid-wiring" },
+        { "type": "required-output", "inputValueId": "box-raw", "outputValueId": "box-clean" }
+      ],
+      "reveal": {
+        "afterSuccess": {
+          "data": "You lifted the Cleaner into the Batch world: F(f) cleans every record, doing to a whole batch what the plain Cleaner did to one. That assignment — each type A to F(A), each process f to F(f) — is a functor. (You've now met every core idea: objects, morphisms, composition, identity, isomorphism, and functors. Onward!)",
+          "alchemy": "You lifted the Smelter into the Crate world: F(f) refines every ore. Each type A to F(A), each process f to F(f) — that is a functor. You've now met every core idea. Onward!",
+          "spellcraft": "You lifted Kindler into the Flock world: F(f) kindles every spark. Each essence A to F(A), each working f to F(f) — that is a functor. You've now met every core idea. Onward!",
+          "abstract": "You built F(f), the lift of f. Sending each object A to F(A) and each morphism f to F(f) is a functor. You've now met objects, morphisms, composition, identity, isomorphism, and functors."
+        },
+        "summary": "A functor F : C → D lifts a whole category into another: each object A to F(A), each morphism f : A → B to F(f) : F(A) → F(B) doing the same job in the new world (preserving identities and composition).",
+        "notation": ["F : C → D", "F(f) : F(A) → F(B)"],
+        "moreFormal": "List, Optional, and Batch are functors: F(A) wraps A, and F(f) = \"apply f inside\". Chapter 4 explores the laws F(id) = id and F(g ∘ f) = F(g) ∘ F(f).",
+        "programmerAnalogy": "List is a functor: List<A>, and map(f): List<A> => List<B>."
+      },
+      "glossaryUnlocks": ["functor"],
+      "referenceSolution": {
+        "nodes": [
+          { "kind": "object", "nodeId": "n-fa", "objectId": "obj-fa", "role": "start", "position": { "x": 40, "y": 180 } },
+          { "kind": "morphism", "nodeId": "n-Ff", "morphismId": "mor-Ff", "position": { "x": 330, "y": 90 } },
+          { "kind": "morphism", "nodeId": "n-Ffbad", "morphismId": "mor-Ffbad", "position": { "x": 330, "y": 270 } },
+          { "kind": "object", "nodeId": "n-fb", "objectId": "obj-fb", "role": "goal", "position": { "x": 640, "y": 180 } }
+        ],
+        "edges": [
+          { "id": "e-fa-Ff", "sourceNodeId": "n-fa", "targetNodeId": "n-Ff" },
+          { "id": "e-Ff-fb", "sourceNodeId": "n-Ff", "targetNodeId": "n-fb" }
+        ]
+      }
+    }
+  ]
+}
