@@ -187,11 +187,21 @@ object; naturality is checked genuinely against an author-declared composition t
 puzzles are transformation (wiring/behavior) puzzles. The full curriculum arc, the worked complex
 example, and the engine-extension map live in [`ROADMAP.md`](./ROADMAP.md).
 
-## 7. Glossary
+## 7. Glossary & introduction
 
-Concise entries for: object, morphism/arrow, composition, identity, commutative diagram.
-Terms unlock as encountered. Each entry: theme-language definition first, formal definition
-second, optional programmer analogy, optional notation examples.
+Concise glossary entries for: object, morphism/arrow, composition, identity, commutative diagram,
+and the later concepts (isomorphism, functor, product/coproduct, natural transformation). Terms
+unlock as encountered. Each entry: theme-language definition first, formal definition second,
+optional programmer analogy, optional notation examples.
+
+The **interactive introduction** ("Chapter 0", `/intro`, `TourScreen`) teaches the confusing core
+terms — morphism/transformation, composition, identity, isomorphism, functor (lifting) — by
+*playing* them: each step is a real, theme-aware behavior board (defined in `tour.json`, reusing
+the authored-puzzle shape and the whole engine), with a step counter, an instruction, and a "what
+you learned" reveal that unlocks the matching glossary entry. Independently, every graph element
+carries an instant **hover-card** (`NodeHoverCard`): name + formal role/label + type signature +
+a one-line theme description (generic role fallback when none is authored), so the player can ask
+"what is this?" of any object or machine in place.
 
 ## 8. Progress
 
@@ -202,9 +212,9 @@ clear all progress (separate, in settings/dev).
 
 ## 9. Routing
 
-React Router. Routes: theme selection, chapter map, puzzle screen, glossary, settings.
-Puzzle URL: `/chapter/chapter-01-transformations/puzzle/puzzle-01`. Locked-puzzle URLs show a
-locked screen; debug mode (`?debug=true`) can open any puzzle.
+React Router. Routes: theme selection, introduction walkthrough (`/intro`), chapter map, puzzle
+screen, glossary, settings. Puzzle URL: `/chapter/chapter-01-transformations/puzzle/puzzle-01`.
+Locked-puzzle URLs show a locked screen; debug mode (`?debug=true`) can open any puzzle.
 
 ## 10. MVP scope vs deferred
 

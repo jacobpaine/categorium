@@ -167,6 +167,19 @@ and unit-testable without React.
   read-only (via `SolutionPreview`) beside the boxed board, so it reads as a functor.
 - `domain/functor.ts`, `FunctorChipNode`, and the small-category schemas are kept for Chapter 6.
 
+**Built and working (Session 13 — interactive introduction + hover-cards):**
+- **Walkthrough ("Chapter 0")** — a 5-step interactive introduction (`/intro`, `TourScreen`)
+  that teaches the confusing core terms on REAL game boards, theme-aware: morphism/transformation
+  → composition → identity → isomorphism → functor (lifting). Each step is a playable behavior
+  puzzle reusing the whole engine (`tour.json` + `tour.schema.ts`, `TOUR` loader); finishing a
+  step unlocks its glossary entry. Linked from the header and a CTA on the theme picker.
+- **Hover-cards on every element** — pointing at any object or machine pops an instant styled
+  card (`NodeHoverCard`): name + formal role/label (`Object · A` / `Process · f`) + type
+  signature (`A → B`) + a one-line, theme-flavored description (with a generic role fallback, so
+  it's useful even where no description is authored). Replaces the weak native `title` tooltip.
+- Content: every morphism now carries a `description`; Chapter-1 objects too; the `functor`
+  glossary entry reworded around lifting.
+
 **Deferred (next):**
 Keyboard graph construction; locked-puzzle deep-link screen; composing natural transformations;
 products-as-limits (multi-input morphisms); broaden e2e coverage.
