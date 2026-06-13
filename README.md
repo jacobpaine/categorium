@@ -114,14 +114,16 @@ and unit-testable without React.
 **Built and working (Session 8 — Chapters 3–5):**
 - **Chapter 3 Isomorphisms** (4 puzzles): inverses, two-sided round-trips, choosing the true
   inverse, composing isos — engine-light via `path-equivalence` to identity paths
-- **Chapter 4 Functors** (3 puzzles): a genuine engine extension — `domain/functor.ts` +
-  `validateFunctor` (totality + source/target preservation) and a new **FunctorCanvas** where
-  the player draws object→object / morphism→morphism mapping edges between two categories
+- **Chapter 4 Functors** (3 puzzles): functors as **lifting**, built on the behavior runtime —
+  a functor `F` lifts each machine into a boxed world (`F(f) : F(A) → F(B)`), so the laws are
+  felt on real values (`F(id)=id`, `F(g∘f)=F(g)∘F(f)`) and an impostor lift (same boxed type,
+  wrong behavior) is caught by running it. The plain pipeline `F` transports is shown read-only
+  via `referenceDiagram`. (The old chip-mapping FunctorCanvas / `validateFunctor` was retired.)
 - **Chapter 5 Products & Coproducts** (4 puzzles): projections, the pairing universal property,
   the coproduct case-split, and the diagonal — engine-light via the universal-property model
   (unary morphisms only)
 - New concept tags + glossary: isomorphism, inverse, functor, product, coproduct
-- All reference solutions / mappings unit-tested; functor mapping covered by a new e2e
+- All reference solutions unit-tested; Chapter 4 lifting covered by a new e2e
 
 **Built and working (Session 9 — Chapter 6 Natural Transformations):**
 - A second real engine extension (functor categories): `domain/naturalTransformation.ts` with an
@@ -152,11 +154,18 @@ and unit-testable without React.
   fake-composite distractors (a Smudger jams the next machine); isomorphisms checked by
   **round-tripping the value** (a lossy decoder returns a corrupted file); products/coproducts/
   diagonals checked on real component values (the coproduct must handle **both** cases).
-- **Chapter 4** (functors): the alignment puzzle's target category is now **unlabeled** (P, Q, R)
-  so the mapping must be *deduced* from arrow preservation, not read off the chips.
 - **Chapter 6** (natural transformations) left as-is — it already *computes* naturality and its
   puzzles carry type-valid distractors.
 - Every chapter now forces real consideration; color/type matching alone never solves a puzzle.
+
+**Built and working (Session 12 — Chapter 4 rethought as lifting):**
+- The chip-mapping functor puzzle kind (FunctorCanvas / `validateFunctor`) is **retired**.
+  Chapter 4 is now three **behavior** puzzles: a functor `F` lifts each machine into a boxed
+  world, so the laws are felt on values — `F(id)=id` and `F(g∘f)=F(g)∘F(f)` — and an *impostor
+  lift* (same boxed type, wrong behavior) is caught only by running it.
+- New optional `referenceDiagram`/`referenceLabel` renders the plain pipeline `F` transports
+  read-only (via `SolutionPreview`) beside the boxed board, so it reads as a functor.
+- `domain/functor.ts`, `FunctorChipNode`, and the small-category schemas are kept for Chapter 6.
 
 **Deferred (next):**
 Keyboard graph construction; locked-puzzle deep-link screen; composing natural transformations;
@@ -173,7 +182,7 @@ products-as-limits (multi-input morphisms); broaden e2e coverage.
 
 1. Roll the **behavior runtime** out to Chapters 2–6 (the Ch1 pilot proved the mechanic).
 2. Chapter 7: composing natural transformations (the functor-category algebra) — see `ROADMAP.md`.
-3. Keyboard-accessible graph construction; React Flow a11y pass (incl. the functor / NT canvases).
+3. Keyboard-accessible graph construction; React Flow a11y pass (incl. the NT canvas).
 4. Locked-puzzle deep-link screen; extend e2e across more puzzles.
 
 ## Debug mode

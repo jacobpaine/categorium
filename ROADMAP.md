@@ -57,14 +57,18 @@ identity paths, and the correct inverse is pinned with `allowed-morphisms-only` 
 `chapter-04-functors`
 
 A structure-preserving map *between two categories*: objects→objects, morphisms→morphisms,
-preserving sources, targets, identities, and composition. The first genuinely "meta" idea.
+preserving sources, targets, identities, and composition. The first genuinely "meta" idea —
+taught here as **lifting**.
 
-Engine support: **the one real extension** — `src/domain/functor.ts` models two small
-categories + a `FunctorMapping`, and `checkFunctor`/`validateFunctor` verify totality and
-source/target preservation. The UI is a dedicated **FunctorCanvas**: the two categories appear
-as columns of chips and the player draws object→object / morphism→morphism mapping edges.
-(Composition/identity preservation is the stated law; the structural check enforces that every
-image points the right way — a mis-pointed image fails.)
+Engine support: **none required** — Chapter 4 is built from the existing behavior runtime. A
+functor `F` (a Batch/List world) lifts each machine into a boxed world: `F(f) : F(A) → F(B)`
+does the same job inside the box. The three puzzles are ordinary behavior puzzles (`samples` +
+machine `action` tables + `required-output`), so the laws are *felt on real values* —
+`F(id) = id` (P16) and `F(g∘f) = F(g)∘F(f)` (P15) — and an **impostor lift** (same boxed type,
+wrong behavior) is told apart only by running it. The plain-world pipeline the functor transports
+is shown read-only beside the boxed board via the puzzle's `referenceDiagram`. (The old
+chip-mapping **FunctorCanvas** / `validateFunctor` puzzle kind was retired in this rework;
+`src/domain/functor.ts` lives on for Chapter 6.)
 
 ### Chapter 5 — Products & Coproducts  ✅ *authored*
 `chapter-05-products`
@@ -174,17 +178,17 @@ shows their shape, without pretending to be a theorem prover.
 |---|---|---|---|
 | Ch 2 | identity & associativity laws | reuse `path-equivalence` + composite machines | ✅ done |
 | Ch 3 | isomorphisms | round-trip via identity paths + `path-equivalence` | ✅ done |
-| Ch 4 | functors | two-category model (`domain/functor.ts`) + `FunctorCanvas` mapping mechanic | ✅ done |
+| Ch 4 | functors | reworked as **lifting** — behavior runtime + `referenceDiagram`; no new engine | ✅ done |
 | Ch 5 | products / coproducts | **none** — universal-property model with unary morphisms | ✅ done |
 | Ch 6 | natural transformations | composition table on D (`domain/naturalTransformation.ts`) + `NaturalTransformationCanvas`; genuine naturality check | ✅ done |
 | Ch 1 | behavior runtime | value evaluator (`domain/evaluate.ts`) + `required-output` rule + predict-then-run; equivalence checked on real values | ✅ done (pilot) |
 | Ch 2,3,5 | behavior runtime rollout | the wiring chapters rebuilt around behavior with type-valid distractors | ✅ done |
-| Ch 4 | deduced functor mapping | unlabeled target category so the mapping is reasoned, not read | ✅ done |
+| Ch 4 | functors as lifting | chip-mapping retired; laws felt on values (`F(id)=id`, `F(g∘f)=F(g)∘F(f)`); impostor lifts | ✅ done |
 | Future | composing natural transformations | the functor-category algebra (vertical/horizontal composition, id_F) | 🔒 |
 | Future | products-as-limits | multi-input/output morphisms (extension point already marked) | 🔒 |
 
 ## Non-curriculum roadmap (product)
 
 Tracked in `README.md` "Next steps"; summarized here for completeness: per-puzzle e2e coverage,
-keyboard/a11y graph construction (incl. the functor canvas), and a locked-puzzle deep-link screen.
+keyboard/a11y graph construction (incl. the NT canvas), and a locked-puzzle deep-link screen.
 (Sample-value animation and the `?debug=true` panel are now built.)

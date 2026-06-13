@@ -139,9 +139,9 @@ sample-value id → output value id); `src/domain/evaluate.ts` runs a value thro
 `required-output` rule is a **behavior puzzle**: it's solved by producing the right output
 *value*, so two same-typed machines are distinguishable by what they do, and the player
 **predicts then runs** (the sample token shows the real transformation). Equivalence is then
-checked by actually running values, not just declared. The wiring chapters (1, 2, 3, 5) use
-this; Chapters 4 (functors) and 6 (natural transformations) are different puzzle kinds with
-their own validators. Behavior is additive and gated on data.
+checked by actually running values, not just declared. The wiring chapters (1, 2, 3, 4, 5) use
+this; Chapter 6 (natural transformations) is a different puzzle kind with its own validator.
+Behavior is additive and gated on data.
 
 ## 5. Themes
 
@@ -176,14 +176,16 @@ unlocked concept-by-concept.
 | 5 Equivalent Paths | commutative diagram | `g ∘ f = k ∘ h` |
 
 Chapters 2–6 are **authored** (23 puzzles total): Ch2 laws of composition, Ch3 isomorphisms,
-Ch4 functors, Ch5 products & coproducts, Ch6 natural transformations. Two chapters introduce
-their own puzzle **kind** with a dedicated board + validator: `kind: "functor"` (Ch4 —
-`FunctorCanvas` / `validateFunctor`, map one category onto another) and
-`kind: "natural-transformation"` (Ch6 — `NaturalTransformationCanvas` /
-`validateNaturalTransformation`, choose a component at each object; naturality is checked
-genuinely against an author-declared composition table). All other puzzles are transformation
-(wiring) puzzles. The full curriculum arc, the worked complex example, and the engine-extension
-map live in [`ROADMAP.md`](./ROADMAP.md).
+Ch4 functors, Ch5 products & coproducts, Ch6 natural transformations. Chapter 4 teaches functors
+as **lifting**: behavior puzzles where a functor `F` lifts each machine into a boxed world
+(`F(f) : F(A) → F(B)` does the same job inside the box), so the laws are felt on real values —
+`F(id) = id` and `F(g ∘ f) = F(g) ∘ F(f)` — and an *impostor lift* (same boxed type, wrong
+behavior) is told apart only by running it. Only Chapter 6 (natural transformations) introduces
+its own puzzle **kind** with a dedicated board + validator: `kind: "natural-transformation"`
+(`NaturalTransformationCanvas` / `validateNaturalTransformation`, choose a component at each
+object; naturality is checked genuinely against an author-declared composition table). All other
+puzzles are transformation (wiring/behavior) puzzles. The full curriculum arc, the worked complex
+example, and the engine-extension map live in [`ROADMAP.md`](./ROADMAP.md).
 
 ## 7. Glossary
 

@@ -102,22 +102,24 @@ Design notes:
 Honesty: inverse round-trips are author-*declared* (the engine checks endpoints + return, not
 that values round-trip). Stated in the reveals.
 
-## Chapter 4 — `chapter-04-functors`  *(fully authored — a distinct puzzle kind)*
+## Chapter 4 — `chapter-04-functors`  *(behavior; fully authored)*
 
-> "Maps Between Worlds." Functor puzzles use `kind: "functor"` and a different mechanic: two
-> small categories (`sourceCategory`, `targetCategory`) and a `referenceMapping`. The board is
-> the `FunctorCanvas` — chips for each object/morphism; the player draws mapping edges. The
-> check is `validateFunctor` (`src/validation/`), not `validatePuzzle`.
+> "Maps Between Worlds." Functors as **lifting**: a functor `F` (a Batch/List world) lifts each
+> machine into a boxed world — `F(f) : F(A) → F(B)` does the same job inside the box. These are
+> ordinary behavior puzzles (`samples` + machine `action` tables + a `required-output` rule,
+> validated by `validatePuzzle`); the plain-world pipeline is shown read-only via a puzzle's
+> `referenceDiagram` so "a functor transports a whole diagram" is visible beside the boxed board.
+> Distractors are **impostor lifts** — same boxed type, wrong behavior — told apart only by running.
 
 | Puzzle | Concept | How it's validated |
 |---|---|---|
-| 14 Map the Arrow | a functor on a 1-arrow category (List functor) | totality + source/target preservation |
-| 15 Preserve Composition | `F(g∘f) = F(g)∘F(f)` | the composite must map to an `F(A)→F(C)` arrow |
-| 16 Respect Every Arrow | object & morphism maps must agree (Optional functor) | a mis-aligned object map leaves an arrow un-mappable |
+| 14 Lift a Machine | `F` sends `f` to `F(f)` (lift the Cleaner over a batch) | run `box(raw)` → must reach `box(clean)`; the impostor crumples each item |
+| 15 Lift a Pipeline | `F(g∘f) = F(g)∘F(f)` | lifting each step **or** the pre-lifted composite both land the same `box(chart)` |
+| 16 A Faithful Functor | `F(id) = id`; the laws *are* the definition | the lifted identity leaves `box(a)` unchanged; a "tampering" identity-lift jams the next machine |
 
-`checkFunctor` enforces totality + endpoint preservation; identity/composition preservation are
-the stated laws (a mis-pointed image fails the structural check). **P16's target category is
-unlabeled (P, Q, R)** so the mapping must be deduced from arrow preservation, not read off chips.
+The functor laws are felt on real values: lifting a do-nothing does nothing, and lifting a
+composite equals composing the lifts. (No separate functor puzzle *kind* — it was retired in
+favor of these behavior puzzles; `domain/functor.ts` lives on for Chapter 6.)
 
 ## Chapter 5 — `chapter-05-products`  *(behavior; fully authored)*
 

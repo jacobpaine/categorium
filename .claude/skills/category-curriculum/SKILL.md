@@ -47,14 +47,20 @@ engine declares the equalities (`path-equivalence`) rather than proving them.
 3. Choose the true inverse — only a morphism that returns to the start can be an inverse.
 4. Isos compose — `A ≅ B ≅ C ⟹ A ≅ C`. Be honest: inverses are author-declared, not value-checked.
 
-## Chapter 4 teaching order — "Maps Between Worlds" (functors)
-A functor is a NEW puzzle kind (`kind: "functor"`): the player maps a whole source category onto
-a target one (objects→objects, morphisms→morphisms) on the `FunctorCanvas`.
-1. Map the arrow — a functor sends `f : A→B` to `F(f) : F(A)→F(B)` (e.g. the List functor).
-2. Preserve composition — `F(g∘f) = F(g)∘F(f)`.
-3. Respect every arrow — object and morphism maps must agree; many functors can exist (List vs Optional).
-The engine enforces totality + source/target preservation; identity/composition preservation is
-the stated law (a mis-pointed image fails). See `src/domain/functor.ts`.
+## Chapter 4 teaching order — "Maps Between Worlds" (functors as lifting)
+Chapter 4 uses ordinary **behavior** puzzles (no special kind): a functor `F` (a Batch/List
+world) **lifts** each machine into a boxed world — `F(f) : F(A)→F(B)` does the same job inside
+the box. Author them with `samples` + machine `action` tables + a `required-output` rule, and
+show the plain pipeline `F` transports read-only via `referenceDiagram`. Distractors are
+**impostor lifts**: same boxed type, wrong behavior (told apart only by running).
+1. Lift a machine — `F` sends `f : A→B` to `F(f) : F(A)→F(B)` (lift the Cleaner over a batch);
+   the impostor crumples each item.
+2. Lift a pipeline — `F(g∘f) = F(g)∘F(f)`: lifting each step or the pre-lifted composite both
+   land the same boxed result.
+3. A faithful functor — the laws ARE the definition: the lifted identity leaves the box
+   unchanged (`F(id)=id`); a "tampering" identity-lift jams the next machine.
+The functor laws are felt on real values, not declared. (The old chip-mapping kind was retired;
+`src/domain/functor.ts` is kept only for Chapter 6.)
 
 ## Chapter 5 teaching order — "Combining and Choosing" (products & coproducts)
 Use the **universal-property** model (unary morphisms only — no multi-input morphisms):
