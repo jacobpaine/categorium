@@ -6,6 +6,7 @@ import { Handle, Position, type NodeProps } from 'reactflow';
 import { Flag, Target } from 'lucide-react';
 import type { ObjectNodeData } from '../../../flow/adapter';
 import { colorClasses } from '../colors';
+import { NodeHoverCard } from './NodeHoverCard';
 
 export function ObjectTerminalNode({ data }: NodeProps<ObjectNodeData>) {
   const c = colorClasses(data.colorToken);
@@ -14,9 +15,14 @@ export function ObjectTerminalNode({ data }: NodeProps<ObjectNodeData>) {
 
   return (
     <div
-      className={`relative rounded-full border-2 px-5 py-3 shadow-sm ${c.bg} ${c.border} ${c.text}`}
-      title={data.description}
+      className={`group relative rounded-full border-2 px-5 py-3 shadow-sm ${c.bg} ${c.border} ${c.text}`}
     >
+      <NodeHoverCard
+        name={data.label}
+        role="object"
+        formalLabel={data.formalLabel}
+        description={data.description}
+      />
       {/* Goal objects accept an incoming wire on the left. */}
       {!isStart && (
         <Handle

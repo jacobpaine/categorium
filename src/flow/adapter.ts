@@ -36,6 +36,12 @@ export type MachineNodeData = {
   description?: string;
   sourceObjectId: string;
   targetObjectId: string;
+  /** Formal labels of the endpoints (e.g. 'A', 'B'), for the hover-card type signature. */
+  sourceFormal?: string;
+  targetFormal?: string;
+  /** Theme labels of the endpoints, used when no formal label exists. */
+  sourceLabel?: string;
+  targetLabel?: string;
   /** Color tokens of the input/output object types, for port coloring. */
   inputColorToken?: string;
   outputColorToken?: string;
@@ -91,6 +97,10 @@ export function toReactFlow(
       description: mor?.description?.[opts.theme],
       sourceObjectId: mor?.sourceObjectId ?? '',
       targetObjectId: mor?.targetObjectId ?? '',
+      sourceFormal: inputObj?.formalLabel,
+      targetFormal: outputObj?.formalLabel,
+      sourceLabel: inputObj?.labels[opts.theme],
+      targetLabel: outputObj?.labels[opts.theme],
       inputColorToken: inputObj?.colorToken,
       outputColorToken: outputObj?.colorToken,
       showFormal,

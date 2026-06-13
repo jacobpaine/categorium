@@ -7,16 +7,28 @@ import { Handle, Position, type NodeProps } from 'reactflow';
 import { Cog } from 'lucide-react';
 import type { MachineNodeData } from '../../../flow/adapter';
 import { colorClasses } from '../colors';
+import { NodeHoverCard } from './NodeHoverCard';
+
+/** Type signature for the hover-card: prefer formal labels (A → B), else theme labels. */
+function signatureOf(data: MachineNodeData): string | undefined {
+  const from = data.sourceFormal ?? data.sourceLabel;
+  const to = data.targetFormal ?? data.targetLabel;
+  return from && to ? `${from} → ${to}` : undefined;
+}
 
 export function MachineNode({ data }: NodeProps<MachineNodeData>) {
   const input = colorClasses(data.inputColorToken);
   const output = colorClasses(data.outputColorToken);
 
   return (
-    <div
-      className="relative rounded-lg border-2 border-slate-400 bg-white px-5 py-3 shadow-sm"
-      title={data.description}
-    >
+    <div className="group relative rounded-lg border-2 border-slate-400 bg-white px-5 py-3 shadow-sm">
+      <NodeHoverCard
+        name={data.label}
+        role="process"
+        formalLabel={data.formalLabel}
+        signature={signatureOf(data)}
+        description={data.description}
+      />
       <Handle
         type="target"
         position={Position.Left}
