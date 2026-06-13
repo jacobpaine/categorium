@@ -23,13 +23,13 @@
     "abstract": "Chain machines so the input becomes the goal value at C."
   },
   "objects": [
-    { "id": "obj-a", "formalLabel": "A", "labels": { "data": "Raw CSV", "alchemy": "Ore", "spellcraft": "Spark", "abstract": "A" }, "colorToken": "sky" },
-    { "id": "obj-b", "formalLabel": "B", "labels": { "data": "Clean Table", "alchemy": "Ingot", "spellcraft": "Flame", "abstract": "B" }, "colorToken": "emerald" },
-    { "id": "obj-c", "formalLabel": "C", "labels": { "data": "Chart", "alchemy": "Tool", "spellcraft": "Beacon", "abstract": "C" }, "colorToken": "amber" }
+    { "id": "obj-a", "formalLabel": "A", "labels": { "data": "Raw CSV", "alchemy": "Ore", "spellcraft": "Spark", "abstract": "A" }, "description": { "data": "the messy input you start with", "alchemy": "the raw material you start with", "spellcraft": "the wild essence you start with", "abstract": "the source object" }, "colorToken": "sky" },
+    { "id": "obj-b", "formalLabel": "B", "labels": { "data": "Clean Table", "alchemy": "Ingot", "spellcraft": "Flame", "abstract": "B" }, "description": { "data": "the tidy result you want — a clean table", "alchemy": "the refined result — a pure ingot", "spellcraft": "the steady result — a flame", "abstract": "object B" }, "colorToken": "emerald" },
+    { "id": "obj-c", "formalLabel": "C", "labels": { "data": "Chart", "alchemy": "Tool", "spellcraft": "Beacon", "abstract": "C" }, "description": { "data": "a chart drawn from the clean data", "alchemy": "a tool shaped from the ingot", "spellcraft": "a beacon lit from the flame", "abstract": "object C" }, "colorToken": "amber" }
   ],
   "morphisms": [
-    { "id": "mor-parser", "formalLabel": "f", "sourceObjectId": "obj-a", "targetObjectId": "obj-b", "labels": { "data": "Parser", "alchemy": "Smelter", "spellcraft": "Ignition", "abstract": "f" }, "action": { "v-messy": "v-clean" } },
-    { "id": "mor-shred", "formalLabel": "g", "sourceObjectId": "obj-a", "targetObjectId": "obj-b", "labels": { "data": "Shredder", "alchemy": "Crusher", "spellcraft": "Smother", "abstract": "g" }, "action": { "v-messy": "v-shred" } },
+    { "id": "mor-parser", "formalLabel": "f", "sourceObjectId": "obj-a", "targetObjectId": "obj-b", "labels": { "data": "Parser", "alchemy": "Smelter", "spellcraft": "Ignition", "abstract": "f" }, "description": { "data": "cleans the data", "alchemy": "refines the ore", "spellcraft": "tames the spark", "abstract": "a morphism A → B" }, "action": { "v-messy": "v-clean" } },
+    { "id": "mor-shred", "formalLabel": "g", "sourceObjectId": "obj-a", "targetObjectId": "obj-b", "labels": { "data": "Shredder", "alchemy": "Crusher", "spellcraft": "Smother", "abstract": "g" }, "description": { "data": "wrecks the data", "alchemy": "cracks the ore", "spellcraft": "chokes the spark", "abstract": "another morphism A → B" }, "action": { "v-messy": "v-shred" } },
     { "id": "mor-charter", "formalLabel": "h", "sourceObjectId": "obj-b", "targetObjectId": "obj-c", "labels": { "data": "Charter", "alchemy": "Toolsmith", "spellcraft": "Kindler", "abstract": "h" }, "description": { "data": "charts a clean table; jams on a mess", "alchemy": "shapes a pure ingot; jams on a crack", "spellcraft": "kindles a steady flame; jams on a sputter", "abstract": "B → C" }, "action": { "v-clean": "v-chart" } },
     { "id": "mor-scribbler", "formalLabel": "k", "sourceObjectId": "obj-b", "targetObjectId": "obj-c", "labels": { "data": "Scribbler", "alchemy": "Bodger", "spellcraft": "Flicker", "abstract": "k" }, "description": { "data": "always scribbles", "alchemy": "always bodges", "spellcraft": "always flickers", "abstract": "B → C" }, "action": { "v-clean": "v-doodle" } }
   ],

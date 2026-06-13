@@ -17,7 +17,7 @@
     { "id": "obj-b", "formalLabel": "B", "labels": { "data": "Packed Blob", "alchemy": "Gold Dust", "spellcraft": "Glyph", "abstract": "B" }, "colorToken": "emerald" }
   ],
   "morphisms": [
-    { "id": "mor-f", "formalLabel": "f", "sourceObjectId": "obj-a", "targetObjectId": "obj-b", "labels": { "data": "Encode", "alchemy": "Grind", "spellcraft": "Etch", "abstract": "f" }, "action": { "v-a": "v-b" } },
+    { "id": "mor-f", "formalLabel": "f", "sourceObjectId": "obj-a", "targetObjectId": "obj-b", "labels": { "data": "Encode", "alchemy": "Grind", "spellcraft": "Etch", "abstract": "f" }, "description": { "data": "packs the data into a blob", "alchemy": "grinds the ore into powder", "spellcraft": "etches the spark into a glyph", "abstract": "a morphism A → B" }, "action": { "v-a": "v-b" } },
     { "id": "mor-g", "formalLabel": "g", "sourceObjectId": "obj-b", "targetObjectId": "obj-a", "labels": { "data": "Decode", "alchemy": "Recast", "spellcraft": "Read", "abstract": "g" }, "description": { "data": "the true inverse", "alchemy": "the true inverse", "spellcraft": "the true inverse", "abstract": "B → A, inverts f" }, "action": { "v-b": "v-a" } },
     { "id": "mor-gbad", "formalLabel": "g′", "sourceObjectId": "obj-b", "targetObjectId": "obj-a", "labels": { "data": "Garble", "alchemy": "Miscast", "spellcraft": "Misread", "abstract": "g′" }, "description": { "data": "returns a corrupted file", "alchemy": "returns an impure bar", "spellcraft": "returns a broken sigil", "abstract": "B → A, but not an inverse" }, "action": { "v-b": "v-a2" } }
   ],

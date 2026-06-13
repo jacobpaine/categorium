@@ -18,7 +18,7 @@
     { "id": "obj-c", "formalLabel": "C", "labels": { "data": "Archive", "alchemy": "Coin", "spellcraft": "Ward", "abstract": "C" }, "colorToken": "amber" }
   ],
   "morphisms": [
-    { "id": "mor-f", "formalLabel": "f", "sourceObjectId": "obj-a", "targetObjectId": "obj-b", "labels": { "data": "Encode", "alchemy": "Grind", "spellcraft": "Etch", "abstract": "f" }, "action": { "v-a": "v-b" } },
+    { "id": "mor-f", "formalLabel": "f", "sourceObjectId": "obj-a", "targetObjectId": "obj-b", "labels": { "data": "Encode", "alchemy": "Grind", "spellcraft": "Etch", "abstract": "f" }, "description": { "data": "packs the data into a blob", "alchemy": "grinds the ore into powder", "spellcraft": "etches the spark into a glyph", "abstract": "a morphism A → B" }, "action": { "v-a": "v-b" } },
     { "id": "mor-h", "formalLabel": "h", "sourceObjectId": "obj-b", "targetObjectId": "obj-c", "labels": { "data": "Compress", "alchemy": "Mint", "spellcraft": "Seal", "abstract": "h" }, "description": { "data": "lossless (reversible)", "alchemy": "lossless (reversible)", "spellcraft": "lossless (reversible)", "abstract": "an isomorphism B → C" }, "action": { "v-b": "v-c" } },
     { "id": "mor-hbad", "formalLabel": "h′", "sourceObjectId": "obj-b", "targetObjectId": "obj-c", "labels": { "data": "Flatten", "alchemy": "Melt", "spellcraft": "Smear", "abstract": "h′" }, "description": { "data": "lossy (not reversible)", "alchemy": "lossy (not reversible)", "spellcraft": "lossy (not reversible)", "abstract": "B → C, not an iso" }, "action": { "v-b": "v-cx" } }
   ],

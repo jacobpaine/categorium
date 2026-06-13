@@ -17,9 +17,9 @@
     { "id": "obj-b", "formalLabel": "B", "labels": { "data": "Clean Table", "alchemy": "Ingot", "spellcraft": "Flame", "abstract": "B" }, "colorToken": "emerald" }
   ],
   "morphisms": [
-    { "id": "mor-idA", "formalLabel": "id_A", "sourceObjectId": "obj-a", "targetObjectId": "obj-a", "labels": { "data": "Pass Through", "alchemy": "Preserve", "spellcraft": "Echo", "abstract": "id_A" }, "action": { "v-a": "v-a" } },
+    { "id": "mor-idA", "formalLabel": "id_A", "sourceObjectId": "obj-a", "targetObjectId": "obj-a", "labels": { "data": "Pass Through", "alchemy": "Preserve", "spellcraft": "Echo", "abstract": "id_A" }, "description": { "data": "returns it unchanged — the identity", "alchemy": "returns it unchanged — the identity", "spellcraft": "returns it unchanged — the identity", "abstract": "the identity (source = target)" }, "action": { "v-a": "v-a" } },
     { "id": "mor-tweak", "formalLabel": "t", "sourceObjectId": "obj-a", "targetObjectId": "obj-a", "labels": { "data": "Smudger", "alchemy": "Tainter", "spellcraft": "Warper", "abstract": "t" }, "description": { "data": "looks like id, but alters it", "alchemy": "looks like id, but alters it", "spellcraft": "looks like id, but alters it", "abstract": "A → A, not identity" }, "action": { "v-a": "v-a2" } },
-    { "id": "mor-f", "formalLabel": "f", "sourceObjectId": "obj-a", "targetObjectId": "obj-b", "labels": { "data": "Parser", "alchemy": "Smelter", "spellcraft": "Ignition", "abstract": "f" }, "action": { "v-a": "v-b" } }
+    { "id": "mor-f", "formalLabel": "f", "sourceObjectId": "obj-a", "targetObjectId": "obj-b", "labels": { "data": "Parser", "alchemy": "Smelter", "spellcraft": "Ignition", "abstract": "f" }, "description": { "data": "cleans the data", "alchemy": "refines the ore", "spellcraft": "tames the spark", "abstract": "a morphism A → B" }, "action": { "v-a": "v-b" } }
   ],
   "samples": [
     { "id": "v-a", "objectId": "obj-a", "labels": { "data": "messy spreadsheet", "alchemy": "raw ore", "spellcraft": "wild spark", "abstract": "a" } },

@@ -138,9 +138,9 @@
     "id": "functor",
     "term": "Functor",
     "unlockedByConcept": "functor",
-    "shortDefinition": "A structure-preserving map from one category to another.",
+    "shortDefinition": "A way to lift a whole world into another — every object and every process — preserving identities and composition.",
     "themeExplanation": {
-      "data": "A way to copy a whole world of types and functions into another — like List, which turns each type into a list and each function into map of it.",
+      "data": "A way to lift a whole world of types and functions into another — like List, which lifts each type into a list and each function into a map over it (apply it to every element).",
       "alchemy": "A way to copy a whole world of materials and apparatuses into another — like Bundle, wrapping each in a set and each process into a per-element form.",
       "spellcraft": "A way to copy a whole world of essences and runes into another — like Set, wrapping each in a collection and each working into a per-element form.",
       "abstract": "A map F sending objects to objects and morphisms to morphisms, preserving the category's structure."

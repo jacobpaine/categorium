@@ -17,7 +17,7 @@
     { "id": "obj-b", "formalLabel": "B", "labels": { "data": "Packed Blob", "alchemy": "Gold Dust", "spellcraft": "Glyph", "abstract": "B" }, "colorToken": "emerald" }
   ],
   "morphisms": [
-    { "id": "mor-g", "formalLabel": "g", "sourceObjectId": "obj-b", "targetObjectId": "obj-a", "labels": { "data": "Decode", "alchemy": "Recast", "spellcraft": "Read", "abstract": "g" }, "action": { "v-b": "v-a" } },
+    { "id": "mor-g", "formalLabel": "g", "sourceObjectId": "obj-b", "targetObjectId": "obj-a", "labels": { "data": "Decode", "alchemy": "Recast", "spellcraft": "Read", "abstract": "g" }, "description": { "data": "unpacks the blob back into data", "alchemy": "recasts the powder back into ore", "spellcraft": "reads the glyph back into a spark", "abstract": "a morphism B → A" }, "action": { "v-b": "v-a" } },
     { "id": "mor-f", "formalLabel": "f", "sourceObjectId": "obj-a", "targetObjectId": "obj-b", "labels": { "data": "Encode", "alchemy": "Grind", "spellcraft": "Etch", "abstract": "f" }, "description": { "data": "the true inverse of Decode", "alchemy": "the true inverse of Recast", "spellcraft": "the true inverse of Read", "abstract": "A → B, inverts g" }, "action": { "v-a": "v-b" } },
     { "id": "mor-fbad", "formalLabel": "f′", "sourceObjectId": "obj-a", "targetObjectId": "obj-b", "labels": { "data": "Repack", "alchemy": "Misgrind", "spellcraft": "Misetch", "abstract": "f′" }, "description": { "data": "makes a different blob", "alchemy": "makes different dust", "spellcraft": "makes a different glyph", "abstract": "A → B, not an inverse" }, "action": { "v-a": "v-b2" } }
   ],

@@ -23,7 +23,7 @@
     "abstract": "Get the input value back out unchanged."
   },
   "objects": [
-    { "id": "obj-a", "formalLabel": "A", "labels": { "data": "Raw CSV", "alchemy": "Ore", "spellcraft": "Spark", "abstract": "A" }, "colorToken": "sky" }
+    { "id": "obj-a", "formalLabel": "A", "labels": { "data": "Raw CSV", "alchemy": "Ore", "spellcraft": "Spark", "abstract": "A" }, "description": { "data": "the thing you must return unchanged", "alchemy": "the thing you must return unchanged", "spellcraft": "the thing you must return unchanged", "abstract": "object A" }, "colorToken": "sky" }
   ],
   "morphisms": [
     { "id": "mor-id", "formalLabel": "id_A", "sourceObjectId": "obj-a", "targetObjectId": "obj-a", "labels": { "data": "Pass Through", "alchemy": "Preserve", "spellcraft": "Echo", "abstract": "id_A" }, "description": { "data": "returns it unchanged", "alchemy": "returns it unchanged", "spellcraft": "returns it unchanged", "abstract": "A → A, the do-nothing step" }, "action": { "v-messy": "v-messy" } },

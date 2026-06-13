@@ -23,8 +23,8 @@
     "abstract": "Wire the input through a machine so it produces the goal value."
   },
   "objects": [
-    { "id": "obj-a", "formalLabel": "A", "labels": { "data": "Raw CSV", "alchemy": "Ore", "spellcraft": "Spark", "abstract": "A" }, "colorToken": "sky" },
-    { "id": "obj-b", "formalLabel": "B", "labels": { "data": "Clean Table", "alchemy": "Ingot", "spellcraft": "Flame", "abstract": "B" }, "colorToken": "emerald" }
+    { "id": "obj-a", "formalLabel": "A", "labels": { "data": "Raw CSV", "alchemy": "Ore", "spellcraft": "Spark", "abstract": "A" }, "description": { "data": "the messy input you start with", "alchemy": "the raw material you start with", "spellcraft": "the wild essence you start with", "abstract": "the source object" }, "colorToken": "sky" },
+    { "id": "obj-b", "formalLabel": "B", "labels": { "data": "Clean Table", "alchemy": "Ingot", "spellcraft": "Flame", "abstract": "B" }, "description": { "data": "the tidy result you want — a clean table", "alchemy": "the refined result — a pure ingot", "spellcraft": "the steady result — a flame", "abstract": "object B" }, "colorToken": "emerald" }
   ],
   "morphisms": [
     { "id": "mor-parser", "formalLabel": "f", "sourceObjectId": "obj-a", "targetObjectId": "obj-b", "labels": { "data": "Parser", "alchemy": "Smelter", "spellcraft": "Ignition", "abstract": "f" }, "description": { "data": "cleans the data", "alchemy": "refines the ore", "spellcraft": "tames the spark", "abstract": "A → B" }, "action": { "v-messy": "v-clean" } },

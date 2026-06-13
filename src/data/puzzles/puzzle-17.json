@@ -20,7 +20,7 @@
   "morphisms": [
     { "id": "mor-pi1", "formalLabel": "π₁", "sourceObjectId": "obj-p", "targetObjectId": "obj-a", "labels": { "data": "getName", "alchemy": "Salt Out", "spellcraft": "Draw Light", "abstract": "π₁" }, "description": { "data": "the true first projection", "alchemy": "the true first projection", "spellcraft": "the true first projection", "abstract": "A×B → A" }, "action": { "v-rec": "v-name" } },
     { "id": "mor-pi1bad", "formalLabel": "π₁?", "sourceObjectId": "obj-p", "targetObjectId": "obj-a", "labels": { "data": "Misread Name", "alchemy": "Mis-Salt", "spellcraft": "Mis-Light", "abstract": "π₁?" }, "description": { "data": "returns the wrong name", "alchemy": "returns the wrong salt", "spellcraft": "returns the wrong light", "abstract": "A×B → A, but wrong" }, "action": { "v-rec": "v-wrong" } },
-    { "id": "mor-pi2", "formalLabel": "π₂", "sourceObjectId": "obj-p", "targetObjectId": "obj-b", "labels": { "data": "getAge", "alchemy": "Sulfur Out", "spellcraft": "Draw Heat", "abstract": "π₂" }, "action": { "v-rec": "v-age" } }
+    { "id": "mor-pi2", "formalLabel": "π₂", "sourceObjectId": "obj-p", "targetObjectId": "obj-b", "labels": { "data": "getAge", "alchemy": "Sulfur Out", "spellcraft": "Draw Heat", "abstract": "π₂" }, "description": { "data": "projects out the Age, discarding the rest", "alchemy": "draws off the Sulfur, discarding the rest", "spellcraft": "draws the Heat, discarding the rest", "abstract": "the projection π₂ : A×B → B" }, "action": { "v-rec": "v-age" } }
   ],
   "samples": [
     { "id": "v-rec", "objectId": "obj-p", "labels": { "data": "record {Ada, 30}", "alchemy": "salt+sulfur compound", "spellcraft": "light+heat blend", "abstract": "(a,b)" } },
