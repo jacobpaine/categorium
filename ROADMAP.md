@@ -91,12 +91,65 @@ target category D an author-declared **composition table** and checks naturality
 non-natural family really fails. The UI is `NaturalTransformationCanvas` (components drawn from
 C-objects to candidate D-morphisms). Anchored on `safeHead : List ⇒ Optional`.
 
-### Beyond — The functor category & limits  🔒 *future*
+## Chapters 7–11 — the advanced arc  *(planned)*
 
-Composing natural transformations (vertical/horizontal) and the identity transformation — the
-full algebra of the functor category `[C, D]`; and true products-as-limits / multi-input
-morphisms (the domain model marks this extension point in `src/domain/types.ts`). By here, a
-player who started by wiring a CSV parser is reasoning about universal constructions.
+Five more chapters take a player who started by wiring a CSV parser into the deep end of category
+theory. They are **numbered in build order**, chosen so the chapters that reuse the existing engine
+(behaviour runtime, the natural-transformation board) come first, and the two that need a new
+"bijection-matching" board come last (one mechanic serves both). Each unlocks the next, as today.
+
+### Chapter 7 — Monads  *(behaviour runtime; lowest risk, highest payoff)*
+`chapter-07-monads` · concepts: `monad`, `return` (unit), `bind`
+A monad wraps a functor (Chapter 4) with two operations — `return` (put a value in the box) and
+`bind`/`join` (chain a step that itself returns a box, flattening the result) — obeying identity
+and associativity laws (the Chapter 2 template). The running example is **Optional/Maybe**:
+chaining lookups that might fail, where one failure short-circuits the whole pipeline.
+Puzzles: *Wrap It* (return), *Flatten the Nesting* (join, faithful vs lossy), *Chain with Bind*
+(compose `A→T(B)` then `B→T(C)`, short-circuiting on nothing), *The Lookup Chain* (capstone — a
+multi-step effectful pipeline with impostors). Engine: reuses the behaviour runtime with boxed
+values and `action` tables; laws ride the existing `path-equivalence` rule. **No new engine.**
+
+### Chapter 8 — Universal Properties & Limits  *(reuses standard board)*
+`chapter-08-limits` · concepts: `terminal`, `equalizer`, `pullback`, `limit`
+Generalises Chapter 5's products to **limits** — the "best object completing a shape", pinned down
+by a unique mediating morphism. Terminal object (one arrow in from everything), equalizer (the
+sub-object where two arrows agree), pullback ("join two tables on a key").
+Puzzles: *The One-Arrow Object* (terminal), *Where They Agree* (equalizer + inclusion), *Join on a
+Key* (pullback — build the unique mediating map), capstone. Engine: reuses `type-valid-wiring`,
+`required-output`, and `path-equivalence` (the cone/square must commute). **No new engine.**
+
+### Chapter 9 — Composing Transformations  *(reuses the NT board)*
+`chapter-09-functor-categories` · concepts: `vertical-composition`, `functor-category`
+Natural transformations themselves compose: vertical composition `β·α : F⇒H`, the identity
+transformation `id_F`, and the reveal that functors + natural transformations form a category
+`[C, D]`. Puzzles: *Stack Two* (build the composite componentwise), *The Do-Nothing Transformation*
+(`α · id_F = α`), *The Functor Category* (associativity / interchange). Engine: reuses the
+natural-transformation board + composition table; adds a vertical-composition check.
+
+### Chapter 10 — Adjunctions  *(new "bijection-matching" board)*
+`chapter-10-adjunctions` · concepts: `adjunction`, `unit`, `counit`
+The central organising idea: `F ⊣ G` with a natural bijection `Hom(F A, B) ≅ Hom(A, G B)`, the
+unit `η : 1⇒GF`, the counit `ε : FG⇒1`, and the triangle identities. Free ⊣ forgetful (List is the
+free monoid). Puzzles: *Two Ways to Say It* (match corresponding arrows across the bijection),
+*Unit & Counit*, *The Triangle Identities*. Engine: a new lightweight board where the player pairs
+arrows on the left with arrows on the right — **the one new mechanic**, shared with Chapter 11.
+
+### Chapter 11 — Yoneda & Representables  *(the capstone)*
+`chapter-11-yoneda` · concepts: `representable`, `yoneda`
+The iconic finale: an object is completely determined by the maps into it — `Hom(−, A)` — and the
+Yoneda lemma `Nat(Hom(−,A), F) ≅ F(A)`. Ties back to Chapter 3 (same arrows ⟹ isomorphic).
+Puzzles: *Know It By Its Arrows*, *The Yoneda Bijection*, *Same Arrows ⟹ Isomorphic*. Engine:
+reuses the bijection-matching board from Chapter 10.
+
+| Ch | Concept | Reuses | New engine | Status |
+|---|---|---|---|---|
+| 7 | monads | behaviour runtime + `path-equivalence` | none | 🔜 next |
+| 8 | limits | standard board + `required-output` | none | 🔒 planned |
+| 9 | functor categories | NT board + composition table | vertical-composition check | 🔒 planned |
+| 10 | adjunctions | — | bijection-matching board | 🔒 planned |
+| 11 | Yoneda | bijection-matching board | none | 🔒 planned |
+
+Each new glossary term also gets two theme-aware Quiz questions, keeping the "2 per term" contract.
 
 ---
 
