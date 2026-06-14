@@ -12,21 +12,21 @@
   },
   "conceptTags": ["natural-transformation"],
   "intro": {
-    "data": "Every functor has an identity transformation that changes nothing. Here F and G are both List. One candidate keeps each list as-is; the other pads in a default and is not natural. Build the identity transformation.",
-    "alchemy": "Every functor has an identity transformation that changes nothing. Here F and G are both Batch. One candidate keeps each batch as-is; the other pads in a spare and is not natural. Build the identity transformation.",
-    "spellcraft": "Every functor has an identity transformation that changes nothing. Here F and G are both Swarm. One candidate keeps each swarm as-is; the other conjures an extra and is not natural. Build the identity transformation.",
-    "abstract": "When F = G, the identity transformation id_F has component id at every object. One distractor is typed right but not natural. Build id_F."
+    "data": "Just as every kind of data has a do-nothing step that hands it back untouched (the identity, back in Chapter 1), there's a do-nothing converter that turns a List into the very same List, unchanged. Here both wrappers are List. One choice keeps each list exactly as it is; the other pads in a default and changes it. Pick the keep-as-is converter for every kind of data.",
+    "alchemy": "Just as every material has a do-nothing step that hands it back untouched, there's a do-nothing method that turns a Batch into the very same Batch, unchanged. Here both wrappers are Batch. One choice keeps each batch exactly as it is; the other adds a spare and changes it. Pick the keep-as-is method for every material.",
+    "spellcraft": "Just as every essence has a do-nothing step that hands it back untouched, there's a do-nothing working that turns a Swarm into the very same Swarm, unchanged. Here both wrappers are Swarm. One choice keeps each swarm exactly as it is; the other conjures an extra and changes it. Choose the keep-as-is working for every essence.",
+    "abstract": "When F = G, the identity transformation id_F : F ⇒ F has the identity component id at every object. One distractor is typed right but not natural. Build id_F."
   },
   "goal": {
-    "data": "Pick the keep-as-is (identity) component at each object.",
-    "alchemy": "Pick the keep-as-is (identity) component at each material.",
-    "spellcraft": "Pick the keep-as-is (identity) component at each essence.",
+    "data": "Pick the keep-it-unchanged converter for both the User list and the Email list.",
+    "alchemy": "Pick the keep-it-unchanged method for both the Herb batch and the Essence batch.",
+    "spellcraft": "Choose the keep-it-unchanged working for both the Rune swarm and the Spark swarm.",
     "abstract": "Pick the identity component at each object."
   },
   "sourceCategory": {
     "objects": [
-      { "id": "obj-a", "formalLabel": "A", "labels": { "data": "User", "alchemy": "Herb", "spellcraft": "Rune", "abstract": "A" } },
-      { "id": "obj-b", "formalLabel": "B", "labels": { "data": "Email", "alchemy": "Essence", "spellcraft": "Spark", "abstract": "B" } }
+      { "id": "obj-a", "formalLabel": "A", "labels": { "data": "User", "alchemy": "Herb", "spellcraft": "Rune", "abstract": "A" }, "description": { "data": "a data type you must handle — choose its converter on the right", "alchemy": "a material you must handle — choose its method on the right", "spellcraft": "an essence you must handle — choose its working on the right", "abstract": "object A of C" } },
+      { "id": "obj-b", "formalLabel": "B", "labels": { "data": "Email", "alchemy": "Essence", "spellcraft": "Spark", "abstract": "B" }, "description": { "data": "a data type you must handle — choose its converter on the right", "alchemy": "a material you must handle — choose its method on the right", "spellcraft": "an essence you must handle — choose its working on the right", "abstract": "object B of C" } }
     ],
     "morphisms": [
       { "id": "mor-f", "formalLabel": "f", "sourceObjectId": "obj-a", "targetObjectId": "obj-b", "labels": { "data": "getEmail", "alchemy": "Extract", "spellcraft": "Invoke", "abstract": "f" } }
@@ -39,10 +39,10 @@
     ],
     "morphisms": [
       { "id": "d-mapf", "formalLabel": "F(f)", "sourceObjectId": "d-la", "targetObjectId": "d-lb", "labels": { "data": "map getEmail", "alchemy": "Extract Each", "spellcraft": "Invoke Each", "abstract": "F(f)=G(f)" } },
-      { "id": "d-idA", "formalLabel": "id", "sourceObjectId": "d-la", "targetObjectId": "d-la", "labels": { "data": "keep", "alchemy": "hold", "spellcraft": "still", "abstract": "id" } },
-      { "id": "d-idB", "formalLabel": "id", "sourceObjectId": "d-lb", "targetObjectId": "d-lb", "labels": { "data": "keep", "alchemy": "hold", "spellcraft": "still", "abstract": "id" } },
-      { "id": "d-apA", "formalLabel": "pad", "sourceObjectId": "d-la", "targetObjectId": "d-la", "labels": { "data": "padDefault", "alchemy": "add spare", "spellcraft": "conjure one", "abstract": "β_A" } },
-      { "id": "d-apB", "formalLabel": "pad", "sourceObjectId": "d-lb", "targetObjectId": "d-lb", "labels": { "data": "padDefault", "alchemy": "add spare", "spellcraft": "conjure one", "abstract": "β_B" } },
+      { "id": "d-idA", "formalLabel": "id", "sourceObjectId": "d-la", "targetObjectId": "d-la", "labels": { "data": "keep", "alchemy": "hold", "spellcraft": "still", "abstract": "id" }, "description": { "data": "returns the list unchanged — the identity component", "alchemy": "returns the batch unchanged — the identity component", "spellcraft": "returns the swarm unchanged — the identity component", "abstract": "the identity component id" } },
+      { "id": "d-idB", "formalLabel": "id", "sourceObjectId": "d-lb", "targetObjectId": "d-lb", "labels": { "data": "keep", "alchemy": "hold", "spellcraft": "still", "abstract": "id" }, "description": { "data": "returns the list unchanged — the identity component", "alchemy": "returns the batch unchanged — the identity component", "spellcraft": "returns the swarm unchanged — the identity component", "abstract": "the identity component id" } },
+      { "id": "d-apA", "formalLabel": "pad", "sourceObjectId": "d-la", "targetObjectId": "d-la", "labels": { "data": "padDefault", "alchemy": "add spare", "spellcraft": "conjure one", "abstract": "β_A" }, "description": { "data": "pads a default element onto the list — same type, but not the identity and not natural", "alchemy": "adds a spare to the batch — same type, but not the identity and not natural", "spellcraft": "conjures one into the swarm — same type, but not the identity and not natural", "abstract": "typed right, but not the identity / not natural" } },
+      { "id": "d-apB", "formalLabel": "pad", "sourceObjectId": "d-lb", "targetObjectId": "d-lb", "labels": { "data": "padDefault", "alchemy": "add spare", "spellcraft": "conjure one", "abstract": "β_B" }, "description": { "data": "pads a default element onto the list — same type, but not the identity and not natural", "alchemy": "adds a spare to the batch — same type, but not the identity and not natural", "spellcraft": "conjures one into the swarm — same type, but not the identity and not natural", "abstract": "typed right, but not the identity / not natural" } },
       { "id": "d-r1", "formalLabel": "r1", "sourceObjectId": "d-la", "targetObjectId": "d-lb", "labels": { "data": "broken1", "alchemy": "broken1", "spellcraft": "broken1", "abstract": "r1" } },
       { "id": "d-r2", "formalLabel": "r2", "sourceObjectId": "d-la", "targetObjectId": "d-lb", "labels": { "data": "broken2", "alchemy": "broken2", "spellcraft": "broken2", "abstract": "r2" } }
     ],
@@ -64,9 +64,9 @@
   "referenceComponents": { "obj-a": "d-idA", "obj-b": "d-idB" },
   "reveal": {
     "afterSuccess": {
-      "data": "The identity component at every object gives the identity transformation id_F — it does nothing and trivially commutes. padDefault is typed right but breaks the square. id_F is the identity arrow of the functor category [C, D].",
-      "alchemy": "The keep component at every material gives the identity transformation id_F — it does nothing and trivially commutes. The spare-adding one breaks the square.",
-      "spellcraft": "The keep component at every essence gives the identity transformation id_F — it does nothing and trivially commutes. The conjuring one breaks the square.",
+      "data": "Keeping each list untouched is the do-nothing rule — it changes nothing, so it always agrees with itself. padDefault looked right but altered the list, so it failed. This do-nothing rule is the identity: the natural transformation that leaves a wrapper exactly as it is.",
+      "alchemy": "Keeping each batch untouched is the do-nothing rule — it changes nothing, so it always agrees with itself. The spare-adding one looked right but altered the batch, so it failed. This do-nothing rule is the identity: it leaves a wrapper exactly as it is.",
+      "spellcraft": "Keeping each swarm untouched is the do-nothing rule — it changes nothing, so it always agrees with itself. The conjuring one looked right but altered the swarm, so it failed. This do-nothing rule is the identity: it leaves a wrapper exactly as it is.",
       "abstract": "Identity components everywhere give id_F : F ⇒ F, the identity of the functor category [C, D]. The padding family is typed right but not natural."
     },
     "summary": "For any functor F there is an identity natural transformation id_F : F ⇒ F (the identity component at each object). It is the identity morphism in the functor category [C, D].",

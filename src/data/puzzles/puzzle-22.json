@@ -12,21 +12,21 @@
   },
   "conceptTags": ["natural-transformation"],
   "intro": {
-    "data": "Two components are offered at each object, both correctly typed List → Optional. But only one family is natural: headOrDefault sneaks in a default and breaks on the empty list. Pick the components so every naturality square commutes.",
-    "alchemy": "Two components are offered at each material, both correctly typed Batch → Trace. Only one family is natural: the spare-injecting one breaks on the empty batch. Pick the components so every square commutes.",
-    "spellcraft": "Two components are offered at each essence, both correctly typed Swarm → Echo. Only one family is natural: the conjuring one breaks on the empty swarm. Pick the components so every square commutes.",
-    "abstract": "Two candidate components α_A are offered at each object, both F(A) → G(A). Only one family satisfies naturality. Choose it."
+    "data": "Now you get two converters for each kind of data, both shaped right (a List in, an Optional out). Only one is trustworthy: it gives the same answer whether you transform the items first and then take the head, or take the head first and then transform. safeHead does. headOrDefault invents a default when the list is empty — and an invented item has nothing real to transform, so the two orders disagree. Pick the converter that always agrees, for every kind of data.",
+    "alchemy": "Now you get two methods for each material, both shaped right (a Batch in, a Trace out). Only one is trustworthy: it gives the same result whether you refine the pieces first and then sample, or sample first and then refine. Sample does. Sample or Spare conjures a spare when the Batch is empty — and a conjured speck has nothing real to refine, so the two orders disagree. Pick the method that always agrees, for every material.",
+    "spellcraft": "Now you get two workings for each essence, both shaped right (a Swarm in, an Echo out). Only one is trustworthy: it gives the same result whether you transform the members first and then catch one, or catch one first and then transform. Catch does. Catch or Conjure summons one when the Swarm is empty — and a summoned member has nothing real to transform, so the two orders disagree. Choose the working that always agrees, for every essence.",
+    "abstract": "Two candidate components α_A are offered at each object, both F(A) → G(A). Only one family is natural: α_B ∘ F(f) = G(f) ∘ α_A for every f. Choose it."
   },
   "goal": {
-    "data": "Choose the component at each object so map-then-head equals head-then-map.",
-    "alchemy": "Choose the component at each material so the naturality square commutes.",
-    "spellcraft": "Choose the component at each essence so the naturality square commutes.",
+    "data": "Pick the converter so transforming-then-taking-the-head always matches taking-the-head-then-transforming.",
+    "alchemy": "Pick the method so refine-then-sample always matches sample-then-refine.",
+    "spellcraft": "Choose the working so transform-then-catch always matches catch-then-transform.",
     "abstract": "Choose components making α_B ∘ F(f) = G(f) ∘ α_A."
   },
   "sourceCategory": {
     "objects": [
-      { "id": "obj-a", "formalLabel": "A", "labels": { "data": "User", "alchemy": "Herb", "spellcraft": "Rune", "abstract": "A" } },
-      { "id": "obj-b", "formalLabel": "B", "labels": { "data": "Email", "alchemy": "Essence", "spellcraft": "Spark", "abstract": "B" } }
+      { "id": "obj-a", "formalLabel": "A", "labels": { "data": "User", "alchemy": "Herb", "spellcraft": "Rune", "abstract": "A" }, "description": { "data": "a data type you must handle — choose its converter on the right", "alchemy": "a material you must handle — choose its method on the right", "spellcraft": "an essence you must handle — choose its working on the right", "abstract": "object A of C" } },
+      { "id": "obj-b", "formalLabel": "B", "labels": { "data": "Email", "alchemy": "Essence", "spellcraft": "Spark", "abstract": "B" }, "description": { "data": "a data type you must handle — choose its converter on the right", "alchemy": "a material you must handle — choose its method on the right", "spellcraft": "an essence you must handle — choose its working on the right", "abstract": "object B of C" } }
     ],
     "morphisms": [
       { "id": "mor-f", "formalLabel": "f", "sourceObjectId": "obj-a", "targetObjectId": "obj-b", "labels": { "data": "getEmail", "alchemy": "Extract", "spellcraft": "Invoke", "abstract": "f" } }
@@ -42,10 +42,10 @@
     "morphisms": [
       { "id": "d-Ff", "formalLabel": "F(f)", "sourceObjectId": "d-fa", "targetObjectId": "d-fb", "labels": { "data": "map getEmail", "alchemy": "Extract Each", "spellcraft": "Invoke Each", "abstract": "F(f)" } },
       { "id": "d-Gf", "formalLabel": "G(f)", "sourceObjectId": "d-ga", "targetObjectId": "d-gb", "labels": { "data": "map? getEmail", "alchemy": "Trace Extract", "spellcraft": "Echo Invoke", "abstract": "G(f)" } },
-      { "id": "d-shA", "formalLabel": "safeHead_A", "sourceObjectId": "d-fa", "targetObjectId": "d-ga", "labels": { "data": "safeHead", "alchemy": "Sample", "spellcraft": "Catch", "abstract": "α_A" } },
-      { "id": "d-shB", "formalLabel": "safeHead_B", "sourceObjectId": "d-fb", "targetObjectId": "d-gb", "labels": { "data": "safeHead", "alchemy": "Sample", "spellcraft": "Catch", "abstract": "α_B" } },
-      { "id": "d-bdA", "formalLabel": "headOrDefault_A", "sourceObjectId": "d-fa", "targetObjectId": "d-ga", "labels": { "data": "headOrDefault", "alchemy": "Sample or Spare", "spellcraft": "Catch or Conjure", "abstract": "β_A" } },
-      { "id": "d-bdB", "formalLabel": "headOrDefault_B", "sourceObjectId": "d-fb", "targetObjectId": "d-gb", "labels": { "data": "headOrDefault", "alchemy": "Sample or Spare", "spellcraft": "Catch or Conjure", "abstract": "β_B" } },
+      { "id": "d-shA", "formalLabel": "safeHead_A", "sourceObjectId": "d-fa", "targetObjectId": "d-ga", "labels": { "data": "safeHead", "alchemy": "Sample", "spellcraft": "Catch", "abstract": "α_A" }, "description": { "data": "takes a list's first element, or nothing if it's empty — the natural choice", "alchemy": "samples one from the batch, or nothing if it's empty — the natural choice", "spellcraft": "catches one from the swarm, or nothing if it's empty — the natural choice", "abstract": "the natural component F(A) → G(A)" } },
+      { "id": "d-shB", "formalLabel": "safeHead_B", "sourceObjectId": "d-fb", "targetObjectId": "d-gb", "labels": { "data": "safeHead", "alchemy": "Sample", "spellcraft": "Catch", "abstract": "α_B" }, "description": { "data": "takes a list's first element, or nothing if it's empty — the natural choice", "alchemy": "samples one from the batch, or nothing if it's empty — the natural choice", "spellcraft": "catches one from the swarm, or nothing if it's empty — the natural choice", "abstract": "the natural component F(A) → G(A)" } },
+      { "id": "d-bdA", "formalLabel": "headOrDefault_A", "sourceObjectId": "d-fa", "targetObjectId": "d-ga", "labels": { "data": "headOrDefault", "alchemy": "Sample or Spare", "spellcraft": "Catch or Conjure", "abstract": "β_A" }, "description": { "data": "takes the first element, or a MADE-UP default if empty — same type, but the default breaks naturality", "alchemy": "samples one, or conjures a spare if empty — same type, but it breaks naturality", "spellcraft": "catches one, or conjures one if empty — same type, but it breaks naturality", "abstract": "typed F(A) → G(A), but not natural" } },
+      { "id": "d-bdB", "formalLabel": "headOrDefault_B", "sourceObjectId": "d-fb", "targetObjectId": "d-gb", "labels": { "data": "headOrDefault", "alchemy": "Sample or Spare", "spellcraft": "Catch or Conjure", "abstract": "β_B" }, "description": { "data": "takes the first element, or a MADE-UP default if empty — same type, but the default breaks naturality", "alchemy": "samples one, or conjures a spare if empty — same type, but it breaks naturality", "spellcraft": "catches one, or conjures one if empty — same type, but it breaks naturality", "abstract": "typed F(A) → G(A), but not natural" } },
       { "id": "d-diag", "formalLabel": "diag", "sourceObjectId": "d-fa", "targetObjectId": "d-gb", "labels": { "data": "natural diagonal", "alchemy": "natural diagonal", "spellcraft": "natural diagonal", "abstract": "diag" } },
       { "id": "d-diag2", "formalLabel": "diag2", "sourceObjectId": "d-fa", "targetObjectId": "d-gb", "labels": { "data": "broken (via β_B)", "alchemy": "broken", "spellcraft": "broken", "abstract": "diag2" } },
       { "id": "d-diag3", "formalLabel": "diag3", "sourceObjectId": "d-fa", "targetObjectId": "d-gb", "labels": { "data": "broken (via β_A)", "alchemy": "broken", "spellcraft": "broken", "abstract": "diag3" } }
@@ -68,9 +68,9 @@
   "referenceComponents": { "obj-a": "d-shA", "obj-b": "d-shB" },
   "reveal": {
     "afterSuccess": {
-      "data": "Only safeHead commutes: mapping then taking the head equals taking the head then mapping. headOrDefault fails on the empty list — the default doesn't transform under f. Correct types are not enough; the squares must commute.",
-      "alchemy": "Only Sample commutes. The spare-injecting component fails on the empty batch — the spare doesn't transform under f. Correct types are not enough; the squares must commute.",
-      "spellcraft": "Only Catch commutes. The conjuring component fails on the empty swarm — the conjured one doesn't transform under f. Correct types are not enough; the squares must commute.",
+      "data": "safeHead gave the same result whichever order you worked in. headOrDefault didn't — its invented default breaks on the empty list, since a made-up item has nothing real to transform. Matching shapes weren't enough; the two orders had to agree. That agreement is what makes a rule natural.",
+      "alchemy": "Sample gave the same result whichever order you worked in. Sample or Spare didn't — its conjured spare breaks on the empty Batch, since a conjured speck has nothing real to refine. Matching shapes weren't enough; the two orders had to agree. That agreement is what makes a rule natural.",
+      "spellcraft": "Catch gave the same result whichever order you worked in. Catch or Conjure didn't — its summoned member breaks on the empty Swarm, since a summoned one has nothing real to transform. Matching shapes weren't enough; the two orders had to agree. That agreement is what makes a working natural.",
       "abstract": "Only the natural family commutes; the typed-but-broken family fails the square. Correct typing is necessary but not sufficient."
     },
     "summary": "Naturality: for every f : A → B, α_B ∘ F(f) = G(f) ∘ α_A. A family of correctly-typed components is a natural transformation only when every such square commutes.",
