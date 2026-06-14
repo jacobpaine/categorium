@@ -1,0 +1,80 @@
+{
+  "status": "authored",
+  "kind": "natural-transformation",
+  "id": "puzzle-v1",
+  "chapterId": "chapter-09-functor-categories",
+  "order": 33,
+  "title": { "data": "Stack Two Transformations", "alchemy": "Stack Two Transformations", "spellcraft": "Stack Two Transformations", "abstract": "Vertical Composition" },
+  "conceptTags": ["vertical-composition"],
+  "intro": {
+    "data": "You already met one uniform conversion: safeHead turns a List into an Optional. Here's a second: 'As a List' turns an Optional into a List (the one item, or empty). Do one then the other and you get a SINGLE conversion, List ⇒ List — that's vertical composition. At each type, its component is just the two component arrows composed. Pick the composed conversion (one candidate composes them faithfully; the other splices in a default and isn't natural).",
+    "alchemy": "One uniform method takes F to G; a second takes G to H. Done one after the other they give a SINGLE method, F ⇒ H — vertical composition. At each material, its component is the two component steps composed. Pick the composed method; the other splices in a spare and isn't natural.",
+    "spellcraft": "One uniform working takes F to G; a second takes G to H. Cast one then the other and you get a SINGLE working, F ⇒ H — vertical composition. At each essence, its component is the two component runes composed. Choose the composed working; the other splices in a conjured one and isn't natural.",
+    "abstract": "Given α : F ⇒ G and β : G ⇒ H, build the vertical composite β·α : F ⇒ H. Its component at A is β_A ∘ α_A. Pick that composite at each object; a non-composite, non-natural family is offered as a distractor."
+  },
+  "goal": { "data": "Pick the composed conversion (safeHead then As-a-List) at each type.", "alchemy": "Pick the composed method at each material.", "spellcraft": "Choose the composed working at each essence.", "abstract": "Choose β_A ∘ α_A at each object." },
+  "sourceCategory": {
+    "objects": [
+      { "id": "obj-a", "formalLabel": "A", "labels": { "data": "User", "alchemy": "Herb", "spellcraft": "Rune", "abstract": "A" }, "description": { "data": "a data type — choose the composed conversion here", "alchemy": "a material — choose the composed method here", "spellcraft": "an essence — choose the composed working here", "abstract": "object A of C" } },
+      { "id": "obj-b", "formalLabel": "B", "labels": { "data": "Email", "alchemy": "Essence", "spellcraft": "Spark", "abstract": "B" }, "description": { "data": "a data type — choose the composed conversion here", "alchemy": "a material — choose the composed method here", "spellcraft": "an essence — choose the composed working here", "abstract": "object B of C" } }
+    ],
+    "morphisms": [
+      { "id": "mor-f", "formalLabel": "f", "sourceObjectId": "obj-a", "targetObjectId": "obj-b", "labels": { "data": "getEmail", "alchemy": "Extract", "spellcraft": "Invoke", "abstract": "f" } }
+    ]
+  },
+  "targetCategory": {
+    "objects": [
+      { "id": "d-fa", "formalLabel": "F(A)", "labels": { "data": "List of Users", "alchemy": "Bundle of Herbs", "spellcraft": "Web of Runes", "abstract": "F(A)" }, "colorToken": "sky" },
+      { "id": "d-fb", "formalLabel": "F(B)", "labels": { "data": "List of Emails", "alchemy": "Bundle of Essences", "spellcraft": "Web of Sparks", "abstract": "F(B)" }, "colorToken": "emerald" },
+      { "id": "d-ga", "formalLabel": "G(A)", "labels": { "data": "Optional User", "alchemy": "One Herb (or empty)", "spellcraft": "Top Rune (or none)", "abstract": "G(A)" }, "colorToken": "sky" },
+      { "id": "d-gb", "formalLabel": "G(B)", "labels": { "data": "Optional Email", "alchemy": "One Essence (or empty)", "spellcraft": "Top Spark (or none)", "abstract": "G(B)" }, "colorToken": "emerald" },
+      { "id": "d-ha", "formalLabel": "H(A)", "labels": { "data": "List (0-or-1) of Users", "alchemy": "Thin Bundle of Herbs", "spellcraft": "Thin Web of Runes", "abstract": "H(A)" }, "colorToken": "sky" },
+      { "id": "d-hb", "formalLabel": "H(B)", "labels": { "data": "List (0-or-1) of Emails", "alchemy": "Thin Bundle of Essences", "spellcraft": "Thin Web of Sparks", "abstract": "H(B)" }, "colorToken": "emerald" }
+    ],
+    "morphisms": [
+      { "id": "d-Ff", "formalLabel": "F(f)", "sourceObjectId": "d-fa", "targetObjectId": "d-fb", "labels": { "data": "map getEmail", "alchemy": "Extract Each", "spellcraft": "Invoke Each", "abstract": "F(f)" } },
+      { "id": "d-Hf", "formalLabel": "H(f)", "sourceObjectId": "d-ha", "targetObjectId": "d-hb", "labels": { "data": "map getEmail", "alchemy": "Extract Each", "spellcraft": "Invoke Each", "abstract": "H(f)" } },
+      { "id": "d-Gf", "formalLabel": "G(f)", "sourceObjectId": "d-ga", "targetObjectId": "d-gb", "labels": { "data": "map? getEmail", "alchemy": "Extract the One", "spellcraft": "Invoke the One", "abstract": "G(f)" } },
+      { "id": "d-alphaA", "formalLabel": "α_A", "sourceObjectId": "d-fa", "targetObjectId": "d-ga", "labels": { "data": "safeHead", "alchemy": "Take First", "spellcraft": "Take Top", "abstract": "α_A" } },
+      { "id": "d-alphaB", "formalLabel": "α_B", "sourceObjectId": "d-fb", "targetObjectId": "d-gb", "labels": { "data": "safeHead", "alchemy": "Take First", "spellcraft": "Take Top", "abstract": "α_B" } },
+      { "id": "d-betaA", "formalLabel": "β_A", "sourceObjectId": "d-ga", "targetObjectId": "d-ha", "labels": { "data": "As a List", "alchemy": "As a Bundle", "spellcraft": "As a Web", "abstract": "β_A" } },
+      { "id": "d-betaB", "formalLabel": "β_B", "sourceObjectId": "d-gb", "targetObjectId": "d-hb", "labels": { "data": "As a List", "alchemy": "As a Bundle", "spellcraft": "As a Web", "abstract": "β_B" } },
+      { "id": "d-gammaA", "formalLabel": "(β·α)_A", "sourceObjectId": "d-fa", "targetObjectId": "d-ha", "labels": { "data": "First, As a List", "alchemy": "Take First, As a Bundle", "spellcraft": "Take Top, As a Web", "abstract": "β_A ∘ α_A" }, "description": { "data": "the composite: safeHead, then As a List — the natural choice", "alchemy": "the composite: Take First, then As a Bundle — the natural choice", "spellcraft": "the composite: Take Top, then As a Web — the natural choice", "abstract": "(β·α)_A = β_A ∘ α_A" } },
+      { "id": "d-gammaB", "formalLabel": "(β·α)_B", "sourceObjectId": "d-fb", "targetObjectId": "d-hb", "labels": { "data": "First, As a List", "alchemy": "Take First, As a Bundle", "spellcraft": "Take Top, As a Web", "abstract": "β_B ∘ α_B" }, "description": { "data": "the composite: safeHead, then As a List — the natural choice", "alchemy": "the composite: Take First, then As a Bundle — the natural choice", "spellcraft": "the composite: Take Top, then As a Web — the natural choice", "abstract": "(β·α)_B = β_B ∘ α_B" } },
+      { "id": "d-deltaA", "formalLabel": "δ_A", "sourceObjectId": "d-fa", "targetObjectId": "d-ha", "labels": { "data": "Default, As a List", "alchemy": "Spare, As a Bundle", "spellcraft": "Conjure, As a Web", "abstract": "δ_A" }, "description": { "data": "same type, but splices in a default — NOT the composite, and not natural", "alchemy": "same type, but splices in a spare — not the composite, not natural", "spellcraft": "same type, but splices in a conjured one — not the composite, not natural", "abstract": "F(A) → H(A), not β_A ∘ α_A" } },
+      { "id": "d-deltaB", "formalLabel": "δ_B", "sourceObjectId": "d-fb", "targetObjectId": "d-hb", "labels": { "data": "Default, As a List", "alchemy": "Spare, As a Bundle", "spellcraft": "Conjure, As a Web", "abstract": "δ_B" }, "description": { "data": "same type, but splices in a default — NOT the composite, and not natural", "alchemy": "same type, but splices in a spare — not the composite, not natural", "spellcraft": "same type, but splices in a conjured one — not the composite, not natural", "abstract": "F(B) → H(B), not β_B ∘ α_B" } },
+      { "id": "d-diag", "formalLabel": "·", "sourceObjectId": "d-fa", "targetObjectId": "d-hb", "labels": { "data": "natural", "alchemy": "natural", "spellcraft": "natural", "abstract": "F(A)→H(B)" } },
+      { "id": "d-diag1", "formalLabel": "·", "sourceObjectId": "d-fa", "targetObjectId": "d-hb", "labels": { "data": "broken-across", "alchemy": "broken", "spellcraft": "broken", "abstract": "F(A)→H(B)" } },
+      { "id": "d-diag2", "formalLabel": "·", "sourceObjectId": "d-fa", "targetObjectId": "d-hb", "labels": { "data": "broken-down", "alchemy": "broken", "spellcraft": "broken", "abstract": "F(A)→H(B)" } }
+    ],
+    "composites": [
+      { "first": "d-alphaA", "second": "d-betaA", "result": "d-gammaA" },
+      { "first": "d-alphaB", "second": "d-betaB", "result": "d-gammaB" },
+      { "first": "d-Ff", "second": "d-gammaB", "result": "d-diag" },
+      { "first": "d-gammaA", "second": "d-Hf", "result": "d-diag" },
+      { "first": "d-Ff", "second": "d-deltaB", "result": "d-diag1" },
+      { "first": "d-deltaA", "second": "d-Hf", "result": "d-diag2" }
+    ]
+  },
+  "functorF": {
+    "objectMap": { "obj-a": "d-fa", "obj-b": "d-fb" },
+    "morphismMap": { "mor-f": "d-Ff" }
+  },
+  "functorG": {
+    "objectMap": { "obj-a": "d-ha", "obj-b": "d-hb" },
+    "morphismMap": { "mor-f": "d-Hf" }
+  },
+  "referenceComponents": { "obj-a": "d-gammaA", "obj-b": "d-gammaB" },
+  "reveal": {
+    "afterSuccess": {
+      "data": "You stacked two conversions into one: safeHead (List⇒Optional) then 'As a List' (Optional⇒List) gives a single List⇒List conversion, and its component at each type is just the two component arrows composed — (β·α)_A = β_A ∘ α_A. The 'Default, As a List' family spliced in a default and broke the square. Natural transformations compose, end to end.",
+      "alchemy": "You stacked two methods into one: F⇒G then G⇒H gives a single F⇒H method, its component the two steps composed — (β·α)_A = β_A ∘ α_A. The spare-splicing family broke the square.",
+      "spellcraft": "You stacked two workings into one: F⇒G then G⇒H gives a single F⇒H working, its component the two runes composed — (β·α)_A = β_A ∘ α_A. The conjuring family broke the square.",
+      "abstract": "β·α : F ⇒ H is natural, with (β·α)_A = β_A ∘ α_A; the non-composite family fails naturality. Vertical composition of natural transformations is itself a natural transformation."
+    },
+    "summary": "Vertical composition: natural transformations stack end to end. If α : F ⇒ G and β : G ⇒ H, then β·α : F ⇒ H is natural, with component (β·α)_A = β_A ∘ α_A at each object.",
+    "notation": ["β · α : F ⇒ H", "(β·α)_A = β_A ∘ α_A"],
+    "programmerAnalogy": "Composing two polymorphic conversions: (xs => safeHead(xs)) then (o => o.toList())."
+  },
+  "glossaryUnlocks": ["vertical-composition"]
+}

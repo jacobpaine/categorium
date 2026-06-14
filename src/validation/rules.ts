@@ -29,7 +29,9 @@ export type ConceptTag =
   | 'terminal'
   | 'equalizer'
   | 'pullback'
-  | 'limit';
+  | 'limit'
+  | 'vertical-composition'
+  | 'functor-category';
 
 export const CONCEPT_TAGS: readonly ConceptTag[] = [
   'object',
@@ -52,6 +54,8 @@ export const CONCEPT_TAGS: readonly ConceptTag[] = [
   'equalizer',
   'pullback',
   'limit',
+  'vertical-composition',
+  'functor-category',
 ];
 
 /**

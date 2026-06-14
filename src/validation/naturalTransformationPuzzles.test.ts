@@ -61,3 +61,21 @@ describe('puzzle-c6 — naturality must hold across BOTH squares', () => {
     expect(components({ 'obj-a': 'd-bdA', 'obj-b': 'd-bdB', 'obj-c': 'd-bdC' }).ok).toBe(false);
   });
 });
+
+describe('chapter 9 — vertical composition (the composite is the natural one)', () => {
+  function check(id: string, map: Record<string, string>) {
+    const p = getPuzzle(id);
+    if (!p || !isNaturalTransformationPuzzle(p)) throw new Error(`fixture ${id}`);
+    return validateNaturalTransformation(p.sourceCategory, p.targetCategory, p.functorF, p.functorG, map);
+  }
+
+  it('v1: the composite β·α is natural; the non-composite family is not', () => {
+    expect(check('puzzle-v1', { 'obj-a': 'd-gammaA', 'obj-b': 'd-gammaB' }).ok).toBe(true);
+    expect(check('puzzle-v1', { 'obj-a': 'd-deltaA', 'obj-b': 'd-deltaB' }).ok).toBe(false);
+  });
+
+  it('v2: the round-trip composite (= id_F) is natural; the lossy one is not', () => {
+    expect(check('puzzle-v2', { 'obj-a': 'd-gammaA', 'obj-b': 'd-gammaB' }).ok).toBe(true);
+    expect(check('puzzle-v2', { 'obj-a': 'd-deltaA', 'obj-b': 'd-deltaB' }).ok).toBe(false);
+  });
+});

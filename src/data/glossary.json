@@ -298,5 +298,35 @@
     "formalDefinition": "A limit of a diagram D is a universal cone over D: an object L with projections to each D(i), commuting with D's arrows, such that every other cone factors through L by a unique mediating morphism. Terminal objects, products, equalizers, and pullbacks are all limits; reversing the arrows gives colimits (initial object, coproduct, …).",
     "programmerAnalogy": "The most general type that can produce all the pieces consistently — a record/join determined by its universal property.",
     "notationExamples": ["lim D", "unique u : X → L"]
+  },
+  {
+    "id": "vertical-composition",
+    "term": "Vertical composition",
+    "unlockedByConcept": "vertical-composition",
+    "shortDefinition": "Composing two natural transformations end to end, component by component.",
+    "themeExplanation": {
+      "data": "Do one uniform conversion, then another: if α turns F into G and β turns G into H, then β·α turns F into H — at each object, just compose the two component arrows.",
+      "alchemy": "Run one uniform method, then another: α (F to G) then β (G to H) gives β·α (F to H), composing the two component steps at each material.",
+      "spellcraft": "Cast one uniform working, then another: α (F to G) then β (G to H) gives β·α (F to H), composing the two component runes at each essence.",
+      "abstract": "Given α : F ⇒ G and β : G ⇒ H, their vertical composite β·α : F ⇒ H has component (β·α)_A = β_A ∘ α_A at each object A."
+    },
+    "formalDefinition": "For natural transformations α : F ⇒ G and β : G ⇒ H (with F, G, H : C → D), the vertical composite β·α : F ⇒ H is defined componentwise by (β·α)_A = β_A ∘ α_A. It is again natural, and this composition is associative with the identity transformation id_F as unit — making the natural transformations between C and D the morphisms of a category.",
+    "programmerAnalogy": "Composing two polymorphic conversions: (List⇒Optional) then (Optional⇒List) gives List⇒List.",
+    "notationExamples": ["β · α : F ⇒ H", "(β·α)_A = β_A ∘ α_A"]
+  },
+  {
+    "id": "functor-category",
+    "term": "Functor category",
+    "unlockedByConcept": "functor-category",
+    "shortDefinition": "The category whose objects are functors and whose morphisms are natural transformations.",
+    "themeExplanation": {
+      "data": "Zoom out: treat whole functors as the dots and natural transformations as the arrows between them. They compose and have identities, so they form a category in their own right — written [C, D].",
+      "alchemy": "Zoom out: functors are the dots, natural transformations the arrows. They compose with identities — a category in their own right, [C, D].",
+      "spellcraft": "Zoom out: functors are the dots, natural transformations the arrows. They compose with identities — a category in their own right, [C, D].",
+      "abstract": "Objects are functors C → D; morphisms are natural transformations; composition is vertical composition; identities are the id_F."
+    },
+    "formalDefinition": "For categories C and D, the functor category [C, D] (also D^C) has functors F : C → D as objects and natural transformations as morphisms, with vertical composition as composition and the identity natural transformation id_F as each object's identity. It satisfies the category axioms, so natural transformations are 'just morphisms' one level up.",
+    "programmerAnalogy": "Type constructors as objects, polymorphic functions between them as morphisms.",
+    "notationExamples": ["[C, D]", "D^C", "id_F : F ⇒ F"]
   }
 ]

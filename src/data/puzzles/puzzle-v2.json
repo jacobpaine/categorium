@@ -1,0 +1,80 @@
+{
+  "status": "authored",
+  "kind": "natural-transformation",
+  "id": "puzzle-v2",
+  "chapterId": "chapter-09-functor-categories",
+  "order": 34,
+  "title": { "data": "The Functor Category", "alchemy": "The Functor Category", "spellcraft": "The Functor Category", "abstract": "The Functor Category [C, D]" },
+  "conceptTags": ["functor-category"],
+  "intro": {
+    "data": "Vertical composition makes natural transformations behave like arrows: they compose, and there's a do-nothing one (the identity transformation) that acts as a unit. So functors are 'objects' and natural transformations are 'arrows' one level up — the functor category [C, D]. Here, compose 'As a List' (Optional⇒List) with safeHead (List⇒Optional): the round trip wraps then unwraps, changing nothing — it's the identity arrow on Optional. Pick that round-trip composite; the lossy one isn't natural.",
+    "alchemy": "Vertical composition makes natural transformations behave like arrows: they compose, with a do-nothing one as unit. Functors are the 'objects', natural transformations the 'arrows' — the functor category [C, D]. Here, compose 'As a Bundle' with 'Take First': the round trip changes nothing — the identity arrow. Pick that composite; the lossy one isn't natural.",
+    "spellcraft": "Vertical composition makes natural transformations behave like arrows: they compose, with a do-nothing one as unit. Functors are the 'objects', natural transformations the 'arrows' — the functor category [C, D]. Here, compose 'As a Web' with 'Take Top': the round trip changes nothing — the identity arrow. Choose that composite; the lossy one isn't natural.",
+    "abstract": "In the functor category [C, D], functors are objects and natural transformations are morphisms under vertical composition, with id_F as identities. Build β·α where α : F⇒G, β : G⇒H = F (a round trip): β·α = id_F. Pick it; a non-natural family is the distractor."
+  },
+  "goal": { "data": "Pick the round-trip composite (As a List, then safeHead) at each type.", "alchemy": "Pick the round-trip composite at each material.", "spellcraft": "Choose the round-trip composite at each essence.", "abstract": "Choose the composite β·α = id_F at each object." },
+  "sourceCategory": {
+    "objects": [
+      { "id": "obj-a", "formalLabel": "A", "labels": { "data": "User", "alchemy": "Herb", "spellcraft": "Rune", "abstract": "A" }, "description": { "data": "a data type — choose the round-trip composite here", "alchemy": "a material — choose the round-trip composite here", "spellcraft": "an essence — choose the round-trip composite here", "abstract": "object A of C" } },
+      { "id": "obj-b", "formalLabel": "B", "labels": { "data": "Email", "alchemy": "Essence", "spellcraft": "Spark", "abstract": "B" }, "description": { "data": "a data type — choose the round-trip composite here", "alchemy": "a material — choose the round-trip composite here", "spellcraft": "an essence — choose the round-trip composite here", "abstract": "object B of C" } }
+    ],
+    "morphisms": [
+      { "id": "mor-f", "formalLabel": "f", "sourceObjectId": "obj-a", "targetObjectId": "obj-b", "labels": { "data": "getEmail", "alchemy": "Extract", "spellcraft": "Invoke", "abstract": "f" } }
+    ]
+  },
+  "targetCategory": {
+    "objects": [
+      { "id": "d-fa", "formalLabel": "F(A)", "labels": { "data": "Optional User", "alchemy": "One Herb (or empty)", "spellcraft": "Top Rune (or none)", "abstract": "F(A)" }, "colorToken": "sky" },
+      { "id": "d-fb", "formalLabel": "F(B)", "labels": { "data": "Optional Email", "alchemy": "One Essence (or empty)", "spellcraft": "Top Spark (or none)", "abstract": "F(B)" }, "colorToken": "emerald" },
+      { "id": "d-ga", "formalLabel": "G(A)", "labels": { "data": "List of Users", "alchemy": "Bundle of Herbs", "spellcraft": "Web of Runes", "abstract": "G(A)" }, "colorToken": "sky" },
+      { "id": "d-gb", "formalLabel": "G(B)", "labels": { "data": "List of Emails", "alchemy": "Bundle of Essences", "spellcraft": "Web of Sparks", "abstract": "G(B)" }, "colorToken": "emerald" },
+      { "id": "d-ha", "formalLabel": "H(A)", "labels": { "data": "Optional User", "alchemy": "One Herb (or empty)", "spellcraft": "Top Rune (or none)", "abstract": "H(A)=F(A)" }, "colorToken": "sky" },
+      { "id": "d-hb", "formalLabel": "H(B)", "labels": { "data": "Optional Email", "alchemy": "One Essence (or empty)", "spellcraft": "Top Spark (or none)", "abstract": "H(B)=F(B)" }, "colorToken": "emerald" }
+    ],
+    "morphisms": [
+      { "id": "d-Ff", "formalLabel": "F(f)", "sourceObjectId": "d-fa", "targetObjectId": "d-fb", "labels": { "data": "map? getEmail", "alchemy": "Extract the One", "spellcraft": "Invoke the One", "abstract": "F(f)" } },
+      { "id": "d-Hf", "formalLabel": "H(f)", "sourceObjectId": "d-ha", "targetObjectId": "d-hb", "labels": { "data": "map? getEmail", "alchemy": "Extract the One", "spellcraft": "Invoke the One", "abstract": "H(f)" } },
+      { "id": "d-Gf", "formalLabel": "G(f)", "sourceObjectId": "d-ga", "targetObjectId": "d-gb", "labels": { "data": "map getEmail", "alchemy": "Extract Each", "spellcraft": "Invoke Each", "abstract": "G(f)" } },
+      { "id": "d-alphaA", "formalLabel": "α_A", "sourceObjectId": "d-fa", "targetObjectId": "d-ga", "labels": { "data": "As a List", "alchemy": "As a Bundle", "spellcraft": "As a Web", "abstract": "α_A" } },
+      { "id": "d-alphaB", "formalLabel": "α_B", "sourceObjectId": "d-fb", "targetObjectId": "d-gb", "labels": { "data": "As a List", "alchemy": "As a Bundle", "spellcraft": "As a Web", "abstract": "α_B" } },
+      { "id": "d-betaA", "formalLabel": "β_A", "sourceObjectId": "d-ga", "targetObjectId": "d-ha", "labels": { "data": "safeHead", "alchemy": "Take First", "spellcraft": "Take Top", "abstract": "β_A" } },
+      { "id": "d-betaB", "formalLabel": "β_B", "sourceObjectId": "d-gb", "targetObjectId": "d-hb", "labels": { "data": "safeHead", "alchemy": "Take First", "spellcraft": "Take Top", "abstract": "β_B" } },
+      { "id": "d-gammaA", "formalLabel": "id", "sourceObjectId": "d-fa", "targetObjectId": "d-ha", "labels": { "data": "Round Trip", "alchemy": "Round Trip", "spellcraft": "Round Trip", "abstract": "β_A ∘ α_A = id" }, "description": { "data": "wrap as a list, then take the first — back to the same Optional, unchanged", "alchemy": "as a bundle, then take first — back to the same, unchanged", "spellcraft": "as a web, then take top — back to the same, unchanged", "abstract": "(β·α)_A = id_F(A)" } },
+      { "id": "d-gammaB", "formalLabel": "id", "sourceObjectId": "d-fb", "targetObjectId": "d-hb", "labels": { "data": "Round Trip", "alchemy": "Round Trip", "spellcraft": "Round Trip", "abstract": "β_B ∘ α_B = id" }, "description": { "data": "wrap as a list, then take the first — back to the same Optional, unchanged", "alchemy": "as a bundle, then take first — back to the same, unchanged", "spellcraft": "as a web, then take top — back to the same, unchanged", "abstract": "(β·α)_B = id_F(B)" } },
+      { "id": "d-deltaA", "formalLabel": "δ_A", "sourceObjectId": "d-fa", "targetObjectId": "d-ha", "labels": { "data": "Lossy Round Trip", "alchemy": "Lossy Round Trip", "spellcraft": "Lossy Round Trip", "abstract": "δ_A" }, "description": { "data": "same type, but defaults the empty case — not the identity, not natural", "alchemy": "same type, but defaults the empty case — not the identity, not natural", "spellcraft": "same type, but defaults the empty case — not the identity, not natural", "abstract": "F(A) → H(A), not natural" } },
+      { "id": "d-deltaB", "formalLabel": "δ_B", "sourceObjectId": "d-fb", "targetObjectId": "d-hb", "labels": { "data": "Lossy Round Trip", "alchemy": "Lossy Round Trip", "spellcraft": "Lossy Round Trip", "abstract": "δ_B" }, "description": { "data": "same type, but defaults the empty case — not the identity, not natural", "alchemy": "same type, but defaults the empty case — not the identity, not natural", "spellcraft": "same type, but defaults the empty case — not the identity, not natural", "abstract": "F(B) → H(B), not natural" } },
+      { "id": "d-diag", "formalLabel": "·", "sourceObjectId": "d-fa", "targetObjectId": "d-hb", "labels": { "data": "natural", "alchemy": "natural", "spellcraft": "natural", "abstract": "F(A)→H(B)" } },
+      { "id": "d-diag1", "formalLabel": "·", "sourceObjectId": "d-fa", "targetObjectId": "d-hb", "labels": { "data": "broken-across", "alchemy": "broken", "spellcraft": "broken", "abstract": "F(A)→H(B)" } },
+      { "id": "d-diag2", "formalLabel": "·", "sourceObjectId": "d-fa", "targetObjectId": "d-hb", "labels": { "data": "broken-down", "alchemy": "broken", "spellcraft": "broken", "abstract": "F(A)→H(B)" } }
+    ],
+    "composites": [
+      { "first": "d-alphaA", "second": "d-betaA", "result": "d-gammaA" },
+      { "first": "d-alphaB", "second": "d-betaB", "result": "d-gammaB" },
+      { "first": "d-Ff", "second": "d-gammaB", "result": "d-diag" },
+      { "first": "d-gammaA", "second": "d-Hf", "result": "d-diag" },
+      { "first": "d-Ff", "second": "d-deltaB", "result": "d-diag1" },
+      { "first": "d-deltaA", "second": "d-Hf", "result": "d-diag2" }
+    ]
+  },
+  "functorF": {
+    "objectMap": { "obj-a": "d-fa", "obj-b": "d-fb" },
+    "morphismMap": { "mor-f": "d-Ff" }
+  },
+  "functorG": {
+    "objectMap": { "obj-a": "d-ha", "obj-b": "d-hb" },
+    "morphismMap": { "mor-f": "d-Hf" }
+  },
+  "referenceComponents": { "obj-a": "d-gammaA", "obj-b": "d-gammaB" },
+  "reveal": {
+    "afterSuccess": {
+      "data": "Composing 'As a List' with safeHead round-tripped right back to the same Optional, unchanged — the composite is the identity transformation on Optional. That's the last piece: natural transformations compose (vertical composition), and the do-nothing transformation is a unit, so functors-and-natural-transformations form a category in their own right — the functor category [C, D], written D^C. The 'Lossy Round Trip' wasn't the identity and broke the square.",
+      "alchemy": "Composing the two methods round-tripped back unchanged — the composite is the identity transformation. Natural transformations compose with a do-nothing unit, so functors and natural transformations form the functor category [C, D].",
+      "spellcraft": "Composing the two workings round-tripped back unchanged — the composite is the identity transformation. Natural transformations compose with a do-nothing unit, so functors and natural transformations form the functor category [C, D].",
+      "abstract": "β·α = id_F (a round trip). With vertical composition associative and id_F a unit, [C, D] satisfies the category axioms: functors are its objects, natural transformations its morphisms."
+    },
+    "summary": "The functor category [C, D] (also D^C) has functors C → D as objects and natural transformations as morphisms, with vertical composition as composition and id_F as identities. Natural transformations are 'just morphisms', one level up.",
+    "notation": ["[C, D]", "id_F : F ⇒ F", "β · α : F ⇒ H"],
+    "programmerAnalogy": "Type constructors as objects; polymorphic functions between them as morphisms."
+  },
+  "glossaryUnlocks": ["functor-category"]
+}

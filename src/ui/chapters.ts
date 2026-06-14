@@ -72,6 +72,13 @@ export const CHAPTERS: ChapterMeta[] = [
     concepts: ['terminal', 'equalizer', 'pullback', 'limit'],
     status: 'available',
   },
+  {
+    id: 'chapter-09-functor-categories',
+    title: 'Transformations Compose',
+    summary: 'Natural transformations stack end to end (vertical composition) and, with identities, form a category of their own — the functor category.',
+    concepts: ['vertical composition', 'functor category'],
+    status: 'available',
+  },
 ];
 
 export const FIRST_CHAPTER_ID = CHAPTERS[0].id;

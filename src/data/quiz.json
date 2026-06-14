@@ -879,6 +879,94 @@
         "spellcraft": "Products, equalizers, pullbacks, and terminal objects are limits. Coproducts are COlimits — the dual (arrows reversed).",
         "abstract": "Products, equalizers, pullbacks, and terminal objects are limits. Coproducts are COlimits — the dual (arrows reversed)."
       }
+    },
+    {
+      "id": "q-vertical-composition-1",
+      "termId": "vertical-composition",
+      "prompt": {
+        "data": "Doing one uniform conversion (List⇒Optional), then another (Optional⇒List), to get a single List⇒List conversion, is which idea?",
+        "alchemy": "Running one uniform method (F⇒G), then another (G⇒H), to get a single F⇒H method, is which idea?",
+        "spellcraft": "Casting one uniform working (F⇒G), then another (G⇒H), to get a single F⇒H working, is which idea?",
+        "abstract": "Combining α : F⇒G and β : G⇒H into β·α : F⇒H, component by component, is which idea?"
+      },
+      "options": [
+        { "text": "Vertical composition", "correct": true },
+        { "text": "Functor", "correct": false },
+        { "text": "Isomorphism", "correct": false },
+        { "text": "Product", "correct": false }
+      ],
+      "explanation": {
+        "data": "Vertical composition stacks two natural transformations: (β·α)_A = β_A ∘ α_A at each object.",
+        "alchemy": "Vertical composition stacks two natural transformations: (β·α)_A = β_A ∘ α_A at each object.",
+        "spellcraft": "Vertical composition stacks two natural transformations: (β·α)_A = β_A ∘ α_A at each object.",
+        "abstract": "Vertical composition stacks two natural transformations: (β·α)_A = β_A ∘ α_A at each object."
+      }
+    },
+    {
+      "id": "q-vertical-composition-2",
+      "termId": "vertical-composition",
+      "prompt": {
+        "data": "The component of the composite β·α at an object A is…",
+        "alchemy": "The component of the composite β·α at an object A is…",
+        "spellcraft": "The component of the composite β·α at an object A is…",
+        "abstract": "The component of the composite β·α at an object A is…"
+      },
+      "options": [
+        { "text": "β_A ∘ α_A — the two components composed", "correct": true },
+        { "text": "β_A only", "correct": false },
+        { "text": "α_A only", "correct": false },
+        { "text": "α_A ∘ β_A — the other order", "correct": false }
+      ],
+      "explanation": {
+        "data": "Vertical composition is componentwise: (β·α)_A = β_A ∘ α_A — do α_A first, then β_A.",
+        "alchemy": "Vertical composition is componentwise: (β·α)_A = β_A ∘ α_A — do α_A first, then β_A.",
+        "spellcraft": "Vertical composition is componentwise: (β·α)_A = β_A ∘ α_A — do α_A first, then β_A.",
+        "abstract": "Vertical composition is componentwise: (β·α)_A = β_A ∘ α_A — do α_A first, then β_A."
+      }
+    },
+    {
+      "id": "q-functor-category-1",
+      "termId": "functor-category",
+      "prompt": {
+        "data": "Treating whole functors as the objects and natural transformations as the arrows between them gives which idea?",
+        "alchemy": "Treating whole functors as the objects and natural transformations as the arrows between them gives which idea?",
+        "spellcraft": "Treating whole functors as the objects and natural transformations as the arrows between them gives which idea?",
+        "abstract": "The category [C, D] with functors as objects and natural transformations as morphisms is which idea?"
+      },
+      "options": [
+        { "text": "Functor category", "correct": true },
+        { "text": "Product", "correct": false },
+        { "text": "Monad", "correct": false },
+        { "text": "Equalizer", "correct": false }
+      ],
+      "explanation": {
+        "data": "Functors + natural transformations (with vertical composition) form the functor category [C, D].",
+        "alchemy": "Functors + natural transformations (with vertical composition) form the functor category [C, D].",
+        "spellcraft": "Functors + natural transformations (with vertical composition) form the functor category [C, D].",
+        "abstract": "Functors + natural transformations (with vertical composition) form the functor category [C, D]."
+      }
+    },
+    {
+      "id": "q-functor-category-2",
+      "termId": "functor-category",
+      "prompt": {
+        "data": "In the functor category [C, D], the morphisms are…",
+        "alchemy": "In the functor category [C, D], the morphisms are…",
+        "spellcraft": "In the functor category [C, D], the morphisms are…",
+        "abstract": "In the functor category [C, D], the morphisms are…"
+      },
+      "options": [
+        { "text": "natural transformations", "correct": true },
+        { "text": "functors", "correct": false },
+        { "text": "the objects of C", "correct": false },
+        { "text": "individual elements", "correct": false }
+      ],
+      "explanation": {
+        "data": "[C, D]: objects = functors C→D, morphisms = natural transformations, composition = vertical composition.",
+        "alchemy": "[C, D]: objects = functors C→D, morphisms = natural transformations, composition = vertical composition.",
+        "spellcraft": "[C, D]: objects = functors C→D, morphisms = natural transformations, composition = vertical composition.",
+        "abstract": "[C, D]: objects = functors C→D, morphisms = natural transformations, composition = vertical composition."
+      }
     }
   ]
 }
