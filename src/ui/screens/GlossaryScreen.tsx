@@ -1,20 +1,43 @@
 import { Lock } from 'lucide-react';
-import { GLOSSARY } from '../../data';
+import { GLOSSARY, THEMES } from '../../data';
 import { useProgressStore } from '../../state/progressStore';
+import { useDebugStore } from '../../devtools/debugStore';
 import type { ThemeId } from '../../domain';
 
 export function GlossaryScreen() {
   const theme: ThemeId = useProgressStore((s) => s.selectedTheme) ?? 'data';
+  const setTheme = useProgressStore((s) => s.setTheme);
+  const debug = useDebugStore((s) => s.enabled);
   const unlocked = new Set(useProgressStore((s) => s.glossaryUnlocks));
 
   return (
     <section className="mx-auto max-w-2xl px-6 py-10">
-      <h1 className="text-3xl font-bold">Glossary</h1>
-      <p className="mt-2 text-slate-600">Terms unlock as you encounter them in puzzles.</p>
+      <div className="flex items-start justify-between gap-4">
+        <h1 className="text-3xl font-bold">Glossary</h1>
+        <label className="flex shrink-0 items-center gap-2 text-sm text-slate-600">
+          <span>Theme</span>
+          <select
+            value={theme}
+            onChange={(e) => setTheme(e.target.value as ThemeId)}
+            data-testid="glossary-theme"
+            className="rounded border border-slate-300 px-2 py-1 text-sm"
+          >
+            {THEMES.map((t) => (
+              <option key={t.id} value={t.id}>
+                {t.name}
+              </option>
+            ))}
+          </select>
+        </label>
+      </div>
+      <p className="mt-2 text-slate-600">
+        Terms unlock as you encounter them in puzzles. Each definition is written in the selected
+        theme's language — switch the theme to see it reworded.
+      </p>
 
       <div className="mt-8 space-y-4">
         {GLOSSARY.map((entry) => {
-          const isUnlocked = unlocked.has(entry.id);
+          const isUnlocked = debug || unlocked.has(entry.id);
           if (!isUnlocked) {
             return (
               <div
