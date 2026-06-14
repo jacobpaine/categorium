@@ -39,6 +39,8 @@ import {
   type SampleTokenData,
 } from './nodes/SampleTokenNode';
 import { computeSampleFrames, type BehaviorContext, type SampleFrame } from './sampleAnimation';
+import { deriveNotation } from './notation';
+import { NotationBox } from './NotationBox';
 
 type RFNodeData = ObjectNodeData | MachineNodeData;
 
@@ -61,6 +63,8 @@ export type PuzzleCanvasProps = {
   behaviorFlow?: BehaviorContext;
   /** Increment to replay the behavior value-flow on each Run (right or wrong). */
   runSignal?: number;
+  /** Show the live category-theory notation box at the bottom of the board. */
+  showNotation?: boolean;
   onGraphChange: (graph: PuzzleGraph) => void;
 };
 
@@ -75,6 +79,7 @@ export function PuzzleCanvas({
   animateSampleFlow = true,
   behaviorFlow,
   runSignal = 0,
+  showNotation = true,
   onGraphChange,
 }: PuzzleCanvasProps) {
   const initial = useMemo(
@@ -90,6 +95,7 @@ export function PuzzleCanvas({
 
   // The sample token lives outside `nodes` so it never reaches onGraphChange / validation.
   const [token, setToken] = useState<Node<SampleTokenData> | null>(null);
+  const [selectedNodeIds, setSelectedNodeIds] = useState<string[]>([]);
   const timers = useRef<ReturnType<typeof setTimeout>[]>([]);
 
   const clearTimers = useCallback(() => {
@@ -200,8 +206,20 @@ export function PuzzleCanvas({
     [nodes, token],
   );
 
+  const onSelectionChange = useCallback(
+    ({ nodes: sel }: { nodes: Node[] }) => setSelectedNodeIds(sel.map((n) => n.id)),
+    [],
+  );
+
+  // Live CT notation for the current selection + wired path (the teaching box at the bottom).
+  const notationLines = useMemo(() => {
+    if (!showNotation) return [];
+    const graph = fromReactFlow(nodes as RFNode[], edges);
+    return deriveNotation(diagram, graph, selectedNodeIds, theme);
+  }, [showNotation, nodes, edges, diagram, selectedNodeIds, theme]);
+
   return (
-    <div className="h-full w-full">
+    <div className="relative h-full w-full">
       <ReactFlow
         nodes={renderedNodes}
         edges={edges}
@@ -209,17 +227,19 @@ export function PuzzleCanvas({
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
         onConnect={onConnect}
+        onSelectionChange={onSelectionChange}
         isValidConnection={isValidConnection}
         nodesConnectable={!locked}
         nodesDraggable={!locked}
         edgesUpdatable={!locked}
-        elementsSelectable={!locked}
+        elementsSelectable
         fitView
         proOptions={{ hideAttribution: true }}
       >
         <Background gap={20} />
         <Controls showInteractive={false} />
       </ReactFlow>
+      {showNotation && <NotationBox lines={notationLines} />}
     </div>
   );
 }

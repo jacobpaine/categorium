@@ -58,6 +58,24 @@ test('toggling formal labels shows them immediately, without a reset', async ({ 
   await expect(node.getByText('A', { exact: true })).toHaveCount(0);
 });
 
+test('the notation box writes the notation for what you build', async ({ page }) => {
+  await page.goto('/intro');
+  await expect(page.locator('.react-flow__node[data-id="n-a"]')).toBeVisible();
+  await page.waitForTimeout(400);
+
+  // Empty board: a prompt.
+  await expect(page.getByText('Select an object, or wire an arrow')).toBeVisible();
+
+  // Selecting an object populates it.
+  await page.locator('.react-flow__node[data-id="n-a"]').click({ position: { x: 30, y: 20 } });
+  await expect(page.getByText('Selected object')).toBeVisible();
+
+  // Wiring A → f → B writes the arrow as f : A → B.
+  await connect(page, right('n-a'), left('n-f'));
+  await connect(page, right('n-f'), left('n-b'));
+  await expect(page.getByText('f : A → B', { exact: false })).toBeVisible();
+});
+
 test('hovering an element reveals what it represents', async ({ page }) => {
   await page.goto('/intro');
   const machine = page.locator('.react-flow__node[data-id="n-f"]');
