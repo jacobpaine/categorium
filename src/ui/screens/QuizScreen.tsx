@@ -3,34 +3,91 @@
  * idea it stands for. Two questions per glossary term; the wording follows the selected theme
  * (same logic, re-themed prompts). One question at a time, with immediate feedback, an explanation,
  * and a running score. Switching theme restarts the quiz in the new vocabulary.
+ *
+ * Only terms the player has UNLOCKED (by encountering them in puzzles / the walkthrough) are
+ * quizzed — so it never spoils concepts ahead. Debug mode (`?debug=true`) quizzes everything.
+ * Each question's options are shuffled per run, so the correct answer isn't always in one spot.
  */
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { CheckCircle2, GraduationCap, RotateCcw, XCircle } from 'lucide-react';
+import { CheckCircle2, GraduationCap, Lock, RotateCcw, XCircle } from 'lucide-react';
 import { QUIZ, GLOSSARY, THEMES } from '../../data';
 import { useProgressStore } from '../../state/progressStore';
+import { useDebugStore } from '../../devtools/debugStore';
+import type { QuizQuestion } from '../../schemas';
 import type { ThemeId } from '../../domain';
+
+function shuffle<T>(arr: T[]): T[] {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
 
 export function QuizScreen() {
   const theme: ThemeId = useProgressStore((s) => s.selectedTheme) ?? 'data';
   const setTheme = useProgressStore((s) => s.setTheme);
+  const glossaryUnlocks = useProgressStore((s) => s.glossaryUnlocks);
+  const debug = useDebugStore((s) => s.enabled);
 
-  // Restart whenever the theme changes by keying the inner quiz on the theme.
-  return <QuizRun key={theme} theme={theme} setTheme={setTheme} />;
+  const pool = useMemo(() => {
+    if (debug) return QUIZ;
+    const unlocked = new Set(glossaryUnlocks);
+    return QUIZ.filter((q) => unlocked.has(q.termId));
+  }, [debug, glossaryUnlocks]);
+
+  if (pool.length === 0) {
+    return (
+      <section className="mx-auto max-w-2xl px-6 py-10">
+        <h1 className="inline-flex items-center gap-2 text-2xl font-bold">
+          <GraduationCap className="h-6 w-6 text-sky-600" aria-hidden /> Quiz
+        </h1>
+        <div className="mt-6 flex items-start gap-3 rounded-xl border border-dashed border-slate-300 bg-slate-50 p-5 text-slate-600">
+          <Lock className="mt-0.5 h-5 w-5 shrink-0 text-slate-400" aria-hidden />
+          <div>
+            <p className="font-medium text-slate-700">No glossary terms unlocked yet.</p>
+            <p className="mt-1 text-sm">
+              The quiz only covers terms you've met. Take the{' '}
+              <Link to="/intro" className="text-sky-700 hover:underline">walkthrough</Link> or play a few{' '}
+              <Link to="/chapters" className="text-sky-700 hover:underline">chapters</Link> to unlock terms, then come back.
+            </p>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  // Key on theme so the run (and its shuffle) resets when the vocabulary changes.
+  return <QuizRun key={theme} theme={theme} setTheme={setTheme} pool={pool} />;
 }
 
-function QuizRun({ theme, setTheme }: { theme: ThemeId; setTheme: (t: ThemeId) => void }) {
+function QuizRun({
+  theme,
+  setTheme,
+  pool,
+}: {
+  theme: ThemeId;
+  setTheme: (t: ThemeId) => void;
+  pool: QuizQuestion[];
+}) {
+  const [runId, setRunId] = useState(0);
   const [index, setIndex] = useState(0);
   const [selected, setSelected] = useState<number | null>(null);
   const [score, setScore] = useState(0);
   const [finished, setFinished] = useState(false);
 
-  const total = QUIZ.length;
-  const q = QUIZ[index];
-  const termName = useMemo(
-    () => GLOSSARY.find((g) => g.id === q?.termId)?.term ?? q?.termId,
-    [q],
+  // Shuffle each question's options once per run, so the correct answer isn't always first.
+  const questions = useMemo(
+    () => pool.map((q) => ({ ...q, options: shuffle(q.options) })),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [runId, pool],
   );
+
+  const total = questions.length;
+  const q = questions[index];
+  const termName = useMemo(() => GLOSSARY.find((g) => g.id === q?.termId)?.term ?? q?.termId, [q]);
 
   function pick(i: number) {
     if (selected !== null) return; // locked after first choice
@@ -39,15 +96,15 @@ function QuizRun({ theme, setTheme }: { theme: ThemeId; setTheme: (t: ThemeId) =
   }
 
   function next() {
-    if (index + 1 >= total) {
-      setFinished(true);
-    } else {
+    if (index + 1 >= total) setFinished(true);
+    else {
       setIndex((i) => i + 1);
       setSelected(null);
     }
   }
 
   function restart() {
+    setRunId((r) => r + 1);
     setIndex(0);
     setSelected(null);
     setScore(0);
@@ -113,7 +170,6 @@ function QuizRun({ theme, setTheme }: { theme: ThemeId; setTheme: (t: ThemeId) =
         Match each theme's words to the category theory they stand for.
       </p>
 
-      {/* progress */}
       <div className="mt-5 flex items-center gap-3">
         <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-slate-200">
           <div className="h-full rounded-full bg-sky-500 transition-all" style={{ width: `${(index / total) * 100}%` }} />
@@ -131,13 +187,7 @@ function QuizRun({ theme, setTheme }: { theme: ThemeId; setTheme: (t: ThemeId) =
           {q.options.map((opt, i) => {
             const isChosen = selected === i;
             const reveal = selected !== null;
-            const state = !reveal
-              ? 'idle'
-              : opt.correct
-                ? 'correct'
-                : isChosen
-                  ? 'wrong'
-                  : 'muted';
+            const state = !reveal ? 'idle' : opt.correct ? 'correct' : isChosen ? 'wrong' : 'muted';
             const cls = {
               idle: 'border-slate-200 bg-white hover:border-sky-400',
               correct: 'border-emerald-400 bg-emerald-50',
