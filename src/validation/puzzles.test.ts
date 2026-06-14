@@ -257,11 +257,27 @@ describe('chapter 7 — monads (return, join, bind, short-circuit)', () => {
     if (!drop.ok) expect(drop.firstFailure.rule.type).toBe('required-output');
   });
 
-  it('m3: chaining the honest lookup + faithful bind reaches the host; impostors do not', () => {
-    expect(validatePuzzle(toValidationInput(getPuzzle('puzzle-m3') as never), wire('puzzle-m3', [['n-a', 'n-f'], ['n-f', 'n-tb'], ['n-tb', 'n-bind'], ['n-bind', 'n-tc']])).ok).toBe(true);
-    const fabricated = validatePuzzle(toValidationInput(getPuzzle('puzzle-m3') as never), wire('puzzle-m3', [['n-a', 'n-fbad'], ['n-fbad', 'n-tb'], ['n-tb', 'n-bind'], ['n-bind', 'n-tc']]));
-    expect(fabricated.ok).toBe(false);
-    if (!fabricated.ok) expect(fabricated.firstFailure.rule.type).toBe('required-output');
+  it('m3 (multi-case): the faithful bind passes both cases; a fabricating bind passes only the easy one', () => {
+    const m3 = () => toValidationInput(getPuzzle('puzzle-m3') as never);
+    expect(validatePuzzle(m3(), wire('puzzle-m3', [['n-a', 'n-f'], ['n-f', 'n-tb'], ['n-tb', 'n-bind'], ['n-bind', 'n-tc']])).ok).toBe(true);
+    // 'Invent Host' (bindbad) produces Ada's host fine but fabricates one for Bo — the suite catches it.
+    const inventing = validatePuzzle(m3(), wire('puzzle-m3', [['n-a', 'n-f'], ['n-f', 'n-tb'], ['n-tb', 'n-bindbad'], ['n-bindbad', 'n-tc']]));
+    expect(inventing.ok).toBe(false);
+    if (!inventing.ok) {
+      expect(inventing.firstFailure.rule.type).toBe('required-output');
+      // It is the SHORT-CIRCUIT case (Bo → Nothing) that fails, not the success case.
+      expect((inventing.firstFailure.rule as { inputValueId: string }).inputValueId).toBe('v-bo');
+    }
+  });
+
+  it('m5: the List bind that flattens passes; non-flattening / lossy binds fail the non-empty case', () => {
+    const m5 = () => toValidationInput(getPuzzle('puzzle-m5') as never);
+    expect(validatePuzzle(m5(), wire('puzzle-m5', [['n-la', 'n-bind'], ['n-bind', 'n-lb']])).ok).toBe(true);
+    for (const bad of ['n-bindnest', 'n-bindfirst']) {
+      const res = validatePuzzle(m5(), wire('puzzle-m5', [['n-la', bad], [bad, 'n-lb']]));
+      expect(res.ok, `${bad} should fail`).toBe(false);
+      if (!res.ok) expect((res.firstFailure.rule as { inputValueId: string }).inputValueId).toBe('v-tags');
+    }
   });
 
   it('m4: the honest chain short-circuits to Nothing; an inventing bind is rejected', () => {

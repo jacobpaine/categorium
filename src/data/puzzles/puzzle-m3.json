@@ -6,29 +6,32 @@
   "title": { "data": "Chain with Bind", "alchemy": "Chain with Bind", "spellcraft": "Chain with Bind", "abstract": "Bind" },
   "conceptTags": ["bind", "composition"],
   "intro": {
-    "data": "Look up a user's email, then look up that email's host. Each lookup returns a BOX (it might fail). 'bind' chains them: run the first, then feed its contents into the next, flattening the result. Pick the honest lookup (one fabricates an email) and the bind that truly works on what's in the box (one ignores it). Build the chain that finds the real host.",
-    "alchemy": "Distill a herb into its essence, then distill that essence into its salt. Each step returns a VIAL (it might come up empty). 'bind' chains them: run the first, feed its contents into the next, merging the result. Pick the honest step (one invents an essence) and the bind that works on the real contents. Build the chain to the true salt.",
-    "spellcraft": "Divine a rune's omen, then divine that omen's sign. Each step returns a CHARM (it might fizzle). 'bind' chains them: run the first, feed its contents into the next, merging the result. Pick the honest step (one invents an omen) and the bind that works on the real contents. Build the chain to the true sign.",
-    "abstract": "Compose two Kleisli arrows f : A → T(B) and (bind g) : T(B) → T(C). Pick the faithful f and the faithful bind so the value reaches the goal in T(C). Impostors fabricate or ignore the box's contents."
+    "data": "Look up a user's email, then look up that email's host. Each lookup returns a BOX (it might fail). 'bind' chains them: run the first, feed its contents into the next, flatten the result. Two test cases keep you honest — Ada has a host, but Bo does NOT. The faithful bind finds Ada's host AND reports Nothing for Bo. A bind that invents a host passes Ada but FAILS Bo. Make both cases pass.",
+    "alchemy": "Distil a herb's essence, then distil that essence's salt. Each step returns a VIAL (it might be empty). 'bind' chains them. Two cases keep you honest — Sage yields a salt, but Rue does NOT. The faithful bind finds Sage's salt AND reports empty for Rue. A bind that invents a salt passes Sage but FAILS Rue. Make both cases pass.",
+    "spellcraft": "Divine a rune's omen, then divine that omen's sign. Each step returns a CHARM (it might fizzle). 'bind' chains them. Two cases keep you honest — Ash yields a sign, but Bramble does NOT. The faithful bind finds Ash's sign AND reports dark for Bramble. A bind that invents a sign passes Ash but FAILS Bramble. Make both cases pass.",
+    "abstract": "Compose f : A → T(B) with bind g : T(B) → T(C). Two cases: one input whose chain succeeds, one whose second step yields ∅. Only a bind that respects the box passes both; a fabricating bind passes the success case but fails the empty one."
   },
-  "goal": { "data": "Chain the two lookups so a user reaches the real host.", "alchemy": "Chain the two steps so a herb reaches the true salt.", "spellcraft": "Chain the two steps so a rune reaches the true sign.", "abstract": "Reach the goal value in T(C) via f then bind g." },
+  "goal": { "data": "Build one pipeline that finds Ada's host AND reports Nothing for Bo.", "alchemy": "Build one pipeline that finds Sage's salt AND reports empty for Rue.", "spellcraft": "Build one pipeline that finds Ash's sign AND reports dark for Bramble.", "abstract": "Pass both the success case and the short-circuit case." },
   "objects": [
     { "id": "obj-a", "formalLabel": "A", "labels": { "data": "User", "alchemy": "Herb", "spellcraft": "Rune", "abstract": "A" }, "description": { "data": "a user to look things up about", "alchemy": "a herb to distil", "spellcraft": "a rune to divine", "abstract": "object A" }, "colorToken": "sky" },
     { "id": "obj-tb", "formalLabel": "T(B)", "labels": { "data": "Maybe Email", "alchemy": "Vial of Essence", "spellcraft": "Charm of Omen", "abstract": "T(B)" }, "description": { "data": "a box that holds an email, or nothing", "alchemy": "a vial that holds an essence, or empty", "spellcraft": "a charm that holds an omen, or dark", "abstract": "T(B)" }, "colorToken": "amber" },
     { "id": "obj-tc", "formalLabel": "T(C)", "labels": { "data": "Maybe Host", "alchemy": "Vial of Salt", "spellcraft": "Charm of Sign", "abstract": "T(C)" }, "description": { "data": "a box that holds a host, or nothing", "alchemy": "a vial that holds a salt, or empty", "spellcraft": "a charm that holds a sign, or dark", "abstract": "T(C)" }, "colorToken": "emerald" }
   ],
   "morphisms": [
-    { "id": "mor-f", "formalLabel": "f", "sourceObjectId": "obj-a", "targetObjectId": "obj-tb", "labels": { "data": "Look Up Email", "alchemy": "Distil Essence", "spellcraft": "Divine Omen", "abstract": "f" }, "description": { "data": "looks up the real email — returns a box", "alchemy": "distils the real essence — returns a vial", "spellcraft": "divines the real omen — returns a charm", "abstract": "f : A → T(B)" }, "action": { "v-a": "v-jb" } },
-    { "id": "mor-fbad", "formalLabel": "f?", "sourceObjectId": "obj-a", "targetObjectId": "obj-tb", "labels": { "data": "Guess Email", "alchemy": "Invent Essence", "spellcraft": "Fake Omen", "abstract": "f?" }, "description": { "data": "same type, but fabricates a wrong email", "alchemy": "same type, but invents a wrong essence", "spellcraft": "same type, but fakes a wrong omen", "abstract": "A → T(B), but wrong" }, "action": { "v-a": "v-jbx" } },
-    { "id": "mor-bind", "formalLabel": "bind g", "sourceObjectId": "obj-tb", "targetObjectId": "obj-tc", "labels": { "data": "Then Look Up Host", "alchemy": "Then Distil Salt", "spellcraft": "Then Divine Sign", "abstract": "bind g" }, "description": { "data": "runs the next lookup on the email inside the box, flattening the result", "alchemy": "runs the next step on the essence inside the vial, merging the result", "spellcraft": "runs the next step on the omen inside the charm, merging the result", "abstract": "bind g : T(B) → T(C)" }, "action": { "v-jb": "v-jc", "v-jbx": "v-jcx" } },
-    { "id": "mor-bindbad", "formalLabel": "bind?", "sourceObjectId": "obj-tb", "targetObjectId": "obj-tc", "labels": { "data": "Ignore the Box", "alchemy": "Ignore the Vial", "spellcraft": "Ignore the Charm", "abstract": "bind?" }, "description": { "data": "same type, but ignores what's in the box and returns a wrong host", "alchemy": "same type, but ignores the vial's contents", "spellcraft": "same type, but ignores the charm's contents", "abstract": "T(B) → T(C), but ignores the contents" }, "action": { "v-jb": "v-jcx", "v-jbx": "v-jcx" } }
+    { "id": "mor-f", "formalLabel": "f", "sourceObjectId": "obj-a", "targetObjectId": "obj-tb", "labels": { "data": "Look Up Email", "alchemy": "Distil Essence", "spellcraft": "Divine Omen", "abstract": "f" }, "description": { "data": "looks up the real email (both users have one)", "alchemy": "distils the real essence (both herbs have one)", "spellcraft": "divines the real omen (both runes have one)", "abstract": "f : A → T(B)" }, "action": { "v-ada": "v-eada", "v-bo": "v-ebo" } },
+    { "id": "mor-fbad", "formalLabel": "f?", "sourceObjectId": "obj-a", "targetObjectId": "obj-tb", "labels": { "data": "Guess Email", "alchemy": "Invent Essence", "spellcraft": "Fake Omen", "abstract": "f?" }, "description": { "data": "same type, but fabricates a wrong email", "alchemy": "same type, but invents a wrong essence", "spellcraft": "same type, but fakes a wrong omen", "abstract": "A → T(B), wrong" }, "action": { "v-ada": "v-ex", "v-bo": "v-ex" } },
+    { "id": "mor-bind", "formalLabel": "bind g", "sourceObjectId": "obj-tb", "targetObjectId": "obj-tc", "labels": { "data": "Then Look Up Host", "alchemy": "Then Distil Salt", "spellcraft": "Then Divine Sign", "abstract": "bind g" }, "description": { "data": "runs the host lookup on the email in the box; Bo's email has no host, so: Nothing", "alchemy": "runs the salt step on the essence in the vial; Rue's has none, so: empty", "spellcraft": "runs the sign step on the omen in the charm; Bramble's has none, so: dark", "abstract": "bind g : T(B) → T(C), honest short-circuit" }, "action": { "v-eada": "v-host", "v-ebo": "v-none", "v-ex": "v-hostx" } },
+    { "id": "mor-bindbad", "formalLabel": "bind?", "sourceObjectId": "obj-tb", "targetObjectId": "obj-tc", "labels": { "data": "Invent Host", "alchemy": "Invent Salt", "spellcraft": "Invent Sign", "abstract": "bind?" }, "description": { "data": "same type, but conjures a host even when there is none — passes Ada, fails Bo", "alchemy": "same type, but conjures a salt even when there is none", "spellcraft": "same type, but conjures a sign even when there is none", "abstract": "T(B) → T(C), fabricates on ∅" }, "action": { "v-eada": "v-host", "v-ebo": "v-hostx", "v-ex": "v-hostx" } }
   ],
   "samples": [
-    { "id": "v-a", "objectId": "obj-a", "labels": { "data": "a user", "alchemy": "a herb", "spellcraft": "a rune", "abstract": "a" } },
-    { "id": "v-jb", "objectId": "obj-tb", "labels": { "data": "Just the real email", "alchemy": "a vial of true essence", "spellcraft": "a charm of true omen", "abstract": "T(b)" } },
-    { "id": "v-jbx", "objectId": "obj-tb", "labels": { "data": "Just a fake email", "alchemy": "a vial of fake essence", "spellcraft": "a charm of fake omen", "abstract": "T(b?)" } },
-    { "id": "v-jc", "objectId": "obj-tc", "labels": { "data": "Just the real host", "alchemy": "a vial of true salt", "spellcraft": "a charm of true sign", "abstract": "T(c)" } },
-    { "id": "v-jcx", "objectId": "obj-tc", "labels": { "data": "Just a wrong host", "alchemy": "a vial of wrong salt", "spellcraft": "a charm of wrong sign", "abstract": "T(c?)" } }
+    { "id": "v-ada", "objectId": "obj-a", "labels": { "data": "Ada (has a host)", "alchemy": "Sage (yields a salt)", "spellcraft": "Ash (yields a sign)", "abstract": "a₁" } },
+    { "id": "v-bo", "objectId": "obj-a", "labels": { "data": "Bo (no host)", "alchemy": "Rue (no salt)", "spellcraft": "Bramble (no sign)", "abstract": "a₂" } },
+    { "id": "v-eada", "objectId": "obj-tb", "labels": { "data": "Just Ada's email", "alchemy": "Sage's essence", "spellcraft": "Ash's omen", "abstract": "T(b₁)" } },
+    { "id": "v-ebo", "objectId": "obj-tb", "labels": { "data": "Just Bo's email", "alchemy": "Rue's essence", "spellcraft": "Bramble's omen", "abstract": "T(b₂)" } },
+    { "id": "v-ex", "objectId": "obj-tb", "labels": { "data": "Just a fake email", "alchemy": "a fake essence", "spellcraft": "a fake omen", "abstract": "T(b?)" } },
+    { "id": "v-host", "objectId": "obj-tc", "labels": { "data": "Just Ada's host", "alchemy": "Sage's salt", "spellcraft": "Ash's sign", "abstract": "T(c)" } },
+    { "id": "v-none", "objectId": "obj-tc", "labels": { "data": "Nothing", "alchemy": "an empty vial", "spellcraft": "a dark charm", "abstract": "∅" } },
+    { "id": "v-hostx", "objectId": "obj-tc", "labels": { "data": "a fabricated host", "alchemy": "a fabricated salt", "spellcraft": "a fabricated sign", "abstract": "T(c?)" } }
   ],
   "initialGraph": {
     "nodes": [
@@ -46,18 +49,19 @@
   "validation": [
     { "type": "type-valid-wiring" },
     { "type": "concept-tag-required", "conceptTag": "composition" },
-    { "type": "required-output", "inputValueId": "v-a", "outputValueId": "v-jc" }
+    { "type": "required-output", "inputValueId": "v-ada", "outputValueId": "v-host" },
+    { "type": "required-output", "inputValueId": "v-bo", "outputValueId": "v-none" }
   ],
   "reveal": {
     "afterSuccess": {
-      "data": "You chained two box-returning lookups with bind: it ran the second lookup on the email INSIDE the box, then flattened the result, so the user reached the real host. The impostors fabricated an email or ignored the box's contents — same types, wrong behavior.",
-      "alchemy": "You chained two vial-returning steps with bind: it worked on the essence INSIDE the vial, then merged the result. The impostors invented contents or ignored them.",
-      "spellcraft": "You chained two charm-returning steps with bind: it worked on the omen INSIDE the charm, then merged the result. The impostors faked contents or ignored them.",
-      "abstract": "f : A → T(B) then bind g : T(B) → T(C) composed the two Kleisli arrows; bind = join ∘ T(g) runs g on the contents and flattens."
+      "data": "Both cases passed with ONE pipeline: bind ran the host lookup on the email inside the box, and when Bo had no host it honestly reported Nothing. The 'Invent Host' bind sailed through Ada but failed Bo — a single happy-path test would have missed it. That's why bind threads the 'might be empty' through every step automatically.",
+      "alchemy": "Both cases passed with one pipeline: bind worked on the essence inside the vial, and when Rue had no salt it honestly reported empty. 'Invent Salt' passed Sage but failed Rue.",
+      "spellcraft": "Both cases passed with one working: bind worked on the omen inside the charm, and when Bramble had no sign it honestly reported dark. 'Invent Sign' passed Ash but failed Bramble.",
+      "abstract": "f then bind g passed both the success case and the short-circuit case; bind = join ∘ T(g) propagates ∅. A fabricating bind only fails on the empty case — which is exactly why the empty case is in the suite."
     },
-    "summary": "bind chains a step that returns a box: bind : T(A) → (A → T(B)) → T(B). It maps the step over the box, then flattens (join). Chaining such steps is composition in the 'Kleisli' world of effectful arrows A → T(B).",
+    "summary": "bind chains a step that returns a box: bind : T(A) → (A → T(B)) → T(B), mapping the step over the box then flattening (join). Crucially it threads the effect — here 'might be empty' — through every step, so failure propagates instead of being papered over.",
     "notation": ["bind : T(A) → (A → T(B)) → T(B)", "bind g = join ∘ T(g)"],
-    "programmerAnalogy": "user.flatMap(getEmail).flatMap(getHost) — chaining steps that each return an Optional."
+    "programmerAnalogy": "user.flatMap(getEmail).flatMap(getHost) — one missing link yields None, with no host invented."
   },
   "glossaryUnlocks": ["bind"],
   "referenceSolution": {

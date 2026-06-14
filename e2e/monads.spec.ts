@@ -24,3 +24,32 @@ test('chapter 7 (monads): wrapping a value with return solves the puzzle', async
   await expect(page.getByTestId('solved')).toBeVisible();
   await expect(page.getByText('What you learned')).toBeVisible();
 });
+
+test('chapter 7 (multi-case): a fabricating bind passes the easy case but fails the suite', async ({ page }) => {
+  await page.goto('/chapter/chapter-07-monads/puzzle/puzzle-m3?debug=true');
+  await expect(page.locator('.react-flow__node[data-id="n-bind"]')).toBeVisible();
+  await page.waitForTimeout(400);
+
+  // Honest lookup, but the "Invent Host" bind: passes Ada, fabricates for Bo — so the suite fails.
+  await connect(page, right('n-a'), left('n-f'));
+  await connect(page, right('n-f'), left('n-tb'));
+  await connect(page, right('n-tb'), left('n-bindbad'));
+  await connect(page, right('n-bindbad'), left('n-tc'));
+  await page.getByTestId('run-check').click();
+  await expect(page.getByText('1 / 2 pass')).toBeVisible();
+  await expect(page.getByTestId('solved')).toHaveCount(0);
+});
+
+test('chapter 7 (multi-case): the faithful pipeline passes every case', async ({ page }) => {
+  await page.goto('/chapter/chapter-07-monads/puzzle/puzzle-m3?debug=true');
+  await expect(page.locator('.react-flow__node[data-id="n-bind"]')).toBeVisible();
+  await page.waitForTimeout(400);
+
+  await connect(page, right('n-a'), left('n-f'));
+  await connect(page, right('n-f'), left('n-tb'));
+  await connect(page, right('n-tb'), left('n-bind'));
+  await connect(page, right('n-bind'), left('n-tc'));
+  await page.getByTestId('run-check').click();
+  await expect(page.getByText('2 / 2 pass')).toBeVisible();
+  await expect(page.getByTestId('solved')).toBeVisible();
+});
