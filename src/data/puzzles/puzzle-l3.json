@@ -1,0 +1,80 @@
+{
+  "status": "authored",
+  "id": "puzzle-l3",
+  "chapterId": "chapter-08-limits",
+  "order": 31,
+  "title": { "data": "Join on a Key", "alchemy": "Join on a Key", "spellcraft": "Join on a Key", "abstract": "The Pullback" },
+  "conceptTags": ["pullback"],
+  "intro": {
+    "data": "An Order names a customer by id; Customers each have an id. The pullback joins them on that shared key: it pairs an order ONLY with the customer whose id matches. Build the join that respects the key, then read off the customer — the matched pair gives the real customer. A loose join pairs the order with the wrong customer, so reading it gives a stranger. Pick the right join and projection.",
+    "alchemy": "An Ore carries a trait-mark; Reagents each bear a mark. The pullback pairs them on the shared mark: an ore ONLY with the reagent whose mark matches. Build the join that respects the mark, then read off the reagent. A loose join pairs the wrong reagent. Pick the right join and projection.",
+    "spellcraft": "A Rune bears a sigil; Wards each carry a sigil. The pullback pairs them on the shared sigil: a rune ONLY with the ward whose sigil matches. Build the join that respects the sigil, then read off the ward. A loose join pairs the wrong ward. Pick the right join and projection.",
+    "abstract": "Given f : A → C and g : B → C, the pullback P holds pairs with f(a) = g(b). Build the map into P that respects the key, then project to B. A pair with mismatched keys projects to the wrong element."
+  },
+  "goal": { "data": "Join the order to its matching customer, then read off the real customer.", "alchemy": "Join the ore to its matching reagent, then read off the real reagent.", "spellcraft": "Join the rune to its matching ward, then read off the real ward.", "abstract": "Reach the correctly-matched B-element through the pullback." },
+  "objects": [
+    { "id": "obj-x", "formalLabel": "X", "labels": { "data": "Join Request", "alchemy": "Pairing", "spellcraft": "Binding", "abstract": "X" }, "description": { "data": "an order plus the customers to match against", "alchemy": "an ore plus the reagents to match against", "spellcraft": "a rune plus the wards to match against", "abstract": "the source of the mediating map" }, "colorToken": "amber" },
+    { "id": "obj-p", "formalLabel": "A×_C B", "labels": { "data": "Joined Row", "alchemy": "Matched Pair", "spellcraft": "Matched Pair", "abstract": "A×_C B" }, "description": { "data": "an order paired with a customer", "alchemy": "an ore paired with a reagent", "spellcraft": "a rune paired with a ward", "abstract": "the pullback object" }, "colorToken": "violet" },
+    { "id": "obj-b", "formalLabel": "B", "labels": { "data": "Customer", "alchemy": "Reagent", "spellcraft": "Ward", "abstract": "B" }, "description": { "data": "the customer side of the pair", "alchemy": "the reagent side of the pair", "spellcraft": "the ward side of the pair", "abstract": "object B" }, "colorToken": "emerald" }
+  ],
+  "morphisms": [
+    { "id": "mor-join", "formalLabel": "⟨a,b⟩", "sourceObjectId": "obj-x", "targetObjectId": "obj-p", "labels": { "data": "Join on Key", "alchemy": "Match on Mark", "spellcraft": "Bind on Sigil", "abstract": "⟨a,b⟩" }, "description": { "data": "pairs the order with the customer whose id matches", "alchemy": "pairs the ore with the reagent whose mark matches", "spellcraft": "pairs the rune with the ward whose sigil matches", "abstract": "the key-respecting map into the pullback" }, "action": { "v-x": "v-matched" } },
+    { "id": "mor-joinloose", "formalLabel": "⟨a,b⟩?", "sourceObjectId": "obj-x", "targetObjectId": "obj-p", "labels": { "data": "Loose Join", "alchemy": "Loose Match", "spellcraft": "Loose Bind", "abstract": "⟨a,b⟩?" }, "description": { "data": "same type, but pairs the order with a customer whose id does NOT match", "alchemy": "same type, but pairs a reagent whose mark does NOT match", "spellcraft": "same type, but pairs a ward whose sigil does NOT match", "abstract": "a pair with f(a) ≠ g(b)" }, "action": { "v-x": "v-crossed" } },
+    { "id": "mor-proj", "formalLabel": "p₂", "sourceObjectId": "obj-p", "targetObjectId": "obj-b", "labels": { "data": "Read Customer", "alchemy": "Read Reagent", "spellcraft": "Read Ward", "abstract": "p₂" }, "description": { "data": "projects out the customer side of the pair", "alchemy": "projects out the reagent side", "spellcraft": "projects out the ward side", "abstract": "the projection p₂ : P → B" }, "action": { "v-matched": "v-customer", "v-crossed": "v-wrongcustomer" } },
+    { "id": "mor-projbad", "formalLabel": "p₂?", "sourceObjectId": "obj-p", "targetObjectId": "obj-b", "labels": { "data": "Misread Customer", "alchemy": "Misread Reagent", "spellcraft": "Misread Ward", "abstract": "p₂?" }, "description": { "data": "same type, but always returns the wrong customer", "alchemy": "same type, but always returns the wrong reagent", "spellcraft": "same type, but always returns the wrong ward", "abstract": "P → B, but not the projection" }, "action": { "v-matched": "v-wrongcustomer", "v-crossed": "v-wrongcustomer" } }
+  ],
+  "samples": [
+    { "id": "v-x", "objectId": "obj-x", "labels": { "data": "an order to match", "alchemy": "an ore to match", "spellcraft": "a rune to match", "abstract": "x" } },
+    { "id": "v-matched", "objectId": "obj-p", "labels": { "data": "a row with matching ids", "alchemy": "a pair with matching marks", "spellcraft": "a pair with matching sigils", "abstract": "(a,b) f(a)=g(b)" } },
+    { "id": "v-crossed", "objectId": "obj-p", "labels": { "data": "a row with mismatched ids", "alchemy": "a pair with mismatched marks", "spellcraft": "a pair with mismatched sigils", "abstract": "(a,b) f(a)≠g(b)" } },
+    { "id": "v-customer", "objectId": "obj-b", "labels": { "data": "the real matching customer", "alchemy": "the real matching reagent", "spellcraft": "the real matching ward", "abstract": "b" } },
+    { "id": "v-wrongcustomer", "objectId": "obj-b", "labels": { "data": "a stranger (wrong customer)", "alchemy": "a wrong reagent", "spellcraft": "a wrong ward", "abstract": "b?" } }
+  ],
+  "initialGraph": {
+    "nodes": [
+      { "kind": "object", "nodeId": "n-x", "objectId": "obj-x", "role": "start", "position": { "x": 40, "y": 200 } },
+      { "kind": "morphism", "nodeId": "n-join", "morphismId": "mor-join", "position": { "x": 280, "y": 90 } },
+      { "kind": "morphism", "nodeId": "n-joinloose", "morphismId": "mor-joinloose", "position": { "x": 280, "y": 320 } },
+      { "kind": "object", "nodeId": "n-p", "objectId": "obj-p", "position": { "x": 540, "y": 200 } },
+      { "kind": "morphism", "nodeId": "n-proj", "morphismId": "mor-proj", "position": { "x": 800, "y": 90 } },
+      { "kind": "morphism", "nodeId": "n-projbad", "morphismId": "mor-projbad", "position": { "x": 800, "y": 320 } },
+      { "kind": "object", "nodeId": "n-b", "objectId": "obj-b", "role": "goal", "position": { "x": 1060, "y": 200 } }
+    ],
+    "edges": []
+  },
+  "allowedMorphismIds": ["mor-join", "mor-joinloose", "mor-proj", "mor-projbad"],
+  "validation": [
+    { "type": "type-valid-wiring" },
+    { "type": "concept-tag-required", "conceptTag": "composition" },
+    { "type": "required-output", "inputValueId": "v-x", "outputValueId": "v-customer" }
+  ],
+  "reveal": {
+    "afterSuccess": {
+      "data": "You joined the order to the customer whose id matched, then read off that customer — the real one. That key-matching is exactly the pullback: it keeps only the pairs where the two arrows into the shared key agree (f∘p₁ = g∘p₂). The loose join paired a mismatched customer, so the projection returned a stranger.",
+      "alchemy": "You matched the ore to the reagent sharing its mark, then read it off — the real one. That is the pullback: only pairs whose arrows into the shared mark agree. The loose join matched the wrong reagent.",
+      "spellcraft": "You bound the rune to the ward sharing its sigil, then read it off — the real one. That is the pullback: only pairs whose arrows into the shared sigil agree. The loose bind matched the wrong ward.",
+      "abstract": "f∘p₁ = g∘p₂ held: the pullback keeps exactly the pairs whose keys agree, so projecting recovers the matched element. A mismatched pair violates the square and projects to the wrong element."
+    },
+    "summary": "The pullback of f : A → C and g : B → C is the object of matching pairs — those with f(a) = g(b) — with projections p₁, p₂ such that f∘p₁ = g∘p₂. It is a join on a key, and generalises the product (take C terminal).",
+    "notation": ["A ×_C B", "f ∘ p₁ = g ∘ p₂"],
+    "programmerAnalogy": "orders.join(customers).on(o => o.customerId === c.id) — an inner join on a key."
+  },
+  "glossaryUnlocks": ["pullback"],
+  "referenceSolution": {
+    "nodes": [
+      { "kind": "object", "nodeId": "n-x", "objectId": "obj-x", "role": "start", "position": { "x": 40, "y": 200 } },
+      { "kind": "morphism", "nodeId": "n-join", "morphismId": "mor-join", "position": { "x": 280, "y": 90 } },
+      { "kind": "morphism", "nodeId": "n-joinloose", "morphismId": "mor-joinloose", "position": { "x": 280, "y": 320 } },
+      { "kind": "object", "nodeId": "n-p", "objectId": "obj-p", "position": { "x": 540, "y": 200 } },
+      { "kind": "morphism", "nodeId": "n-proj", "morphismId": "mor-proj", "position": { "x": 800, "y": 90 } },
+      { "kind": "morphism", "nodeId": "n-projbad", "morphismId": "mor-projbad", "position": { "x": 800, "y": 320 } },
+      { "kind": "object", "nodeId": "n-b", "objectId": "obj-b", "role": "goal", "position": { "x": 1060, "y": 200 } }
+    ],
+    "edges": [
+      { "id": "e1", "sourceNodeId": "n-x", "targetNodeId": "n-join" },
+      { "id": "e2", "sourceNodeId": "n-join", "targetNodeId": "n-p" },
+      { "id": "e3", "sourceNodeId": "n-p", "targetNodeId": "n-proj" },
+      { "id": "e4", "sourceNodeId": "n-proj", "targetNodeId": "n-b" }
+    ]
+  }
+}

@@ -273,3 +273,34 @@ describe('chapter 7 — monads (return, join, bind, short-circuit)', () => {
     if (!res.ok) expect(res.firstFailure.rule.type).toBe('required-output');
   });
 });
+
+describe('chapter 8 — limits (terminal, equalizer, pullback, universal property)', () => {
+  it('l1: the collapse solves; the information-keeping map jams', () => {
+    expect(validatePuzzle(toValidationInput(getPuzzle('puzzle-l1') as never), wire('puzzle-l1', [['n-a', 'n-collapse'], ['n-collapse', 'n-1']])).ok).toBe(true);
+    const hold = validatePuzzle(toValidationInput(getPuzzle('puzzle-l1') as never), wire('puzzle-l1', [['n-a', 'n-hold'], ['n-hold', 'n-1']]));
+    expect(hold.ok).toBe(false);
+    if (!hold.ok) expect(hold.firstFailure.rule.type).toBe('required-output');
+  });
+
+  it('l2: the matching inclusion reaches the agreed value via either query; a mismatched one does not', () => {
+    expect(validatePuzzle(toValidationInput(getPuzzle('puzzle-l2') as never), wire('puzzle-l2', [['n-e', 'n-include'], ['n-include', 'n-a'], ['n-a', 'n-bill'], ['n-bill', 'n-b']])).ok).toBe(true);
+    expect(validatePuzzle(toValidationInput(getPuzzle('puzzle-l2') as never), wire('puzzle-l2', [['n-e', 'n-include'], ['n-include', 'n-a'], ['n-a', 'n-ship'], ['n-ship', 'n-b']])).ok).toBe(true);
+    const mismatch = validatePuzzle(toValidationInput(getPuzzle('puzzle-l2') as never), wire('puzzle-l2', [['n-e', 'n-includebad'], ['n-includebad', 'n-a'], ['n-a', 'n-bill'], ['n-bill', 'n-b']]));
+    expect(mismatch.ok).toBe(false);
+    if (!mismatch.ok) expect(mismatch.firstFailure.rule.type).toBe('required-output');
+  });
+
+  it('l3: the key-respecting join recovers the customer; a loose join returns a stranger', () => {
+    expect(validatePuzzle(toValidationInput(getPuzzle('puzzle-l3') as never), wire('puzzle-l3', [['n-x', 'n-join'], ['n-join', 'n-p'], ['n-p', 'n-proj'], ['n-proj', 'n-b']])).ok).toBe(true);
+    const loose = validatePuzzle(toValidationInput(getPuzzle('puzzle-l3') as never), wire('puzzle-l3', [['n-x', 'n-joinloose'], ['n-joinloose', 'n-p'], ['n-p', 'n-proj'], ['n-proj', 'n-b']]));
+    expect(loose.ok).toBe(false);
+    if (!loose.ok) expect(loose.firstFailure.rule.type).toBe('required-output');
+  });
+
+  it('l4: only the unique mediating map reaches the goal; a force-fit map fails', () => {
+    expect(validatePuzzle(toValidationInput(getPuzzle('puzzle-l4') as never), wire('puzzle-l4', [['n-x', 'n-u'], ['n-u', 'n-p'], ['n-p', 'n-p2'], ['n-p2', 'n-b'], ['n-b', 'n-region'], ['n-region', 'n-d']])).ok).toBe(true);
+    const forced = validatePuzzle(toValidationInput(getPuzzle('puzzle-l4') as never), wire('puzzle-l4', [['n-x', 'n-u1'], ['n-u1', 'n-p'], ['n-p', 'n-p2'], ['n-p2', 'n-b'], ['n-b', 'n-region'], ['n-region', 'n-d']]));
+    expect(forced.ok).toBe(false);
+    if (!forced.ok) expect(forced.firstFailure.rule.type).toBe('required-output');
+  });
+});

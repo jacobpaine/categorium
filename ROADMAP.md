@@ -143,9 +143,9 @@ reuses the bijection-matching board from Chapter 10.
 
 | Ch | Concept | Reuses | New engine | Status |
 |---|---|---|---|---|
-| 7 | monads | behaviour runtime + `path-equivalence` | none | 🔜 next |
-| 8 | limits | standard board + `required-output` | none | 🔒 planned |
-| 9 | functor categories | NT board + composition table | vertical-composition check | 🔒 planned |
+| 7 | monads | behaviour runtime + `path-equivalence` | none | ✅ done |
+| 8 | limits | standard board + `required-output` | none | ✅ done |
+| 9 | functor categories | NT board + composition table | vertical-composition check | 🔜 next |
 | 10 | adjunctions | — | bijection-matching board | 🔒 planned |
 | 11 | Yoneda | bijection-matching board | none | 🔒 planned |
 

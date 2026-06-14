@@ -25,7 +25,11 @@ export type ConceptTag =
   | 'natural-transformation'
   | 'monad'
   | 'return'
-  | 'bind';
+  | 'bind'
+  | 'terminal'
+  | 'equalizer'
+  | 'pullback'
+  | 'limit';
 
 export const CONCEPT_TAGS: readonly ConceptTag[] = [
   'object',
@@ -44,6 +48,10 @@ export const CONCEPT_TAGS: readonly ConceptTag[] = [
   'monad',
   'return',
   'bind',
+  'terminal',
+  'equalizer',
+  'pullback',
+  'limit',
 ];
 
 /**

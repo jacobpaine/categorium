@@ -65,6 +65,13 @@ export const CHAPTERS: ChapterMeta[] = [
     concepts: ['monad', 'return', 'bind'],
     status: 'available',
   },
+  {
+    id: 'chapter-08-limits',
+    title: 'The Best Object for the Job',
+    summary: 'Universal properties and limits: terminal objects, equalizers, and pullbacks — the single best object completing a shape.',
+    concepts: ['terminal', 'equalizer', 'pullback', 'limit'],
+    status: 'available',
+  },
 ];
 
 export const FIRST_CHAPTER_ID = CHAPTERS[0].id;

@@ -703,6 +703,182 @@
         "spellcraft": "Monad = endofunctor T + η (return) + μ (join), satisfying the unit and associativity laws.",
         "abstract": "Monad = endofunctor T + η (return) + μ (join), satisfying the unit and associativity laws."
       }
+    },
+    {
+      "id": "q-terminal-1",
+      "termId": "terminal",
+      "prompt": {
+        "data": "A one-point type (Unit) that every value collapses into, with only one way to map in, is which idea?",
+        "alchemy": "A single inert residue that every material reduces to, only one way to get there, is which idea?",
+        "spellcraft": "A single still point that every essence settles to, only one way to reach it, is which idea?",
+        "abstract": "The object 1 with exactly one arrow A → 1 from every object A is which idea?"
+      },
+      "options": [
+        { "text": "Terminal object", "correct": true },
+        { "text": "Product", "correct": false },
+        { "text": "Equalizer", "correct": false },
+        { "text": "Identity", "correct": false }
+      ],
+      "explanation": {
+        "data": "The terminal object 1 receives exactly one arrow from every object — everything collapses to one point.",
+        "alchemy": "The terminal object 1 receives exactly one arrow from every object — everything collapses to one point.",
+        "spellcraft": "The terminal object 1 receives exactly one arrow from every object — everything collapses to one point.",
+        "abstract": "The terminal object 1 receives exactly one arrow from every object — everything collapses to one point."
+      }
+    },
+    {
+      "id": "q-terminal-2",
+      "termId": "terminal",
+      "prompt": {
+        "data": "What is special about the terminal object?",
+        "alchemy": "What is special about the terminal object?",
+        "spellcraft": "What is special about the terminal object?",
+        "abstract": "What is special about the terminal object?"
+      },
+      "options": [
+        { "text": "exactly one morphism maps into it from every object", "correct": true },
+        { "text": "it has an inverse", "correct": false },
+        { "text": "it bundles two things together", "correct": false },
+        { "text": "it can be chained with bind", "correct": false }
+      ],
+      "explanation": {
+        "data": "Terminal = a unique arrow in from everything. Its dual, the initial object, has a unique arrow OUT to everything.",
+        "alchemy": "Terminal = a unique arrow in from everything. Its dual, the initial object, has a unique arrow OUT to everything.",
+        "spellcraft": "Terminal = a unique arrow in from everything. Its dual, the initial object, has a unique arrow OUT to everything.",
+        "abstract": "Terminal = a unique arrow in from everything. Its dual, the initial object, has a unique arrow OUT to everything."
+      }
+    },
+    {
+      "id": "q-equalizer-1",
+      "termId": "equalizer",
+      "prompt": {
+        "data": "Given two queries on a record, the records where they return the SAME answer (with that subset's inclusion) form which idea?",
+        "alchemy": "The batch on which two assays of a material agree forms which idea?",
+        "spellcraft": "The part on which two readings of an essence agree forms which idea?",
+        "abstract": "Given parallel f, g : A → B, the universal e : E → A with f∘e = g∘e is which idea?"
+      },
+      "options": [
+        { "text": "Equalizer", "correct": true },
+        { "text": "Pullback", "correct": false },
+        { "text": "Product", "correct": false },
+        { "text": "Coproduct", "correct": false }
+      ],
+      "explanation": {
+        "data": "The equalizer picks out exactly where two parallel arrows agree: f ∘ e = g ∘ e.",
+        "alchemy": "The equalizer picks out exactly where two parallel arrows agree: f ∘ e = g ∘ e.",
+        "spellcraft": "The equalizer picks out exactly where two parallel arrows agree: f ∘ e = g ∘ e.",
+        "abstract": "The equalizer picks out exactly where two parallel arrows agree: f ∘ e = g ∘ e."
+      }
+    },
+    {
+      "id": "q-equalizer-2",
+      "termId": "equalizer",
+      "prompt": {
+        "data": "An equalizer of f, g : A → B is…",
+        "alchemy": "An equalizer of f, g : A → B is…",
+        "spellcraft": "An equalizer of f, g : A → B is…",
+        "abstract": "An equalizer of f, g : A → B is…"
+      },
+      "options": [
+        { "text": "the sub-object of A where f and g agree", "correct": true },
+        { "text": "the matching pairs with a shared key", "correct": false },
+        { "text": "a one-point object", "correct": false },
+        { "text": "a box you can chain with bind", "correct": false }
+      ],
+      "explanation": {
+        "data": "Equalizer = where f = g, included into A. The matching-pairs construction is the pullback.",
+        "alchemy": "Equalizer = where f = g, included into A. The matching-pairs construction is the pullback.",
+        "spellcraft": "Equalizer = where f = g, included into A. The matching-pairs construction is the pullback.",
+        "abstract": "Equalizer = where f = g, included into A. The matching-pairs construction is the pullback."
+      }
+    },
+    {
+      "id": "q-pullback-1",
+      "termId": "pullback",
+      "prompt": {
+        "data": "Joining Orders and Customers on a shared CustomerId — the rows where order.customerId = customer.id — is which idea?",
+        "alchemy": "The matched pairs of two materials that share a common trait is which idea?",
+        "spellcraft": "The matched pairs of two essences that share a common rune is which idea?",
+        "abstract": "Given f : A → C and g : B → C, the universal P with f∘p₁ = g∘p₂ is which idea?"
+      },
+      "options": [
+        { "text": "Pullback", "correct": true },
+        { "text": "Equalizer", "correct": false },
+        { "text": "Product", "correct": false },
+        { "text": "Terminal object", "correct": false }
+      ],
+      "explanation": {
+        "data": "A pullback is the matching pairs of two arrows into a shared object — a join on a key: f ∘ p₁ = g ∘ p₂.",
+        "alchemy": "A pullback is the matching pairs of two arrows into a shared object — a join on a key: f ∘ p₁ = g ∘ p₂.",
+        "spellcraft": "A pullback is the matching pairs of two arrows into a shared object — a join on a key: f ∘ p₁ = g ∘ p₂.",
+        "abstract": "A pullback is the matching pairs of two arrows into a shared object — a join on a key: f ∘ p₁ = g ∘ p₂."
+      }
+    },
+    {
+      "id": "q-pullback-2",
+      "termId": "pullback",
+      "prompt": {
+        "data": "A pullback over C becomes an ordinary product when…",
+        "alchemy": "A pullback over C becomes an ordinary product when…",
+        "spellcraft": "A pullback over C becomes an ordinary product when…",
+        "abstract": "A pullback over C becomes an ordinary product when…"
+      },
+      "options": [
+        { "text": "the shared object C is the terminal object (no key to match)", "correct": true },
+        { "text": "the two arrows are inverses", "correct": false },
+        { "text": "you chain it with bind", "correct": false },
+        { "text": "you reverse all the arrows", "correct": false }
+      ],
+      "explanation": {
+        "data": "Pullback over C = 1 (terminal) is just the product A×B — every pair matches because there's nothing to match.",
+        "alchemy": "Pullback over C = 1 (terminal) is just the product A×B — every pair matches because there's nothing to match.",
+        "spellcraft": "Pullback over C = 1 (terminal) is just the product A×B — every pair matches because there's nothing to match.",
+        "abstract": "Pullback over C = 1 (terminal) is just the product A×B — every pair matches because there's nothing to match."
+      }
+    },
+    {
+      "id": "q-limit-1",
+      "termId": "limit",
+      "prompt": {
+        "data": "The single best object that 'sits over' a diagram so every consistent mapping factors through it exactly once is which idea?",
+        "alchemy": "The single residue every consistent process funnels through exactly once is which idea?",
+        "spellcraft": "The single focus every consistent working passes through exactly once is which idea?",
+        "abstract": "A universal cone over a diagram, with a unique mediating map from any other cone, is which idea?"
+      },
+      "options": [
+        { "text": "Limit", "correct": true },
+        { "text": "Functor", "correct": false },
+        { "text": "Monad", "correct": false },
+        { "text": "Isomorphism", "correct": false }
+      ],
+      "explanation": {
+        "data": "A limit is the universal object completing a diagram — products, equalizers, and pullbacks are all limits.",
+        "alchemy": "A limit is the universal object completing a diagram — products, equalizers, and pullbacks are all limits.",
+        "spellcraft": "A limit is the universal object completing a diagram — products, equalizers, and pullbacks are all limits.",
+        "abstract": "A limit is the universal object completing a diagram — products, equalizers, and pullbacks are all limits."
+      }
+    },
+    {
+      "id": "q-limit-2",
+      "termId": "limit",
+      "prompt": {
+        "data": "Which of these is NOT a limit?",
+        "alchemy": "Which of these is NOT a limit?",
+        "spellcraft": "Which of these is NOT a limit?",
+        "abstract": "Which of these is NOT a limit?"
+      },
+      "options": [
+        { "text": "Coproduct", "correct": true },
+        { "text": "Product", "correct": false },
+        { "text": "Equalizer", "correct": false },
+        { "text": "Pullback", "correct": false }
+      ],
+      "explanation": {
+        "data": "Products, equalizers, pullbacks, and terminal objects are limits. Coproducts are COlimits — the dual (arrows reversed).",
+        "alchemy": "Products, equalizers, pullbacks, and terminal objects are limits. Coproducts are COlimits — the dual (arrows reversed).",
+        "spellcraft": "Products, equalizers, pullbacks, and terminal objects are limits. Coproducts are COlimits — the dual (arrows reversed).",
+        "abstract": "Products, equalizers, pullbacks, and terminal objects are limits. Coproducts are COlimits — the dual (arrows reversed)."
+      }
     }
   ]
 }

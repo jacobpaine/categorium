@@ -1,0 +1,81 @@
+{
+  "status": "authored",
+  "id": "puzzle-l2",
+  "chapterId": "chapter-08-limits",
+  "order": 30,
+  "title": { "data": "Where They Agree", "alchemy": "Where They Agree", "spellcraft": "Where They Agree", "abstract": "The Equalizer" },
+  "conceptTags": ["equalizer"],
+  "intro": {
+    "data": "Two queries read a record: its billing country and its shipping country. The equalizer is the sub-set of records where the two AGREE. Include a record from that matching set, then read either query — both give the same country. One inclusion lands in the matching set; the other lands on a record where billing and shipping differ, so the queries disagree and you can't reach the agreed answer. Pick the right inclusion and a query.",
+    "alchemy": "Two assays read a material: one by fire, one by acid. The equalizer is the batch on which the two AGREE. Include a sample from that matching batch, then run either assay — both give the same reading. One inclusion lands in the matching batch; the other lands where the assays differ. Pick the right inclusion and an assay.",
+    "spellcraft": "Two readings divine an essence: one by star, one by flame. The equalizer is the part on which the two AGREE. Include a mote from that matching part, then take either reading — both give the same sign. One inclusion lands in the matching part; the other where the readings differ. Pick the right inclusion and a reading.",
+    "abstract": "For parallel f, g : A → B, the equalizer e : E → A includes exactly the elements where f = g. Include an element of E, then apply f (or g) — they agree there. A non-equalizing inclusion lands where f ≠ g."
+  },
+  "goal": { "data": "From the matching set, reach the agreed country (where billing = shipping).", "alchemy": "From the matching batch, reach the agreed reading.", "spellcraft": "From the matching part, reach the agreed sign.", "abstract": "Reach the value on which f and g agree." },
+  "objects": [
+    { "id": "obj-e", "formalLabel": "E", "labels": { "data": "Matching Set", "alchemy": "Matching Batch", "spellcraft": "Matching Part", "abstract": "E" }, "description": { "data": "the records where billing and shipping agree", "alchemy": "the batch where the two assays agree", "spellcraft": "the part where the two readings agree", "abstract": "the equalizer object E" }, "colorToken": "violet" },
+    { "id": "obj-a", "formalLabel": "A", "labels": { "data": "Record", "alchemy": "Material", "spellcraft": "Essence", "abstract": "A" }, "description": { "data": "any record (matching or not)", "alchemy": "any material", "spellcraft": "any essence", "abstract": "object A" }, "colorToken": "sky" },
+    { "id": "obj-b", "formalLabel": "B", "labels": { "data": "Country", "alchemy": "Reading", "spellcraft": "Sign", "abstract": "B" }, "description": { "data": "the answer a query returns", "alchemy": "the answer an assay returns", "spellcraft": "the answer a reading returns", "abstract": "object B" }, "colorToken": "emerald" }
+  ],
+  "morphisms": [
+    { "id": "mor-include", "formalLabel": "e", "sourceObjectId": "obj-e", "targetObjectId": "obj-a", "labels": { "data": "Include (matching)", "alchemy": "Include (matching)", "spellcraft": "Include (matching)", "abstract": "e" }, "description": { "data": "includes a record where billing and shipping agree", "alchemy": "includes a sample where the assays agree", "spellcraft": "includes a mote where the readings agree", "abstract": "the equalizer inclusion e : E → A" }, "action": { "v-e": "v-match" } },
+    { "id": "mor-includebad", "formalLabel": "e?", "sourceObjectId": "obj-e", "targetObjectId": "obj-a", "labels": { "data": "Include (mismatched)", "alchemy": "Include (mismatched)", "spellcraft": "Include (mismatched)", "abstract": "e?" }, "description": { "data": "same type, but includes a record where the two DISAGREE", "alchemy": "same type, but includes a sample where the assays disagree", "spellcraft": "same type, but includes a mote where the readings disagree", "abstract": "an inclusion that misses the equalizer" }, "action": { "v-e": "v-mismatch" } },
+    { "id": "mor-bill", "formalLabel": "f", "sourceObjectId": "obj-a", "targetObjectId": "obj-b", "labels": { "data": "Billing Country", "alchemy": "Fire Assay", "spellcraft": "Star Reading", "abstract": "f" }, "description": { "data": "reads the billing country", "alchemy": "reads by fire", "spellcraft": "reads by star", "abstract": "f : A → B" }, "action": { "v-match": "v-country", "v-mismatch": "v-bill" } },
+    { "id": "mor-ship", "formalLabel": "g", "sourceObjectId": "obj-a", "targetObjectId": "obj-b", "labels": { "data": "Shipping Country", "alchemy": "Acid Assay", "spellcraft": "Flame Reading", "abstract": "g" }, "description": { "data": "reads the shipping country", "alchemy": "reads by acid", "spellcraft": "reads by flame", "abstract": "g : A → B" }, "action": { "v-match": "v-country", "v-mismatch": "v-ship" } }
+  ],
+  "samples": [
+    { "id": "v-e", "objectId": "obj-e", "labels": { "data": "a row from the matching set", "alchemy": "a sample from the matching batch", "spellcraft": "a mote from the matching part", "abstract": "x ∈ E" } },
+    { "id": "v-match", "objectId": "obj-a", "labels": { "data": "a record where billing = shipping", "alchemy": "a sample where the assays agree", "spellcraft": "a mote where the readings agree", "abstract": "a (f=g)" } },
+    { "id": "v-mismatch", "objectId": "obj-a", "labels": { "data": "a record where they differ", "alchemy": "a sample where they differ", "spellcraft": "a mote where they differ", "abstract": "a (f≠g)" } },
+    { "id": "v-country", "objectId": "obj-b", "labels": { "data": "the agreed country", "alchemy": "the agreed reading", "spellcraft": "the agreed sign", "abstract": "f(a)=g(a)" } },
+    { "id": "v-bill", "objectId": "obj-b", "labels": { "data": "the billing country", "alchemy": "the fire reading", "spellcraft": "the star sign", "abstract": "f(a)" } },
+    { "id": "v-ship", "objectId": "obj-b", "labels": { "data": "the shipping country", "alchemy": "the acid reading", "spellcraft": "the flame sign", "abstract": "g(a)" } }
+  ],
+  "initialGraph": {
+    "nodes": [
+      { "kind": "object", "nodeId": "n-e", "objectId": "obj-e", "role": "start", "position": { "x": 40, "y": 200 } },
+      { "kind": "morphism", "nodeId": "n-include", "morphismId": "mor-include", "position": { "x": 280, "y": 90 } },
+      { "kind": "morphism", "nodeId": "n-includebad", "morphismId": "mor-includebad", "position": { "x": 280, "y": 320 } },
+      { "kind": "object", "nodeId": "n-a", "objectId": "obj-a", "position": { "x": 540, "y": 200 } },
+      { "kind": "morphism", "nodeId": "n-bill", "morphismId": "mor-bill", "position": { "x": 800, "y": 90 } },
+      { "kind": "morphism", "nodeId": "n-ship", "morphismId": "mor-ship", "position": { "x": 800, "y": 320 } },
+      { "kind": "object", "nodeId": "n-b", "objectId": "obj-b", "role": "goal", "position": { "x": 1060, "y": 200 } }
+    ],
+    "edges": []
+  },
+  "allowedMorphismIds": ["mor-include", "mor-includebad", "mor-bill", "mor-ship"],
+  "validation": [
+    { "type": "type-valid-wiring" },
+    { "type": "concept-tag-required", "conceptTag": "composition" },
+    { "type": "required-output", "inputValueId": "v-e", "outputValueId": "v-country" }
+  ],
+  "reveal": {
+    "afterSuccess": {
+      "data": "You included a record from the matching set, and BOTH queries returned the same country — that's the whole point of the equalizer: it's exactly the sub-object where the two parallel arrows agree (f∘e = g∘e). The mismatched inclusion landed where billing and shipping differ, so neither query reached the agreed answer.",
+      "alchemy": "You included a sample from the matching batch, and BOTH assays agreed — the equalizer is exactly where the two parallel arrows agree (f∘e = g∘e). The mismatched inclusion landed where they differ.",
+      "spellcraft": "You included a mote from the matching part, and BOTH readings agreed — the equalizer is exactly where the two parallel arrows agree (f∘e = g∘e). The mismatched inclusion landed where they differ.",
+      "abstract": "f∘e = g∘e: the equalizer inclusion lands precisely where f and g coincide, so either composite gives the same value. An inclusion missing the equalizer breaks the agreement."
+    },
+    "summary": "The equalizer of parallel f, g : A → B is the sub-object e : E → A picking out exactly where f and g agree, with f∘e = g∘e. It is the limit of the parallel pair — the universal 'where they agree'.",
+    "notation": ["e : E → A", "f ∘ e = g ∘ e"],
+    "programmerAnalogy": "filter(records, r => billing(r) === shipping(r))."
+  },
+  "glossaryUnlocks": ["equalizer"],
+  "referenceSolution": {
+    "nodes": [
+      { "kind": "object", "nodeId": "n-e", "objectId": "obj-e", "role": "start", "position": { "x": 40, "y": 200 } },
+      { "kind": "morphism", "nodeId": "n-include", "morphismId": "mor-include", "position": { "x": 280, "y": 90 } },
+      { "kind": "morphism", "nodeId": "n-includebad", "morphismId": "mor-includebad", "position": { "x": 280, "y": 320 } },
+      { "kind": "object", "nodeId": "n-a", "objectId": "obj-a", "position": { "x": 540, "y": 200 } },
+      { "kind": "morphism", "nodeId": "n-bill", "morphismId": "mor-bill", "position": { "x": 800, "y": 90 } },
+      { "kind": "morphism", "nodeId": "n-ship", "morphismId": "mor-ship", "position": { "x": 800, "y": 320 } },
+      { "kind": "object", "nodeId": "n-b", "objectId": "obj-b", "role": "goal", "position": { "x": 1060, "y": 200 } }
+    ],
+    "edges": [
+      { "id": "e1", "sourceNodeId": "n-e", "targetNodeId": "n-include" },
+      { "id": "e2", "sourceNodeId": "n-include", "targetNodeId": "n-a" },
+      { "id": "e3", "sourceNodeId": "n-a", "targetNodeId": "n-bill" },
+      { "id": "e4", "sourceNodeId": "n-bill", "targetNodeId": "n-b" }
+    ]
+  }
+}

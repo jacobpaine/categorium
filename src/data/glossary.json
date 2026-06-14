@@ -238,5 +238,65 @@
     "formalDefinition": "A monad on a category C is an endofunctor T : C → C with natural transformations η : Id ⇒ T (return) and μ : T∘T ⇒ T (join) satisfying the unit laws (μ ∘ Tη = μ ∘ ηT = id) and associativity (μ ∘ Tμ = μ ∘ μT). It is the structure that arises from an adjunction.",
     "programmerAnalogy": "A type with return + flatMap obeying the monad laws: Optional, List, Promise, State.",
     "notationExamples": ["η : Id ⇒ T", "μ : T∘T ⇒ T", "μ ∘ Tμ = μ ∘ μT"]
+  },
+  {
+    "id": "terminal",
+    "term": "Terminal object",
+    "unlockedByConcept": "terminal",
+    "shortDefinition": "An object with exactly one arrow into it from every object.",
+    "themeExplanation": {
+      "data": "A one-point type (like Unit / ()) — every value collapses to the same acknowledgement; there's only one way to map into it.",
+      "alchemy": "A single inert residue — every material reduces to the same speck; only one way to get there.",
+      "spellcraft": "A single still point — every essence settles to the same null; only one way to reach it.",
+      "abstract": "The terminal object 1 has exactly one morphism A → 1 from every object A."
+    },
+    "formalDefinition": "An object 1 is terminal if for every object A there is exactly one morphism A → 1. It is unique up to unique isomorphism, and is the limit of the empty diagram. Its dual (one arrow OUT to everything) is the initial object 0.",
+    "programmerAnalogy": "Unit / void: () — exactly one value, so exactly one function A => ().",
+    "notationExamples": ["1", "!_A : A → 1"]
+  },
+  {
+    "id": "equalizer",
+    "term": "Equalizer",
+    "unlockedByConcept": "equalizer",
+    "shortDefinition": "The sub-object where two parallel arrows agree.",
+    "themeExplanation": {
+      "data": "Given two queries on a record (say billing vs shipping country), the equalizer is the records where they return the SAME answer — and the inclusion of that subset.",
+      "alchemy": "Given two assays of a material, the equalizer is the batch on which they agree — and the inclusion of that batch.",
+      "spellcraft": "Given two readings of an essence, the equalizer is the part on which they agree — and the inclusion of that part.",
+      "abstract": "Given parallel f, g : A → B, the equalizer e : E → A picks out the universal sub-object where f∘e = g∘e."
+    },
+    "formalDefinition": "Given parallel f, g : A → B, the equalizer is an object E with a map e : E → A such that f∘e = g∘e, and which is universal: any h with f∘h = g∘h factors uniquely through e. It is the limit of the parallel pair, and picks out 'where f and g agree'.",
+    "programmerAnalogy": "filter(xs, x => f(x) === g(x)) — the sub-collection on which two functions agree.",
+    "notationExamples": ["e : E → A", "f ∘ e = g ∘ e"]
+  },
+  {
+    "id": "pullback",
+    "term": "Pullback",
+    "unlockedByConcept": "pullback",
+    "shortDefinition": "The matching pairs of two arrows into a shared object — a join on a key.",
+    "themeExplanation": {
+      "data": "Given Orders → CustomerId ← Customers, the pullback is the rows where order.customerId = customer.id: a JOIN on the shared key, with projections back to each side.",
+      "alchemy": "Given two materials sharing a common trait, the pullback is the pairs whose trait matches — with a way back to each.",
+      "spellcraft": "Given two essences sharing a common rune, the pullback is the pairs whose rune matches — with a way back to each.",
+      "abstract": "Given f : A → C and g : B → C, the pullback is the universal P with projections p₁, p₂ and f∘p₁ = g∘p₂."
+    },
+    "formalDefinition": "Given f : A → C and g : B → C, the pullback is an object A×_C B with projections p₁ : P → A, p₂ : P → B such that f∘p₁ = g∘p₂, universal among such squares. It generalises the product (take C = 1) and models a relational join / a fibered product.",
+    "programmerAnalogy": "An inner join on a key: pairs (a, b) where a.key === b.key.",
+    "notationExamples": ["A ×_C B", "f ∘ p₁ = g ∘ p₂"]
+  },
+  {
+    "id": "limit",
+    "term": "Limit",
+    "unlockedByConcept": "limit",
+    "shortDefinition": "The single best object completing a diagram, via a unique mediating map.",
+    "themeExplanation": {
+      "data": "The one object that 'sits over' a diagram so every consistent way of mapping in factors through it exactly once — products, equalizers, and pullbacks are all examples.",
+      "alchemy": "The one residue that every consistent process funnels through exactly once.",
+      "spellcraft": "The one focus that every consistent working passes through exactly once.",
+      "abstract": "A universal cone over a diagram: an object through which every other cone factors by a unique mediating map."
+    },
+    "formalDefinition": "A limit of a diagram D is a universal cone over D: an object L with projections to each D(i), commuting with D's arrows, such that every other cone factors through L by a unique mediating morphism. Terminal objects, products, equalizers, and pullbacks are all limits; reversing the arrows gives colimits (initial object, coproduct, …).",
+    "programmerAnalogy": "The most general type that can produce all the pieces consistently — a record/join determined by its universal property.",
+    "notationExamples": ["lim D", "unique u : X → L"]
   }
 ]
