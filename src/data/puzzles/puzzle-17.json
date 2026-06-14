@@ -13,14 +13,14 @@
   },
   "goal": { "data": "Project the record to recover the name (Ada).", "alchemy": "Project the compound to recover the salt.", "spellcraft": "Project the blend to recover the light.", "abstract": "Recover the A-component value." },
   "objects": [
-    { "id": "obj-p", "formalLabel": "A×B", "labels": { "data": "Record", "alchemy": "Compound", "spellcraft": "Blend", "abstract": "A×B" }, "colorToken": "violet" },
-    { "id": "obj-a", "formalLabel": "A", "labels": { "data": "Name", "alchemy": "Salt", "spellcraft": "Light", "abstract": "A" }, "colorToken": "sky" },
-    { "id": "obj-b", "formalLabel": "B", "labels": { "data": "Age", "alchemy": "Sulfur", "spellcraft": "Heat", "abstract": "B" }, "colorToken": "emerald" }
+    { "id": "obj-p", "formalLabel": "A×B", "labels": { "data": "Record", "alchemy": "Compound", "spellcraft": "Blend", "abstract": "A×B" }, "description": { "data": "a record bundling a name and an age", "alchemy": "a compound blending salt and sulfur", "spellcraft": "a blend of light and heat", "abstract": "the product A×B" }, "colorToken": "violet" },
+    { "id": "obj-a", "formalLabel": "A", "labels": { "data": "Name", "alchemy": "Salt", "spellcraft": "Light", "abstract": "A" }, "description": { "data": "the name held inside the record", "alchemy": "the salt held inside the compound", "spellcraft": "the light held inside the blend", "abstract": "component A" }, "colorToken": "sky" },
+    { "id": "obj-b", "formalLabel": "B", "labels": { "data": "Age", "alchemy": "Sulfur", "spellcraft": "Heat", "abstract": "B" }, "description": { "data": "the age held inside the record", "alchemy": "the sulfur held inside the compound", "spellcraft": "the heat held inside the blend", "abstract": "component B" }, "colorToken": "emerald" }
   ],
   "morphisms": [
-    { "id": "mor-pi1", "formalLabel": "π₁", "sourceObjectId": "obj-p", "targetObjectId": "obj-a", "labels": { "data": "getName", "alchemy": "Salt Out", "spellcraft": "Draw Light", "abstract": "π₁" }, "description": { "data": "the true first projection", "alchemy": "the true first projection", "spellcraft": "the true first projection", "abstract": "A×B → A" }, "action": { "v-rec": "v-name" } },
+    { "id": "mor-pi1", "formalLabel": "π₁", "sourceObjectId": "obj-p", "targetObjectId": "obj-a", "labels": { "data": "Get Name", "alchemy": "Salt Out", "spellcraft": "Draw Light", "abstract": "π₁" }, "description": { "data": "reads the Name back out of the record", "alchemy": "draws the Salt back out of the compound", "spellcraft": "draws the Light back out of the blend", "abstract": "the first projection π₁ : A×B → A" }, "action": { "v-rec": "v-name" } },
     { "id": "mor-pi1bad", "formalLabel": "π₁?", "sourceObjectId": "obj-p", "targetObjectId": "obj-a", "labels": { "data": "Misread Name", "alchemy": "Mis-Salt", "spellcraft": "Mis-Light", "abstract": "π₁?" }, "description": { "data": "returns the wrong name", "alchemy": "returns the wrong salt", "spellcraft": "returns the wrong light", "abstract": "A×B → A, but wrong" }, "action": { "v-rec": "v-wrong" } },
-    { "id": "mor-pi2", "formalLabel": "π₂", "sourceObjectId": "obj-p", "targetObjectId": "obj-b", "labels": { "data": "getAge", "alchemy": "Sulfur Out", "spellcraft": "Draw Heat", "abstract": "π₂" }, "description": { "data": "projects out the Age, discarding the rest", "alchemy": "draws off the Sulfur, discarding the rest", "spellcraft": "draws the Heat, discarding the rest", "abstract": "the projection π₂ : A×B → B" }, "action": { "v-rec": "v-age" } }
+    { "id": "mor-pi2", "formalLabel": "π₂", "sourceObjectId": "obj-p", "targetObjectId": "obj-b", "labels": { "data": "Get Age", "alchemy": "Sulfur Out", "spellcraft": "Draw Heat", "abstract": "π₂" }, "description": { "data": "projects out the Age, discarding the rest", "alchemy": "draws off the Sulfur, discarding the rest", "spellcraft": "draws the Heat, discarding the rest", "abstract": "the projection π₂ : A×B → B" }, "action": { "v-rec": "v-age" } }
   ],
   "samples": [
     { "id": "v-rec", "objectId": "obj-p", "labels": { "data": "record {Ada, 30}", "alchemy": "salt+sulfur compound", "spellcraft": "light+heat blend", "abstract": "(a,b)" } },
@@ -45,7 +45,7 @@
   ],
   "reveal": {
     "afterSuccess": {
-      "data": "getName recovered exactly the name that went into the record. The look-alike was the same type but returned the wrong name. A product's projections faithfully read each component back out.",
+      "data": "Get Name recovered exactly the name that went into the record. The look-alike was the same type but returned the wrong name. A product's projections faithfully read each component back out.",
       "alchemy": "Salt Out recovered exactly the salt in the compound. The look-alike returned the wrong one. Projections faithfully read each component.",
       "spellcraft": "Draw Light recovered exactly the light in the blend. The look-alike returned the wrong one. Projections faithfully read each component.",
       "abstract": "The true projection returned the bundled component; the look-alike did not."

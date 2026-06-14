@@ -13,8 +13,8 @@
   },
   "goal": { "data": "Duplicate the name into an identical pair.", "alchemy": "Duplicate the salt into identical twins.", "spellcraft": "Duplicate the light into identical twins.", "abstract": "Build A×A as two equal copies of A." },
   "objects": [
-    { "id": "obj-a", "formalLabel": "A", "labels": { "data": "Name", "alchemy": "Salt", "spellcraft": "Light", "abstract": "A" }, "colorToken": "sky" },
-    { "id": "obj-p", "formalLabel": "A×A", "labels": { "data": "Two Names", "alchemy": "Salt Pair", "spellcraft": "Twin Light", "abstract": "A×A" }, "colorToken": "violet" }
+    { "id": "obj-a", "formalLabel": "A", "labels": { "data": "Name", "alchemy": "Salt", "spellcraft": "Light", "abstract": "A" }, "description": { "data": "the name you will duplicate", "alchemy": "the salt you will twin", "spellcraft": "the light you will mirror", "abstract": "object A" }, "colorToken": "sky" },
+    { "id": "obj-p", "formalLabel": "A×A", "labels": { "data": "Two Names", "alchemy": "Salt Pair", "spellcraft": "Twin Light", "abstract": "A×A" }, "description": { "data": "a pair of two names", "alchemy": "a pair of two salts", "spellcraft": "a pair of twinned lights", "abstract": "the product A×A" }, "colorToken": "violet" }
   ],
   "morphisms": [
     { "id": "mor-delta", "formalLabel": "Δ", "sourceObjectId": "obj-a", "targetObjectId": "obj-p", "labels": { "data": "Duplicate", "alchemy": "Twin", "spellcraft": "Mirror", "abstract": "Δ" }, "description": { "data": "two identical copies", "alchemy": "two identical copies", "spellcraft": "two identical copies", "abstract": "⟨id, id⟩" }, "action": { "v-a": "v-pair" } },
