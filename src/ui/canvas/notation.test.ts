@@ -46,6 +46,17 @@ describe('deriveNotation', () => {
     );
     expect(lines[0].formal).toMatch(/^h ∘ f : A → C/);
     expect(lines[0].formal).toContain('composite');
+    // ...and a spoken form that reads ∘ as "after".
+    expect(lines[0].spoken).toContain('h after f');
+    expect(lines[0].spoken).toContain('from A to C');
+  });
+
+  it('pronounces symbols in the spoken form (π₁, ∘, ×, →)', () => {
+    const { diagram } = fixture('puzzle-17');
+    const lines = deriveNotation(diagram, graphWith('puzzle-17', []), ['n-pi1'], 'data');
+    // π₁ : A×B → A  →  "pi-one, from A cross B to A"
+    expect(lines[0].spoken).toContain('pi-one');
+    expect(lines[0].spoken).toContain('A cross B');
   });
 
   it('uses theme language in the themed form (spellcraft)', () => {

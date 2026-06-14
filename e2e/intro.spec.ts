@@ -72,7 +72,12 @@ test('the notation box writes the notation for what you build', async ({ page })
   // Wiring A → f → B writes the arrow as f : A → B.
   await connect(page, right('n-a'), left('n-f'));
   await connect(page, right('n-f'), left('n-b'));
-  await expect(page.getByText('f : A → B', { exact: false })).toBeVisible();
+  const row = page.locator('.group', { has: page.locator('code', { hasText: 'f : A → B' }) });
+  await expect(row).toBeVisible();
+
+  // Hovering the line reveals how to SAY it aloud (scoped to this row's tooltip).
+  await row.hover();
+  await expect(row.getByText('from A to B', { exact: false }).first()).toBeVisible();
 });
 
 test('hovering an element reveals what it represents', async ({ page }) => {
