@@ -3,14 +3,15 @@
  * from the player-facing list (and logged loudly in dev) so a broken puzzle never reaches the
  * chapter map. Themes and glossary parse strictly — a failure there is a build-time bug.
  */
-import { safeParsePuzzle, parseThemes, parseGlossary, parseTour } from '../schemas';
-import type { AuthoredPuzzle, Puzzle, Theme, GlossaryEntry } from '../schemas';
+import { safeParsePuzzle, parseThemes, parseGlossary, parseTour, parseQuiz } from '../schemas';
+import type { AuthoredPuzzle, Puzzle, Theme, GlossaryEntry, QuizQuestion } from '../schemas';
 import type { Diagram } from '../domain';
 import type { ValidationInput } from '../validation';
 
 import themesJson from './themes.json';
 import glossaryJson from './glossary.json';
 import tourJson from './tour.json';
+import quizJson from './quiz.json';
 
 // Auto-load every puzzle JSON. Adding a chapter is just dropping a file in puzzles/.
 const puzzleModules = import.meta.glob<{ default: unknown }>('./puzzles/*.json', { eager: true });
@@ -41,6 +42,8 @@ export const THEMES: Theme[] = parseThemes(themesJson);
 export const GLOSSARY: GlossaryEntry[] = parseGlossary(glossaryJson);
 /** The interactive introduction ("Chapter 0") — guided, playable definition steps. */
 export const TOUR: AuthoredPuzzle[] = parseTour(tourJson);
+/** Glossary quiz — two theme-aware questions per glossary term. */
+export const QUIZ: QuizQuestion[] = parseQuiz(quizJson);
 
 export function getPuzzle(id: string): Puzzle | undefined {
   return PUZZLES.find((p) => p.id === id);

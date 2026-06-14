@@ -1,0 +1,576 @@
+{
+  "questions": [
+    {
+      "id": "q-object-1",
+      "termId": "object",
+      "prompt": {
+        "data": "A Raw CSV — the stuff that flows between your machines — is an example of which idea?",
+        "alchemy": "Ore — the stuff your apparatuses work on — is an example of which idea?",
+        "spellcraft": "A Spark — the stuff your runes act upon — is an example of which idea?",
+        "abstract": "A — a thing that can be transformed — is an example of which idea?"
+      },
+      "options": [
+        { "text": "Object", "correct": true },
+        { "text": "Morphism", "correct": false },
+        { "text": "Functor", "correct": false },
+        { "text": "Composition", "correct": false }
+      ],
+      "explanation": {
+        "data": "Objects are the 'things' (types) a diagram connects — written A, B, C.",
+        "alchemy": "Objects are the materials a diagram connects — written A, B, C.",
+        "spellcraft": "Objects are the essences a diagram connects — written A, B, C.",
+        "abstract": "Objects are the dots a diagram connects — written A, B, C."
+      }
+    },
+    {
+      "id": "q-object-2",
+      "termId": "object",
+      "prompt": {
+        "data": "Which best describes an object?",
+        "alchemy": "Which best describes an object?",
+        "spellcraft": "Which best describes an object?",
+        "abstract": "Which best describes an object?"
+      },
+      "options": [
+        { "text": "A thing or type that can be transformed", "correct": true },
+        { "text": "A process from one thing to another", "correct": false },
+        { "text": "A do-nothing step", "correct": false },
+        { "text": "A map between two functors", "correct": false }
+      ],
+      "explanation": {
+        "data": "An object is a thing/type; the process between two objects is a morphism.",
+        "alchemy": "An object is a material; the process between two objects is a morphism.",
+        "spellcraft": "An object is an essence; the process between two objects is a morphism.",
+        "abstract": "An object is a thing; the process between two objects is a morphism."
+      }
+    },
+    {
+      "id": "q-morphism-1",
+      "termId": "morphism",
+      "prompt": {
+        "data": "A Parser that turns a Raw CSV into a Clean Table is an example of which idea?",
+        "alchemy": "A Smelter that turns Ore into an Ingot is an example of which idea?",
+        "spellcraft": "Ignition, which turns a Spark into a Flame, is an example of which idea?",
+        "abstract": "f : A → B, a process from one object to another, is which idea?"
+      },
+      "options": [
+        { "text": "Morphism", "correct": true },
+        { "text": "Object", "correct": false },
+        { "text": "Identity", "correct": false },
+        { "text": "Product", "correct": false }
+      ],
+      "explanation": {
+        "data": "A morphism (arrow) is a process between objects — written f : A → B.",
+        "alchemy": "A morphism (arrow) is a process between objects — written f : A → B.",
+        "spellcraft": "A morphism (arrow) is a process between objects — written f : A → B.",
+        "abstract": "A morphism (arrow) is a process between objects — written f : A → B."
+      }
+    },
+    {
+      "id": "q-morphism-2",
+      "termId": "morphism",
+      "prompt": {
+        "data": "Which best describes a morphism?",
+        "alchemy": "Which best describes a morphism?",
+        "spellcraft": "Which best describes a morphism?",
+        "abstract": "Which best describes a morphism?"
+      },
+      "options": [
+        { "text": "A process from one object to another", "correct": true },
+        { "text": "A thing or type that can be transformed", "correct": false },
+        { "text": "Bundling two things together", "correct": false },
+        { "text": "Grouping a chain of steps", "correct": false }
+      ],
+      "explanation": {
+        "data": "A morphism connects two objects: a source and a target, like f : A → B.",
+        "alchemy": "A morphism connects two objects: a source and a target, like f : A → B.",
+        "spellcraft": "A morphism connects two objects: a source and a target, like f : A → B.",
+        "abstract": "A morphism connects two objects: a source and a target, like f : A → B."
+      }
+    },
+    {
+      "id": "q-composition-1",
+      "termId": "composition",
+      "prompt": {
+        "data": "Running a Parser, then feeding its Clean Table into a Charter, is an example of which idea?",
+        "alchemy": "Running a Smelter, then feeding its Ingot into a Toolsmith, is which idea?",
+        "spellcraft": "Casting Ignition, then feeding its Flame into a Kindler, is which idea?",
+        "abstract": "Doing f, then g — written g ∘ f — is an example of which idea?"
+      },
+      "options": [
+        { "text": "Composition", "correct": true },
+        { "text": "Identity", "correct": false },
+        { "text": "Inverse", "correct": false },
+        { "text": "Coproduct", "correct": false }
+      ],
+      "explanation": {
+        "data": "Composition chains processes: g ∘ f means do f first, then g — written g ∘ f : A → C.",
+        "alchemy": "Composition chains processes: g ∘ f means do f first, then g — written g ∘ f : A → C.",
+        "spellcraft": "Composition chains processes: g ∘ f means do f first, then g — written g ∘ f : A → C.",
+        "abstract": "Composition chains morphisms: g ∘ f means do f first, then g — written g ∘ f : A → C."
+      }
+    },
+    {
+      "id": "q-composition-2",
+      "termId": "composition",
+      "prompt": {
+        "data": "In 'g ∘ f', which step runs first?",
+        "alchemy": "In 'g ∘ f', which step runs first?",
+        "spellcraft": "In 'g ∘ f', which step runs first?",
+        "abstract": "In 'g ∘ f', which step runs first?"
+      },
+      "options": [
+        { "text": "f", "correct": true },
+        { "text": "g", "correct": false },
+        { "text": "both at once", "correct": false },
+        { "text": "neither — it is a single step", "correct": false }
+      ],
+      "explanation": {
+        "data": "g ∘ f reads right-to-left: f happens first, then g.",
+        "alchemy": "g ∘ f reads right-to-left: f happens first, then g.",
+        "spellcraft": "g ∘ f reads right-to-left: f happens first, then g.",
+        "abstract": "g ∘ f reads right-to-left: f happens first, then g."
+      }
+    },
+    {
+      "id": "q-identity-1",
+      "termId": "identity",
+      "prompt": {
+        "data": "A Pass Through machine that returns data unchanged is an example of which idea?",
+        "alchemy": "A Preserve apparatus that returns a material unchanged is which idea?",
+        "spellcraft": "An Echo rune that returns an essence unchanged is which idea?",
+        "abstract": "id_A : A → A, which returns its input unchanged, is which idea?"
+      },
+      "options": [
+        { "text": "Identity", "correct": true },
+        { "text": "Inverse", "correct": false },
+        { "text": "Isomorphism", "correct": false },
+        { "text": "Functor", "correct": false }
+      ],
+      "explanation": {
+        "data": "Every object has an identity — a do-nothing step — written id_A : A → A.",
+        "alchemy": "Every object has an identity — a do-nothing step — written id_A : A → A.",
+        "spellcraft": "Every object has an identity — a do-nothing step — written id_A : A → A.",
+        "abstract": "Every object has an identity — a do-nothing step — written id_A : A → A."
+      }
+    },
+    {
+      "id": "q-identity-2",
+      "termId": "identity",
+      "prompt": {
+        "data": "Which best describes the identity?",
+        "alchemy": "Which best describes the identity?",
+        "spellcraft": "Which best describes the identity?",
+        "abstract": "Which best describes the identity?"
+      },
+      "options": [
+        { "text": "A do-nothing step from an object back to itself", "correct": true },
+        { "text": "A process that undoes another", "correct": false },
+        { "text": "A reversible process", "correct": false },
+        { "text": "Chaining two processes", "correct": false }
+      ],
+      "explanation": {
+        "data": "The identity goes from an object to itself and changes nothing: id_A : A → A.",
+        "alchemy": "The identity goes from an object to itself and changes nothing: id_A : A → A.",
+        "spellcraft": "The identity goes from an object to itself and changes nothing: id_A : A → A.",
+        "abstract": "The identity goes from an object to itself and changes nothing: id_A : A → A."
+      }
+    },
+    {
+      "id": "q-commutative-diagram-1",
+      "termId": "commutative-diagram",
+      "prompt": {
+        "data": "Two different pipelines that start and end with the same data and give the same output illustrate which idea?",
+        "alchemy": "Two different processes with the same start, end, and result illustrate which idea?",
+        "spellcraft": "Two different workings with the same start, end, and result illustrate which idea?",
+        "abstract": "Two routes with g ∘ f = k ∘ h illustrate which idea?"
+      },
+      "options": [
+        { "text": "Commutative diagram", "correct": true },
+        { "text": "Composition", "correct": false },
+        { "text": "Product", "correct": false },
+        { "text": "Associativity", "correct": false }
+      ],
+      "explanation": {
+        "data": "A commutative diagram: different routes with the same endpoints agree — g ∘ f = k ∘ h.",
+        "alchemy": "A commutative diagram: different routes with the same endpoints agree — g ∘ f = k ∘ h.",
+        "spellcraft": "A commutative diagram: different routes with the same endpoints agree — g ∘ f = k ∘ h.",
+        "abstract": "A commutative diagram: different routes with the same endpoints agree — g ∘ f = k ∘ h."
+      }
+    },
+    {
+      "id": "q-commutative-diagram-2",
+      "termId": "commutative-diagram",
+      "prompt": {
+        "data": "A diagram 'commutes' when…",
+        "alchemy": "A diagram 'commutes' when…",
+        "spellcraft": "A diagram 'commutes' when…",
+        "abstract": "A diagram 'commutes' when…"
+      },
+      "options": [
+        { "text": "all routes between the same two points give the same result", "correct": true },
+        { "text": "every arrow has an inverse", "correct": false },
+        { "text": "two things are bundled together", "correct": false },
+        { "text": "a step does nothing", "correct": false }
+      ],
+      "explanation": {
+        "data": "Commuting = every path between the same start and end produces the same result.",
+        "alchemy": "Commuting = every path between the same start and end produces the same result.",
+        "spellcraft": "Commuting = every path between the same start and end produces the same result.",
+        "abstract": "Commuting = every path between the same start and end produces the same result."
+      }
+    },
+    {
+      "id": "q-identity-law-1",
+      "termId": "identity-law",
+      "prompt": {
+        "data": "Putting a Pass Through before or after a machine gives the same result as the machine alone. Which law is this?",
+        "alchemy": "Putting a Preserve before or after an apparatus changes nothing. Which law is this?",
+        "spellcraft": "Putting an Echo before or after a rune changes nothing. Which law is this?",
+        "abstract": "f ∘ id_A = f and id_B ∘ f = f express which law?"
+      },
+      "options": [
+        { "text": "Identity law", "correct": true },
+        { "text": "Associativity law", "correct": false },
+        { "text": "Inverse", "correct": false },
+        { "text": "Composition", "correct": false }
+      ],
+      "explanation": {
+        "data": "The identity law: composing with a do-nothing step changes nothing — f ∘ id_A = f.",
+        "alchemy": "The identity law: composing with a do-nothing step changes nothing — f ∘ id_A = f.",
+        "spellcraft": "The identity law: composing with a do-nothing step changes nothing — f ∘ id_A = f.",
+        "abstract": "The identity law: composing with a do-nothing step changes nothing — f ∘ id_A = f."
+      }
+    },
+    {
+      "id": "q-identity-law-2",
+      "termId": "identity-law",
+      "prompt": {
+        "data": "The identity law says…",
+        "alchemy": "The identity law says…",
+        "spellcraft": "The identity law says…",
+        "abstract": "The identity law says…"
+      },
+      "options": [
+        { "text": "composing with a do-nothing step changes nothing", "correct": true },
+        { "text": "regrouping a chain changes nothing", "correct": false },
+        { "text": "every process can be undone", "correct": false },
+        { "text": "two functors can be connected", "correct": false }
+      ],
+      "explanation": {
+        "data": "Identity law: f ∘ id = f and id ∘ f = f. (Regrouping is the associativity law.)",
+        "alchemy": "Identity law: f ∘ id = f and id ∘ f = f. (Regrouping is the associativity law.)",
+        "spellcraft": "Identity law: f ∘ id = f and id ∘ f = f. (Regrouping is the associativity law.)",
+        "abstract": "Identity law: f ∘ id = f and id ∘ f = f. (Regrouping is the associativity law.)"
+      }
+    },
+    {
+      "id": "q-associativity-1",
+      "termId": "associativity",
+      "prompt": {
+        "data": "Whether you pre-bundle the first two machines or the last two, the pipeline behaves the same. Which law?",
+        "alchemy": "Whether you pre-bundle the first two apparatuses or the last two, the process behaves the same. Which law?",
+        "spellcraft": "Whether you pre-bundle the first two runes or the last two, the working behaves the same. Which law?",
+        "abstract": "(h ∘ g) ∘ f = h ∘ (g ∘ f) expresses which law?"
+      },
+      "options": [
+        { "text": "Associativity law", "correct": true },
+        { "text": "Identity law", "correct": false },
+        { "text": "Commutative diagram", "correct": false },
+        { "text": "Functor", "correct": false }
+      ],
+      "explanation": {
+        "data": "Associativity: grouping a chain doesn't change the result — (h ∘ g) ∘ f = h ∘ (g ∘ f).",
+        "alchemy": "Associativity: grouping a chain doesn't change the result — (h ∘ g) ∘ f = h ∘ (g ∘ f).",
+        "spellcraft": "Associativity: grouping a chain doesn't change the result — (h ∘ g) ∘ f = h ∘ (g ∘ f).",
+        "abstract": "Associativity: grouping a chain doesn't change the result — (h ∘ g) ∘ f = h ∘ (g ∘ f)."
+      }
+    },
+    {
+      "id": "q-associativity-2",
+      "termId": "associativity",
+      "prompt": {
+        "data": "Associativity is about…",
+        "alchemy": "Associativity is about…",
+        "spellcraft": "Associativity is about…",
+        "abstract": "Associativity is about…"
+      },
+      "options": [
+        { "text": "where you put the parentheses in a chain of steps", "correct": true },
+        { "text": "whether a step does nothing", "correct": false },
+        { "text": "whether a process can be reversed", "correct": false },
+        { "text": "bundling two values together", "correct": false }
+      ],
+      "explanation": {
+        "data": "Associativity lets you regroup a composition freely; the result is unchanged.",
+        "alchemy": "Associativity lets you regroup a composition freely; the result is unchanged.",
+        "spellcraft": "Associativity lets you regroup a composition freely; the result is unchanged.",
+        "abstract": "Associativity lets you regroup a composition freely; the result is unchanged."
+      }
+    },
+    {
+      "id": "q-inverse-1",
+      "termId": "inverse",
+      "prompt": {
+        "data": "Decode undoes Encode, so running both leaves the data unchanged. Decode is Encode's…?",
+        "alchemy": "Cast undoes Grind, so running both leaves the material unchanged. Cast is Grind's…?",
+        "spellcraft": "Read undoes Etch, so running both leaves the essence unchanged. Read is Etch's…?",
+        "abstract": "g with g ∘ f = id_A and f ∘ g = id_B is f's…?"
+      },
+      "options": [
+        { "text": "Inverse", "correct": true },
+        { "text": "Identity", "correct": false },
+        { "text": "Composition", "correct": false },
+        { "text": "Product", "correct": false }
+      ],
+      "explanation": {
+        "data": "An inverse undoes another process both ways: g ∘ f = id_A and f ∘ g = id_B.",
+        "alchemy": "An inverse undoes another process both ways: g ∘ f = id_A and f ∘ g = id_B.",
+        "spellcraft": "An inverse undoes another process both ways: g ∘ f = id_A and f ∘ g = id_B.",
+        "abstract": "An inverse undoes another process both ways: g ∘ f = id_A and f ∘ g = id_B."
+      }
+    },
+    {
+      "id": "q-inverse-2",
+      "termId": "inverse",
+      "prompt": {
+        "data": "A process g is the inverse of f when…",
+        "alchemy": "A process g is the inverse of f when…",
+        "spellcraft": "A process g is the inverse of f when…",
+        "abstract": "A morphism g is the inverse of f when…"
+      },
+      "options": [
+        { "text": "running both, in either order, returns to the start", "correct": true },
+        { "text": "g and f have the same source and target", "correct": false },
+        { "text": "g does nothing at all", "correct": false },
+        { "text": "g bundles f with another process", "correct": false }
+      ],
+      "explanation": {
+        "data": "Inverse means both round trips are identities: g ∘ f = id and f ∘ g = id.",
+        "alchemy": "Inverse means both round trips are identities: g ∘ f = id and f ∘ g = id.",
+        "spellcraft": "Inverse means both round trips are identities: g ∘ f = id and f ∘ g = id.",
+        "abstract": "Inverse means both round trips are identities: g ∘ f = id and f ∘ g = id."
+      }
+    },
+    {
+      "id": "q-isomorphism-1",
+      "termId": "isomorphism",
+      "prompt": {
+        "data": "A machine that has an inverse — so its two data shapes hold exactly the same information — is which idea?",
+        "alchemy": "An apparatus with an inverse, whose two materials are freely interconvertible, is which idea?",
+        "spellcraft": "A working with an inverse, whose two essences are interchangeable, is which idea?",
+        "abstract": "f with an inverse f⁻¹, giving A ≅ B, is which idea?"
+      },
+      "options": [
+        { "text": "Isomorphism", "correct": true },
+        { "text": "Identity", "correct": false },
+        { "text": "Product", "correct": false },
+        { "text": "Natural transformation", "correct": false }
+      ],
+      "explanation": {
+        "data": "An isomorphism is a reversible process; its objects are 'the same up to renaming' — A ≅ B.",
+        "alchemy": "An isomorphism is a reversible process; its objects are 'the same up to renaming' — A ≅ B.",
+        "spellcraft": "An isomorphism is a reversible process; its objects are 'the same up to renaming' — A ≅ B.",
+        "abstract": "An isomorphism is a reversible morphism; its objects are 'the same up to renaming' — A ≅ B."
+      }
+    },
+    {
+      "id": "q-isomorphism-2",
+      "termId": "isomorphism",
+      "prompt": {
+        "data": "Two objects are isomorphic (A ≅ B) when…",
+        "alchemy": "Two objects are isomorphic (A ≅ B) when…",
+        "spellcraft": "Two objects are isomorphic (A ≅ B) when…",
+        "abstract": "Two objects are isomorphic (A ≅ B) when…"
+      },
+      "options": [
+        { "text": "there is a reversible process between them", "correct": true },
+        { "text": "they are literally the same object", "correct": false },
+        { "text": "one is bundled inside the other", "correct": false },
+        { "text": "a do-nothing step connects them", "correct": false }
+      ],
+      "explanation": {
+        "data": "Isomorphic objects are interchangeable: a process with an inverse links them, A ≅ B.",
+        "alchemy": "Isomorphic objects are interchangeable: a process with an inverse links them, A ≅ B.",
+        "spellcraft": "Isomorphic objects are interchangeable: a process with an inverse links them, A ≅ B.",
+        "abstract": "Isomorphic objects are interchangeable: a morphism with an inverse links them, A ≅ B."
+      }
+    },
+    {
+      "id": "q-functor-1",
+      "termId": "functor",
+      "prompt": {
+        "data": "List — which lifts each type into a list and each function into a map over it — is an example of which idea?",
+        "alchemy": "Bundle — wrapping each material in a set and each apparatus into a per-element form — is which idea?",
+        "spellcraft": "Set — wrapping each essence in a collection and each rune into a per-element form — is which idea?",
+        "abstract": "F : C → D, lifting objects and morphisms and preserving identities and composition, is which idea?"
+      },
+      "options": [
+        { "text": "Functor", "correct": true },
+        { "text": "Natural transformation", "correct": false },
+        { "text": "Isomorphism", "correct": false },
+        { "text": "Product", "correct": false }
+      ],
+      "explanation": {
+        "data": "A functor lifts a whole world into another, preserving identities and composition — F : C → D.",
+        "alchemy": "A functor lifts a whole world into another, preserving identities and composition — F : C → D.",
+        "spellcraft": "A functor lifts a whole world into another, preserving identities and composition — F : C → D.",
+        "abstract": "A functor lifts a whole world into another, preserving identities and composition — F : C → D."
+      }
+    },
+    {
+      "id": "q-functor-2",
+      "termId": "functor",
+      "prompt": {
+        "data": "A functor must preserve…",
+        "alchemy": "A functor must preserve…",
+        "spellcraft": "A functor must preserve…",
+        "abstract": "A functor must preserve…"
+      },
+      "options": [
+        { "text": "identities and composition", "correct": true },
+        { "text": "only the number of objects", "correct": false },
+        { "text": "nothing — any mapping is a functor", "correct": false },
+        { "text": "just the names of the objects", "correct": false }
+      ],
+      "explanation": {
+        "data": "F(id) = id and F(g ∘ f) = F(g) ∘ F(f) — those two laws make a mapping a functor.",
+        "alchemy": "F(id) = id and F(g ∘ f) = F(g) ∘ F(f) — those two laws make a mapping a functor.",
+        "spellcraft": "F(id) = id and F(g ∘ f) = F(g) ∘ F(f) — those two laws make a mapping a functor.",
+        "abstract": "F(id) = id and F(g ∘ f) = F(g) ∘ F(f) — those two laws make a mapping a functor."
+      }
+    },
+    {
+      "id": "q-product-1",
+      "termId": "product",
+      "prompt": {
+        "data": "A record holding both fields at once, with getName and getAge to read each back, is which idea?",
+        "alchemy": "A compound holding both ingredients, with a way to extract each back, is which idea?",
+        "spellcraft": "A blend holding both essences, with a way to draw each back, is which idea?",
+        "abstract": "A×B with projections π₁ and π₂ is which idea?"
+      },
+      "options": [
+        { "text": "Product", "correct": true },
+        { "text": "Coproduct", "correct": false },
+        { "text": "Composition", "correct": false },
+        { "text": "Functor", "correct": false }
+      ],
+      "explanation": {
+        "data": "A product bundles two things with a projection to recover each — π₁ ∘ ⟨f,g⟩ = f.",
+        "alchemy": "A product bundles two things with a projection to recover each — π₁ ∘ ⟨f,g⟩ = f.",
+        "spellcraft": "A product bundles two things with a projection to recover each — π₁ ∘ ⟨f,g⟩ = f.",
+        "abstract": "A product bundles two things with a projection to recover each — π₁ ∘ ⟨f,g⟩ = f."
+      }
+    },
+    {
+      "id": "q-product-2",
+      "termId": "product",
+      "prompt": {
+        "data": "A product comes with…",
+        "alchemy": "A product comes with…",
+        "spellcraft": "A product comes with…",
+        "abstract": "A product comes with…"
+      },
+      "options": [
+        { "text": "projections that recover each bundled component", "correct": true },
+        { "text": "injections for either case", "correct": false },
+        { "text": "an inverse process", "correct": false },
+        { "text": "a do-nothing step", "correct": false }
+      ],
+      "explanation": {
+        "data": "Products have projections (π₁, π₂); coproducts have injections (ι₁, ι₂).",
+        "alchemy": "Products have projections (π₁, π₂); coproducts have injections (ι₁, ι₂).",
+        "spellcraft": "Products have projections (π₁, π₂); coproducts have injections (ι₁, ι₂).",
+        "abstract": "Products have projections (π₁, π₂); coproducts have injections (ι₁, ι₂)."
+      }
+    },
+    {
+      "id": "q-coproduct-1",
+      "termId": "coproduct",
+      "prompt": {
+        "data": "A value that is either a Card or Cash, with one handler covering both cases, is which idea?",
+        "alchemy": "A reagent that is either Acid or Base, with one handler for both cases, is which idea?",
+        "spellcraft": "A charm that is either Ward or Hex, with one rune for both cases, is which idea?",
+        "abstract": "A+B with injections ι₁, ι₂ and a case-split [f,g] is which idea?"
+      },
+      "options": [
+        { "text": "Coproduct", "correct": true },
+        { "text": "Product", "correct": false },
+        { "text": "Isomorphism", "correct": false },
+        { "text": "Identity", "correct": false }
+      ],
+      "explanation": {
+        "data": "A coproduct holds either one thing or another — the dual of a product — [f,g] ∘ ι₁ = f.",
+        "alchemy": "A coproduct holds either one thing or another — the dual of a product — [f,g] ∘ ι₁ = f.",
+        "spellcraft": "A coproduct holds either one thing or another — the dual of a product — [f,g] ∘ ι₁ = f.",
+        "abstract": "A coproduct holds either one thing or another — the dual of a product — [f,g] ∘ ι₁ = f."
+      }
+    },
+    {
+      "id": "q-coproduct-2",
+      "termId": "coproduct",
+      "prompt": {
+        "data": "A coproduct is the dual of a product because…",
+        "alchemy": "A coproduct is the dual of a product because…",
+        "spellcraft": "A coproduct is the dual of a product because…",
+        "abstract": "A coproduct is the dual of a product because…"
+      },
+      "options": [
+        { "text": "it uses injections and one handler for both cases, instead of projections", "correct": true },
+        { "text": "it can always be undone", "correct": false },
+        { "text": "it does nothing to its input", "correct": false },
+        { "text": "it connects two functors", "correct": false }
+      ],
+      "explanation": {
+        "data": "Product: bundle BOTH (projections). Coproduct: EITHER one (injections + a case-split).",
+        "alchemy": "Product: bundle BOTH (projections). Coproduct: EITHER one (injections + a case-split).",
+        "spellcraft": "Product: bundle BOTH (projections). Coproduct: EITHER one (injections + a case-split).",
+        "abstract": "Product: bundle BOTH (projections). Coproduct: EITHER one (injections + a case-split)."
+      }
+    },
+    {
+      "id": "q-natural-transformation-1",
+      "termId": "natural-transformation",
+      "prompt": {
+        "data": "A single polymorphic conversion like safeHead: List<A> => Optional<A>, defined for every type at once, is which idea?",
+        "alchemy": "A single uniform conversion from one functor to another, applied at every material at once, is which idea?",
+        "spellcraft": "A single uniform conversion from one functor to another, applied at every essence at once, is which idea?",
+        "abstract": "α : F ⇒ G with a component α_A : F(A) → G(A) at every object is which idea?"
+      },
+      "options": [
+        { "text": "Natural transformation", "correct": true },
+        { "text": "Functor", "correct": false },
+        { "text": "Isomorphism", "correct": false },
+        { "text": "Product", "correct": false }
+      ],
+      "explanation": {
+        "data": "A natural transformation maps one functor to another — one component per object — α : F ⇒ G.",
+        "alchemy": "A natural transformation maps one functor to another — one component per object — α : F ⇒ G.",
+        "spellcraft": "A natural transformation maps one functor to another — one component per object — α : F ⇒ G.",
+        "abstract": "A natural transformation maps one functor to another — one component per object — α : F ⇒ G."
+      }
+    },
+    {
+      "id": "q-natural-transformation-2",
+      "termId": "natural-transformation",
+      "prompt": {
+        "data": "What makes a family of components a natural transformation?",
+        "alchemy": "What makes a family of components a natural transformation?",
+        "spellcraft": "What makes a family of components a natural transformation?",
+        "abstract": "What makes a family of components a natural transformation?"
+      },
+      "options": [
+        { "text": "every naturality square commutes", "correct": true },
+        { "text": "the components all share the same name", "correct": false },
+        { "text": "it has an inverse", "correct": false },
+        { "text": "it bundles two objects together", "correct": false }
+      ],
+      "explanation": {
+        "data": "Correct types aren't enough — α_B ∘ F(f) = G(f) ∘ α_A must hold for every f.",
+        "alchemy": "Correct types aren't enough — α_B ∘ F(f) = G(f) ∘ α_A must hold for every f.",
+        "spellcraft": "Correct types aren't enough — α_B ∘ F(f) = G(f) ∘ α_A must hold for every f.",
+        "abstract": "Correct types aren't enough — α_B ∘ F(f) = G(f) ∘ α_A must hold for every f."
+      }
+    }
+  ]
+}

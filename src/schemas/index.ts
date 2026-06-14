@@ -5,3 +5,4 @@ export * from './naturalTransformation.schema';
 export * from './theme.schema';
 export * from './glossary.schema';
 export * from './tour.schema';
+export * from './quiz.schema';

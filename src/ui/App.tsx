@@ -4,6 +4,7 @@ import { ChapterMap } from './screens/ChapterMap';
 import { PuzzleScreen } from './screens/PuzzleScreen';
 import { TourScreen } from './screens/TourScreen';
 import { GlossaryScreen } from './screens/GlossaryScreen';
+import { QuizScreen } from './screens/QuizScreen';
 import { SettingsScreen } from './screens/SettingsScreen';
 import { useDebugStore } from '../devtools/debugStore';
 
@@ -22,6 +23,7 @@ export default function App() {
             { to: '/intro', label: 'Walkthrough' },
             { to: '/chapters', label: 'Chapters' },
             { to: '/glossary', label: 'Glossary' },
+            { to: '/quiz', label: 'Quiz' },
             { to: '/settings', label: 'Settings' },
           ].map((l) => (
             <NavLink
@@ -52,6 +54,7 @@ export default function App() {
           <Route path="/chapters" element={<ChapterMap />} />
           <Route path="/chapter/:chapterId/puzzle/:puzzleId" element={<PuzzleScreen />} />
           <Route path="/glossary" element={<GlossaryScreen />} />
+          <Route path="/quiz" element={<QuizScreen />} />
           <Route path="/settings" element={<SettingsScreen />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
