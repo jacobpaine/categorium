@@ -6,9 +6,9 @@
   "title": { "data": "A Faithful Functor", "alchemy": "A Faithful Functor", "spellcraft": "A Faithful Functor", "abstract": "A Faithful Functor" },
   "conceptTags": ["functor"],
   "intro": {
-    "data": "A functor must also lift the do-nothing step to a do-nothing step. The plain pipeline is \"hold, then Clean\" — Hold changes nothing. One lift here truly holds the batch unchanged; the other tampers with it (and then Clean Each jams). Use the faithful lift, then Clean Each.",
-    "alchemy": "A functor must lift the do-nothing step to a do-nothing step. The plain pipeline is \"hold, then Smelt.\" One lift holds the crate unchanged; the other taints it (then Smelt Each jams). Use the faithful lift.",
-    "spellcraft": "A functor must lift the do-nothing step to a do-nothing step. The plain pipeline is \"hold, then Kindle.\" One lift holds the flock unchanged; the other warps it (then Kindle Each jams). Use the faithful lift.",
+    "data": "A functor must also lift the do-nothing step to a do-nothing step. One lift here truly holds the whole batch unchanged (the lift of the plain identity); the other tampers with it — and then the Batch Cleaner jams on records it didn't expect. Use the faithful lift, then the Batch Cleaner.",
+    "alchemy": "A functor must lift the do-nothing step to a do-nothing step. One lift holds the whole crate unchanged; the other taints it — and then the Crate Smelter jams. Use the faithful lift, then the Crate Smelter.",
+    "spellcraft": "A functor must lift the do-nothing step to a do-nothing step. One lift holds the whole flock unchanged; the other warps it — and then the Flock Kindler jams. Use the faithful lift, then the Flock Kindler.",
     "abstract": "A functor must preserve identity: F(id) = id. One candidate truly does nothing to F(A); the other tampers, so F(f) then jams. Use the faithful one, then F(f)."
   },
   "goal": { "data": "Hold the batch unchanged, then clean it — using a faithful lift.", "alchemy": "Hold the crate unchanged, then smelt it.", "spellcraft": "Hold the flock unchanged, then kindle it.", "abstract": "Apply the lifted identity, then F(f), reaching the goal." },
@@ -17,9 +17,9 @@
     { "id": "obj-fb", "formalLabel": "F(B)", "labels": { "data": "Batch of Clean", "alchemy": "Crate of Ingots", "spellcraft": "Flock of Flames", "abstract": "F(B)" }, "colorToken": "emerald" }
   ],
   "morphisms": [
-    { "id": "mor-Fid", "formalLabel": "F(id_A)", "sourceObjectId": "obj-fa", "targetObjectId": "obj-fa", "labels": { "data": "Hold Each", "alchemy": "Preserve Each", "spellcraft": "Echo Each", "abstract": "F(id_A)" }, "description": { "data": "the faithful lifted identity — changes nothing", "alchemy": "the faithful lifted identity — changes nothing", "spellcraft": "the faithful lifted identity — changes nothing", "abstract": "= id of F(A)" }, "action": { "box-raw": "box-raw" } },
-    { "id": "mor-tamper", "formalLabel": "F(id)?", "sourceObjectId": "obj-fa", "targetObjectId": "obj-fa", "labels": { "data": "Tamper Each", "alchemy": "Taint Each", "spellcraft": "Warp Each", "abstract": "F(id)?" }, "description": { "data": "F(A) → F(A), but alters the batch", "alchemy": "F(A) → F(A), but alters the crate", "spellcraft": "F(A) → F(A), but alters the flock", "abstract": "not the lifted identity" }, "action": { "box-raw": "box-tampered" } },
-    { "id": "mor-Ff", "formalLabel": "F(f)", "sourceObjectId": "obj-fa", "targetObjectId": "obj-fb", "labels": { "data": "Clean Each", "alchemy": "Smelt Each", "spellcraft": "Kindle Each", "abstract": "F(f)" }, "description": { "data": "cleans every record in the batch", "alchemy": "refines every ore in the crate", "spellcraft": "kindles every spark in the flock", "abstract": "F(f) — the lift of f" }, "action": { "box-raw": "box-clean" } }
+    { "id": "mor-Fid", "formalLabel": "F(id_A)", "sourceObjectId": "obj-fa", "targetObjectId": "obj-fa", "labels": { "data": "Batch Holder", "alchemy": "Crate Preserver", "spellcraft": "Flock Echoer", "abstract": "F(id_A)" }, "description": { "data": "holds the whole batch unchanged — the lift of the do-nothing step", "alchemy": "holds the whole crate unchanged — the lift of the do-nothing step", "spellcraft": "holds the whole flock unchanged — the lift of the do-nothing step", "abstract": "F(id_A) = id of F(A)" }, "action": { "box-raw": "box-raw" } },
+    { "id": "mor-tamper", "formalLabel": "F(id)?", "sourceObjectId": "obj-fa", "targetObjectId": "obj-fa", "labels": { "data": "Batch Tamperer", "alchemy": "Crate Tainter", "spellcraft": "Flock Warper", "abstract": "F(id)?" }, "description": { "data": "same type F(A) → F(A), but ALTERS the batch — not a faithful lift of the identity", "alchemy": "same type F(A) → F(A), but ALTERS the crate — not a faithful lift of the identity", "spellcraft": "same type F(A) → F(A), but ALTERS the flock — not a faithful lift of the identity", "abstract": "not the lifted identity" }, "action": { "box-raw": "box-tampered" } },
+    { "id": "mor-Ff", "formalLabel": "F(f)", "sourceObjectId": "obj-fa", "targetObjectId": "obj-fb", "labels": { "data": "Batch Cleaner", "alchemy": "Crate Smelter", "spellcraft": "Flock Kindler", "abstract": "F(f)" }, "description": { "data": "the Cleaner run on a whole batch — cleans every record", "alchemy": "the Smelter run on a whole crate — refines every ore", "spellcraft": "the Kindler run on a whole flock — kindles every spark", "abstract": "F(f) — the lift of f" }, "action": { "box-raw": "box-clean" } }
   ],
   "samples": [
     { "id": "box-raw", "objectId": "obj-fa", "labels": { "data": "a batch of raw records", "alchemy": "a crate of ore", "spellcraft": "a flock of sparks", "abstract": "F(a)" } },
@@ -44,7 +44,7 @@
   ],
   "reveal": {
     "afterSuccess": {
-      "data": "The faithful lift held the batch unchanged, so Clean Each saw exactly the records it expected. The tampering look-alike was the same type but altered the batch and jammed the next step. A functor must lift identity to identity: F(id_A) = id_F(A).",
+      "data": "The faithful lift held the batch unchanged, so the Batch Cleaner saw exactly the records it expected. The tampering look-alike was the same type but altered the batch and jammed the next step. A functor must lift identity to identity: F(id_A) = id_F(A).",
       "alchemy": "The faithful lift held the crate unchanged. The tainting look-alike jammed the next step. A functor must lift identity to identity: F(id_A) = id_F(A).",
       "spellcraft": "The faithful lift held the flock unchanged. The warping look-alike jammed the next step. A functor must lift identity to identity: F(id_A) = id_F(A).",
       "abstract": "The genuine functor lifts identity to identity; the look-alike does not. F(id_A) = id_F(A)."

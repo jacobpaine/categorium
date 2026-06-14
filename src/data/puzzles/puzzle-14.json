@@ -6,13 +6,13 @@
   "title": { "data": "Lift a Machine", "alchemy": "Lift a Machine", "spellcraft": "Lift a Machine", "abstract": "Lift a Machine" },
   "conceptTags": ["functor"],
   "intro": {
-    "data": "A functor lifts a whole world into another. In the plain world, the Cleaner turns one raw record into a clean one. The Batch world holds MANY records at once. Lift the Cleaner: find the machine that cleans every record in a batch. One does; the other crumples them.",
-    "alchemy": "A functor lifts a whole world into another. In the plain world, the Smelter refines one ore into an ingot. The Crate world holds many at once. Lift the Smelter: find the machine that refines each ore in a crate. One does; the other crushes them.",
-    "spellcraft": "A functor lifts a whole world into another. In the plain world, Kindler turns one spark into a flame. The Flock world holds many at once. Lift Kindler: find the machine that kindles each spark in a flock. One does; the other smothers them.",
-    "abstract": "A functor F lifts each machine into another world. f cleans one thing; build F(f), which does the same job to a whole F(A). The impostor does not."
+    "data": "A functor takes a machine and hands you a SECOND machine that runs it across a whole batch at once — many records in, many records out, the same job done to each one. The plain Cleaner (shown at right) cleans one record. Build its lift: the machine that takes a batch of records and cleans every one. One choice does exactly that; the other wrecks them.",
+    "alchemy": "A functor takes an apparatus and hands you a SECOND apparatus that runs it across a whole crate at once — many ores in, many ingots out, the same job done to each one. The plain Smelter (shown at right) refines one ore. Build its lift: the apparatus that takes a crate of ore and refines every one. One choice does exactly that; the other wrecks them.",
+    "spellcraft": "A functor takes a working and hands you a SECOND working that runs it across a whole flock at once — many sparks in, many flames out, the same job done to each one. The plain Kindler (shown at right) kindles one spark. Build its lift: the working that takes a flock of sparks and kindles every one. One choice does exactly that; the other wrecks them.",
+    "abstract": "For a machine f : A → B, a functor F provides a lifted machine F(f) : F(A) → F(B) that runs f on every item of a wrapped value (a whole batch): many in, many out. Build F(f); the impostor is the lift of some other machine, not of f."
   },
   "goal": { "data": "Turn a batch of raw records into a batch of clean records — by lifting the Cleaner.", "alchemy": "Turn a crate of ore into a crate of ingots — by lifting the Smelter.", "spellcraft": "Turn a flock of sparks into a flock of flames — by lifting Kindler.", "abstract": "Take F(A) to F(B) with F(f)." },
-  "referenceLabel": { "data": "Plain world (one record)", "alchemy": "Plain world (one ore)", "spellcraft": "Plain world (one spark)", "abstract": "Plain world C" },
+  "referenceLabel": { "data": "One record at a time", "alchemy": "One ore at a time", "spellcraft": "One spark at a time", "abstract": "The plain machine f" },
   "referenceDiagram": {
     "objects": [
       { "id": "pa", "formalLabel": "A", "labels": { "data": "Record", "alchemy": "Ore", "spellcraft": "Spark", "abstract": "A" }, "colorToken": "sky" },
@@ -38,8 +38,8 @@
     { "id": "obj-fb", "formalLabel": "F(B)", "labels": { "data": "Batch of Clean", "alchemy": "Crate of Ingots", "spellcraft": "Flock of Flames", "abstract": "F(B)" }, "colorToken": "emerald" }
   ],
   "morphisms": [
-    { "id": "mor-Ff", "formalLabel": "F(f)", "sourceObjectId": "obj-fa", "targetObjectId": "obj-fb", "labels": { "data": "Clean Each", "alchemy": "Smelt Each", "spellcraft": "Kindle Each", "abstract": "F(f)" }, "description": { "data": "cleans every record in the batch", "alchemy": "refines every ore in the crate", "spellcraft": "kindles every spark in the flock", "abstract": "the lift of f" }, "action": { "box-raw": "box-clean" } },
-    { "id": "mor-Ffbad", "formalLabel": "F(f)?", "sourceObjectId": "obj-fa", "targetObjectId": "obj-fb", "labels": { "data": "Crumple Each", "alchemy": "Crush Each", "spellcraft": "Smother Each", "abstract": "F(f)?" }, "description": { "data": "wrecks every record", "alchemy": "crushes every ore", "spellcraft": "smothers every spark", "abstract": "not the lift of f" }, "action": { "box-raw": "box-garbage" } }
+    { "id": "mor-Ff", "formalLabel": "F(f)", "sourceObjectId": "obj-fa", "targetObjectId": "obj-fb", "labels": { "data": "Batch Cleaner", "alchemy": "Crate Smelter", "spellcraft": "Flock Kindler", "abstract": "F(f)" }, "description": { "data": "the Cleaner run on a whole batch — cleans every record, same as the plain Cleaner does to one", "alchemy": "the Smelter run on a whole crate — refines every ore, same as the plain Smelter does to one", "spellcraft": "the Kindler run on a whole flock — kindles every spark, same as the plain Kindler does to one", "abstract": "F(f) — the lift of f, run on every item" }, "action": { "box-raw": "box-clean" } },
+    { "id": "mor-Ffbad", "formalLabel": "F(f)?", "sourceObjectId": "obj-fa", "targetObjectId": "obj-fb", "labels": { "data": "Batch Shredder", "alchemy": "Crate Crusher", "spellcraft": "Flock Smotherer", "abstract": "F(f)?" }, "description": { "data": "a DIFFERENT machine run on the batch — shreds every record, so it is not the lift of the Cleaner", "alchemy": "a DIFFERENT apparatus run on the crate — crushes every ore, so it is not the lift of the Smelter", "spellcraft": "a DIFFERENT working run on the flock — smothers every spark, so it is not the lift of Kindler", "abstract": "a same-typed lift of some OTHER machine, not of f" }, "action": { "box-raw": "box-garbage" } }
   ],
   "samples": [
     { "id": "box-raw", "objectId": "obj-fa", "labels": { "data": "a batch of raw records", "alchemy": "a crate of ore", "spellcraft": "a flock of sparks", "abstract": "F(a)" } },
@@ -62,15 +62,15 @@
   ],
   "reveal": {
     "afterSuccess": {
-      "data": "You lifted the Cleaner into the Batch world: F(f) cleans every record, doing to a whole batch what f did to one. That assignment — each type A to F(A), each machine f to F(f) — is a functor.",
-      "alchemy": "You lifted the Smelter into the Crate world: F(f) refines every ore. Each type A to F(A), each machine f to F(f) — that is a functor.",
-      "spellcraft": "You lifted Kindler into the Flock world: F(f) kindles every spark. Each essence A to F(A), each rune f to F(f) — that is a functor.",
-      "abstract": "You built F(f), the lift of f. Sending each object A to F(A) and each morphism f to F(f) is a functor."
+      "data": "The Batch Cleaner is the lift of the Cleaner: hand it a batch and it returns a batch, cleaning every record exactly the way the plain Cleaner cleans one. A functor is the rule behind that — it pairs each type A with a batched type F(A) and each machine f with its batched machine F(f).",
+      "alchemy": "The Crate Smelter is the lift of the Smelter: hand it a crate and it returns a crate, refining every ore exactly the way the plain Smelter refines one. A functor is the rule behind that — it pairs each material A with a crated form F(A) and each apparatus f with its crate version F(f).",
+      "spellcraft": "The Flock Kindler is the lift of Kindler: hand it a flock and it returns a flock, kindling every spark exactly the way the plain Kindler kindles one. A functor is the rule behind that — it pairs each essence A with a flock form F(A) and each working f with its flock version F(f).",
+      "abstract": "You built F(f), the lift of f: it runs f on every item of a wrapped value. A functor pairs each object A with a wrapped F(A) and each morphism f with its lift F(f)."
     },
-    "summary": "A functor F : C → D lifts a whole category into another: each object A to F(A), each morphism f : A → B to F(f) : F(A) → F(B) that does the same job in the new world.",
-    "notation": ["F : C → D", "F(f) : F(A) → F(B)"],
-    "moreFormal": "F must also preserve identities and composition (next puzzles). List, Optional, and Batch are all functors: F(A) wraps A, and F(f) = \"apply f inside\".",
-    "programmerAnalogy": "List is a functor: List<A>, and map(f): List<A> => List<B>."
+    "summary": "A functor pairs each type A with a wrapped type F(A) (e.g. a batch of A), and each machine f : A → B with a lifted machine F(f) : F(A) → F(B) that runs f on every item.",
+    "notation": ["A ↦ F(A)", "f: A → B  ↦  F(f): F(A) → F(B)"],
+    "moreFormal": "F must also preserve identities and composition (next puzzles). List, Optional, and Batch are all functors: F wraps each type, and F(f) runs f on every item inside the wrapper.",
+    "programmerAnalogy": "Like List.map: f: (a: A) => B lifts to map(f): (xs: List<A>) => List<B>, running f on every element."
   },
   "glossaryUnlocks": ["functor"],
   "referenceSolution": {
