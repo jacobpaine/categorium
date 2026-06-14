@@ -180,6 +180,22 @@ and unit-testable without React.
 - Content: every morphism now carries a `description`; Chapter-1 objects too; the `functor`
   glossary entry reworded around lifting.
 
+**Built and working (Session 14 — notation box, harder capstones, quiz):**
+- **Live notation box** (`NotationBox` + `notation.ts`) at the bottom of the board: selecting an
+  object writes `A`, wiring an arrow writes `f : A → B`, and a chain writes the right-to-left
+  composite `h ∘ g ∘ f : A → D` — in both formal symbols and theme language — so the player learns
+  to *write* the example they built. Shows on the standard board (chapters 1–5 and the walkthrough).
+- **A harder capstone at the end of every chapter** (`puzzle-c1…c6`): a lying one-step shortcut
+  (Ch1), associativity with buggy bundles (Ch2), inverting a composite isomorphism (Ch3), lifting a
+  whole pipeline past impostors (Ch4), pair-then-project (Ch5), and a three-object / two-square
+  naturality puzzle (Ch6). None solvable by color-matching; each has distractor-rejection tests.
+- **Quiz tab** (`/quiz`, `QuizScreen`, `quiz.json`): two theme-aware questions per glossary term
+  (26 total) that map each theme's words to the category theory they stand for, with immediate
+  feedback, an explanation, and a running score; switching theme re-themes the questions.
+- Chapter 6's flavored themes reworked to concrete, defined containers (a rack of vials / a stack
+  of runes) instead of the undefined Swarm/Echo/Batch metaphors; the formal-labels toggle now
+  updates the board live; hover-cards added to the natural-transformation board.
+
 **Deferred (next):**
 Keyboard graph construction; locked-puzzle deep-link screen; composing natural transformations;
 products-as-limits (multi-input morphisms); broaden e2e coverage.

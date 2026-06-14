@@ -203,6 +203,11 @@ carries an instant **hover-card** (`NodeHoverCard`): name + formal role/label + 
 a one-line theme description (generic role fallback when none is authored), so the player can ask
 "what is this?" of any object or machine in place.
 
+The **Quiz** (`/quiz`, `QuizScreen`, content in `quiz.json`) is a study aid that associates each
+theme's vocabulary with the formal idea it stands for: two theme-aware questions per glossary term
+(so the wording re-themes with the selected theme), asked one at a time with immediate feedback,
+an explanation, and a running score. Switching theme restarts the run in the new vocabulary.
+
 ## 8. Progress
 
 Zustand persisted to localStorage. No accounts, no backend. Tracks: completed puzzles,
@@ -213,7 +218,7 @@ clear all progress (separate, in settings/dev).
 ## 9. Routing
 
 React Router. Routes: theme selection, introduction walkthrough (`/intro`), chapter map, puzzle
-screen, glossary, settings. Puzzle URL: `/chapter/chapter-01-transformations/puzzle/puzzle-01`.
+screen, glossary, quiz (`/quiz`), settings. Puzzle URL: `/chapter/chapter-01-transformations/puzzle/puzzle-01`.
 Locked-puzzle URLs show a locked screen; debug mode (`?debug=true`) can open any puzzle.
 
 ## 10. MVP scope vs deferred
