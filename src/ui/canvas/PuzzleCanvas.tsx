@@ -84,7 +84,7 @@ export function PuzzleCanvas({
     [],
   );
 
-  const [nodes, , onNodesChange] = useNodesState<RFNodeData>(initial.nodes as Node<RFNodeData>[]);
+  const [nodes, setNodes, onNodesChange] = useNodesState<RFNodeData>(initial.nodes as Node<RFNodeData>[]);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initial.edges);
   const edgeCounter = useRef(initial.edges.length);
 
@@ -139,6 +139,14 @@ export function PuzzleCanvas({
   useEffect(() => {
     setEdges((eds) => eds.map((e) => ({ ...e, animated })));
   }, [animated, setEdges]);
+
+  // Toggle formal labels live: the nodes are built once at mount, so reflect prop changes
+  // onto existing node data instead of waiting for a remount (theme switch / reset).
+  useEffect(() => {
+    setNodes((nds) =>
+      nds.map((n) => (n.data.showFormal === showFormalLabels ? n : { ...n, data: { ...n.data, showFormal: showFormalLabels } })),
+    );
+  }, [showFormalLabels, setNodes]);
 
   // Emit the domain graph whenever nodes/edges change so the parent can save + validate.
   useEffect(() => {
