@@ -1,0 +1,43 @@
+{
+  "status": "authored",
+  "kind": "matching",
+  "id": "puzzle-y2",
+  "chapterId": "chapter-11-yoneda",
+  "order": 38,
+  "title": { "data": "The Yoneda Lemma", "alchemy": "The Yoneda Lemma", "spellcraft": "The Yoneda Lemma", "abstract": "The Yoneda Lemma" },
+  "conceptTags": ["yoneda", "representable"],
+  "intro": {
+    "data": "The finale, in plain terms. You just saw an object is pinned down by the arrows into it. The Yoneda lemma turns that into a precise promise: a whole uniform family of choices — one for every arrow into A — carries no more information than a SINGLE value (the choice made on A's own identity arrow). Match each name to what it actually says. One option is a famous misconception — leave it unpaired.",
+    "alchemy": "The finale, in plain terms. An object is pinned down by the processes into it; the Yoneda lemma makes that a precise promise. Match each name to what it actually says. One option is a famous misconception — leave it unpaired.",
+    "spellcraft": "The finale, in plain terms. An essence is pinned down by the workings into it; the Yoneda lemma makes that a precise promise. Match each name to what it actually says. One option is a famous misconception — leave it unpaired.",
+    "abstract": "Match each concept — the representable Hom(−, A), the Yoneda lemma Nat(Hom(−,A), F) ≅ F(A), and the Yoneda embedding — to its precise statement. One offered statement is a misconception (distractor)."
+  },
+  "goal": { "data": "Match each concept to what it actually says.", "alchemy": "Match each concept to what it actually says.", "spellcraft": "Match each concept to what it actually says.", "abstract": "Pair each concept with its statement." },
+  "context": { "data": "These three ideas are the whole chapter: the fingerprint, the lemma about it, and the embedding it gives.", "alchemy": "The fingerprint, the lemma about it, and the embedding it gives.", "spellcraft": "The fingerprint, the lemma about it, and the embedding it gives.", "abstract": "Hom(−, A), the Yoneda lemma, and the Yoneda embedding." },
+  "leftLabel": { "data": "Concept", "alchemy": "Concept", "spellcraft": "Concept", "abstract": "Concept" },
+  "rightLabel": { "data": "What it says", "alchemy": "What it says", "spellcraft": "What it says", "abstract": "Statement" },
+  "left": [
+    { "id": "l-rep", "label": { "data": "Representable functor — Hom(−, A)", "alchemy": "Representable functor — Hom(−, A)", "spellcraft": "Representable functor — Hom(−, A)", "abstract": "Hom(−, A)" }, "sub": { "data": "an object's fingerprint", "alchemy": "an object's fingerprint", "spellcraft": "an object's fingerprint", "abstract": "the representable" } },
+    { "id": "l-lemma", "label": { "data": "The Yoneda lemma", "alchemy": "The Yoneda lemma", "spellcraft": "The Yoneda lemma", "abstract": "Nat(Hom(−,A), F) ≅ F(A)" }, "sub": { "data": "the central theorem", "alchemy": "the central theorem", "spellcraft": "the central theorem", "abstract": "the isomorphism" } },
+    { "id": "l-embed", "label": { "data": "The Yoneda embedding", "alchemy": "The Yoneda embedding", "spellcraft": "The Yoneda embedding", "abstract": "C ↪ [C^op, Set]" }, "sub": { "data": "the consequence", "alchemy": "the consequence", "spellcraft": "the consequence", "abstract": "full & faithful" } }
+  ],
+  "right": [
+    { "id": "r-rep", "label": { "data": "All the arrows into A — A's complete profile of incoming maps", "alchemy": "All the processes into A — A's complete incoming profile", "spellcraft": "All the workings into A — A's complete incoming profile", "abstract": "X ↦ Hom(X, A): the arrows into A" }, "sub": { "data": "Hom(−, A)", "alchemy": "Hom(−, A)", "spellcraft": "Hom(−, A)", "abstract": "the incoming arrows" } },
+    { "id": "r-bad", "label": { "data": "A proof that any two objects are equal", "alchemy": "A proof that any two materials are equal", "spellcraft": "A proof that any two essences are equal", "abstract": "all objects are equal" }, "sub": { "data": "a common misconception", "alchemy": "a common misconception", "spellcraft": "a common misconception", "abstract": "false" } },
+    { "id": "r-lemma", "label": { "data": "A whole uniform family — one choice per incoming arrow — is fixed by a single value", "alchemy": "A whole uniform family — one choice per incoming process — is fixed by a single value", "spellcraft": "A whole uniform family — one choice per incoming working — is fixed by a single value", "abstract": "Nat(Hom(−,A), F) ≅ F(A), via α ↦ α_A(id_A)" }, "sub": { "data": "the lemma", "alchemy": "the lemma", "spellcraft": "the lemma", "abstract": "natural families ≅ elements" } },
+    { "id": "r-embed", "label": { "data": "Each object sits inside its fingerprint, fully and faithfully — same arrows ⟹ isomorphic", "alchemy": "Each material sits inside its fingerprint — same processes ⟹ isomorphic", "spellcraft": "Each essence sits inside its fingerprint — same workings ⟹ isomorphic", "abstract": "C ↪ [C^op, Set] is full & faithful" }, "sub": { "data": "the embedding", "alchemy": "the embedding", "spellcraft": "the embedding", "abstract": "fully faithful" } }
+  ],
+  "solution": { "l-rep": "r-rep", "l-lemma": "r-lemma", "l-embed": "r-embed" },
+  "reveal": {
+    "afterSuccess": {
+      "data": "That's the whole journey. You started by connecting two things with an arrow. You learned arrows compose, that some are reversible, that whole worlds map to other worlds (functors), that maps between maps are natural transformations, and that the best object for a job is a limit. The Yoneda lemma is the summit: an object is COMPLETELY determined by the arrows into it — you are who you know. Everything you built is one big web of arrows, and Yoneda says the web is all you ever needed.",
+      "alchemy": "That's the whole journey, summed up: a material is completely determined by the processes into it. Everything you built is one web of arrows, and Yoneda says the web is all you ever needed.",
+      "spellcraft": "That's the whole journey, summed up: an essence is completely determined by the workings into it. Everything you wove is one web of arrows, and Yoneda says the web is all you ever needed.",
+      "abstract": "The Yoneda lemma Nat(Hom(−,A), F) ≅ F(A) and its embedding C ↪ [C^op, Set] close the curriculum: an object is determined, up to isomorphism, by its representable functor. Objects are their patterns of arrows."
+    },
+    "summary": "The Yoneda lemma: Nat(Hom(−,A), F) ≅ F(A) — a natural family over the arrows into A is the same as a single element of F(A). Its embedding makes every object known, fully and faithfully, by its arrows. You are who you know.",
+    "notation": ["Nat(Hom(−,A), F) ≅ F(A)", "C ↪ [C^op, Set]", "α ↦ α_A(id_A)"],
+    "programmerAnalogy": "An interface is defined entirely by the messages it can receive — two objects answering every message identically are interchangeable."
+  },
+  "glossaryUnlocks": ["yoneda"]
+}

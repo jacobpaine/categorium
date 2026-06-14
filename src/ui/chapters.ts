@@ -86,6 +86,13 @@ export const CHAPTERS: ChapterMeta[] = [
     concepts: ['adjunction', 'unit', 'counit'],
     status: 'available',
   },
+  {
+    id: 'chapter-11-yoneda',
+    title: 'You Are Who You Know',
+    summary: 'The finale: an object is completely determined by the arrows into it. Representable functors and the Yoneda lemma.',
+    concepts: ['representable', 'yoneda'],
+    status: 'available',
+  },
 ];
 
 export const FIRST_CHAPTER_ID = CHAPTERS[0].id;

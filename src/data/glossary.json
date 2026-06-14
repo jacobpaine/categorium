@@ -373,5 +373,35 @@
     "formalDefinition": "For F ⊣ G, the counit is a natural transformation ε : F∘G ⇒ 1_D with component ε_B : F(G(B)) → B; it is the transpose of id_{G(B)}. With the unit it satisfies the triangle identities: (εF)∘(Fη) = id and (Gε)∘(ηG) = id.",
     "programmerAnalogy": "eval / apply: ⟨g, a⟩ ↦ g(a).",
     "notationExamples": ["ε : F∘G ⇒ 1", "ε_B : F(G(B)) → B"]
+  },
+  {
+    "id": "representable",
+    "term": "Representable functor",
+    "unlockedByConcept": "representable",
+    "shortDefinition": "The functor Hom(−, A) of all arrows into A — an object's complete 'fingerprint'.",
+    "themeExplanation": {
+      "data": "An object's profile of incoming arrows: Hom(−, A) records every way something maps into A. Two objects with the same profile are the same object (up to renaming) — you can tell things apart purely by what maps in.",
+      "alchemy": "A material's profile of incoming processes: every way something turns into A. The profile pins down the material.",
+      "spellcraft": "An essence's profile of incoming workings: every way something becomes A. The profile pins down the essence.",
+      "abstract": "Hom(−, A) : C^op → Set sends each X to the set Hom(X, A). A functor isomorphic to some Hom(−, A) is representable."
+    },
+    "formalDefinition": "For an object A in a category C, the representable functor Hom(−, A) : C^op → Set sends each object X to the hom-set Hom(X, A) and each arrow to precomposition. A functor F : C^op → Set is representable when F ≅ Hom(−, A) for some A. Representables are the 'building-block' functors the Yoneda lemma is about.",
+    "programmerAnalogy": "An object described purely by the functions that produce it — its interface of constructors.",
+    "notationExamples": ["Hom(−, A)", "よ A"]
+  },
+  {
+    "id": "yoneda",
+    "term": "Yoneda lemma",
+    "unlockedByConcept": "yoneda",
+    "shortDefinition": "An object is fully determined by its arrows: Nat(Hom(−,A), F) ≅ F(A).",
+    "themeExplanation": {
+      "data": "The deepest 'you are who you know': a whole uniform family of choices, one for every arrow into A, is pinned down by a SINGLE element — its value on the identity arrow. So an object's web of relationships determines it completely.",
+      "alchemy": "A whole uniform family of choices over all incoming processes is fixed by one value — the object's relationships determine it completely.",
+      "spellcraft": "A whole uniform family of choices over all incoming workings is fixed by one value — the essence's relationships determine it completely.",
+      "abstract": "Nat(Hom(−,A), F) ≅ F(A), natural in A and F; taking F = Hom(−,B) embeds C into [C^op, Set] fully and faithfully."
+    },
+    "formalDefinition": "The Yoneda lemma: for any functor F : C^op → Set and object A, there is a natural isomorphism Nat(Hom(−, A), F) ≅ F(A), sending a natural transformation α to α_A(id_A). Taking F = Hom(−, B) gives the Yoneda embedding C ↪ [C^op, Set], which is full and faithful — so Hom(−, A) ≅ Hom(−, B) implies A ≅ B (objects are determined by their arrows).",
+    "programmerAnalogy": "(forall r. (a -> r) -> f r) ≅ f a — a polymorphic function is fixed by one value.",
+    "notationExamples": ["Nat(Hom(−,A), F) ≅ F(A)", "α ↦ α_A(id_A)"]
   }
 ]

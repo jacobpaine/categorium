@@ -34,7 +34,9 @@ export type ConceptTag =
   | 'functor-category'
   | 'adjunction'
   | 'unit'
-  | 'counit';
+  | 'counit'
+  | 'representable'
+  | 'yoneda';
 
 export const CONCEPT_TAGS: readonly ConceptTag[] = [
   'object',
@@ -62,6 +64,8 @@ export const CONCEPT_TAGS: readonly ConceptTag[] = [
   'adjunction',
   'unit',
   'counit',
+  'representable',
+  'yoneda',
 ];
 
 /**

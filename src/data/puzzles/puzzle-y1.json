@@ -1,0 +1,43 @@
+{
+  "status": "authored",
+  "kind": "matching",
+  "id": "puzzle-y1",
+  "chapterId": "chapter-11-yoneda",
+  "order": 37,
+  "title": { "data": "Known by Its Arrows", "alchemy": "Known by Its Arrows", "spellcraft": "Known by Its Arrows", "abstract": "Representable Functors" },
+  "conceptTags": ["representable"],
+  "intro": {
+    "data": "Here's the seed of the whole finale: you can identify an object purely by the arrows INTO it — its 'fingerprint', Hom(−, X). These three tiers form a ranking (Basic ≤ Plus ≤ Premium), so everything at or below a tier maps into it. Match each tier to the exact set of things that map in. One profile is impossible for a ranking — that's the impostor.",
+    "alchemy": "The seed of the finale: identify a material purely by the processes INTO it — its fingerprint, Hom(−, X). These three grades form a ranking (Lead ≤ Silver ≤ Gold), so everything at or below maps in. Match each grade to what maps in. One profile is impossible — the impostor.",
+    "spellcraft": "The seed of the finale: identify an essence purely by the workings INTO it — its fingerprint, Hom(−, X). These three ranks form a ranking (Apprentice ≤ Adept ≤ Archmage), so everything at or below maps in. Match each rank to what maps in. One profile is impossible — the impostor.",
+    "abstract": "In the chain A ≤ B ≤ C, the representable Hom(−, X) is the set of arrows into X. Match each object to its Hom(−, X). One offered profile is not realizable in a chain (the distractor)."
+  },
+  "goal": { "data": "Match each tier to the set of tiers that map into it.", "alchemy": "Match each grade to the set of grades that map into it.", "spellcraft": "Match each rank to the set of ranks that map into it.", "abstract": "Pair each object X with its Hom(−, X)." },
+  "context": { "data": "Hom(−, X) = every arrow into X. In a ranking, that's everything at or below X.", "alchemy": "Hom(−, X) = every process into X — everything at or below X.", "spellcraft": "Hom(−, X) = every working into X — everything at or below X.", "abstract": "Hom(−, X) : the set of arrows into X." },
+  "leftLabel": { "data": "Tier", "alchemy": "Grade", "spellcraft": "Rank", "abstract": "Object X" },
+  "rightLabel": { "data": "What maps into it — Hom(−, X)", "alchemy": "What maps in", "spellcraft": "What maps in", "abstract": "Hom(−, X)" },
+  "left": [
+    { "id": "l-basic", "label": { "data": "Basic", "alchemy": "Lead", "spellcraft": "Apprentice", "abstract": "A" }, "sub": { "data": "the lowest tier", "alchemy": "the lowest grade", "spellcraft": "the lowest rank", "abstract": "least" } },
+    { "id": "l-plus", "label": { "data": "Plus", "alchemy": "Silver", "spellcraft": "Adept", "abstract": "B" }, "sub": { "data": "the middle tier", "alchemy": "the middle grade", "spellcraft": "the middle rank", "abstract": "middle" } },
+    { "id": "l-premium", "label": { "data": "Premium", "alchemy": "Gold", "spellcraft": "Archmage", "abstract": "C" }, "sub": { "data": "the top tier", "alchemy": "the top grade", "spellcraft": "the top rank", "abstract": "greatest" } }
+  ],
+  "right": [
+    { "id": "r-three", "label": { "data": "All three map in", "alchemy": "All three map in", "spellcraft": "All three map in", "abstract": "{A→, B→, C→}" }, "sub": { "data": "Basic, Plus, and Premium → it", "alchemy": "Lead, Silver, and Gold → it", "spellcraft": "Apprentice, Adept, Archmage → it", "abstract": "everything maps in" } },
+    { "id": "r-bad", "label": { "data": "The top maps in, but not the bottom", "alchemy": "The top maps in, but not the bottom", "spellcraft": "The top maps in, but not the bottom", "abstract": "{C→, not A→}" }, "sub": { "data": "impossible in a ranking", "alchemy": "impossible in a ranking", "spellcraft": "impossible in a ranking", "abstract": "not realizable" } },
+    { "id": "r-one", "label": { "data": "Only itself maps in", "alchemy": "Only itself maps in", "spellcraft": "Only itself maps in", "abstract": "{A→}" }, "sub": { "data": "just the identity", "alchemy": "just the identity", "spellcraft": "just the identity", "abstract": "id only" } },
+    { "id": "r-two", "label": { "data": "The bottom two map in", "alchemy": "The bottom two map in", "spellcraft": "The bottom two map in", "abstract": "{A→, B→}" }, "sub": { "data": "Basic and Plus → it", "alchemy": "Lead and Silver → it", "spellcraft": "Apprentice and Adept → it", "abstract": "least two map in" } }
+  ],
+  "solution": { "l-basic": "r-one", "l-plus": "r-two", "l-premium": "r-three" },
+  "reveal": {
+    "afterSuccess": {
+      "data": "You told the three tiers apart using nothing but the arrows into them. Premium is exactly 'the thing everything maps into'; Basic is 'the thing only it maps into'. That profile — Hom(−, X), every arrow into X — is the REPRESENTABLE functor of X, and it pins the object down completely. The impossible profile had no object, because no object in a ranking has it.",
+      "alchemy": "You told the grades apart using only the processes into them. That profile — Hom(−, X) — is the representable functor of X, and it pins the grade down completely.",
+      "spellcraft": "You told the ranks apart using only the workings into them. That profile — Hom(−, X) — is the representable functor of X, and it pins the rank down completely.",
+      "abstract": "Each object X is identified by Hom(−, X), its representable functor. Distinct objects in the chain have distinct hom-sets-of-incoming-arrows; the non-realizable profile names no object."
+    },
+    "summary": "The representable functor Hom(−, X) records every arrow into X — an object's complete fingerprint. An object is known by the arrows into it; that is the idea the Yoneda lemma makes exact.",
+    "notation": ["Hom(−, X)", "Hom(W, X) = arrows W → X"],
+    "programmerAnalogy": "A value identified by everything that can produce it — its full set of constructors."
+  },
+  "glossaryUnlocks": ["representable"]
+}

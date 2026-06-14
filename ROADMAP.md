@@ -138,8 +138,10 @@ arrows on the left with arrows on the right — **the one new mechanic**, shared
 `chapter-11-yoneda` · concepts: `representable`, `yoneda`
 The iconic finale: an object is completely determined by the maps into it — `Hom(−, A)` — and the
 Yoneda lemma `Nat(Hom(−,A), F) ≅ F(A)`. Ties back to Chapter 3 (same arrows ⟹ isomorphic).
-Puzzles: *Know It By Its Arrows*, *The Yoneda Bijection*, *Same Arrows ⟹ Isomorphic*. Engine:
-reuses the bijection-matching board from Chapter 10.
+Puzzles: *Known by Its Arrows* (match each object to its incoming-arrow fingerprint `Hom(−, X)`,
+with an impossible-in-a-ranking distractor) and *The Yoneda Lemma* (match representable / lemma /
+embedding to their precise statements, leaving the "all objects are equal" misconception unpaired).
+Engine: reuses the bijection-matching board from Chapter 10.
 
 | Ch | Concept | Reuses | New engine | Status |
 |---|---|---|---|---|
@@ -147,7 +149,7 @@ reuses the bijection-matching board from Chapter 10.
 | 8 | limits | standard board + `required-output` | none | ✅ done |
 | 9 | functor categories | NT board + composition table | (authored composite tables) | ✅ done |
 | 10 | adjunctions | new matching board | bijection-matching board ✅ | ✅ done |
-| 11 | Yoneda | bijection-matching board | none | 🔜 next |
+| 11 | Yoneda | bijection-matching board | none | ✅ done |
 
 Each new glossary term also gets two theme-aware Quiz questions, keeping the "2 per term" contract.
 

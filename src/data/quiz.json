@@ -1099,6 +1099,94 @@
         "spellcraft": "The triangle identities: (εF)∘(Fη) = id and (Gε)∘(ηG) = id — they make η and ε coherent.",
         "abstract": "The triangle identities: (εF)∘(Fη) = id and (Gε)∘(ηG) = id — they make η and ε coherent."
       }
+    },
+    {
+      "id": "q-representable-1",
+      "termId": "representable",
+      "prompt": {
+        "data": "Recording every arrow INTO an object A — its complete profile of incoming maps, Hom(−, A) — is which idea?",
+        "alchemy": "Recording every process that turns into A — its complete profile of incoming steps — is which idea?",
+        "spellcraft": "Recording every working that becomes A — its complete profile of incoming workings — is which idea?",
+        "abstract": "The functor Hom(−, A) : C^op → Set, sending X to Hom(X, A), is which idea?"
+      },
+      "options": [
+        { "text": "Representable functor", "correct": true },
+        { "text": "Adjunction", "correct": false },
+        { "text": "Product", "correct": false },
+        { "text": "Monad", "correct": false }
+      ],
+      "explanation": {
+        "data": "Hom(−, A) — the representable functor — is an object's complete fingerprint of incoming arrows.",
+        "alchemy": "Hom(−, A) — the representable functor — is an object's complete fingerprint of incoming arrows.",
+        "spellcraft": "Hom(−, A) — the representable functor — is an object's complete fingerprint of incoming arrows.",
+        "abstract": "Hom(−, A) — the representable functor — is an object's complete fingerprint of incoming arrows."
+      }
+    },
+    {
+      "id": "q-representable-2",
+      "termId": "representable",
+      "prompt": {
+        "data": "Two objects with the same fingerprint, Hom(−, A) ≅ Hom(−, B), are…",
+        "alchemy": "Two objects with the same fingerprint, Hom(−, A) ≅ Hom(−, B), are…",
+        "spellcraft": "Two objects with the same fingerprint, Hom(−, A) ≅ Hom(−, B), are…",
+        "abstract": "Two objects with the same fingerprint, Hom(−, A) ≅ Hom(−, B), are…"
+      },
+      "options": [
+        { "text": "isomorphic — the same up to renaming", "correct": true },
+        { "text": "always literally equal", "correct": false },
+        { "text": "never related", "correct": false },
+        { "text": "a product of each other", "correct": false }
+      ],
+      "explanation": {
+        "data": "Same fingerprint ⟹ isomorphic — a corollary of the Yoneda embedding (back to Chapter 3's isomorphism).",
+        "alchemy": "Same fingerprint ⟹ isomorphic — a corollary of the Yoneda embedding (back to Chapter 3's isomorphism).",
+        "spellcraft": "Same fingerprint ⟹ isomorphic — a corollary of the Yoneda embedding (back to Chapter 3's isomorphism).",
+        "abstract": "Same fingerprint ⟹ isomorphic — a corollary of the Yoneda embedding (back to Chapter 3's isomorphism)."
+      }
+    },
+    {
+      "id": "q-yoneda-1",
+      "termId": "yoneda",
+      "prompt": {
+        "data": "The principle that a whole uniform family of choices — one for every arrow into A — is pinned down by a SINGLE value is which idea?",
+        "alchemy": "The principle that a whole uniform family of choices over incoming processes is pinned down by a single value is which idea?",
+        "spellcraft": "The principle that a whole uniform family of choices over incoming workings is pinned down by a single value is which idea?",
+        "abstract": "The natural isomorphism Nat(Hom(−,A), F) ≅ F(A) is which idea?"
+      },
+      "options": [
+        { "text": "The Yoneda lemma", "correct": true },
+        { "text": "An adjunction", "correct": false },
+        { "text": "A pullback", "correct": false },
+        { "text": "A coproduct", "correct": false }
+      ],
+      "explanation": {
+        "data": "The Yoneda lemma: Nat(Hom(−,A), F) ≅ F(A), the bijection sending α to α_A(id_A).",
+        "alchemy": "The Yoneda lemma: Nat(Hom(−,A), F) ≅ F(A), the bijection sending α to α_A(id_A).",
+        "spellcraft": "The Yoneda lemma: Nat(Hom(−,A), F) ≅ F(A), the bijection sending α to α_A(id_A).",
+        "abstract": "The Yoneda lemma: Nat(Hom(−,A), F) ≅ F(A), the bijection sending α to α_A(id_A)."
+      }
+    },
+    {
+      "id": "q-yoneda-2",
+      "termId": "yoneda",
+      "prompt": {
+        "data": "The Yoneda embedding C ↪ [C^op, Set] is full and faithful, which means…",
+        "alchemy": "The Yoneda embedding C ↪ [C^op, Set] is full and faithful, which means…",
+        "spellcraft": "The Yoneda embedding C ↪ [C^op, Set] is full and faithful, which means…",
+        "abstract": "The Yoneda embedding C ↪ [C^op, Set] is full and faithful, which means…"
+      },
+      "options": [
+        { "text": "an object is completely determined by its arrows", "correct": true },
+        { "text": "every functor has an inverse", "correct": false },
+        { "text": "all objects are isomorphic", "correct": false },
+        { "text": "composition becomes commutative", "correct": false }
+      ],
+      "explanation": {
+        "data": "Full & faithful: Hom(−, A) faithfully represents A — 'you are who you know'.",
+        "alchemy": "Full & faithful: Hom(−, A) faithfully represents A — 'you are who you know'.",
+        "spellcraft": "Full & faithful: Hom(−, A) faithfully represents A — 'you are who you know'.",
+        "abstract": "Full & faithful: Hom(−, A) faithfully represents A — 'you are who you know'."
+      }
     }
   ]
 }
