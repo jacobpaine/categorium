@@ -36,6 +36,21 @@ test('a player can build a natural transformation (Chapter 6)', async ({ page })
   await expect(page.getByText('What you learned')).toBeVisible();
 });
 
+test('hovering a component chip explains what it does', async ({ page }) => {
+  await page.goto('/?debug=true');
+  await page.getByTestId('theme-data').click();
+  await page.getByTestId('puzzle-link-puzzle-21').click();
+  const chip = page.locator('.react-flow__node[data-id="target:morphism:d-shA"]');
+  await expect(chip).toBeVisible();
+  await page.waitForTimeout(400);
+
+  const card = chip.getByRole('tooltip');
+  await expect(card).toBeHidden();
+  await chip.hover();
+  await expect(card).toBeVisible();
+  await expect(card).toContainText('first element');
+});
+
 test('an incomplete transformation is rejected', async ({ page }) => {
   await page.goto('/?debug=true');
   await page.getByTestId('theme-data').click();

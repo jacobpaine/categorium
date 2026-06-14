@@ -43,6 +43,21 @@ test('walkthrough: solving the first step advances to the next', async ({ page }
   await expect(page.getByTestId('tour-progress')).toHaveText('Step 2 of 5');
 });
 
+test('toggling formal labels shows them immediately, without a reset', async ({ page }) => {
+  await page.goto('/intro');
+  const node = page.locator('.react-flow__node[data-id="n-a"]');
+  await expect(node).toBeVisible();
+  await page.waitForTimeout(400);
+
+  // The formal label badge ("A") is hidden until the toggle is on.
+  await expect(node.getByText('A', { exact: true })).toHaveCount(0);
+  await page.getByLabel('Formal labels').check();
+  await expect(node.getByText('A', { exact: true })).toBeVisible();
+  // And turning it back off hides them again — all live, no remount.
+  await page.getByLabel('Formal labels').uncheck();
+  await expect(node.getByText('A', { exact: true })).toHaveCount(0);
+});
+
 test('hovering an element reveals what it represents', async ({ page }) => {
   await page.goto('/intro');
   const machine = page.locator('.react-flow__node[data-id="n-f"]');
