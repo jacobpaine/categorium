@@ -1,0 +1,80 @@
+{
+  "status": "authored",
+  "id": "puzzle-m3",
+  "chapterId": "chapter-07-monads",
+  "order": 27,
+  "title": { "data": "Chain with Bind", "alchemy": "Chain with Bind", "spellcraft": "Chain with Bind", "abstract": "Bind" },
+  "conceptTags": ["bind", "composition"],
+  "intro": {
+    "data": "Look up a user's email, then look up that email's host. Each lookup returns a BOX (it might fail). 'bind' chains them: run the first, then feed its contents into the next, flattening the result. Pick the honest lookup (one fabricates an email) and the bind that truly works on what's in the box (one ignores it). Build the chain that finds the real host.",
+    "alchemy": "Distill a herb into its essence, then distill that essence into its salt. Each step returns a VIAL (it might come up empty). 'bind' chains them: run the first, feed its contents into the next, merging the result. Pick the honest step (one invents an essence) and the bind that works on the real contents. Build the chain to the true salt.",
+    "spellcraft": "Divine a rune's omen, then divine that omen's sign. Each step returns a CHARM (it might fizzle). 'bind' chains them: run the first, feed its contents into the next, merging the result. Pick the honest step (one invents an omen) and the bind that works on the real contents. Build the chain to the true sign.",
+    "abstract": "Compose two Kleisli arrows f : A → T(B) and (bind g) : T(B) → T(C). Pick the faithful f and the faithful bind so the value reaches the goal in T(C). Impostors fabricate or ignore the box's contents."
+  },
+  "goal": { "data": "Chain the two lookups so a user reaches the real host.", "alchemy": "Chain the two steps so a herb reaches the true salt.", "spellcraft": "Chain the two steps so a rune reaches the true sign.", "abstract": "Reach the goal value in T(C) via f then bind g." },
+  "objects": [
+    { "id": "obj-a", "formalLabel": "A", "labels": { "data": "User", "alchemy": "Herb", "spellcraft": "Rune", "abstract": "A" }, "description": { "data": "a user to look things up about", "alchemy": "a herb to distil", "spellcraft": "a rune to divine", "abstract": "object A" }, "colorToken": "sky" },
+    { "id": "obj-tb", "formalLabel": "T(B)", "labels": { "data": "Maybe Email", "alchemy": "Vial of Essence", "spellcraft": "Charm of Omen", "abstract": "T(B)" }, "description": { "data": "a box that holds an email, or nothing", "alchemy": "a vial that holds an essence, or empty", "spellcraft": "a charm that holds an omen, or dark", "abstract": "T(B)" }, "colorToken": "amber" },
+    { "id": "obj-tc", "formalLabel": "T(C)", "labels": { "data": "Maybe Host", "alchemy": "Vial of Salt", "spellcraft": "Charm of Sign", "abstract": "T(C)" }, "description": { "data": "a box that holds a host, or nothing", "alchemy": "a vial that holds a salt, or empty", "spellcraft": "a charm that holds a sign, or dark", "abstract": "T(C)" }, "colorToken": "emerald" }
+  ],
+  "morphisms": [
+    { "id": "mor-f", "formalLabel": "f", "sourceObjectId": "obj-a", "targetObjectId": "obj-tb", "labels": { "data": "Look Up Email", "alchemy": "Distil Essence", "spellcraft": "Divine Omen", "abstract": "f" }, "description": { "data": "looks up the real email — returns a box", "alchemy": "distils the real essence — returns a vial", "spellcraft": "divines the real omen — returns a charm", "abstract": "f : A → T(B)" }, "action": { "v-a": "v-jb" } },
+    { "id": "mor-fbad", "formalLabel": "f?", "sourceObjectId": "obj-a", "targetObjectId": "obj-tb", "labels": { "data": "Guess Email", "alchemy": "Invent Essence", "spellcraft": "Fake Omen", "abstract": "f?" }, "description": { "data": "same type, but fabricates a wrong email", "alchemy": "same type, but invents a wrong essence", "spellcraft": "same type, but fakes a wrong omen", "abstract": "A → T(B), but wrong" }, "action": { "v-a": "v-jbx" } },
+    { "id": "mor-bind", "formalLabel": "bind g", "sourceObjectId": "obj-tb", "targetObjectId": "obj-tc", "labels": { "data": "Then Look Up Host", "alchemy": "Then Distil Salt", "spellcraft": "Then Divine Sign", "abstract": "bind g" }, "description": { "data": "runs the next lookup on the email inside the box, flattening the result", "alchemy": "runs the next step on the essence inside the vial, merging the result", "spellcraft": "runs the next step on the omen inside the charm, merging the result", "abstract": "bind g : T(B) → T(C)" }, "action": { "v-jb": "v-jc", "v-jbx": "v-jcx" } },
+    { "id": "mor-bindbad", "formalLabel": "bind?", "sourceObjectId": "obj-tb", "targetObjectId": "obj-tc", "labels": { "data": "Ignore the Box", "alchemy": "Ignore the Vial", "spellcraft": "Ignore the Charm", "abstract": "bind?" }, "description": { "data": "same type, but ignores what's in the box and returns a wrong host", "alchemy": "same type, but ignores the vial's contents", "spellcraft": "same type, but ignores the charm's contents", "abstract": "T(B) → T(C), but ignores the contents" }, "action": { "v-jb": "v-jcx", "v-jbx": "v-jcx" } }
+  ],
+  "samples": [
+    { "id": "v-a", "objectId": "obj-a", "labels": { "data": "a user", "alchemy": "a herb", "spellcraft": "a rune", "abstract": "a" } },
+    { "id": "v-jb", "objectId": "obj-tb", "labels": { "data": "Just the real email", "alchemy": "a vial of true essence", "spellcraft": "a charm of true omen", "abstract": "T(b)" } },
+    { "id": "v-jbx", "objectId": "obj-tb", "labels": { "data": "Just a fake email", "alchemy": "a vial of fake essence", "spellcraft": "a charm of fake omen", "abstract": "T(b?)" } },
+    { "id": "v-jc", "objectId": "obj-tc", "labels": { "data": "Just the real host", "alchemy": "a vial of true salt", "spellcraft": "a charm of true sign", "abstract": "T(c)" } },
+    { "id": "v-jcx", "objectId": "obj-tc", "labels": { "data": "Just a wrong host", "alchemy": "a vial of wrong salt", "spellcraft": "a charm of wrong sign", "abstract": "T(c?)" } }
+  ],
+  "initialGraph": {
+    "nodes": [
+      { "kind": "object", "nodeId": "n-a", "objectId": "obj-a", "role": "start", "position": { "x": 40, "y": 200 } },
+      { "kind": "morphism", "nodeId": "n-f", "morphismId": "mor-f", "position": { "x": 280, "y": 90 } },
+      { "kind": "morphism", "nodeId": "n-fbad", "morphismId": "mor-fbad", "position": { "x": 280, "y": 320 } },
+      { "kind": "object", "nodeId": "n-tb", "objectId": "obj-tb", "position": { "x": 540, "y": 200 } },
+      { "kind": "morphism", "nodeId": "n-bind", "morphismId": "mor-bind", "position": { "x": 800, "y": 90 } },
+      { "kind": "morphism", "nodeId": "n-bindbad", "morphismId": "mor-bindbad", "position": { "x": 800, "y": 320 } },
+      { "kind": "object", "nodeId": "n-tc", "objectId": "obj-tc", "role": "goal", "position": { "x": 1060, "y": 200 } }
+    ],
+    "edges": []
+  },
+  "allowedMorphismIds": ["mor-f", "mor-fbad", "mor-bind", "mor-bindbad"],
+  "validation": [
+    { "type": "type-valid-wiring" },
+    { "type": "concept-tag-required", "conceptTag": "composition" },
+    { "type": "required-output", "inputValueId": "v-a", "outputValueId": "v-jc" }
+  ],
+  "reveal": {
+    "afterSuccess": {
+      "data": "You chained two box-returning lookups with bind: it ran the second lookup on the email INSIDE the box, then flattened the result, so the user reached the real host. The impostors fabricated an email or ignored the box's contents — same types, wrong behavior.",
+      "alchemy": "You chained two vial-returning steps with bind: it worked on the essence INSIDE the vial, then merged the result. The impostors invented contents or ignored them.",
+      "spellcraft": "You chained two charm-returning steps with bind: it worked on the omen INSIDE the charm, then merged the result. The impostors faked contents or ignored them.",
+      "abstract": "f : A → T(B) then bind g : T(B) → T(C) composed the two Kleisli arrows; bind = join ∘ T(g) runs g on the contents and flattens."
+    },
+    "summary": "bind chains a step that returns a box: bind : T(A) → (A → T(B)) → T(B). It maps the step over the box, then flattens (join). Chaining such steps is composition in the 'Kleisli' world of effectful arrows A → T(B).",
+    "notation": ["bind : T(A) → (A → T(B)) → T(B)", "bind g = join ∘ T(g)"],
+    "programmerAnalogy": "user.flatMap(getEmail).flatMap(getHost) — chaining steps that each return an Optional."
+  },
+  "glossaryUnlocks": ["bind"],
+  "referenceSolution": {
+    "nodes": [
+      { "kind": "object", "nodeId": "n-a", "objectId": "obj-a", "role": "start", "position": { "x": 40, "y": 200 } },
+      { "kind": "morphism", "nodeId": "n-f", "morphismId": "mor-f", "position": { "x": 280, "y": 90 } },
+      { "kind": "morphism", "nodeId": "n-fbad", "morphismId": "mor-fbad", "position": { "x": 280, "y": 320 } },
+      { "kind": "object", "nodeId": "n-tb", "objectId": "obj-tb", "position": { "x": 540, "y": 200 } },
+      { "kind": "morphism", "nodeId": "n-bind", "morphismId": "mor-bind", "position": { "x": 800, "y": 90 } },
+      { "kind": "morphism", "nodeId": "n-bindbad", "morphismId": "mor-bindbad", "position": { "x": 800, "y": 320 } },
+      { "kind": "object", "nodeId": "n-tc", "objectId": "obj-tc", "role": "goal", "position": { "x": 1060, "y": 200 } }
+    ],
+    "edges": [
+      { "id": "e1", "sourceNodeId": "n-a", "targetNodeId": "n-f" },
+      { "id": "e2", "sourceNodeId": "n-f", "targetNodeId": "n-tb" },
+      { "id": "e3", "sourceNodeId": "n-tb", "targetNodeId": "n-bind" },
+      { "id": "e4", "sourceNodeId": "n-bind", "targetNodeId": "n-tc" }
+    ]
+  }
+}

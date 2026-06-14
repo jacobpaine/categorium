@@ -22,7 +22,10 @@ export type ConceptTag =
   | 'functor'
   | 'product'
   | 'coproduct'
-  | 'natural-transformation';
+  | 'natural-transformation'
+  | 'monad'
+  | 'return'
+  | 'bind';
 
 export const CONCEPT_TAGS: readonly ConceptTag[] = [
   'object',
@@ -38,6 +41,9 @@ export const CONCEPT_TAGS: readonly ConceptTag[] = [
   'product',
   'coproduct',
   'natural-transformation',
+  'monad',
+  'return',
+  'bind',
 ];
 
 /**

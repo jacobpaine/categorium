@@ -571,6 +571,138 @@
         "spellcraft": "Correct types aren't enough — α_B ∘ F(f) = G(f) ∘ α_A must hold for every f.",
         "abstract": "Correct types aren't enough — α_B ∘ F(f) = G(f) ∘ α_A must hold for every f."
       }
+    },
+    {
+      "id": "q-return-1",
+      "termId": "return",
+      "prompt": {
+        "data": "Turning a value x into 'Just x' — a box that definitely holds it — is which operation?",
+        "alchemy": "Sealing a single material into a vial, untouched, is which operation?",
+        "spellcraft": "Binding a single essence into a charm, untouched, is which operation?",
+        "abstract": "η_A : A → T(A), injecting a value as trivial T-structure, is which operation?"
+      },
+      "options": [
+        { "text": "Return (unit)", "correct": true },
+        { "text": "Bind", "correct": false },
+        { "text": "Functor", "correct": false },
+        { "text": "Composition", "correct": false }
+      ],
+      "explanation": {
+        "data": "Return (unit) puts a plain value into the box: η : A → T(A).",
+        "alchemy": "Return (unit) puts a plain value into the box: η : A → T(A).",
+        "spellcraft": "Return (unit) puts a plain value into the box: η : A → T(A).",
+        "abstract": "Return (unit) puts a plain value into the box: η : A → T(A)."
+      }
+    },
+    {
+      "id": "q-return-2",
+      "termId": "return",
+      "prompt": {
+        "data": "What does return (unit) do?",
+        "alchemy": "What does return (unit) do?",
+        "spellcraft": "What does return (unit) do?",
+        "abstract": "What does return (unit) do?"
+      },
+      "options": [
+        { "text": "puts a plain value into the box, trivially", "correct": true },
+        { "text": "flattens a doubly-boxed value", "correct": false },
+        { "text": "undoes a process", "correct": false },
+        { "text": "bundles two values together", "correct": false }
+      ],
+      "explanation": {
+        "data": "return : A → T(A). Flattening a nested box is join (part of bind).",
+        "alchemy": "return : A → T(A). Flattening a nested box is join (part of bind).",
+        "spellcraft": "return : A → T(A). Flattening a nested box is join (part of bind).",
+        "abstract": "return : A → T(A). Flattening a nested box is join (part of bind)."
+      }
+    },
+    {
+      "id": "q-bind-1",
+      "termId": "bind",
+      "prompt": {
+        "data": "Chaining lookups that might fail — where one failure makes the whole chain fail — uses which operation?",
+        "alchemy": "Pouring a vial through steps that each return a vial, where an empty step empties the chain, uses which operation?",
+        "spellcraft": "Weaving a charm through workings that each return a charm, where a fizzle fizzles the chain, uses which operation?",
+        "abstract": "Sequencing T(A) → (A → T(B)) → T(B) is which operation?"
+      },
+      "options": [
+        { "text": "Bind", "correct": true },
+        { "text": "Return (unit)", "correct": false },
+        { "text": "Identity", "correct": false },
+        { "text": "Product", "correct": false }
+      ],
+      "explanation": {
+        "data": "Bind chains a step that returns a box, flattening: T(A) → (A → T(B)) → T(B).",
+        "alchemy": "Bind chains a step that returns a box, flattening: T(A) → (A → T(B)) → T(B).",
+        "spellcraft": "Bind chains a step that returns a box, flattening: T(A) → (A → T(B)) → T(B).",
+        "abstract": "Bind chains a step that returns a box, flattening: T(A) → (A → T(B)) → T(B)."
+      }
+    },
+    {
+      "id": "q-bind-2",
+      "termId": "bind",
+      "prompt": {
+        "data": "Bind is the same as…",
+        "alchemy": "Bind is the same as…",
+        "spellcraft": "Bind is the same as…",
+        "abstract": "Bind is the same as…"
+      },
+      "options": [
+        { "text": "mapping the step over the box, then flattening the nesting (join)", "correct": true },
+        { "text": "wrapping a value once", "correct": false },
+        { "text": "reversing a process", "correct": false },
+        { "text": "picking one of two cases", "correct": false }
+      ],
+      "explanation": {
+        "data": "bind g = join ∘ T(g): map the step over the box, then flatten the nested box.",
+        "alchemy": "bind g = join ∘ T(g): map the step over the box, then flatten the nested box.",
+        "spellcraft": "bind g = join ∘ T(g): map the step over the box, then flatten the nested box.",
+        "abstract": "bind g = join ∘ T(g): map the step over the box, then flatten the nested box."
+      }
+    },
+    {
+      "id": "q-monad-1",
+      "termId": "monad",
+      "prompt": {
+        "data": "Optional — a box you can put values into (return) and chain failing steps through (bind) — is an example of which idea?",
+        "alchemy": "A vial type you can fill (return) and pour through steps (bind) is an example of which idea?",
+        "spellcraft": "A charm type you can fill (return) and weave through workings (bind) is an example of which idea?",
+        "abstract": "An endofunctor T with return (η) and join (μ) obeying the unit and associativity laws is which idea?"
+      },
+      "options": [
+        { "text": "Monad", "correct": true },
+        { "text": "Functor", "correct": false },
+        { "text": "Natural transformation", "correct": false },
+        { "text": "Coproduct", "correct": false }
+      ],
+      "explanation": {
+        "data": "A monad is a functor with return and bind/join, for chaining structured steps.",
+        "alchemy": "A monad is a functor with return and bind/join, for chaining structured steps.",
+        "spellcraft": "A monad is a functor with return and bind/join, for chaining structured steps.",
+        "abstract": "A monad is a functor with return and bind/join, for chaining structured steps."
+      }
+    },
+    {
+      "id": "q-monad-2",
+      "termId": "monad",
+      "prompt": {
+        "data": "A monad is built from…",
+        "alchemy": "A monad is built from…",
+        "spellcraft": "A monad is built from…",
+        "abstract": "A monad is built from…"
+      },
+      "options": [
+        { "text": "a functor plus return and bind/join, obeying laws", "correct": true },
+        { "text": "two objects bundled with projections", "correct": false },
+        { "text": "a reversible process and its inverse", "correct": false },
+        { "text": "a single object with one arrow into it", "correct": false }
+      ],
+      "explanation": {
+        "data": "Monad = endofunctor T + η (return) + μ (join), satisfying the unit and associativity laws.",
+        "alchemy": "Monad = endofunctor T + η (return) + μ (join), satisfying the unit and associativity laws.",
+        "spellcraft": "Monad = endofunctor T + η (return) + μ (join), satisfying the unit and associativity laws.",
+        "abstract": "Monad = endofunctor T + η (return) + μ (join), satisfying the unit and associativity laws."
+      }
     }
   ]
 }

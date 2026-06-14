@@ -1,0 +1,66 @@
+{
+  "status": "authored",
+  "id": "puzzle-m1",
+  "chapterId": "chapter-07-monads",
+  "order": 25,
+  "title": { "data": "Wrap It", "alchemy": "Wrap It", "spellcraft": "Wrap It", "abstract": "Return (unit)" },
+  "conceptTags": ["return"],
+  "intro": {
+    "data": "A Maybe is a box that holds a value or nothing. The most basic move is 'return': take a plain value and wrap it as a box that DEFINITELY holds it (Just the value). One machine does that; the other drops the value and hands back an empty box. Build the faithful return.",
+    "alchemy": "A Vial holds one material or is empty. The most basic move is to Seal: take a material and put it in a vial that DEFINITELY holds it. One apparatus does that; the other spills it and hands back an empty vial. Build the faithful seal.",
+    "spellcraft": "A Charm holds one essence or is dark. The most basic move is to Inscribe: take an essence and bind it into a charm that DEFINITELY holds it. One rune does that; the other lets it fizzle into a dark charm. Build the faithful inscribe.",
+    "abstract": "return (η : A → T(A)) injects a value as the trivial box around it. One candidate is η; the other sends the value to the empty box. Build η."
+  },
+  "goal": { "data": "Wrap the user into a box that holds it (Just the user).", "alchemy": "Seal the herb into a vial that holds it.", "spellcraft": "Inscribe the rune into a charm that holds it.", "abstract": "Send the value to T(A) as η(a)." },
+  "objects": [
+    { "id": "obj-a", "formalLabel": "A", "labels": { "data": "User", "alchemy": "Herb", "spellcraft": "Rune", "abstract": "A" }, "description": { "data": "a plain value, not yet boxed", "alchemy": "a plain material, not yet sealed", "spellcraft": "a plain essence, not yet bound", "abstract": "object A" }, "colorToken": "sky" },
+    { "id": "obj-ta", "formalLabel": "T(A)", "labels": { "data": "Maybe User", "alchemy": "Vial of Herb", "spellcraft": "Charm of Rune", "abstract": "T(A)" }, "description": { "data": "a box that holds a user, or nothing", "alchemy": "a vial that holds a herb, or is empty", "spellcraft": "a charm that holds a rune, or is dark", "abstract": "T(A) — A wrapped by the monad" }, "colorToken": "emerald" }
+  ],
+  "morphisms": [
+    { "id": "mor-return", "formalLabel": "η", "sourceObjectId": "obj-a", "targetObjectId": "obj-ta", "labels": { "data": "return", "alchemy": "Seal", "spellcraft": "Inscribe", "abstract": "η" }, "description": { "data": "wraps the value as a box that holds it (Just)", "alchemy": "seals the material into a full vial", "spellcraft": "binds the essence into a holding charm", "abstract": "η : A → T(A), the unit" }, "action": { "v-a": "v-just" } },
+    { "id": "mor-drop", "formalLabel": "η?", "sourceObjectId": "obj-a", "targetObjectId": "obj-ta", "labels": { "data": "Drop", "alchemy": "Spill", "spellcraft": "Fizzle", "abstract": "η?" }, "description": { "data": "same type, but throws the value away — an empty box", "alchemy": "same type, but spills it — an empty vial", "spellcraft": "same type, but lets it fizzle — a dark charm", "abstract": "A → T(A), but sends a to the empty box" }, "action": { "v-a": "v-none" } }
+  ],
+  "samples": [
+    { "id": "v-a", "objectId": "obj-a", "labels": { "data": "a user", "alchemy": "a herb", "spellcraft": "a rune", "abstract": "a" } },
+    { "id": "v-just", "objectId": "obj-ta", "labels": { "data": "Just the user", "alchemy": "a sealed vial of herb", "spellcraft": "a charm holding the rune", "abstract": "η(a)" } },
+    { "id": "v-none", "objectId": "obj-ta", "labels": { "data": "Nothing", "alchemy": "an empty vial", "spellcraft": "a dark charm", "abstract": "∅" } }
+  ],
+  "initialGraph": {
+    "nodes": [
+      { "kind": "object", "nodeId": "n-a", "objectId": "obj-a", "role": "start", "position": { "x": 40, "y": 180 } },
+      { "kind": "morphism", "nodeId": "n-return", "morphismId": "mor-return", "position": { "x": 330, "y": 90 } },
+      { "kind": "morphism", "nodeId": "n-drop", "morphismId": "mor-drop", "position": { "x": 330, "y": 270 } },
+      { "kind": "object", "nodeId": "n-ta", "objectId": "obj-ta", "role": "goal", "position": { "x": 640, "y": 180 } }
+    ],
+    "edges": []
+  },
+  "allowedMorphismIds": ["mor-return", "mor-drop"],
+  "validation": [
+    { "type": "type-valid-wiring" },
+    { "type": "required-output", "inputValueId": "v-a", "outputValueId": "v-just" }
+  ],
+  "reveal": {
+    "afterSuccess": {
+      "data": "'return' wrapped the user into a box that holds it — Just the user. It's the most trivial way to put a value into the monad: no processing, just packaging. The 'Drop' look-alike had the right type but threw the value away.",
+      "alchemy": "'Seal' put the herb into a full vial — the most trivial way to box it. The 'Spill' look-alike had the right type but emptied it.",
+      "spellcraft": "'Inscribe' bound the rune into a holding charm — the most trivial way to box it. The 'Fizzle' look-alike had the right type but lost it.",
+      "abstract": "η : A → T(A) injects a value as the trivial T-structure around it — the unit of the monad."
+    },
+    "summary": "return (the unit η : A → T(A)) puts a plain value into the box in the most trivial way — no effect, just packaging. It's one of the two pieces of a monad.",
+    "notation": ["η : Id ⇒ T", "η_A : A → T(A)"],
+    "programmerAnalogy": "return / pure / Some : (x: A) => T<A>."
+  },
+  "glossaryUnlocks": ["return"],
+  "referenceSolution": {
+    "nodes": [
+      { "kind": "object", "nodeId": "n-a", "objectId": "obj-a", "role": "start", "position": { "x": 40, "y": 180 } },
+      { "kind": "morphism", "nodeId": "n-return", "morphismId": "mor-return", "position": { "x": 330, "y": 90 } },
+      { "kind": "morphism", "nodeId": "n-drop", "morphismId": "mor-drop", "position": { "x": 330, "y": 270 } },
+      { "kind": "object", "nodeId": "n-ta", "objectId": "obj-ta", "role": "goal", "position": { "x": 640, "y": 180 } }
+    ],
+    "edges": [
+      { "id": "e1", "sourceNodeId": "n-a", "targetNodeId": "n-return" },
+      { "id": "e2", "sourceNodeId": "n-return", "targetNodeId": "n-ta" }
+    ]
+  }
+}

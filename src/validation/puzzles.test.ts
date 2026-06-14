@@ -248,3 +248,28 @@ describe('capstones — the harder end-of-chapter puzzles really resist shortcut
     if (!res.ok) expect(res.firstFailure.rule.type).toBe('required-output');
   });
 });
+
+describe('chapter 7 — monads (return, join, bind, short-circuit)', () => {
+  it('m1: return wraps the value; Drop (empty box) is rejected', () => {
+    expect(validatePuzzle(toValidationInput(getPuzzle('puzzle-m1') as never), wire('puzzle-m1', [['n-a', 'n-return'], ['n-return', 'n-ta']])).ok).toBe(true);
+    const drop = validatePuzzle(toValidationInput(getPuzzle('puzzle-m1') as never), wire('puzzle-m1', [['n-a', 'n-drop'], ['n-drop', 'n-ta']]));
+    expect(drop.ok).toBe(false);
+    if (!drop.ok) expect(drop.firstFailure.rule.type).toBe('required-output');
+  });
+
+  it('m3: chaining the honest lookup + faithful bind reaches the host; impostors do not', () => {
+    expect(validatePuzzle(toValidationInput(getPuzzle('puzzle-m3') as never), wire('puzzle-m3', [['n-a', 'n-f'], ['n-f', 'n-tb'], ['n-tb', 'n-bind'], ['n-bind', 'n-tc']])).ok).toBe(true);
+    const fabricated = validatePuzzle(toValidationInput(getPuzzle('puzzle-m3') as never), wire('puzzle-m3', [['n-a', 'n-fbad'], ['n-fbad', 'n-tb'], ['n-tb', 'n-bind'], ['n-bind', 'n-tc']]));
+    expect(fabricated.ok).toBe(false);
+    if (!fabricated.ok) expect(fabricated.firstFailure.rule.type).toBe('required-output');
+  });
+
+  it('m4: the honest chain short-circuits to Nothing; an inventing bind is rejected', () => {
+    const honest = wire('puzzle-m4', [['n-a', 'n-email'], ['n-email', 'n-tb'], ['n-tb', 'n-host'], ['n-host', 'n-tc'], ['n-tc', 'n-domain'], ['n-domain', 'n-td']]);
+    expect(validatePuzzle(toValidationInput(getPuzzle('puzzle-m4') as never), honest).ok).toBe(true);
+    const invents = wire('puzzle-m4', [['n-a', 'n-email'], ['n-email', 'n-tb'], ['n-tb', 'n-host'], ['n-host', 'n-tc'], ['n-tc', 'n-domainbad'], ['n-domainbad', 'n-td']]);
+    const res = validatePuzzle(toValidationInput(getPuzzle('puzzle-m4') as never), invents);
+    expect(res.ok).toBe(false);
+    if (!res.ok) expect(res.firstFailure.rule.type).toBe('required-output');
+  });
+});

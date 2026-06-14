@@ -1,0 +1,94 @@
+{
+  "status": "authored",
+  "id": "puzzle-m4",
+  "chapterId": "chapter-07-monads",
+  "order": 28,
+  "title": { "data": "The Honest Failure", "alchemy": "The Honest Failure", "spellcraft": "The Honest Failure", "abstract": "A Monadic Pipeline" },
+  "conceptTags": ["monad"],
+  "intro": {
+    "data": "A real pipeline: a user → their email → that email's host → the host's domain. Each step returns a box and might come up empty. THIS user has an email but no host on record. Built honestly with bind, the chain short-circuits: no host means no domain, so the answer is correctly Nothing. Every impostor instead fabricates data to avoid the empty result. Build the honest chain.",
+    "alchemy": "A real process: a herb → its essence → that essence's salt → the salt's crystal. Each step returns a vial and might come up empty. THIS herb yields an essence but no salt. Built honestly with bind, the chain short-circuits: no salt means no crystal — correctly an empty vial. Every impostor fabricates to avoid the empty result. Build the honest chain.",
+    "spellcraft": "A real rite: a rune → its omen → that omen's sign → the sign's fate. Each step returns a charm and might fizzle. THIS rune yields an omen but no sign. Built honestly with bind, the chain short-circuits: no sign means no fate — correctly a dark charm. Every impostor fabricates to avoid the empty result. Build the honest chain.",
+    "abstract": "Chain three Kleisli arrows with bind. For this input the middle step yields the empty box, so a faithful pipeline short-circuits to ∅ in T(D). Impostors fabricate non-empty results. Build the faithful chain to ∅."
+  },
+  "goal": { "data": "Build the chain so this user correctly comes up with no domain (Nothing).", "alchemy": "Build the chain so this herb correctly yields no crystal (an empty vial).", "spellcraft": "Build the chain so this rune correctly comes to no fate (a dark charm).", "abstract": "Reach ∅ in T(D) through the faithful chain." },
+  "objects": [
+    { "id": "obj-a", "formalLabel": "A", "labels": { "data": "User", "alchemy": "Herb", "spellcraft": "Rune", "abstract": "A" }, "description": { "data": "the user to trace", "alchemy": "the herb to trace", "spellcraft": "the rune to trace", "abstract": "object A" }, "colorToken": "sky" },
+    { "id": "obj-tb", "formalLabel": "T(B)", "labels": { "data": "Maybe Email", "alchemy": "Vial of Essence", "spellcraft": "Charm of Omen", "abstract": "T(B)" }, "description": { "data": "a box holding an email, or nothing", "alchemy": "a vial holding an essence, or empty", "spellcraft": "a charm holding an omen, or dark", "abstract": "T(B)" }, "colorToken": "amber" },
+    { "id": "obj-tc", "formalLabel": "T(C)", "labels": { "data": "Maybe Host", "alchemy": "Vial of Salt", "spellcraft": "Charm of Sign", "abstract": "T(C)" }, "description": { "data": "a box holding a host, or nothing", "alchemy": "a vial holding a salt, or empty", "spellcraft": "a charm holding a sign, or dark", "abstract": "T(C)" }, "colorToken": "violet" },
+    { "id": "obj-td", "formalLabel": "T(D)", "labels": { "data": "Maybe Domain", "alchemy": "Vial of Crystal", "spellcraft": "Charm of Fate", "abstract": "T(D)" }, "description": { "data": "a box holding a domain, or nothing", "alchemy": "a vial holding a crystal, or empty", "spellcraft": "a charm holding a fate, or dark", "abstract": "T(D)" }, "colorToken": "emerald" }
+  ],
+  "morphisms": [
+    { "id": "mor-email", "formalLabel": "f", "sourceObjectId": "obj-a", "targetObjectId": "obj-tb", "labels": { "data": "Look Up Email", "alchemy": "Distil Essence", "spellcraft": "Divine Omen", "abstract": "f" }, "description": { "data": "finds this user's email (it exists)", "alchemy": "distils this herb's essence (it exists)", "spellcraft": "divines this rune's omen (it exists)", "abstract": "A → T(B)" }, "action": { "v-a": "v-jb" } },
+    { "id": "mor-emailbad", "formalLabel": "f?", "sourceObjectId": "obj-a", "targetObjectId": "obj-tb", "labels": { "data": "Assume Email", "alchemy": "Invent Essence", "spellcraft": "Fake Omen", "abstract": "f?" }, "description": { "data": "same type, but fabricates a different email", "alchemy": "same type, but invents a different essence", "spellcraft": "same type, but fakes a different omen", "abstract": "A → T(B), wrong" }, "action": { "v-a": "v-jbx" } },
+    { "id": "mor-host", "formalLabel": "bind g", "sourceObjectId": "obj-tb", "targetObjectId": "obj-tc", "labels": { "data": "Then Look Up Host", "alchemy": "Then Distil Salt", "spellcraft": "Then Divine Sign", "abstract": "bind g" }, "description": { "data": "looks up the host for the email inside the box — this one has none, so: Nothing", "alchemy": "distils the salt for the essence inside — this one has none, so: empty", "spellcraft": "divines the sign for the omen inside — this one has none, so: dark", "abstract": "bind g : T(B) → T(C), short-circuits" }, "action": { "v-jb": "v-nc", "v-jbx": "v-jcx" } },
+    { "id": "mor-hostbad", "formalLabel": "bind?", "sourceObjectId": "obj-tb", "targetObjectId": "obj-tc", "labels": { "data": "Invent Host", "alchemy": "Invent Salt", "spellcraft": "Invent Sign", "abstract": "bind?" }, "description": { "data": "same type, but fabricates a host instead of admitting none", "alchemy": "same type, but invents a salt instead of admitting none", "spellcraft": "same type, but invents a sign instead of admitting none", "abstract": "T(B) → T(C), fabricates" }, "action": { "v-jb": "v-jcx", "v-jbx": "v-jcx" } },
+    { "id": "mor-domain", "formalLabel": "bind h", "sourceObjectId": "obj-tc", "targetObjectId": "obj-td", "labels": { "data": "Then Read Domain", "alchemy": "Then Cut Crystal", "spellcraft": "Then Seal Fate", "abstract": "bind h" }, "description": { "data": "reads the domain of the host inside the box; on Nothing it stays Nothing", "alchemy": "cuts the crystal from the salt inside; on empty it stays empty", "spellcraft": "seals the fate from the sign inside; on dark it stays dark", "abstract": "bind h : T(C) → T(D), short-circuits" }, "action": { "v-nc": "v-nd", "v-jcx": "v-jdx" } },
+    { "id": "mor-domainbad", "formalLabel": "bind?", "sourceObjectId": "obj-tc", "targetObjectId": "obj-td", "labels": { "data": "Invent Domain", "alchemy": "Invent Crystal", "spellcraft": "Invent Fate", "abstract": "bind?" }, "description": { "data": "same type, but conjures a domain even from Nothing", "alchemy": "same type, but conjures a crystal even from empty", "spellcraft": "same type, but conjures a fate even from dark", "abstract": "T(C) → T(D), fabricates from ∅" }, "action": { "v-nc": "v-jdx", "v-jcx": "v-jdx" } }
+  ],
+  "samples": [
+    { "id": "v-a", "objectId": "obj-a", "labels": { "data": "this user", "alchemy": "this herb", "spellcraft": "this rune", "abstract": "a" } },
+    { "id": "v-jb", "objectId": "obj-tb", "labels": { "data": "Just the email", "alchemy": "a vial of essence", "spellcraft": "a charm of omen", "abstract": "T(b)" } },
+    { "id": "v-jbx", "objectId": "obj-tb", "labels": { "data": "Just a fake email", "alchemy": "a vial of fake essence", "spellcraft": "a charm of fake omen", "abstract": "T(b?)" } },
+    { "id": "v-nc", "objectId": "obj-tc", "labels": { "data": "Nothing (no host)", "alchemy": "an empty vial (no salt)", "spellcraft": "a dark charm (no sign)", "abstract": "∅" } },
+    { "id": "v-jcx", "objectId": "obj-tc", "labels": { "data": "Just a fabricated host", "alchemy": "a vial of fabricated salt", "spellcraft": "a charm of fabricated sign", "abstract": "T(c?)" } },
+    { "id": "v-nd", "objectId": "obj-td", "labels": { "data": "Nothing (no domain)", "alchemy": "an empty vial (no crystal)", "spellcraft": "a dark charm (no fate)", "abstract": "∅" } },
+    { "id": "v-jdx", "objectId": "obj-td", "labels": { "data": "Just a fabricated domain", "alchemy": "a vial of fabricated crystal", "spellcraft": "a charm of fabricated fate", "abstract": "T(d?)" } }
+  ],
+  "initialGraph": {
+    "nodes": [
+      { "kind": "object", "nodeId": "n-a", "objectId": "obj-a", "role": "start", "position": { "x": 40, "y": 220 } },
+      { "kind": "morphism", "nodeId": "n-email", "morphismId": "mor-email", "position": { "x": 250, "y": 100 } },
+      { "kind": "morphism", "nodeId": "n-emailbad", "morphismId": "mor-emailbad", "position": { "x": 250, "y": 340 } },
+      { "kind": "object", "nodeId": "n-tb", "objectId": "obj-tb", "position": { "x": 470, "y": 220 } },
+      { "kind": "morphism", "nodeId": "n-host", "morphismId": "mor-host", "position": { "x": 690, "y": 100 } },
+      { "kind": "morphism", "nodeId": "n-hostbad", "morphismId": "mor-hostbad", "position": { "x": 690, "y": 340 } },
+      { "kind": "object", "nodeId": "n-tc", "objectId": "obj-tc", "position": { "x": 910, "y": 220 } },
+      { "kind": "morphism", "nodeId": "n-domain", "morphismId": "mor-domain", "position": { "x": 1130, "y": 100 } },
+      { "kind": "morphism", "nodeId": "n-domainbad", "morphismId": "mor-domainbad", "position": { "x": 1130, "y": 340 } },
+      { "kind": "object", "nodeId": "n-td", "objectId": "obj-td", "role": "goal", "position": { "x": 1350, "y": 220 } }
+    ],
+    "edges": []
+  },
+  "allowedMorphismIds": ["mor-email", "mor-emailbad", "mor-host", "mor-hostbad", "mor-domain", "mor-domainbad"],
+  "validation": [
+    { "type": "type-valid-wiring" },
+    { "type": "concept-tag-required", "conceptTag": "composition" },
+    { "type": "required-output", "inputValueId": "v-a", "outputValueId": "v-nd" }
+  ],
+  "reveal": {
+    "afterSuccess": {
+      "data": "Built with bind, the pipeline short-circuited: the user's email had no host, so the chain correctly came up with no domain — Nothing — without fabricating anything. That's the point of a monad: bind threads the 'might be empty' through every step, so failure propagates honestly instead of being papered over. Optional is a monad; so are List, State, and Promise.",
+      "alchemy": "Built with bind, the process short-circuited: no salt meant no crystal — an honest empty vial, nothing fabricated. That's the point of a monad: bind threads 'might be empty' through every step. Vials, batches, and stateful brews are all monads.",
+      "spellcraft": "Built with bind, the rite short-circuited: no sign meant no fate — an honest dark charm, nothing fabricated. That's the point of a monad: bind threads 'might fizzle' through every step. Charms, swarms, and stateful workings are all monads.",
+      "abstract": "bind threaded the empty box through the chain, so the composite of Kleisli arrows short-circuited to ∅. A monad (T, η, μ) makes effectful composition associative and unit-respecting — failure propagates by the laws, not by hand."
+    },
+    "summary": "A monad (a functor T with return η and bind/join μ, obeying unit + associativity laws) lets you chain steps that carry an effect — here 'might be empty' — so the effect threads through automatically. Bind composes Kleisli arrows A → T(B); failure short-circuits by construction.",
+    "notation": ["η : Id ⇒ T", "μ : T∘T ⇒ T", "(g >=> h) a = bind h (bind g (f a))"],
+    "moreFormal": "The monad laws — left/right identity (bind ∘ return = id) and associativity of bind — are exactly what guarantee a chain of binds means one unambiguous thing, however you group it. Optional, List, State, and Promise are all monads.",
+    "programmerAnalogy": "user.flatMap(getEmail).flatMap(getHost).flatMap(getDomain) — one missing link yields None, no nulls invented."
+  },
+  "glossaryUnlocks": ["monad"],
+  "referenceSolution": {
+    "nodes": [
+      { "kind": "object", "nodeId": "n-a", "objectId": "obj-a", "role": "start", "position": { "x": 40, "y": 220 } },
+      { "kind": "morphism", "nodeId": "n-email", "morphismId": "mor-email", "position": { "x": 250, "y": 100 } },
+      { "kind": "morphism", "nodeId": "n-emailbad", "morphismId": "mor-emailbad", "position": { "x": 250, "y": 340 } },
+      { "kind": "object", "nodeId": "n-tb", "objectId": "obj-tb", "position": { "x": 470, "y": 220 } },
+      { "kind": "morphism", "nodeId": "n-host", "morphismId": "mor-host", "position": { "x": 690, "y": 100 } },
+      { "kind": "morphism", "nodeId": "n-hostbad", "morphismId": "mor-hostbad", "position": { "x": 690, "y": 340 } },
+      { "kind": "object", "nodeId": "n-tc", "objectId": "obj-tc", "position": { "x": 910, "y": 220 } },
+      { "kind": "morphism", "nodeId": "n-domain", "morphismId": "mor-domain", "position": { "x": 1130, "y": 100 } },
+      { "kind": "morphism", "nodeId": "n-domainbad", "morphismId": "mor-domainbad", "position": { "x": 1130, "y": 340 } },
+      { "kind": "object", "nodeId": "n-td", "objectId": "obj-td", "role": "goal", "position": { "x": 1350, "y": 220 } }
+    ],
+    "edges": [
+      { "id": "e1", "sourceNodeId": "n-a", "targetNodeId": "n-email" },
+      { "id": "e2", "sourceNodeId": "n-email", "targetNodeId": "n-tb" },
+      { "id": "e3", "sourceNodeId": "n-tb", "targetNodeId": "n-host" },
+      { "id": "e4", "sourceNodeId": "n-host", "targetNodeId": "n-tc" },
+      { "id": "e5", "sourceNodeId": "n-tc", "targetNodeId": "n-domain" },
+      { "id": "e6", "sourceNodeId": "n-domain", "targetNodeId": "n-td" }
+    ]
+  }
+}

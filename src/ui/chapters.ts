@@ -58,6 +58,13 @@ export const CHAPTERS: ChapterMeta[] = [
     concepts: ['natural transformation', 'naturality', 'functor category'],
     status: 'available',
   },
+  {
+    id: 'chapter-07-monads',
+    title: 'Boxes That Chain',
+    summary: 'A monad wraps a functor with return and bind, for chaining steps that might fail or branch.',
+    concepts: ['monad', 'return', 'bind'],
+    status: 'available',
+  },
 ];
 
 export const FIRST_CHAPTER_ID = CHAPTERS[0].id;

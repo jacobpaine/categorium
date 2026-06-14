@@ -193,5 +193,50 @@
     "formalDefinition": "A natural transformation α : F ⇒ G (between functors F, G : C → D) assigns to each object A a component α_A : F(A) → G(A) such that for every f : A → B, α_B ∘ F(f) = G(f) ∘ α_A (the naturality square commutes). Natural transformations are the morphisms of the functor category [C, D].",
     "programmerAnalogy": "A parametric (fully polymorphic) function between two type constructors, e.g. List ⇒ Optional.",
     "notationExamples": ["α : F ⇒ G", "α_A : F(A) → G(A)", "α_B ∘ F(f) = G(f) ∘ α_A"]
+  },
+  {
+    "id": "return",
+    "term": "Return (unit)",
+    "unlockedByConcept": "return",
+    "shortDefinition": "Put a plain value into the box, in the most trivial way.",
+    "themeExplanation": {
+      "data": "Wrap a value as a present-but-unprocessed result — like turning x into Just x (an Optional that definitely holds x).",
+      "alchemy": "Seal a single material into a vial, untouched — the most basic way to box it.",
+      "spellcraft": "Bind a single essence into a charm, untouched — the most basic way to box it.",
+      "abstract": "η_A : A → T(A) injects a value as the trivial T-structure around it — the unit of the monad."
+    },
+    "formalDefinition": "For a monad T, the unit (return) is a natural transformation η : Id ⇒ T with component η_A : A → T(A) that injects a value as the trivial T-structure around it. It is one of the two pieces of monad structure.",
+    "programmerAnalogy": "return / pure: (x: A) => T<A> — e.g. Some(x), [x].",
+    "notationExamples": ["η : Id ⇒ T", "η_A : A → T(A)"]
+  },
+  {
+    "id": "bind",
+    "term": "Bind",
+    "unlockedByConcept": "bind",
+    "shortDefinition": "Chain a step that itself returns a box, flattening the result.",
+    "themeExplanation": {
+      "data": "Feed a boxed value into a step that returns another box, and flatten — like chaining lookups that might fail, where one failure makes the whole chain fail.",
+      "alchemy": "Feed a vial into a step that returns another vial, and merge — if any step yields nothing, the chain yields nothing.",
+      "spellcraft": "Feed a charm into a working that returns another charm, and merge — if any step fizzles, the chain fizzles.",
+      "abstract": "bind : T(A) → (A → T(B)) → T(B) sequences boxed steps; equivalently bind g = μ ∘ T(g) (map then join)."
+    },
+    "formalDefinition": "Bind sequences monadic steps: bind : T(A) → (A → T(B)) → T(B). Equivalently a monad has join (μ : T(T(A)) → T(A)) flattening a doubly-boxed value; bind g = join ∘ T(g). Together with return it obeys the left/right identity and associativity laws.",
+    "programmerAnalogy": "flatMap / >>= : T<A>.bind((a) => T<B>) — chaining effectful steps.",
+    "notationExamples": ["bind : T(A) → (A → T(B)) → T(B)", "μ : T(T(A)) → T(A)"]
+  },
+  {
+    "id": "monad",
+    "term": "Monad",
+    "unlockedByConcept": "monad",
+    "shortDefinition": "A functor with return and bind, for chaining steps that carry extra structure.",
+    "themeExplanation": {
+      "data": "A box type (like Optional or List) you can put values into (return) and chain steps through (bind) — a uniform way to sequence computations that might fail, branch, or carry state.",
+      "alchemy": "A vial type you can fill (return) and pour through a sequence of steps (bind) — a uniform way to chain processes that might come up empty.",
+      "spellcraft": "A charm type you can bind a value into (return) and weave through steps (bind) — a uniform way to chain workings that might fizzle.",
+      "abstract": "An endofunctor T : C → C with η : Id ⇒ T and μ : T∘T ⇒ T obeying the unit and associativity laws."
+    },
+    "formalDefinition": "A monad on a category C is an endofunctor T : C → C with natural transformations η : Id ⇒ T (return) and μ : T∘T ⇒ T (join) satisfying the unit laws (μ ∘ Tη = μ ∘ ηT = id) and associativity (μ ∘ Tμ = μ ∘ μT). It is the structure that arises from an adjunction.",
+    "programmerAnalogy": "A type with return + flatMap obeying the monad laws: Optional, List, Promise, State.",
+    "notationExamples": ["η : Id ⇒ T", "μ : T∘T ⇒ T", "μ ∘ Tμ = μ ∘ μT"]
   }
 ]

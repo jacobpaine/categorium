@@ -1,0 +1,66 @@
+{
+  "status": "authored",
+  "id": "puzzle-m2",
+  "chapterId": "chapter-07-monads",
+  "order": 26,
+  "title": { "data": "Flatten the Nesting", "alchemy": "Flatten the Nesting", "spellcraft": "Flatten the Nesting", "abstract": "Join (flatten)" },
+  "conceptTags": ["bind"],
+  "intro": {
+    "data": "Chaining boxed steps tends to nest boxes inside boxes — a Maybe holding a Maybe. The monad's other move is 'join': collapse a double box into a single one, KEEPING what's there. One machine merges it faithfully; the other crushes it to nothing. Build the faithful join.",
+    "alchemy": "Chaining sealed steps tends to nest vials inside vials. The monad's other move is to Decant: pour a vial-of-a-vial into one vial, KEEPING the contents. One apparatus decants faithfully; the other tips it all out. Build the faithful decant.",
+    "spellcraft": "Chaining bound steps tends to nest charms inside charms. The monad's other move is to Merge: fold a charm-of-a-charm into one, KEEPING the essence. One rune merges faithfully; the other snuffs it out. Build the faithful merge.",
+    "abstract": "join (μ : T(T(A)) → T(A)) flattens a doubly-wrapped value, preserving content. One candidate is μ; the other collapses to the empty box. Build μ."
+  },
+  "goal": { "data": "Flatten the double box, keeping the user inside.", "alchemy": "Decant the vial-of-vial, keeping the herb.", "spellcraft": "Merge the charm-of-charm, keeping the rune.", "abstract": "Send T(T(A)) to T(A) as μ, preserving the value." },
+  "objects": [
+    { "id": "obj-tta", "formalLabel": "T(T(A))", "labels": { "data": "Maybe (Maybe User)", "alchemy": "Vial of Vial of Herb", "spellcraft": "Charm of Charm of Rune", "abstract": "T(T(A))" }, "description": { "data": "a box holding a box that holds a user", "alchemy": "a vial holding a vial that holds a herb", "spellcraft": "a charm holding a charm that holds a rune", "abstract": "the doubly-wrapped object" }, "colorToken": "sky" },
+    { "id": "obj-ta", "formalLabel": "T(A)", "labels": { "data": "Maybe User", "alchemy": "Vial of Herb", "spellcraft": "Charm of Rune", "abstract": "T(A)" }, "description": { "data": "a single box holding a user, or nothing", "alchemy": "a single vial holding a herb, or empty", "spellcraft": "a single charm holding a rune, or dark", "abstract": "the singly-wrapped object" }, "colorToken": "emerald" }
+  ],
+  "morphisms": [
+    { "id": "mor-join", "formalLabel": "μ", "sourceObjectId": "obj-tta", "targetObjectId": "obj-ta", "labels": { "data": "join", "alchemy": "Decant", "spellcraft": "Merge", "abstract": "μ" }, "description": { "data": "collapses the double box into one, keeping the user", "alchemy": "pours the vial-of-vial into one, keeping the herb", "spellcraft": "folds the charm-of-charm into one, keeping the rune", "abstract": "μ : T(T(A)) → T(A), join" }, "action": { "v-jj": "v-just" } },
+    { "id": "mor-joinbad", "formalLabel": "μ?", "sourceObjectId": "obj-tta", "targetObjectId": "obj-ta", "labels": { "data": "Crush", "alchemy": "Tip Out", "spellcraft": "Snuff", "abstract": "μ?" }, "description": { "data": "same type, but crushes it to nothing", "alchemy": "same type, but tips out the contents", "spellcraft": "same type, but snuffs out the essence", "abstract": "T(T(A)) → T(A), but collapses to the empty box" }, "action": { "v-jj": "v-none" } }
+  ],
+  "samples": [
+    { "id": "v-jj", "objectId": "obj-tta", "labels": { "data": "Just (Just a user)", "alchemy": "a vial holding a vial of herb", "spellcraft": "a charm holding a charm of rune", "abstract": "T(T(a))" } },
+    { "id": "v-just", "objectId": "obj-ta", "labels": { "data": "Just the user", "alchemy": "a vial of herb", "spellcraft": "a charm of rune", "abstract": "T(a)" } },
+    { "id": "v-none", "objectId": "obj-ta", "labels": { "data": "Nothing", "alchemy": "an empty vial", "spellcraft": "a dark charm", "abstract": "∅" } }
+  ],
+  "initialGraph": {
+    "nodes": [
+      { "kind": "object", "nodeId": "n-tta", "objectId": "obj-tta", "role": "start", "position": { "x": 40, "y": 180 } },
+      { "kind": "morphism", "nodeId": "n-join", "morphismId": "mor-join", "position": { "x": 360, "y": 90 } },
+      { "kind": "morphism", "nodeId": "n-joinbad", "morphismId": "mor-joinbad", "position": { "x": 360, "y": 270 } },
+      { "kind": "object", "nodeId": "n-ta", "objectId": "obj-ta", "role": "goal", "position": { "x": 700, "y": 180 } }
+    ],
+    "edges": []
+  },
+  "allowedMorphismIds": ["mor-join", "mor-joinbad"],
+  "validation": [
+    { "type": "type-valid-wiring" },
+    { "type": "required-output", "inputValueId": "v-jj", "outputValueId": "v-just" }
+  ],
+  "reveal": {
+    "afterSuccess": {
+      "data": "'join' collapsed a box-in-a-box into a single box, keeping the user. That flattening is what makes chaining possible: do a step that returns a box, and join the nesting away. The 'Crush' look-alike had the right type but discarded the contents.",
+      "alchemy": "'Decant' poured the vial-of-vial into one, keeping the herb — the flattening that makes chaining possible. 'Tip Out' had the right type but discarded the contents.",
+      "spellcraft": "'Merge' folded the charm-of-charm into one, keeping the rune — the flattening that makes chaining possible. 'Snuff' had the right type but lost the essence.",
+      "abstract": "μ : T(T(A)) → T(A) flattens the nesting, preserving content. With η it is the structure of a monad; bind g = μ ∘ T(g)."
+    },
+    "summary": "join (μ : T(T(A)) → T(A)) flattens a box-inside-a-box into one box. It's what lets you chain a step that returns a box and not drown in nesting — bind g = join ∘ map(g).",
+    "notation": ["μ : T∘T ⇒ T", "bind g = μ ∘ T(g)"],
+    "programmerAnalogy": "flatten / flat : T<T<A>> => T<A>."
+  },
+  "glossaryUnlocks": [],
+  "referenceSolution": {
+    "nodes": [
+      { "kind": "object", "nodeId": "n-tta", "objectId": "obj-tta", "role": "start", "position": { "x": 40, "y": 180 } },
+      { "kind": "morphism", "nodeId": "n-join", "morphismId": "mor-join", "position": { "x": 360, "y": 90 } },
+      { "kind": "morphism", "nodeId": "n-joinbad", "morphismId": "mor-joinbad", "position": { "x": 360, "y": 270 } },
+      { "kind": "object", "nodeId": "n-ta", "objectId": "obj-ta", "role": "goal", "position": { "x": 700, "y": 180 } }
+    ],
+    "edges": [
+      { "id": "e1", "sourceNodeId": "n-tta", "targetNodeId": "n-join" },
+      { "id": "e2", "sourceNodeId": "n-join", "targetNodeId": "n-ta" }
+    ]
+  }
+}
