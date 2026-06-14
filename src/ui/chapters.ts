@@ -79,6 +79,13 @@ export const CHAPTERS: ChapterMeta[] = [
     concepts: ['vertical composition', 'functor category'],
     status: 'available',
   },
+  {
+    id: 'chapter-10-adjunctions',
+    title: 'Two Sides of the Same Coin',
+    summary: 'An adjunction F ⊣ G pairs every arrow FA → B with an arrow A → GB — a perfect correspondence, with a unit and a counit.',
+    concepts: ['adjunction', 'unit', 'counit'],
+    status: 'available',
+  },
 ];
 
 export const FIRST_CHAPTER_ID = CHAPTERS[0].id;

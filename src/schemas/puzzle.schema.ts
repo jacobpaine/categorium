@@ -20,6 +20,7 @@ import {
   naturalTransformationPuzzleSchema,
   type NaturalTransformationPuzzle,
 } from './naturalTransformation.schema';
+import { matchingPuzzleSchema, type MatchingPuzzle } from './matching.schema';
 
 export const puzzleStubSchema = z.object({
   status: z.literal('stub'),
@@ -65,13 +66,14 @@ export const puzzleAuthoredSchema = z.object({
 export const puzzleSchema = z.union([
   puzzleAuthoredSchema,
   naturalTransformationPuzzleSchema,
+  matchingPuzzleSchema,
   puzzleStubSchema,
 ]);
 
 export type AuthoredPuzzle = z.infer<typeof puzzleAuthoredSchema>;
 export type PuzzleStub = z.infer<typeof puzzleStubSchema>;
 export type Puzzle = z.infer<typeof puzzleSchema>;
-export type { NaturalTransformationPuzzle };
+export type { NaturalTransformationPuzzle, MatchingPuzzle };
 
 /** Parse a puzzle, THROWING on failure (loud, for dev / build-time fixtures). */
 export function parsePuzzle(input: unknown): Puzzle {
@@ -83,17 +85,22 @@ export function safeParsePuzzle(input: unknown): z.SafeParseReturnType<unknown, 
   return puzzleSchema.safeParse(input);
 }
 
-/** A standard transformation puzzle (the wiring puzzles of Chapters 1–3, 5). */
+/** A standard transformation puzzle (the wiring puzzles of Chapters 1–5, 7, 8). */
 export function isAuthored(p: Puzzle): p is AuthoredPuzzle {
-  return p.status === 'authored' && (p as { kind?: string }).kind !== 'functor';
+  return p.status === 'authored' && (p as { kind?: string }).kind === 'transformation';
 }
 
-/** A natural-transformation puzzle (Chapter 6): two functors + components to build. */
+/** A natural-transformation puzzle (Chapters 6, 9): two functors + components to build. */
 export function isNaturalTransformationPuzzle(p: Puzzle): p is NaturalTransformationPuzzle {
   return p.status === 'authored' && (p as { kind?: string }).kind === 'natural-transformation';
 }
 
+/** A bijection-matching puzzle (Chapters 10, 11): pair each left item with the right one. */
+export function isMatchingPuzzle(p: Puzzle): p is MatchingPuzzle {
+  return p.status === 'authored' && (p as { kind?: string }).kind === 'matching';
+}
+
 /** Any puzzle the player can actually open and solve. */
-export function isPlayable(p: Puzzle): p is AuthoredPuzzle | NaturalTransformationPuzzle {
-  return isAuthored(p) || isNaturalTransformationPuzzle(p);
+export function isPlayable(p: Puzzle): p is AuthoredPuzzle | NaturalTransformationPuzzle | MatchingPuzzle {
+  return isAuthored(p) || isNaturalTransformationPuzzle(p) || isMatchingPuzzle(p);
 }

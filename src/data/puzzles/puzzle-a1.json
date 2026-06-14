@@ -1,0 +1,43 @@
+{
+  "status": "authored",
+  "kind": "matching",
+  "id": "puzzle-a1",
+  "chapterId": "chapter-10-adjunctions",
+  "order": 35,
+  "title": { "data": "Two Ways to Say It", "alchemy": "Two Ways to Say It", "spellcraft": "Two Ways to Say It", "abstract": "The Adjunction Bijection" },
+  "conceptTags": ["adjunction"],
+  "intro": {
+    "data": "An adjunction is a perfect pairing between two kinds of arrow. The classic case is CURRYING: a function that takes two things at once, (C, A) → B, is the SAME as a function that takes one thing and returns a function for the other, C → (A → B). On the left are two-at-once functions; on the right, their curried forms (plus one impostor with the arguments mishandled). Match each to its transpose.",
+    "alchemy": "An adjunction is a perfect pairing between two kinds of step. Here: a process taking two reagents at once, (C, A) → B, is the SAME as one taking one reagent and yielding a process for the other, C → (A → B). On the left, two-at-once processes; on the right, their staged forms (plus an impostor). Match each to its partner.",
+    "spellcraft": "An adjunction is a perfect pairing between two kinds of working. Here: a working taking two essences at once, (C, A) → B, is the SAME as one taking one and yielding a working for the other, C → (A → B). On the left, two-at-once workings; on the right, their staged forms (plus an impostor). Match each to its partner.",
+    "abstract": "The adjunction (−)×A ⊣ (−)^A gives Hom(C×A, B) ≅ Hom(C, B^A). Match each h : C×A → B with its transpose ĥ : C → B^A. A non-transpose is offered as a distractor."
+  },
+  "goal": { "data": "Match each two-at-once function with its curried form.", "alchemy": "Match each two-at-once process with its staged form.", "spellcraft": "Match each two-at-once working with its staged form.", "abstract": "Pair each h : C×A → B with its transpose ĥ : C → B^A." },
+  "context": { "data": "This is the adjunction (−)×A ⊣ (−)^A — currying. Every function of a pair corresponds to exactly one function returning a function.", "alchemy": "The adjunction (−)×A ⊣ (−)^A: every two-reagent process corresponds to exactly one staged process.", "spellcraft": "The adjunction (−)×A ⊣ (−)^A: every two-essence working corresponds to exactly one staged working.", "abstract": "(−)×A ⊣ (−)^A : Hom(C×A, B) ≅ Hom(C, B^A)." },
+  "leftLabel": { "data": "Two-at-once: (C, A) → B", "alchemy": "Two reagents at once", "spellcraft": "Two essences at once", "abstract": "Hom(C×A, B)" },
+  "rightLabel": { "data": "Curried: C → (A → B)", "alchemy": "One, then the other", "spellcraft": "One, then the other", "abstract": "Hom(C, B^A)" },
+  "left": [
+    { "id": "l-add", "label": { "data": "add(x, y) = x + y", "alchemy": "Blend(salt, sulfur)", "spellcraft": "Weave(fire, frost)", "abstract": "h" }, "sub": { "data": "(Int, Int) → Int", "alchemy": "(Salt, Sulfur) → Tonic", "spellcraft": "(Fire, Frost) → Ward", "abstract": "C×A → B" } },
+    { "id": "l-cat", "label": { "data": "concat(s, t) = s ++ t", "alchemy": "Fuse(ore, flux)", "spellcraft": "Bind(rune, sigil)", "abstract": "k" }, "sub": { "data": "(Str, Str) → Str", "alchemy": "(Ore, Flux) → Ingot", "spellcraft": "(Rune, Sigil) → Charm", "abstract": "C×A → B" } },
+    { "id": "l-look", "label": { "data": "lookup(map, key)", "alchemy": "Steep(base, herb)", "spellcraft": "Channel(ward, charm)", "abstract": "m" }, "sub": { "data": "(Map, Key) → Val", "alchemy": "(Base, Herb) → Brew", "spellcraft": "(Ward, Charm) → Power", "abstract": "C×A → B" } }
+  ],
+  "right": [
+    { "id": "r-cat", "label": { "data": "concat(s) = (t ↦ s ++ t)", "alchemy": "Fuse(ore) = (flux ↦ …)", "spellcraft": "Bind(rune) = (sigil ↦ …)", "abstract": "k̂" }, "sub": { "data": "Str → (Str → Str)", "alchemy": "Ore → (Flux → Ingot)", "spellcraft": "Rune → (Sigil → Charm)", "abstract": "C → B^A" } },
+    { "id": "r-bad", "label": { "data": "swap(x) = (y ↦ y − x)", "alchemy": "Mis-stage(salt) = …", "spellcraft": "Mis-stage(fire) = …", "abstract": "(impostor)" }, "sub": { "data": "Int → (Int → Int) — wrong order", "alchemy": "wrong order", "spellcraft": "wrong order", "abstract": "not a transpose" } },
+    { "id": "r-add", "label": { "data": "add(x) = (y ↦ x + y)", "alchemy": "Blend(salt) = (sulfur ↦ …)", "spellcraft": "Weave(fire) = (frost ↦ …)", "abstract": "ĥ" }, "sub": { "data": "Int → (Int → Int)", "alchemy": "Salt → (Sulfur → Tonic)", "spellcraft": "Fire → (Frost → Ward)", "abstract": "C → B^A" } },
+    { "id": "r-look", "label": { "data": "lookup(map) = (key ↦ …)", "alchemy": "Steep(base) = (herb ↦ …)", "spellcraft": "Channel(ward) = (charm ↦ …)", "abstract": "m̂" }, "sub": { "data": "Map → (Key → Val)", "alchemy": "Base → (Herb → Brew)", "spellcraft": "Ward → (Charm → Power)", "abstract": "C → B^A" } }
+  ],
+  "solution": { "l-add": "r-add", "l-cat": "r-cat", "l-look": "r-look" },
+  "reveal": {
+    "afterSuccess": {
+      "data": "Each two-argument function matched exactly one curried form — that one-to-one correspondence IS the adjunction (−)×A ⊣ (−)^A. Currying isn't a trick; it's a natural bijection Hom(C×A, B) ≅ Hom(C, A→B). The impostor reordered its arguments, so it wasn't anyone's transpose. Adjunctions are everywhere two descriptions of the 'same' arrow line up perfectly.",
+      "alchemy": "Each two-reagent process matched exactly one staged form — that correspondence is the adjunction (−)×A ⊣ (−)^A: Hom(C×A, B) ≅ Hom(C, A→B). The impostor mishandled its reagents.",
+      "spellcraft": "Each two-essence working matched exactly one staged form — that correspondence is the adjunction (−)×A ⊣ (−)^A: Hom(C×A, B) ≅ Hom(C, A→B). The impostor mishandled its essences.",
+      "abstract": "The bijection Hom(C×A, B) ≅ Hom(C, B^A) is natural in C and B — that is exactly the adjunction (−)×A ⊣ (−)^A. Currying/uncurrying are the two directions of the transpose."
+    },
+    "summary": "An adjunction F ⊣ G is a natural one-to-one correspondence Hom(F A, B) ≅ Hom(A, G B). Currying is the example (−)×A ⊣ (−)^A: a function of a pair is the same as a function returning a function.",
+    "notation": ["F ⊣ G", "Hom(C×A, B) ≅ Hom(C, B^A)", "curry / uncurry"],
+    "programmerAnalogy": "curry: ((c, a) => b)  ↔  (c => a => b)  — the same function, two shapes."
+  },
+  "glossaryUnlocks": ["adjunction"]
+}

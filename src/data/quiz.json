@@ -967,6 +967,138 @@
         "spellcraft": "[C, D]: objects = functors C→D, morphisms = natural transformations, composition = vertical composition.",
         "abstract": "[C, D]: objects = functors C→D, morphisms = natural transformations, composition = vertical composition."
       }
+    },
+    {
+      "id": "q-adjunction-1",
+      "termId": "adjunction",
+      "prompt": {
+        "data": "Currying — saying 'a function of (C, A)' is the same as 'a function of C returning a function of A' — is an example of which idea?",
+        "alchemy": "Two processes that fit like key and lock, so a step out of F(A) is the same as a step into G(B), is which idea?",
+        "spellcraft": "Two workings that fit so a working out of F(A) is the same as a working into G(B) is which idea?",
+        "abstract": "F ⊣ G with a natural bijection Hom(F(A), B) ≅ Hom(A, G(B)) is which idea?"
+      },
+      "options": [
+        { "text": "Adjunction", "correct": true },
+        { "text": "Functor", "correct": false },
+        { "text": "Monad", "correct": false },
+        { "text": "Product", "correct": false }
+      ],
+      "explanation": {
+        "data": "An adjunction F ⊣ G is a perfect pairing: Hom(F(A), B) ≅ Hom(A, G(B)).",
+        "alchemy": "An adjunction F ⊣ G is a perfect pairing: Hom(F(A), B) ≅ Hom(A, G(B)).",
+        "spellcraft": "An adjunction F ⊣ G is a perfect pairing: Hom(F(A), B) ≅ Hom(A, G(B)).",
+        "abstract": "An adjunction F ⊣ G is a perfect pairing: Hom(F(A), B) ≅ Hom(A, G(B))."
+      }
+    },
+    {
+      "id": "q-adjunction-2",
+      "termId": "adjunction",
+      "prompt": {
+        "data": "In an adjunction F ⊣ G, each arrow F(A) → B corresponds to…",
+        "alchemy": "In an adjunction F ⊣ G, each arrow F(A) → B corresponds to…",
+        "spellcraft": "In an adjunction F ⊣ G, each arrow F(A) → B corresponds to…",
+        "abstract": "In an adjunction F ⊣ G, each arrow F(A) → B corresponds to…"
+      },
+      "options": [
+        { "text": "exactly one arrow A → G(B)", "correct": true },
+        { "text": "no arrow at all", "correct": false },
+        { "text": "many different arrows A → G(B)", "correct": false },
+        { "text": "an arrow B → A", "correct": false }
+      ],
+      "explanation": {
+        "data": "The adjunction is a bijection: Hom(F(A), B) ≅ Hom(A, G(B)) — exactly one partner each way.",
+        "alchemy": "The adjunction is a bijection: Hom(F(A), B) ≅ Hom(A, G(B)) — exactly one partner each way.",
+        "spellcraft": "The adjunction is a bijection: Hom(F(A), B) ≅ Hom(A, G(B)) — exactly one partner each way.",
+        "abstract": "The adjunction is a bijection: Hom(F(A), B) ≅ Hom(A, G(B)) — exactly one partner each way."
+      }
+    },
+    {
+      "id": "q-unit-1",
+      "termId": "unit",
+      "prompt": {
+        "data": "The arrow η : A → G(F(A)) that 'wraps' a value into the built-up-then-underlying form is the adjunction's…?",
+        "alchemy": "The arrow η : A → G(F(A)) that compounds a raw value is the adjunction's…?",
+        "spellcraft": "The arrow η : A → G(F(A)) that binds a loose value is the adjunction's…?",
+        "abstract": "η : 1 ⇒ G∘F, the transpose of id_{F(A)}, is the adjunction's…?"
+      },
+      "options": [
+        { "text": "Unit", "correct": true },
+        { "text": "Counit", "correct": false },
+        { "text": "Inverse", "correct": false },
+        { "text": "Functor", "correct": false }
+      ],
+      "explanation": {
+        "data": "The unit η : A → G(F(A)) begins the round trip; with the counit it makes the adjunction.",
+        "alchemy": "The unit η : A → G(F(A)) begins the round trip; with the counit it makes the adjunction.",
+        "spellcraft": "The unit η : A → G(F(A)) begins the round trip; with the counit it makes the adjunction.",
+        "abstract": "The unit η : A → G(F(A)) begins the round trip; with the counit it makes the adjunction."
+      }
+    },
+    {
+      "id": "q-unit-2",
+      "termId": "unit",
+      "prompt": {
+        "data": "The unit of an adjunction F ⊣ G has component…",
+        "alchemy": "The unit of an adjunction F ⊣ G has component…",
+        "spellcraft": "The unit of an adjunction F ⊣ G has component…",
+        "abstract": "The unit of an adjunction F ⊣ G has component…"
+      },
+      "options": [
+        { "text": "η_A : A → G(F(A))", "correct": true },
+        { "text": "ε_B : F(G(B)) → B", "correct": false },
+        { "text": "id_A : A → A", "correct": false },
+        { "text": "f : A → B", "correct": false }
+      ],
+      "explanation": {
+        "data": "Unit η_A : A → G(F(A)). The counit goes the other way: ε_B : F(G(B)) → B.",
+        "alchemy": "Unit η_A : A → G(F(A)). The counit goes the other way: ε_B : F(G(B)) → B.",
+        "spellcraft": "Unit η_A : A → G(F(A)). The counit goes the other way: ε_B : F(G(B)) → B.",
+        "abstract": "Unit η_A : A → G(F(A)). The counit goes the other way: ε_B : F(G(B)) → B."
+      }
+    },
+    {
+      "id": "q-counit-1",
+      "termId": "counit",
+      "prompt": {
+        "data": "The arrow ε : F(G(B)) → B that 'evaluates' the built-up form back down to B is the adjunction's…?",
+        "alchemy": "The arrow ε : F(G(B)) → B that distils back down to B is the adjunction's…?",
+        "spellcraft": "The arrow ε : F(G(B)) → B that releases back down to B is the adjunction's…?",
+        "abstract": "ε : F∘G ⇒ 1, the transpose of id_{G(B)}, is the adjunction's…?"
+      },
+      "options": [
+        { "text": "Counit", "correct": true },
+        { "text": "Unit", "correct": false },
+        { "text": "Identity", "correct": false },
+        { "text": "Isomorphism", "correct": false }
+      ],
+      "explanation": {
+        "data": "The counit ε : F(G(B)) → B ends the round trip — like applying a function to its argument.",
+        "alchemy": "The counit ε : F(G(B)) → B ends the round trip — like applying a function to its argument.",
+        "spellcraft": "The counit ε : F(G(B)) → B ends the round trip — like applying a function to its argument.",
+        "abstract": "The counit ε : F(G(B)) → B ends the round trip — like applying a function to its argument."
+      }
+    },
+    {
+      "id": "q-counit-2",
+      "termId": "counit",
+      "prompt": {
+        "data": "The unit η and counit ε of an adjunction are tied together by…",
+        "alchemy": "The unit η and counit ε of an adjunction are tied together by…",
+        "spellcraft": "The unit η and counit ε of an adjunction are tied together by…",
+        "abstract": "The unit η and counit ε of an adjunction are tied together by…"
+      },
+      "options": [
+        { "text": "the triangle identities", "correct": true },
+        { "text": "the monad laws", "correct": false },
+        { "text": "an inverse", "correct": false },
+        { "text": "a product diagram", "correct": false }
+      ],
+      "explanation": {
+        "data": "The triangle identities: (εF)∘(Fη) = id and (Gε)∘(ηG) = id — they make η and ε coherent.",
+        "alchemy": "The triangle identities: (εF)∘(Fη) = id and (Gε)∘(ηG) = id — they make η and ε coherent.",
+        "spellcraft": "The triangle identities: (εF)∘(Fη) = id and (Gε)∘(ηG) = id — they make η and ε coherent.",
+        "abstract": "The triangle identities: (εF)∘(Fη) = id and (Gε)∘(ηG) = id — they make η and ε coherent."
+      }
     }
   ]
 }

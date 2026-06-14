@@ -328,5 +328,50 @@
     "formalDefinition": "For categories C and D, the functor category [C, D] (also D^C) has functors F : C → D as objects and natural transformations as morphisms, with vertical composition as composition and the identity natural transformation id_F as each object's identity. It satisfies the category axioms, so natural transformations are 'just morphisms' one level up.",
     "programmerAnalogy": "Type constructors as objects, polymorphic functions between them as morphisms.",
     "notationExamples": ["[C, D]", "D^C", "id_F : F ⇒ F"]
+  },
+  {
+    "id": "adjunction",
+    "term": "Adjunction",
+    "unlockedByConcept": "adjunction",
+    "shortDefinition": "A perfect pairing F ⊣ G: every arrow F(A) → B corresponds to exactly one arrow A → G(B).",
+    "themeExplanation": {
+      "data": "Two functors that fit together like a key and lock: an arrow out of the 'built-up' thing F(A) is the SAME as an arrow into the 'underlying' thing G(B). Currying is the classic example — a function of (C, A) is the same as a function of C returning a function of A.",
+      "alchemy": "Two processes that fit together: a step out of the compounded F(A) is the same as a step into the raw G(B) — a perfect, reversible correspondence.",
+      "spellcraft": "Two workings that fit together: a working out of the bound F(A) is the same as a working into the loose G(B) — a perfect, reversible correspondence.",
+      "abstract": "F ⊣ G when there is a natural bijection Hom(F(A), B) ≅ Hom(A, G(B))."
+    },
+    "formalDefinition": "A functor F : C → D is left adjoint to G : D → C (written F ⊣ G) when there is a natural bijection Hom_D(F A, B) ≅ Hom_C(A, G B). Equivalently it is given by a unit η : 1_C ⇒ G∘F and counit ε : F∘G ⇒ 1_D satisfying the triangle identities. Free ⊣ forgetful, and currying ((−)×A ⊣ (−)^A), are adjunctions.",
+    "programmerAnalogy": "Currying: a function (C, A) → B is the same as a function C → (A → B). (−)×A ⊣ (−)^A.",
+    "notationExamples": ["F ⊣ G", "Hom(F A, B) ≅ Hom(A, G B)"]
+  },
+  {
+    "id": "unit",
+    "term": "Unit (of an adjunction)",
+    "unlockedByConcept": "unit",
+    "shortDefinition": "The arrow η : A → G(F(A)) that begins an adjunction's round trip.",
+    "themeExplanation": {
+      "data": "The 'wrap it up' side of an adjunction: take a value A into G(F(A)) — like putting an element into the underlying set of the free structure it generates.",
+      "alchemy": "The 'compound it' side: take raw A into G(F(A)).",
+      "spellcraft": "The 'bind it' side: take loose A into G(F(A)).",
+      "abstract": "η : 1 ⇒ G∘F with component η_A : A → G(F(A)) — the unit, transpose of id_{F(A)}."
+    },
+    "formalDefinition": "For F ⊣ G, the unit is a natural transformation η : 1_C ⇒ G∘F with component η_A : A → G(F(A)); it is the transpose of id_{F(A)} under the adjunction bijection. With the counit it obeys the triangle identities.",
+    "programmerAnalogy": "return-like: x ↦ [x] (an element into the underlying set of the free monoid).",
+    "notationExamples": ["η : 1 ⇒ G∘F", "η_A : A → G(F(A))"]
+  },
+  {
+    "id": "counit",
+    "term": "Counit (of an adjunction)",
+    "unlockedByConcept": "counit",
+    "shortDefinition": "The arrow ε : F(G(B)) → B that ends an adjunction's round trip.",
+    "themeExplanation": {
+      "data": "The 'evaluate' side of an adjunction: collapse F(G(B)) back down to B — like applying a function to its argument.",
+      "alchemy": "The 'distil it' side: collapse F(G(B)) back to B.",
+      "spellcraft": "The 'release it' side: collapse F(G(B)) back to B.",
+      "abstract": "ε : F∘G ⇒ 1 with component ε_B : F(G(B)) → B — the counit, transpose of id_{G(B)}."
+    },
+    "formalDefinition": "For F ⊣ G, the counit is a natural transformation ε : F∘G ⇒ 1_D with component ε_B : F(G(B)) → B; it is the transpose of id_{G(B)}. With the unit it satisfies the triangle identities: (εF)∘(Fη) = id and (Gε)∘(ηG) = id.",
+    "programmerAnalogy": "eval / apply: ⟨g, a⟩ ↦ g(a).",
+    "notationExamples": ["ε : F∘G ⇒ 1", "ε_B : F(G(B)) → B"]
   }
 ]

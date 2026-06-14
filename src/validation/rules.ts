@@ -31,7 +31,10 @@ export type ConceptTag =
   | 'pullback'
   | 'limit'
   | 'vertical-composition'
-  | 'functor-category';
+  | 'functor-category'
+  | 'adjunction'
+  | 'unit'
+  | 'counit';
 
 export const CONCEPT_TAGS: readonly ConceptTag[] = [
   'object',
@@ -56,6 +59,9 @@ export const CONCEPT_TAGS: readonly ConceptTag[] = [
   'limit',
   'vertical-composition',
   'functor-category',
+  'adjunction',
+  'unit',
+  'counit',
 ];
 
 /**

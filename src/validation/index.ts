@@ -3,3 +3,4 @@ export * from './concepts';
 export * from './wiring';
 export * from './validatePuzzle';
 export * from './validateNaturalTransformation';
+export * from './validateMatching';

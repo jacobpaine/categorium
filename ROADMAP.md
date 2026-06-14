@@ -146,8 +146,8 @@ reuses the bijection-matching board from Chapter 10.
 | 7 | monads | behaviour runtime + `path-equivalence` | none | ✅ done |
 | 8 | limits | standard board + `required-output` | none | ✅ done |
 | 9 | functor categories | NT board + composition table | (authored composite tables) | ✅ done |
-| 10 | adjunctions | — | bijection-matching board | 🔜 next |
-| 11 | Yoneda | bijection-matching board | none | 🔒 planned |
+| 10 | adjunctions | new matching board | bijection-matching board ✅ | ✅ done |
+| 11 | Yoneda | bijection-matching board | none | 🔜 next |
 
 Each new glossary term also gets two theme-aware Quiz questions, keeping the "2 per term" contract.
 

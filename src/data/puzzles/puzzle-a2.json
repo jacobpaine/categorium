@@ -1,0 +1,43 @@
+{
+  "status": "authored",
+  "kind": "matching",
+  "id": "puzzle-a2",
+  "chapterId": "chapter-10-adjunctions",
+  "order": 36,
+  "title": { "data": "Unit and Counit", "alchemy": "Unit and Counit", "spellcraft": "Unit and Counit", "abstract": "Unit and Counit" },
+  "conceptTags": ["unit", "counit"],
+  "intro": {
+    "data": "An adjunction comes with two special arrows. The UNIT η starts a round trip — it wraps a value up. The COUNIT ε ends one — it evaluates back down. For currying, the unit pairs a value with an argument, and the counit is exactly function APPLICATION: (g, a) ↦ g(a). Match each piece of the adjunction to what it is. Watch out: an adjunction is NOT an inverse — that's the impostor.",
+    "alchemy": "An adjunction comes with two special steps. The UNIT η starts a round trip (compound up); the COUNIT ε ends one (distil back). Match each piece to what it is — and avoid the impostor that calls it an inverse.",
+    "spellcraft": "An adjunction comes with two special workings. The UNIT η starts a round trip (bind up); the COUNIT ε ends one (release back). Match each piece to what it is — and avoid the impostor that calls it an inverse.",
+    "abstract": "An adjunction F ⊣ G has a unit η : 1 ⇒ GF and counit ε : FG ⇒ 1 (here for currying). Match each named piece to its description. A distractor mis-describes the adjunction as an inverse."
+  },
+  "goal": { "data": "Match the bijection, the unit, and the counit to what each one is.", "alchemy": "Match the bijection, the unit, and the counit to what each one is.", "spellcraft": "Match the bijection, the unit, and the counit to what each one is.", "abstract": "Pair each piece (≅, η, ε) with its description." },
+  "context": { "data": "For currying ((−)×A ⊣ (−)^A): unit η_C : C → (C×A)^A is 'pair with', and counit ε_B : (B^A)×A → B is evaluation.", "alchemy": "For (−)×A ⊣ (−)^A: the unit pairs, the counit evaluates.", "spellcraft": "For (−)×A ⊣ (−)^A: the unit pairs, the counit evaluates.", "abstract": "η_C : C → (C×A)^A (pairing); ε_B : (B^A)×A → B (evaluation)." },
+  "leftLabel": { "data": "Pieces of the adjunction", "alchemy": "Pieces of the adjunction", "spellcraft": "Pieces of the adjunction", "abstract": "F ⊣ G" },
+  "rightLabel": { "data": "What it is", "alchemy": "What it is", "spellcraft": "What it is", "abstract": "description" },
+  "left": [
+    { "id": "l-adj", "label": { "data": "The currying bijection", "alchemy": "The bijection", "spellcraft": "The bijection", "abstract": "≅" }, "sub": { "data": "Hom(C×A, B) ≅ Hom(C, B^A)", "alchemy": "Hom(F A, B) ≅ Hom(A, G B)", "spellcraft": "Hom(F A, B) ≅ Hom(A, G B)", "abstract": "Hom(F A, B) ≅ Hom(A, G B)" } },
+    { "id": "l-unit", "label": { "data": "The unit η", "alchemy": "The unit η", "spellcraft": "The unit η", "abstract": "η : 1 ⇒ GF" }, "sub": { "data": "starts the round trip", "alchemy": "starts the round trip", "spellcraft": "starts the round trip", "abstract": "η_A : A → GF(A)" } },
+    { "id": "l-counit", "label": { "data": "The counit ε", "alchemy": "The counit ε", "spellcraft": "The counit ε", "abstract": "ε : FG ⇒ 1" }, "sub": { "data": "ends the round trip", "alchemy": "ends the round trip", "spellcraft": "ends the round trip", "abstract": "ε_B : FG(B) → B" } }
+  ],
+  "right": [
+    { "id": "r-counit", "label": { "data": "Evaluation: apply a function to its argument", "alchemy": "Distil back down to the result", "spellcraft": "Release back down to the result", "abstract": "ε_B : FG(B) → B" }, "sub": { "data": "(g, a) ↦ g(a)", "alchemy": "F(G(B)) → B", "spellcraft": "F(G(B)) → B", "abstract": "the counit" } },
+    { "id": "r-bad", "label": { "data": "An inverse: F and G undo each other exactly", "alchemy": "An inverse: F and G undo each other exactly", "spellcraft": "An inverse: F and G undo each other exactly", "abstract": "(impostor — an adjunction is not an iso)" }, "sub": { "data": "wrong — adjunctions are not isomorphisms", "alchemy": "wrong — adjunctions are not isomorphisms", "spellcraft": "wrong — adjunctions are not isomorphisms", "abstract": "F ∘ G ≅ 1 (too strong)" } },
+    { "id": "r-unit", "label": { "data": "Pairing: bundle a value with an argument", "alchemy": "Compound: build a value up", "spellcraft": "Bind: weave a value up", "abstract": "η_A : A → GF(A)" }, "sub": { "data": "c ↦ (a ↦ (c, a))", "alchemy": "A → G(F(A))", "spellcraft": "A → G(F(A))", "abstract": "the unit" } },
+    { "id": "r-adj", "label": { "data": "A perfect pairing of arrows, one-to-one", "alchemy": "A perfect pairing of steps, one-to-one", "spellcraft": "A perfect pairing of workings, one-to-one", "abstract": "the natural bijection" }, "sub": { "data": "each F(A)→B matches one A→G(B)", "alchemy": "each F(A)→B matches one A→G(B)", "spellcraft": "each F(A)→B matches one A→G(B)", "abstract": "natural in A and B" } }
+  ],
+  "solution": { "l-adj": "r-adj", "l-unit": "r-unit", "l-counit": "r-counit" },
+  "reveal": {
+    "afterSuccess": {
+      "data": "You matched the three pieces: the bijection (the perfect one-to-one pairing), the unit η (pairing — start the round trip), and the counit ε (evaluation — end it). For currying, the counit is exactly function application, (g, a) ↦ g(a) — that everyday 'apply' is a counit! And the impostor was the trap: an adjunction is NOT an inverse; F and G needn't undo each other, only correspond. Unit and counit, tied by the triangle identities, are the whole story.",
+      "alchemy": "You matched the bijection, the unit (compound — start), and the counit (distil — end). The impostor was the trap: an adjunction is not an inverse. Unit and counit, tied by the triangle identities, are the whole story.",
+      "spellcraft": "You matched the bijection, the unit (bind — start), and the counit (release — end). The impostor was the trap: an adjunction is not an inverse. Unit and counit, tied by the triangle identities, are the whole story.",
+      "abstract": "η : 1 ⇒ GF and ε : FG ⇒ 1 present the adjunction without mentioning hom-sets; the triangle identities (εF)∘(Fη)=id, (Gε)∘(ηG)=id make them coherent. An adjunction is weaker than an equivalence — F and G need not be inverse."
+    },
+    "summary": "Every adjunction F ⊣ G has a unit η : A → G(F(A)) (start the round trip) and a counit ε : F(G(B)) → B (end it), tied by the triangle identities. For currying, the counit is function application. An adjunction is a correspondence, not an inverse.",
+    "notation": ["η : 1 ⇒ GF", "ε : FG ⇒ 1", "(εF)∘(Fη) = id"],
+    "programmerAnalogy": "The counit of currying is eval: (f, x) => f(x). The unit pairs: c => a => [c, a]."
+  },
+  "glossaryUnlocks": ["unit", "counit"]
+}
