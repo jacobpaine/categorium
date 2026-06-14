@@ -1,0 +1,95 @@
+{
+  "status": "authored",
+  "id": "puzzle-c2",
+  "chapterId": "chapter-02-laws",
+  "order": 10,
+  "title": { "data": "Group Them Any Way", "alchemy": "Group Them Any Way", "spellcraft": "Group Them Any Way", "abstract": "Group Them Any Way" },
+  "conceptTags": ["associativity", "composition"],
+  "intro": {
+    "data": "Three real steps run A→B→C→D. Some steps come pre-bundled — 'Parse+Chart' does the first two at once, 'Chart+Report' does the last two. Associativity says HOW you group them never changes the result: f then (g then h) equals (f then g) then h. So several routes reach the true report — but two of the bundles are buggy and produce junk. Find ANY grouping of the faithful steps.",
+    "alchemy": "Three real steps run A→B→C→D. Some come pre-bundled — 'Smelt+Shape' does the first two, 'Shape+Cast' the last two. Associativity says the grouping never changes the result. Several routes reach the true alloy — but two bundles are botched. Find any grouping of the faithful steps.",
+    "spellcraft": "Three real steps run A→B→C→D. Some come pre-bundled — 'Tame+Kindle' does the first two, 'Kindle+Bind' the last two. Associativity says the grouping never changes the result. Several routes reach the true ward — but two bundles are broken. Find any grouping of the faithful steps.",
+    "abstract": "Reach D from A. f,g,h compose stepwise; the bundles g∘f and h∘g are pre-composed. By associativity every faithful grouping gives the same value; the buggy bundles do not."
+  },
+  "goal": { "data": "Reach the true report by any faithful grouping of the steps.", "alchemy": "Reach the true alloy by any faithful grouping.", "spellcraft": "Reach the true ward by any faithful grouping.", "abstract": "Produce D's goal value by any associativity-equivalent route." },
+  "objects": [
+    { "id": "obj-a", "formalLabel": "A", "labels": { "data": "Raw CSV", "alchemy": "Ore", "spellcraft": "Spark", "abstract": "A" }, "description": { "data": "the raw input", "alchemy": "the raw ore", "spellcraft": "the wild spark", "abstract": "object A" }, "colorToken": "sky" },
+    { "id": "obj-b", "formalLabel": "B", "labels": { "data": "Clean Table", "alchemy": "Ingot", "spellcraft": "Flame", "abstract": "B" }, "description": { "data": "a clean table", "alchemy": "a pure ingot", "spellcraft": "a steady flame", "abstract": "object B" }, "colorToken": "emerald" },
+    { "id": "obj-c", "formalLabel": "C", "labels": { "data": "Chart", "alchemy": "Tool", "spellcraft": "Beacon", "abstract": "C" }, "description": { "data": "a chart", "alchemy": "a tool", "spellcraft": "a beacon", "abstract": "object C" }, "colorToken": "violet" },
+    { "id": "obj-d", "formalLabel": "D", "labels": { "data": "Report", "alchemy": "Alloy", "spellcraft": "Ward", "abstract": "D" }, "description": { "data": "the finished report", "alchemy": "the cast alloy", "spellcraft": "the bound ward", "abstract": "object D" }, "colorToken": "amber" }
+  ],
+  "morphisms": [
+    { "id": "mor-f", "formalLabel": "f", "sourceObjectId": "obj-a", "targetObjectId": "obj-b", "labels": { "data": "Parser", "alchemy": "Smelter", "spellcraft": "Ignition", "abstract": "f" }, "description": { "data": "cleans the data", "alchemy": "refines the ore", "spellcraft": "tames the spark", "abstract": "A → B" }, "action": { "v-a": "v-b" } },
+    { "id": "mor-g", "formalLabel": "g", "sourceObjectId": "obj-b", "targetObjectId": "obj-c", "labels": { "data": "Charter", "alchemy": "Toolsmith", "spellcraft": "Kindler", "abstract": "g" }, "description": { "data": "charts the clean table", "alchemy": "shapes the ingot", "spellcraft": "kindles the flame", "abstract": "B → C" }, "action": { "v-b": "v-c" } },
+    { "id": "mor-h", "formalLabel": "h", "sourceObjectId": "obj-c", "targetObjectId": "obj-d", "labels": { "data": "Reporter", "alchemy": "Caster", "spellcraft": "Warder", "abstract": "h" }, "description": { "data": "writes the report", "alchemy": "casts the alloy", "spellcraft": "binds the ward", "abstract": "C → D" }, "action": { "v-c": "v-d" } },
+    { "id": "mor-gf", "formalLabel": "g∘f", "sourceObjectId": "obj-a", "targetObjectId": "obj-c", "labels": { "data": "Parse+Chart", "alchemy": "Smelt+Shape", "spellcraft": "Tame+Kindle", "abstract": "g∘f" }, "description": { "data": "the first two steps, pre-bundled", "alchemy": "the first two steps, pre-bundled", "spellcraft": "the first two steps, pre-bundled", "abstract": "g∘f : A → C" }, "action": { "v-a": "v-c" } },
+    { "id": "mor-hg", "formalLabel": "h∘g", "sourceObjectId": "obj-b", "targetObjectId": "obj-d", "labels": { "data": "Chart+Report", "alchemy": "Shape+Cast", "spellcraft": "Kindle+Bind", "abstract": "h∘g" }, "description": { "data": "the last two steps, pre-bundled", "alchemy": "the last two steps, pre-bundled", "spellcraft": "the last two steps, pre-bundled", "abstract": "h∘g : B → D" }, "action": { "v-b": "v-d" } },
+    { "id": "mor-gfbad", "formalLabel": "(g∘f)?", "sourceObjectId": "obj-a", "targetObjectId": "obj-c", "labels": { "data": "Parse+Chart?", "alchemy": "Smelt+Shape?", "spellcraft": "Tame+Kindle?", "abstract": "(g∘f)?" }, "description": { "data": "same type, but a buggy bundle", "alchemy": "same type, but a botched bundle", "spellcraft": "same type, but a broken bundle", "abstract": "A → C, ≠ g∘f" }, "action": { "v-a": "v-cx" } },
+    { "id": "mor-hgbad", "formalLabel": "(h∘g)?", "sourceObjectId": "obj-b", "targetObjectId": "obj-d", "labels": { "data": "Chart+Report?", "alchemy": "Shape+Cast?", "spellcraft": "Kindle+Bind?", "abstract": "(h∘g)?" }, "description": { "data": "same type, but a buggy bundle", "alchemy": "same type, but a botched bundle", "spellcraft": "same type, but a broken bundle", "abstract": "B → D, ≠ h∘g" }, "action": { "v-b": "v-dx" } }
+  ],
+  "samples": [
+    { "id": "v-a", "objectId": "obj-a", "labels": { "data": "messy spreadsheet", "alchemy": "raw ore", "spellcraft": "wild spark", "abstract": "a" } },
+    { "id": "v-b", "objectId": "obj-b", "labels": { "data": "clean table", "alchemy": "pure ingot", "spellcraft": "steady flame", "abstract": "b" } },
+    { "id": "v-c", "objectId": "obj-c", "labels": { "data": "real chart", "alchemy": "true tool", "spellcraft": "bright beacon", "abstract": "c" } },
+    { "id": "v-cx", "objectId": "obj-c", "labels": { "data": "wrong chart", "alchemy": "wrong tool", "spellcraft": "wrong beacon", "abstract": "c?" } },
+    { "id": "v-d", "objectId": "obj-d", "labels": { "data": "true report", "alchemy": "true alloy", "spellcraft": "true ward", "abstract": "d" } },
+    { "id": "v-dx", "objectId": "obj-d", "labels": { "data": "wrong report", "alchemy": "wrong alloy", "spellcraft": "wrong ward", "abstract": "d?" } }
+  ],
+  "initialGraph": {
+    "nodes": [
+      { "kind": "object", "nodeId": "n-a", "objectId": "obj-a", "role": "start", "position": { "x": 40, "y": 220 } },
+      { "kind": "morphism", "nodeId": "n-f", "morphismId": "mor-f", "position": { "x": 240, "y": 100 } },
+      { "kind": "object", "nodeId": "n-b", "objectId": "obj-b", "position": { "x": 440, "y": 220 } },
+      { "kind": "morphism", "nodeId": "n-g", "morphismId": "mor-g", "position": { "x": 640, "y": 100 } },
+      { "kind": "object", "nodeId": "n-c", "objectId": "obj-c", "position": { "x": 840, "y": 220 } },
+      { "kind": "morphism", "nodeId": "n-h", "morphismId": "mor-h", "position": { "x": 1040, "y": 100 } },
+      { "kind": "object", "nodeId": "n-d", "objectId": "obj-d", "role": "goal", "position": { "x": 1240, "y": 220 } },
+      { "kind": "morphism", "nodeId": "n-gf", "morphismId": "mor-gf", "position": { "x": 360, "y": 380 } },
+      { "kind": "morphism", "nodeId": "n-hg", "morphismId": "mor-hg", "position": { "x": 740, "y": 380 } },
+      { "kind": "morphism", "nodeId": "n-gfbad", "morphismId": "mor-gfbad", "position": { "x": 360, "y": 510 } },
+      { "kind": "morphism", "nodeId": "n-hgbad", "morphismId": "mor-hgbad", "position": { "x": 740, "y": 510 } }
+    ],
+    "edges": []
+  },
+  "allowedMorphismIds": ["mor-f", "mor-g", "mor-h", "mor-gf", "mor-hg", "mor-gfbad", "mor-hgbad"],
+  "validation": [
+    { "type": "type-valid-wiring" },
+    { "type": "concept-tag-required", "conceptTag": "composition" },
+    { "type": "required-output", "inputValueId": "v-a", "outputValueId": "v-d" }
+  ],
+  "reveal": {
+    "afterSuccess": {
+      "data": "However you grouped the faithful steps — all three separately, or with a pre-bundle — you got the same true report. That's associativity: f then (g then h) equals (f then g) then h. The buggy bundles had the right types but the wrong behavior, so they fell out.",
+      "alchemy": "However you grouped the faithful steps, you reached the same true alloy. That's associativity: regrouping never changes the result. The botched bundles had the right types but wrong behavior.",
+      "spellcraft": "However you grouped the faithful steps, you reached the same true ward. That's associativity: regrouping never changes the result. The broken bundles had the right types but wrong behavior.",
+      "abstract": "Every faithful grouping produced D's value: h ∘ (g ∘ f) = (h ∘ g) ∘ f. Associativity lets you bundle freely; only behavior-correct steps qualify."
+    },
+    "summary": "Associativity: h ∘ (g ∘ f) = (h ∘ g) ∘ f. You can compose a chain in any grouping and get the same morphism — so a pre-bundled sub-step is interchangeable with doing its steps one by one.",
+    "notation": ["h ∘ (g ∘ f) = (h ∘ g) ∘ f"],
+    "programmerAnalogy": "h(g(f(x))) — where you put the parentheses doesn't change the answer."
+  },
+  "glossaryUnlocks": ["associativity"],
+  "referenceSolution": {
+    "nodes": [
+      { "kind": "object", "nodeId": "n-a", "objectId": "obj-a", "role": "start", "position": { "x": 40, "y": 220 } },
+      { "kind": "morphism", "nodeId": "n-f", "morphismId": "mor-f", "position": { "x": 240, "y": 100 } },
+      { "kind": "object", "nodeId": "n-b", "objectId": "obj-b", "position": { "x": 440, "y": 220 } },
+      { "kind": "morphism", "nodeId": "n-g", "morphismId": "mor-g", "position": { "x": 640, "y": 100 } },
+      { "kind": "object", "nodeId": "n-c", "objectId": "obj-c", "position": { "x": 840, "y": 220 } },
+      { "kind": "morphism", "nodeId": "n-h", "morphismId": "mor-h", "position": { "x": 1040, "y": 100 } },
+      { "kind": "object", "nodeId": "n-d", "objectId": "obj-d", "role": "goal", "position": { "x": 1240, "y": 220 } },
+      { "kind": "morphism", "nodeId": "n-gf", "morphismId": "mor-gf", "position": { "x": 360, "y": 380 } },
+      { "kind": "morphism", "nodeId": "n-hg", "morphismId": "mor-hg", "position": { "x": 740, "y": 380 } },
+      { "kind": "morphism", "nodeId": "n-gfbad", "morphismId": "mor-gfbad", "position": { "x": 360, "y": 510 } },
+      { "kind": "morphism", "nodeId": "n-hgbad", "morphismId": "mor-hgbad", "position": { "x": 740, "y": 510 } }
+    ],
+    "edges": [
+      { "id": "e1", "sourceNodeId": "n-a", "targetNodeId": "n-f" },
+      { "id": "e2", "sourceNodeId": "n-f", "targetNodeId": "n-b" },
+      { "id": "e3", "sourceNodeId": "n-b", "targetNodeId": "n-g" },
+      { "id": "e4", "sourceNodeId": "n-g", "targetNodeId": "n-c" },
+      { "id": "e5", "sourceNodeId": "n-c", "targetNodeId": "n-h" },
+      { "id": "e6", "sourceNodeId": "n-h", "targetNodeId": "n-d" }
+    ]
+  }
+}

@@ -203,3 +203,48 @@ describe('puzzle-09 — associativity', () => {
     if (!res.ok) expect(res.firstFailure.rule.type).toBe('required-output');
   });
 });
+
+describe('capstones — the harder end-of-chapter puzzles really resist shortcuts', () => {
+  it('c1: the faithful 3-step chain solves; the one-step shortcut does not', () => {
+    const ok = validatePuzzle(
+      toValidationInput(getPuzzle('puzzle-c1') as never),
+      wire('puzzle-c1', [['n-a', 'n-f'], ['n-f', 'n-b'], ['n-b', 'n-g'], ['n-g', 'n-c'], ['n-c', 'n-h'], ['n-h', 'n-d']]),
+    );
+    expect(ok.ok).toBe(true);
+    // The one-step shortcut is rejected: it's a single arrow (not a composition) AND its value is wrong.
+    const shortcut = validatePuzzle(toValidationInput(getPuzzle('puzzle-c1') as never), wire('puzzle-c1', [['n-a', 'n-quick'], ['n-quick', 'n-d']]));
+    expect(shortcut.ok).toBe(false);
+    // And the wrong machine at a stage produces the wrong report (behavior failure).
+    const wrongStage = validatePuzzle(toValidationInput(getPuzzle('puzzle-c1') as never), wire('puzzle-c1', [['n-a', 'n-fbad'], ['n-fbad', 'n-b'], ['n-b', 'n-g'], ['n-g', 'n-c'], ['n-c', 'n-h'], ['n-h', 'n-d']]));
+    expect(wrongStage.ok).toBe(false);
+    if (!wrongStage.ok) expect(wrongStage.firstFailure.rule.type).toBe('required-output');
+  });
+
+  it('c2: a buggy pre-bundle fails; both stepwise and bundled faithful routes pass', () => {
+    const buggy = validatePuzzle(toValidationInput(getPuzzle('puzzle-c2') as never), wire('puzzle-c2', [['n-a', 'n-gfbad'], ['n-gfbad', 'n-c'], ['n-c', 'n-h'], ['n-h', 'n-d']]));
+    expect(buggy.ok).toBe(false);
+    const bundled = validatePuzzle(toValidationInput(getPuzzle('puzzle-c2') as never), wire('puzzle-c2', [['n-a', 'n-gf'], ['n-gf', 'n-c'], ['n-c', 'n-h'], ['n-h', 'n-d']]));
+    expect(bundled.ok).toBe(true);
+  });
+
+  it('c3: the lossy decoder fails to restore the original after the two-step encode', () => {
+    const res = validatePuzzle(
+      toValidationInput(getPuzzle('puzzle-c3') as never),
+      wire('puzzle-c3', [['n-a-start', 'n-f'], ['n-f', 'n-b'], ['n-b', 'n-g'], ['n-g', 'n-c'], ['n-c', 'n-dbad'], ['n-dbad', 'n-a-goal']]),
+    );
+    expect(res.ok).toBe(false);
+    if (!res.ok) expect(res.firstFailure.rule.type).toBe('required-output');
+  });
+
+  it('c4: an impostor lift jams the rest of the lifted pipeline', () => {
+    const res = validatePuzzle(toValidationInput(getPuzzle('puzzle-c4') as never), wire('puzzle-c4', [['n-fa', 'n-Ffbad'], ['n-Ffbad', 'n-fb'], ['n-fb', 'n-Fg'], ['n-Fg', 'n-fc']]));
+    expect(res.ok).toBe(false);
+    if (!res.ok) expect(res.firstFailure.rule.type).toBe('required-output');
+  });
+
+  it('c5: a swapped pairing makes the projection return the wrong component', () => {
+    const res = validatePuzzle(toValidationInput(getPuzzle('puzzle-c5') as never), wire('puzzle-c5', [['n-x', 'n-pairbad'], ['n-pairbad', 'n-p'], ['n-p', 'n-pi1'], ['n-pi1', 'n-a']]));
+    expect(res.ok).toBe(false);
+    if (!res.ok) expect(res.firstFailure.rule.type).toBe('required-output');
+  });
+});

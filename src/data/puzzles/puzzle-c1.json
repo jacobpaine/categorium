@@ -1,0 +1,93 @@
+{
+  "status": "authored",
+  "id": "puzzle-c1",
+  "chapterId": "chapter-01-transformations",
+  "order": 6,
+  "title": { "data": "The Whole Refinery", "alchemy": "The Whole Refinery", "spellcraft": "The Whole Refinery", "abstract": "The Whole Refinery" },
+  "conceptTags": ["composition"],
+  "intro": {
+    "data": "A real pipeline is three steps: clean the raw data, chart the clean table, then write the report. At EVERY step a look-alike machine is offered that produces junk, and a tempting one-step shortcut promises a report straight from the raw data — but it lies. Same colors won't save you; predict what each machine does, then build the chain that yields the true report.",
+    "alchemy": "A real process is three steps: refine the ore, shape the ingot, then cast the alloy. At EVERY step a look-alike apparatus is offered that produces slag, and a tempting one-step shortcut promises an alloy straight from the ore — but it lies. Matching colors won't save you; predict what each does, then build the chain that yields the true alloy.",
+    "spellcraft": "A real rite is three steps: tame the spark, kindle the flame, then bind the ward. At EVERY step a look-alike rune is offered that produces a dud, and a tempting one-step shortcut promises a ward straight from the spark — but it lies. Matching colors won't save you; predict what each does, then build the chain that yields the true ward.",
+    "abstract": "Compose three morphisms A→B→C→D to the goal value. Each stage has a same-typed impostor, and a direct A→D shortcut produces the wrong value. Only the faithful chain works."
+  },
+  "goal": { "data": "Build the three-step chain that turns raw data into the true report.", "alchemy": "Build the three-step chain that turns ore into the true alloy.", "spellcraft": "Build the three-step rite that turns a spark into the true ward.", "abstract": "Reach D with the value the goal requires." },
+  "objects": [
+    { "id": "obj-a", "formalLabel": "A", "labels": { "data": "Raw CSV", "alchemy": "Ore", "spellcraft": "Spark", "abstract": "A" }, "description": { "data": "the raw input", "alchemy": "the raw ore", "spellcraft": "the wild spark", "abstract": "object A" }, "colorToken": "sky" },
+    { "id": "obj-b", "formalLabel": "B", "labels": { "data": "Clean Table", "alchemy": "Ingot", "spellcraft": "Flame", "abstract": "B" }, "description": { "data": "a cleaned table", "alchemy": "a refined ingot", "spellcraft": "a steady flame", "abstract": "object B" }, "colorToken": "emerald" },
+    { "id": "obj-c", "formalLabel": "C", "labels": { "data": "Chart", "alchemy": "Tool", "spellcraft": "Beacon", "abstract": "C" }, "description": { "data": "a chart", "alchemy": "a shaped tool", "spellcraft": "a lit beacon", "abstract": "object C" }, "colorToken": "violet" },
+    { "id": "obj-d", "formalLabel": "D", "labels": { "data": "Report", "alchemy": "Alloy", "spellcraft": "Ward", "abstract": "D" }, "description": { "data": "the finished report", "alchemy": "the cast alloy", "spellcraft": "the bound ward", "abstract": "object D" }, "colorToken": "amber" }
+  ],
+  "morphisms": [
+    { "id": "mor-f", "formalLabel": "f", "sourceObjectId": "obj-a", "targetObjectId": "obj-b", "labels": { "data": "Parser", "alchemy": "Smelter", "spellcraft": "Ignition", "abstract": "f" }, "description": { "data": "cleans the raw data", "alchemy": "refines the ore", "spellcraft": "tames the spark", "abstract": "A → B" }, "action": { "v-raw": "v-clean" } },
+    { "id": "mor-fbad", "formalLabel": "f?", "sourceObjectId": "obj-a", "targetObjectId": "obj-b", "labels": { "data": "Shredder", "alchemy": "Crusher", "spellcraft": "Smother", "abstract": "f?" }, "description": { "data": "same type, but mangles the data", "alchemy": "same type, but cracks the ore", "spellcraft": "same type, but chokes the spark", "abstract": "A → B, wrong behavior" }, "action": { "v-raw": "v-mess" } },
+    { "id": "mor-g", "formalLabel": "g", "sourceObjectId": "obj-b", "targetObjectId": "obj-c", "labels": { "data": "Charter", "alchemy": "Toolsmith", "spellcraft": "Kindler", "abstract": "g" }, "description": { "data": "charts a clean table; jams on a mess", "alchemy": "shapes a pure ingot; jams on a crack", "spellcraft": "kindles a steady flame; jams on a dud", "abstract": "B → C" }, "action": { "v-clean": "v-chart" } },
+    { "id": "mor-gbad", "formalLabel": "g?", "sourceObjectId": "obj-b", "targetObjectId": "obj-c", "labels": { "data": "Scribbler", "alchemy": "Botcher", "spellcraft": "Flicker", "abstract": "g?" }, "description": { "data": "same type, but draws a wrong chart", "alchemy": "same type, but shapes a wrong tool", "spellcraft": "same type, but lights a wrong beacon", "abstract": "B → C, wrong behavior" }, "action": { "v-clean": "v-scrawl" } },
+    { "id": "mor-h", "formalLabel": "h", "sourceObjectId": "obj-c", "targetObjectId": "obj-d", "labels": { "data": "Reporter", "alchemy": "Caster", "spellcraft": "Warder", "abstract": "h" }, "description": { "data": "writes the report from a real chart; jams on a scrawl", "alchemy": "casts the alloy from a real tool; jams on a botch", "spellcraft": "binds the ward from a real beacon; jams on a flicker", "abstract": "C → D" }, "action": { "v-chart": "v-report" } },
+    { "id": "mor-quick", "formalLabel": "q", "sourceObjectId": "obj-a", "targetObjectId": "obj-d", "labels": { "data": "QuickReport", "alchemy": "Quick-Cast", "spellcraft": "Quick-Ward", "abstract": "q" }, "description": { "data": "a one-step shortcut A → D — but its report is wrong", "alchemy": "a one-step shortcut A → D — but its alloy is wrong", "spellcraft": "a one-step shortcut A → D — but its ward is wrong", "abstract": "A → D, not equal to h∘g∘f" }, "action": { "v-raw": "v-bad-report" } }
+  ],
+  "samples": [
+    { "id": "v-raw", "objectId": "obj-a", "labels": { "data": "messy spreadsheet", "alchemy": "raw ore", "spellcraft": "wild spark", "abstract": "a" } },
+    { "id": "v-clean", "objectId": "obj-b", "labels": { "data": "clean table", "alchemy": "pure ingot", "spellcraft": "steady flame", "abstract": "b" } },
+    { "id": "v-mess", "objectId": "obj-b", "labels": { "data": "mangled table", "alchemy": "cracked ingot", "spellcraft": "guttering flame", "abstract": "b?" } },
+    { "id": "v-chart", "objectId": "obj-c", "labels": { "data": "real chart", "alchemy": "true tool", "spellcraft": "bright beacon", "abstract": "c" } },
+    { "id": "v-scrawl", "objectId": "obj-c", "labels": { "data": "scribbled chart", "alchemy": "botched tool", "spellcraft": "weak beacon", "abstract": "c?" } },
+    { "id": "v-report", "objectId": "obj-d", "labels": { "data": "true report", "alchemy": "true alloy", "spellcraft": "true ward", "abstract": "d" } },
+    { "id": "v-bad-report", "objectId": "obj-d", "labels": { "data": "bogus report", "alchemy": "false alloy", "spellcraft": "hollow ward", "abstract": "d?" } }
+  ],
+  "initialGraph": {
+    "nodes": [
+      { "kind": "object", "nodeId": "n-a", "objectId": "obj-a", "role": "start", "position": { "x": 40, "y": 220 } },
+      { "kind": "morphism", "nodeId": "n-f", "morphismId": "mor-f", "position": { "x": 260, "y": 90 } },
+      { "kind": "morphism", "nodeId": "n-fbad", "morphismId": "mor-fbad", "position": { "x": 260, "y": 340 } },
+      { "kind": "object", "nodeId": "n-b", "objectId": "obj-b", "position": { "x": 500, "y": 220 } },
+      { "kind": "morphism", "nodeId": "n-g", "morphismId": "mor-g", "position": { "x": 720, "y": 90 } },
+      { "kind": "morphism", "nodeId": "n-gbad", "morphismId": "mor-gbad", "position": { "x": 720, "y": 340 } },
+      { "kind": "object", "nodeId": "n-c", "objectId": "obj-c", "position": { "x": 960, "y": 220 } },
+      { "kind": "morphism", "nodeId": "n-h", "morphismId": "mor-h", "position": { "x": 1180, "y": 90 } },
+      { "kind": "morphism", "nodeId": "n-quick", "morphismId": "mor-quick", "position": { "x": 600, "y": 470 } },
+      { "kind": "object", "nodeId": "n-d", "objectId": "obj-d", "role": "goal", "position": { "x": 1420, "y": 220 } }
+    ],
+    "edges": []
+  },
+  "allowedMorphismIds": ["mor-f", "mor-fbad", "mor-g", "mor-gbad", "mor-h", "mor-quick"],
+  "validation": [
+    { "type": "type-valid-wiring" },
+    { "type": "concept-tag-required", "conceptTag": "composition" },
+    { "type": "required-output", "inputValueId": "v-raw", "outputValueId": "v-report" }
+  ],
+  "reveal": {
+    "afterSuccess": {
+      "data": "You chained all three faithful steps — Parser, Charter, Reporter — and the raw data came out as the true report. Every impostor was the right TYPE but the wrong behavior, and the one-step shortcut produced a bogus report. A correct pipeline is the composite of correct steps: report = h ∘ g ∘ f.",
+      "alchemy": "You chained all three faithful steps and the ore came out as the true alloy. Every impostor was the right type but wrong behavior, and the shortcut produced a false alloy. A correct process is the composite of correct steps: h ∘ g ∘ f.",
+      "spellcraft": "You chained all three faithful steps and the spark came out as the true ward. Every impostor was the right type but wrong behavior, and the shortcut produced a hollow ward. A correct rite is the composite of correct steps: h ∘ g ∘ f.",
+      "abstract": "The faithful composite h ∘ g ∘ f reached the goal value. Type-valid impostors and the A→D shortcut did not. Composition demands the right behavior at every step."
+    },
+    "summary": "A multi-step pipeline is a composite h ∘ g ∘ f : A → D. Matching types at each port is necessary but not sufficient — every step must also do the right thing, or the final value is wrong.",
+    "notation": ["h ∘ g ∘ f : A → D"],
+    "programmerAnalogy": "const pipeline = (x: A) => h(g(f(x))) — one wrong stage corrupts the whole result."
+  },
+  "glossaryUnlocks": ["composition"],
+  "referenceSolution": {
+    "nodes": [
+      { "kind": "object", "nodeId": "n-a", "objectId": "obj-a", "role": "start", "position": { "x": 40, "y": 220 } },
+      { "kind": "morphism", "nodeId": "n-f", "morphismId": "mor-f", "position": { "x": 260, "y": 90 } },
+      { "kind": "morphism", "nodeId": "n-fbad", "morphismId": "mor-fbad", "position": { "x": 260, "y": 340 } },
+      { "kind": "object", "nodeId": "n-b", "objectId": "obj-b", "position": { "x": 500, "y": 220 } },
+      { "kind": "morphism", "nodeId": "n-g", "morphismId": "mor-g", "position": { "x": 720, "y": 90 } },
+      { "kind": "morphism", "nodeId": "n-gbad", "morphismId": "mor-gbad", "position": { "x": 720, "y": 340 } },
+      { "kind": "object", "nodeId": "n-c", "objectId": "obj-c", "position": { "x": 960, "y": 220 } },
+      { "kind": "morphism", "nodeId": "n-h", "morphismId": "mor-h", "position": { "x": 1180, "y": 90 } },
+      { "kind": "morphism", "nodeId": "n-quick", "morphismId": "mor-quick", "position": { "x": 600, "y": 470 } },
+      { "kind": "object", "nodeId": "n-d", "objectId": "obj-d", "role": "goal", "position": { "x": 1420, "y": 220 } }
+    ],
+    "edges": [
+      { "id": "e1", "sourceNodeId": "n-a", "targetNodeId": "n-f" },
+      { "id": "e2", "sourceNodeId": "n-f", "targetNodeId": "n-b" },
+      { "id": "e3", "sourceNodeId": "n-b", "targetNodeId": "n-g" },
+      { "id": "e4", "sourceNodeId": "n-g", "targetNodeId": "n-c" },
+      { "id": "e5", "sourceNodeId": "n-c", "targetNodeId": "n-h" },
+      { "id": "e6", "sourceNodeId": "n-h", "targetNodeId": "n-d" }
+    ]
+  }
+}

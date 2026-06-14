@@ -1,0 +1,113 @@
+{
+  "status": "authored",
+  "id": "puzzle-c4",
+  "chapterId": "chapter-04-functors",
+  "order": 17,
+  "title": { "data": "Lift the Whole Pipeline", "alchemy": "Lift the Whole Pipeline", "spellcraft": "Lift the Whole Pipeline", "abstract": "Lift the Whole Pipeline" },
+  "conceptTags": ["functor"],
+  "intro": {
+    "data": "The plain pipeline (at right) Cleans one record, then Charts it. Lift the WHOLE thing to run on a batch. You can lift each step (Batch Cleaner, then Batch Charter) or use the single pre-lifted machine (Batch Processor) — both must reach the same batch of charts. But every slot also offers an impostor that does a DIFFERENT job, and one pre-lifted machine is botched. Build a faithful lifted pipeline.",
+    "alchemy": "The plain process (at right) Smelts one ore, then Shapes it. Lift the WHOLE thing to run on a crate. Lift each step (Crate Smelter, then Crate Shaper) or use the single pre-lifted Crate Processor — both reach the same crate of tools. But each slot offers an impostor doing a different job, and one pre-lifted machine is botched. Build a faithful lifted process.",
+    "spellcraft": "The plain rite (at right) Kindles one spark, then Beacons it. Lift the WHOLE thing to run on a flock. Lift each step (Flock Kindler, then Flock Beaconer) or use the single pre-lifted Flock Processor — both reach the same flock of beacons. But each slot offers an impostor doing a different job, and one pre-lifted machine is botched. Build a faithful lifted rite.",
+    "abstract": "Lift the pipeline g∘f into F-world reaching F(C). Use F(f) then F(g), or the pre-lifted F(g∘f). Impostors are same-typed but wrong; one pre-lifted composite is not F(g∘f). Only faithful lifts reach the goal batch."
+  },
+  "goal": { "data": "Turn a batch of raw records into a batch of charts, by lifting the pipeline.", "alchemy": "Turn a crate of ore into a crate of tools, by lifting the process.", "spellcraft": "Turn a flock of sparks into a flock of beacons, by lifting the rite.", "abstract": "Take F(A) to F(C) faithfully." },
+  "referenceLabel": { "data": "One record at a time", "alchemy": "One ore at a time", "spellcraft": "One spark at a time", "abstract": "The plain pipeline" },
+  "referenceDiagram": {
+    "objects": [
+      { "id": "pa", "formalLabel": "A", "labels": { "data": "Record", "alchemy": "Ore", "spellcraft": "Spark", "abstract": "A" }, "colorToken": "sky" },
+      { "id": "pb", "formalLabel": "B", "labels": { "data": "Clean Record", "alchemy": "Ingot", "spellcraft": "Flame", "abstract": "B" }, "colorToken": "emerald" },
+      { "id": "pc", "formalLabel": "C", "labels": { "data": "Chart", "alchemy": "Tool", "spellcraft": "Beacon", "abstract": "C" }, "colorToken": "violet" }
+    ],
+    "morphisms": [
+      { "id": "pf", "formalLabel": "f", "sourceObjectId": "pa", "targetObjectId": "pb", "labels": { "data": "Cleaner", "alchemy": "Smelter", "spellcraft": "Kindler", "abstract": "f" } },
+      { "id": "pg", "formalLabel": "g", "sourceObjectId": "pb", "targetObjectId": "pc", "labels": { "data": "Charter", "alchemy": "Shaper", "spellcraft": "Beaconer", "abstract": "g" } }
+    ],
+    "graph": {
+      "nodes": [
+        { "kind": "object", "nodeId": "rp-a", "objectId": "pa", "role": "start", "position": { "x": 20, "y": 60 } },
+        { "kind": "morphism", "nodeId": "rp-f", "morphismId": "pf", "position": { "x": 130, "y": 60 } },
+        { "kind": "object", "nodeId": "rp-b", "objectId": "pb", "role": "goal", "position": { "x": 250, "y": 60 } },
+        { "kind": "morphism", "nodeId": "rp-g", "morphismId": "pg", "position": { "x": 360, "y": 60 } },
+        { "kind": "object", "nodeId": "rp-c", "objectId": "pc", "position": { "x": 480, "y": 60 } }
+      ],
+      "edges": [
+        { "id": "rp-e1", "sourceNodeId": "rp-a", "targetNodeId": "rp-f" },
+        { "id": "rp-e2", "sourceNodeId": "rp-f", "targetNodeId": "rp-b" },
+        { "id": "rp-e3", "sourceNodeId": "rp-b", "targetNodeId": "rp-g" },
+        { "id": "rp-e4", "sourceNodeId": "rp-g", "targetNodeId": "rp-c" }
+      ]
+    }
+  },
+  "objects": [
+    { "id": "obj-fa", "formalLabel": "F(A)", "labels": { "data": "Batch of Raw", "alchemy": "Crate of Ore", "spellcraft": "Flock of Sparks", "abstract": "F(A)" }, "description": { "data": "a whole batch of raw records", "alchemy": "a whole crate of ore", "spellcraft": "a whole flock of sparks", "abstract": "F(A)" }, "colorToken": "sky" },
+    { "id": "obj-fb", "formalLabel": "F(B)", "labels": { "data": "Batch of Clean", "alchemy": "Crate of Ingots", "spellcraft": "Flock of Flames", "abstract": "F(B)" }, "description": { "data": "a whole batch of clean records", "alchemy": "a whole crate of ingots", "spellcraft": "a whole flock of flames", "abstract": "F(B)" }, "colorToken": "emerald" },
+    { "id": "obj-fc", "formalLabel": "F(C)", "labels": { "data": "Batch of Charts", "alchemy": "Crate of Tools", "spellcraft": "Flock of Beacons", "abstract": "F(C)" }, "description": { "data": "a whole batch of charts", "alchemy": "a whole crate of tools", "spellcraft": "a whole flock of beacons", "abstract": "F(C)" }, "colorToken": "violet" }
+  ],
+  "morphisms": [
+    { "id": "mor-Ff", "formalLabel": "F(f)", "sourceObjectId": "obj-fa", "targetObjectId": "obj-fb", "labels": { "data": "Batch Cleaner", "alchemy": "Crate Smelter", "spellcraft": "Flock Kindler", "abstract": "F(f)" }, "description": { "data": "the Cleaner run on a whole batch", "alchemy": "the Smelter run on a whole crate", "spellcraft": "the Kindler run on a whole flock", "abstract": "F(f) — the lift of f" }, "action": { "box-raw": "box-clean" } },
+    { "id": "mor-Ffbad", "formalLabel": "F(f)?", "sourceObjectId": "obj-fa", "targetObjectId": "obj-fb", "labels": { "data": "Batch Shredder", "alchemy": "Crate Crusher", "spellcraft": "Flock Smotherer", "abstract": "F(f)?" }, "description": { "data": "a DIFFERENT machine — shreds the batch", "alchemy": "a DIFFERENT apparatus — crushes the crate", "spellcraft": "a DIFFERENT working — smothers the flock", "abstract": "not the lift of f" }, "action": { "box-raw": "box-mess" } },
+    { "id": "mor-Fg", "formalLabel": "F(g)", "sourceObjectId": "obj-fb", "targetObjectId": "obj-fc", "labels": { "data": "Batch Charter", "alchemy": "Crate Shaper", "spellcraft": "Flock Beaconer", "abstract": "F(g)" }, "description": { "data": "the Charter run on a whole batch; jams on a shredded batch", "alchemy": "the Shaper run on a whole crate; jams on a crushed crate", "spellcraft": "the Beaconer run on a whole flock; jams on a smothered flock", "abstract": "F(g) — the lift of g" }, "action": { "box-clean": "box-chart" } },
+    { "id": "mor-Fgbad", "formalLabel": "F(g)?", "sourceObjectId": "obj-fb", "targetObjectId": "obj-fc", "labels": { "data": "Batch Scribbler", "alchemy": "Crate Botcher", "spellcraft": "Flock Flickerer", "abstract": "F(g)?" }, "description": { "data": "a DIFFERENT machine — scribbles the batch", "alchemy": "a DIFFERENT apparatus — botches the crate", "spellcraft": "a DIFFERENT working — flickers the flock", "abstract": "not the lift of g" }, "action": { "box-clean": "box-scrawl" } },
+    { "id": "mor-Fcomp", "formalLabel": "F(g∘f)", "sourceObjectId": "obj-fa", "targetObjectId": "obj-fc", "labels": { "data": "Batch Processor", "alchemy": "Crate Processor", "spellcraft": "Flock Processor", "abstract": "F(g∘f)" }, "description": { "data": "the whole pipeline lifted as one — clean then chart, on a batch", "alchemy": "the whole process lifted as one — smelt then shape, on a crate", "spellcraft": "the whole rite lifted as one — kindle then beacon, on a flock", "abstract": "F(g∘f) = F(g)∘F(f)" }, "action": { "box-raw": "box-chart" } },
+    { "id": "mor-Fcompbad", "formalLabel": "F(g∘f)?", "sourceObjectId": "obj-fa", "targetObjectId": "obj-fc", "labels": { "data": "Batch Botcher", "alchemy": "Crate Spoiler", "spellcraft": "Flock Bungler", "abstract": "F(g∘f)?" }, "description": { "data": "same type, but not the lift of the pipeline", "alchemy": "same type, but not the lift of the process", "spellcraft": "same type, but not the lift of the rite", "abstract": "A → F(C), ≠ F(g∘f)" }, "action": { "box-raw": "box-bad" } }
+  ],
+  "samples": [
+    { "id": "box-raw", "objectId": "obj-fa", "labels": { "data": "a batch of raw records", "alchemy": "a crate of ore", "spellcraft": "a flock of sparks", "abstract": "F(a)" } },
+    { "id": "box-clean", "objectId": "obj-fb", "labels": { "data": "a batch of clean records", "alchemy": "a crate of ingots", "spellcraft": "a flock of flames", "abstract": "F(b)" } },
+    { "id": "box-mess", "objectId": "obj-fb", "labels": { "data": "a batch of shredded records", "alchemy": "a crate of slag", "spellcraft": "a flock of cinders", "abstract": "F(b)?" } },
+    { "id": "box-chart", "objectId": "obj-fc", "labels": { "data": "a batch of charts", "alchemy": "a crate of tools", "spellcraft": "a flock of beacons", "abstract": "F(c)" } },
+    { "id": "box-scrawl", "objectId": "obj-fc", "labels": { "data": "a batch of scribbles", "alchemy": "a crate of botches", "spellcraft": "a flock of flickers", "abstract": "F(c)?" } },
+    { "id": "box-bad", "objectId": "obj-fc", "labels": { "data": "a batch of junk", "alchemy": "a crate of spoil", "spellcraft": "a flock of duds", "abstract": "F(c)??" } }
+  ],
+  "initialGraph": {
+    "nodes": [
+      { "kind": "object", "nodeId": "n-fa", "objectId": "obj-fa", "role": "start", "position": { "x": 40, "y": 220 } },
+      { "kind": "morphism", "nodeId": "n-Ff", "morphismId": "mor-Ff", "position": { "x": 260, "y": 90 } },
+      { "kind": "morphism", "nodeId": "n-Ffbad", "morphismId": "mor-Ffbad", "position": { "x": 260, "y": 340 } },
+      { "kind": "object", "nodeId": "n-fb", "objectId": "obj-fb", "position": { "x": 500, "y": 220 } },
+      { "kind": "morphism", "nodeId": "n-Fg", "morphismId": "mor-Fg", "position": { "x": 720, "y": 90 } },
+      { "kind": "morphism", "nodeId": "n-Fgbad", "morphismId": "mor-Fgbad", "position": { "x": 720, "y": 340 } },
+      { "kind": "object", "nodeId": "n-fc", "objectId": "obj-fc", "role": "goal", "position": { "x": 960, "y": 220 } },
+      { "kind": "morphism", "nodeId": "n-Fcomp", "morphismId": "mor-Fcomp", "position": { "x": 460, "y": 470 } },
+      { "kind": "morphism", "nodeId": "n-Fcompbad", "morphismId": "mor-Fcompbad", "position": { "x": 460, "y": 590 } }
+    ],
+    "edges": []
+  },
+  "allowedMorphismIds": ["mor-Ff", "mor-Ffbad", "mor-Fg", "mor-Fgbad", "mor-Fcomp", "mor-Fcompbad"],
+  "validation": [
+    { "type": "type-valid-wiring" },
+    { "type": "required-output", "inputValueId": "box-raw", "outputValueId": "box-chart" }
+  ],
+  "reveal": {
+    "afterSuccess": {
+      "data": "You lifted the whole pipeline — either by lifting each step (Batch Cleaner then Batch Charter) or by the single Batch Processor. Both reached the same batch of charts, because a functor preserves composition: F(g∘f) = F(g)∘F(f). The impostors and the botched composite had the right types but the wrong behavior.",
+      "alchemy": "You lifted the whole process, by steps or by the single Crate Processor — both reached the same crate, because a functor preserves composition: F(g∘f) = F(g)∘F(f). The impostors and the botched composite had the wrong behavior.",
+      "spellcraft": "You lifted the whole rite, by steps or by the single Flock Processor — both reached the same flock, because a functor preserves composition: F(g∘f) = F(g)∘F(f). The impostors and the botched composite had the wrong behavior.",
+      "abstract": "Both faithful routes reached F(C): F(g∘f) = F(g)∘F(f). A functor preserves composition, so lifting a pipeline equals composing the lifts."
+    },
+    "summary": "A functor preserves composition: F(g ∘ f) = F(g) ∘ F(f). Lifting a whole pipeline gives the same result as lifting each step and composing — provided every lift is faithful.",
+    "notation": ["F(g ∘ f) = F(g) ∘ F(f)"],
+    "programmerAnalogy": "map(g ∘ f) === map(g) ∘ map(f) — map distributes over composition."
+  },
+  "glossaryUnlocks": ["functor"],
+  "referenceSolution": {
+    "nodes": [
+      { "kind": "object", "nodeId": "n-fa", "objectId": "obj-fa", "role": "start", "position": { "x": 40, "y": 220 } },
+      { "kind": "morphism", "nodeId": "n-Ff", "morphismId": "mor-Ff", "position": { "x": 260, "y": 90 } },
+      { "kind": "morphism", "nodeId": "n-Ffbad", "morphismId": "mor-Ffbad", "position": { "x": 260, "y": 340 } },
+      { "kind": "object", "nodeId": "n-fb", "objectId": "obj-fb", "position": { "x": 500, "y": 220 } },
+      { "kind": "morphism", "nodeId": "n-Fg", "morphismId": "mor-Fg", "position": { "x": 720, "y": 90 } },
+      { "kind": "morphism", "nodeId": "n-Fgbad", "morphismId": "mor-Fgbad", "position": { "x": 720, "y": 340 } },
+      { "kind": "object", "nodeId": "n-fc", "objectId": "obj-fc", "role": "goal", "position": { "x": 960, "y": 220 } },
+      { "kind": "morphism", "nodeId": "n-Fcomp", "morphismId": "mor-Fcomp", "position": { "x": 460, "y": 470 } },
+      { "kind": "morphism", "nodeId": "n-Fcompbad", "morphismId": "mor-Fcompbad", "position": { "x": 460, "y": 590 } }
+    ],
+    "edges": [
+      { "id": "e1", "sourceNodeId": "n-fa", "targetNodeId": "n-Ff" },
+      { "id": "e2", "sourceNodeId": "n-Ff", "targetNodeId": "n-fb" },
+      { "id": "e3", "sourceNodeId": "n-fb", "targetNodeId": "n-Fg" },
+      { "id": "e4", "sourceNodeId": "n-Fg", "targetNodeId": "n-fc" }
+    ]
+  }
+}

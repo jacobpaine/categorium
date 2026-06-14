@@ -1,0 +1,86 @@
+{
+  "status": "authored",
+  "kind": "natural-transformation",
+  "id": "puzzle-c6",
+  "chapterId": "chapter-06-natural-transformations",
+  "order": 24,
+  "title": { "data": "Natural Across the Board", "alchemy": "Natural Across the Board", "spellcraft": "Natural Across the Board", "abstract": "Natural Across the Board" },
+  "conceptTags": ["natural-transformation"],
+  "intro": {
+    "data": "Now there are THREE content types in a chain (User → Email → Host), so there are TWO naturality squares to satisfy at once. At each type you again get the trustworthy 'first item' converter and the cheating 'first-or-a-made-up-default' one. A single slip anywhere breaks a square. Pick the natural converter at all three.",
+    "alchemy": "Now there are THREE reagents in a chain, so there are TWO naturality squares to satisfy at once. At each reagent you again get the trustworthy 'Take First' method and the cheating 'First or Conjure' one. A single slip anywhere breaks a square. Pick the natural method at all three.",
+    "spellcraft": "Now there are THREE essences in a chain, so there are TWO naturality squares to satisfy at once. At each essence you again get the trustworthy 'Take Top' working and the cheating 'Top or Conjure' one. A single slip anywhere breaks a square. Pick the natural working at all three.",
+    "abstract": "C has three objects A→B→C, giving two naturality squares (for f and g). Choose components α_A, α_B, α_C so both α_B∘F(f)=G(f)∘α_A and α_C∘F(g)=G(g)∘α_B hold."
+  },
+  "goal": { "data": "Pick the natural converter at all three types so both squares commute.", "alchemy": "Pick the natural method at all three reagents so both squares commute.", "spellcraft": "Choose the natural working at all three essences so both squares commute.", "abstract": "Make both naturality squares commute." },
+  "sourceCategory": {
+    "objects": [
+      { "id": "obj-a", "formalLabel": "A", "labels": { "data": "User", "alchemy": "Herb", "spellcraft": "Rune", "abstract": "A" }, "description": { "data": "a data type you must handle — choose its converter", "alchemy": "a reagent you must handle — choose its method", "spellcraft": "an essence you must handle — choose its working", "abstract": "object A of C" } },
+      { "id": "obj-b", "formalLabel": "B", "labels": { "data": "Email", "alchemy": "Essence", "spellcraft": "Spark", "abstract": "B" }, "description": { "data": "a data type you must handle — choose its converter", "alchemy": "a reagent you must handle — choose its method", "spellcraft": "an essence you must handle — choose its working", "abstract": "object B of C" } },
+      { "id": "obj-c", "formalLabel": "C", "labels": { "data": "Host", "alchemy": "Root", "spellcraft": "Glyph", "abstract": "C" }, "description": { "data": "a data type you must handle — choose its converter", "alchemy": "a reagent you must handle — choose its method", "spellcraft": "an essence you must handle — choose its working", "abstract": "object C of C" } }
+    ],
+    "morphisms": [
+      { "id": "mor-f", "formalLabel": "f", "sourceObjectId": "obj-a", "targetObjectId": "obj-b", "labels": { "data": "getEmail", "alchemy": "Extract", "spellcraft": "Invoke", "abstract": "f" } },
+      { "id": "mor-g", "formalLabel": "g", "sourceObjectId": "obj-b", "targetObjectId": "obj-c", "labels": { "data": "getHost", "alchemy": "Distill", "spellcraft": "Etch", "abstract": "g" } }
+    ]
+  },
+  "targetCategory": {
+    "objects": [
+      { "id": "d-fa", "formalLabel": "F(A)", "labels": { "data": "List of Users", "alchemy": "Rack of Herbs", "spellcraft": "Stack of Runes", "abstract": "F(A)" }, "colorToken": "sky" },
+      { "id": "d-fb", "formalLabel": "F(B)", "labels": { "data": "List of Emails", "alchemy": "Rack of Essences", "spellcraft": "Stack of Sparks", "abstract": "F(B)" }, "colorToken": "emerald" },
+      { "id": "d-fc", "formalLabel": "F(C)", "labels": { "data": "List of Hosts", "alchemy": "Rack of Roots", "spellcraft": "Stack of Glyphs", "abstract": "F(C)" }, "colorToken": "violet" },
+      { "id": "d-ga", "formalLabel": "G(A)", "labels": { "data": "Optional User", "alchemy": "One Herb (or empty)", "spellcraft": "Top Rune (or none)", "abstract": "G(A)" }, "colorToken": "sky" },
+      { "id": "d-gb", "formalLabel": "G(B)", "labels": { "data": "Optional Email", "alchemy": "One Essence (or empty)", "spellcraft": "Top Spark (or none)", "abstract": "G(B)" }, "colorToken": "emerald" },
+      { "id": "d-gc", "formalLabel": "G(C)", "labels": { "data": "Optional Host", "alchemy": "One Root (or empty)", "spellcraft": "Top Glyph (or none)", "abstract": "G(C)" }, "colorToken": "violet" }
+    ],
+    "morphisms": [
+      { "id": "d-Ff", "formalLabel": "F(f)", "sourceObjectId": "d-fa", "targetObjectId": "d-fb", "labels": { "data": "map getEmail", "alchemy": "Extract Each", "spellcraft": "Invoke Each", "abstract": "F(f)" } },
+      { "id": "d-Fg", "formalLabel": "F(g)", "sourceObjectId": "d-fb", "targetObjectId": "d-fc", "labels": { "data": "map getHost", "alchemy": "Distill Each", "spellcraft": "Etch Each", "abstract": "F(g)" } },
+      { "id": "d-Gf", "formalLabel": "G(f)", "sourceObjectId": "d-ga", "targetObjectId": "d-gb", "labels": { "data": "map over the optional", "alchemy": "Extract the Vial", "spellcraft": "Invoke the Rune", "abstract": "G(f)" } },
+      { "id": "d-Gg", "formalLabel": "G(g)", "sourceObjectId": "d-gb", "targetObjectId": "d-gc", "labels": { "data": "map over the optional", "alchemy": "Distill the Vial", "spellcraft": "Etch the Rune", "abstract": "G(g)" } },
+      { "id": "d-shA", "formalLabel": "α_A", "sourceObjectId": "d-fa", "targetObjectId": "d-ga", "labels": { "data": "safeHead", "alchemy": "Take First", "spellcraft": "Take Top", "abstract": "α_A" }, "description": { "data": "takes a list's first element, or nothing if it's empty — the natural choice", "alchemy": "takes the first vial off the rack, or nothing if the rack is empty — the natural choice", "spellcraft": "takes the top rune off the stack, or nothing if the stack is empty — the natural choice", "abstract": "the natural component F(A) → G(A)" } },
+      { "id": "d-shB", "formalLabel": "α_B", "sourceObjectId": "d-fb", "targetObjectId": "d-gb", "labels": { "data": "safeHead", "alchemy": "Take First", "spellcraft": "Take Top", "abstract": "α_B" }, "description": { "data": "takes a list's first element, or nothing if it's empty — the natural choice", "alchemy": "takes the first vial off the rack, or nothing if the rack is empty — the natural choice", "spellcraft": "takes the top rune off the stack, or nothing if the stack is empty — the natural choice", "abstract": "the natural component F(B) → G(B)" } },
+      { "id": "d-shC", "formalLabel": "α_C", "sourceObjectId": "d-fc", "targetObjectId": "d-gc", "labels": { "data": "safeHead", "alchemy": "Take First", "spellcraft": "Take Top", "abstract": "α_C" }, "description": { "data": "takes a list's first element, or nothing if it's empty — the natural choice", "alchemy": "takes the first vial off the rack, or nothing if the rack is empty — the natural choice", "spellcraft": "takes the top rune off the stack, or nothing if the stack is empty — the natural choice", "abstract": "the natural component F(C) → G(C)" } },
+      { "id": "d-bdA", "formalLabel": "β_A", "sourceObjectId": "d-fa", "targetObjectId": "d-ga", "labels": { "data": "headOrDefault", "alchemy": "First or Conjure", "spellcraft": "Top or Conjure", "abstract": "β_A" }, "description": { "data": "takes the first, or a MADE-UP default if empty — breaks naturality", "alchemy": "takes the first vial, or conjures a blank one if empty — breaks naturality", "spellcraft": "takes the top rune, or conjures a blank one if empty — breaks naturality", "abstract": "typed F(A) → G(A), but not natural" } },
+      { "id": "d-bdB", "formalLabel": "β_B", "sourceObjectId": "d-fb", "targetObjectId": "d-gb", "labels": { "data": "headOrDefault", "alchemy": "First or Conjure", "spellcraft": "Top or Conjure", "abstract": "β_B" }, "description": { "data": "takes the first, or a MADE-UP default if empty — breaks naturality", "alchemy": "takes the first vial, or conjures a blank one if empty — breaks naturality", "spellcraft": "takes the top rune, or conjures a blank one if empty — breaks naturality", "abstract": "typed F(B) → G(B), but not natural" } },
+      { "id": "d-bdC", "formalLabel": "β_C", "sourceObjectId": "d-fc", "targetObjectId": "d-gc", "labels": { "data": "headOrDefault", "alchemy": "First or Conjure", "spellcraft": "Top or Conjure", "abstract": "β_C" }, "description": { "data": "takes the first, or a MADE-UP default if empty — breaks naturality", "alchemy": "takes the first vial, or conjures a blank one if empty — breaks naturality", "spellcraft": "takes the top rune, or conjures a blank one if empty — breaks naturality", "abstract": "typed F(C) → G(C), but not natural" } },
+      { "id": "d-d1", "formalLabel": "·", "sourceObjectId": "d-fa", "targetObjectId": "d-gb", "labels": { "data": "natural (f)", "alchemy": "natural (f)", "spellcraft": "natural (f)", "abstract": "F(A)→G(B)" } },
+      { "id": "d-d1x", "formalLabel": "·", "sourceObjectId": "d-fa", "targetObjectId": "d-gb", "labels": { "data": "broken f-across", "alchemy": "broken", "spellcraft": "broken", "abstract": "F(A)→G(B)" } },
+      { "id": "d-d1y", "formalLabel": "·", "sourceObjectId": "d-fa", "targetObjectId": "d-gb", "labels": { "data": "broken f-down", "alchemy": "broken", "spellcraft": "broken", "abstract": "F(A)→G(B)" } },
+      { "id": "d-d2", "formalLabel": "·", "sourceObjectId": "d-fb", "targetObjectId": "d-gc", "labels": { "data": "natural (g)", "alchemy": "natural (g)", "spellcraft": "natural (g)", "abstract": "F(B)→G(C)" } },
+      { "id": "d-d2x", "formalLabel": "·", "sourceObjectId": "d-fb", "targetObjectId": "d-gc", "labels": { "data": "broken g-across", "alchemy": "broken", "spellcraft": "broken", "abstract": "F(B)→G(C)" } },
+      { "id": "d-d2y", "formalLabel": "·", "sourceObjectId": "d-fb", "targetObjectId": "d-gc", "labels": { "data": "broken g-down", "alchemy": "broken", "spellcraft": "broken", "abstract": "F(B)→G(C)" } }
+    ],
+    "composites": [
+      { "first": "d-Ff", "second": "d-shB", "result": "d-d1" },
+      { "first": "d-shA", "second": "d-Gf", "result": "d-d1" },
+      { "first": "d-Ff", "second": "d-bdB", "result": "d-d1x" },
+      { "first": "d-bdA", "second": "d-Gf", "result": "d-d1y" },
+      { "first": "d-Fg", "second": "d-shC", "result": "d-d2" },
+      { "first": "d-shB", "second": "d-Gg", "result": "d-d2" },
+      { "first": "d-Fg", "second": "d-bdC", "result": "d-d2x" },
+      { "first": "d-bdB", "second": "d-Gg", "result": "d-d2y" }
+    ]
+  },
+  "functorF": {
+    "objectMap": { "obj-a": "d-fa", "obj-b": "d-fb", "obj-c": "d-fc" },
+    "morphismMap": { "mor-f": "d-Ff", "mor-g": "d-Fg" }
+  },
+  "functorG": {
+    "objectMap": { "obj-a": "d-ga", "obj-b": "d-gb", "obj-c": "d-gc" },
+    "morphismMap": { "mor-f": "d-Gf", "mor-g": "d-Gg" }
+  },
+  "referenceComponents": { "obj-a": "d-shA", "obj-b": "d-shB", "obj-c": "d-shC" },
+  "reveal": {
+    "afterSuccess": {
+      "data": "You picked the trustworthy 'first item' converter at all three types, and BOTH naturality squares commuted at once. A natural transformation has to be natural everywhere — one cheating component anywhere would have broken a square. safeHead is natural across the whole chain.",
+      "alchemy": "You picked 'Take First' at all three reagents, and BOTH squares commuted at once. A natural transformation has to be natural everywhere — one cheating method would have broken a square.",
+      "spellcraft": "You chose 'Take Top' at all three essences, and BOTH squares commuted at once. A natural transformation has to be natural everywhere — one cheating working would have broken a square.",
+      "abstract": "Both squares commute with α = safeHead at every object: α_B∘F(f)=G(f)∘α_A and α_C∘F(g)=G(g)∘α_B. Naturality is a condition at every morphism, not just one."
+    },
+    "summary": "Naturality must hold at EVERY morphism of C: for each f, α_target ∘ F(f) = G(f) ∘ α_source. A family is a natural transformation only when all of its squares commute together.",
+    "notation": ["α_B ∘ F(f) = G(f) ∘ α_A", "α_C ∘ F(g) = G(g) ∘ α_B"],
+    "programmerAnalogy": "A polymorphic function that's natural for every function in the chain, not just one."
+  },
+  "glossaryUnlocks": ["natural-transformation"]
+}
