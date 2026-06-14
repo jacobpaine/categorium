@@ -30,7 +30,6 @@ async function openPuzzle14(page: Page) {
 test('lifting a machine: the faithful lift transforms the whole batch', async ({ page }) => {
   await openPuzzle14(page);
 
-  await page.getByRole('button', { name: 'a batch of clean records', exact: true }).click();
   await connect(page, right('n-fa'), left('n-Ff'));
   await connect(page, right('n-Ff'), left('n-fb'));
 
@@ -47,6 +46,7 @@ test('the impostor lift (same type) produces the wrong batch', async ({ page }) 
 
   await page.getByTestId('run-check').click();
   await expect(page.getByText('Not quite yet')).toBeVisible();
-  await expect(page.locator('.bg-rose-100').filter({ hasText: 'shredded records' })).toBeVisible();
+  await expect(page.getByText('0 / 1 pass')).toBeVisible();
+  await expect(page.getByText('a batch of shredded records', { exact: true }).first()).toBeVisible();
   await expect(page.getByTestId('solved')).toHaveCount(0);
 });

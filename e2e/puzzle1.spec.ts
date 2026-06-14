@@ -32,17 +32,14 @@ async function openPuzzle1(page: Page) {
 test('solving requires the right BEHAVIOR, not just a matching type', async ({ page }) => {
   await openPuzzle1(page);
 
-  // Predict the output, then wire the machine that actually makes a clean table.
-  await page.getByRole('button', { name: 'clean table', exact: true }).click();
+  // Wire the machine that actually makes a clean table.
   await connect(page, right('n-a'), left('n-parser'));
   await connect(page, right('n-parser'), left('n-b'));
 
   await page.getByTestId('run-check').click();
-  // The value token animates immediately (transient) — check it first.
-  await expect(page.locator('.react-flow__node-sampleToken')).toBeVisible();
   await expect(page.getByTestId('solved')).toBeVisible();
   await expect(page.getByText('What you learned')).toBeVisible();
-  await expect(page.getByText('Your prediction was right.')).toBeVisible();
+  await expect(page.getByText('1 / 1 pass')).toBeVisible();
 });
 
 test('a same-typed but wrong-behaved machine (Shredder) is rejected', async ({ page }) => {
@@ -54,7 +51,8 @@ test('a same-typed but wrong-behaved machine (Shredder) is rejected', async ({ p
 
   await page.getByTestId('run-check').click();
   await expect(page.getByText('Not quite yet')).toBeVisible();
-  // The "Produced:" chip shows the wrong value it actually made (rose-tinted).
-  await expect(page.locator('.bg-rose-100').filter({ hasText: 'shredded mess' })).toBeVisible();
+  // The failing test case shows the wrong value it actually produced.
+  await expect(page.getByText('0 / 1 pass')).toBeVisible();
+  await expect(page.getByText('shredded mess', { exact: false })).toBeVisible();
   await expect(page.getByTestId('solved')).toHaveCount(0);
 });

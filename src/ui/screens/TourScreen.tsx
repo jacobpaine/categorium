@@ -20,7 +20,7 @@ import { tracePath, runChain } from '../../domain';
 import { PuzzleCanvas } from '../canvas/PuzzleCanvas';
 import type { BehaviorContext } from '../canvas/sampleAnimation';
 import { RevealPanel } from '../components/RevealPanel';
-import { BehaviorPanel } from '../components/BehaviorPanel';
+import { TestCasePanel, type BehaviorCase } from '../components/TestCasePanel';
 import { SolutionPreview } from '../components/SolutionPreview';
 
 const FIRST_CHAPTER = '/chapter/chapter-01-transformations/puzzle/puzzle-01';
@@ -98,27 +98,34 @@ function TourStep({
   const [result, setResult] = useState<ValidationResult | null>(null);
   const [status, setStatus] = useState<RunStatus>('editing');
   const [resetToken, setResetToken] = useState(0);
-  const [predictedId, setPredictedId] = useState<string | null>(null);
   const [runSignal, setRunSignal] = useState(0);
-  const [actualOutputId, setActualOutputId] = useState<string | null>(null);
+  const [actualByCase, setActualByCase] = useState<Record<string, string | null>>({});
+  const [activeCaseInput, setActiveCaseInput] = useState<string | null>(null);
   const graphRef = useRef<PuzzleGraph | null>(null);
 
   const diagram = useMemo(() => toDiagram(step), [step]);
 
-  const behaviorRule = step.validation.find((r) => r.type === 'required-output');
+  const behaviorCases = useMemo<BehaviorCase[]>(
+    () =>
+      step.validation
+        .filter((r) => r.type === 'required-output')
+        .map((r) => ({ inputValueId: r.inputValueId, outputValueId: r.outputValueId })),
+    [step],
+  );
   const samples = step.samples ?? [];
-  const isBehavior = Boolean(behaviorRule && samples.length > 0);
+  const isBehavior = behaviorCases.length > 0 && samples.length > 0;
 
   const labelOf = useCallback(
     (valueId: string) => samples.find((s) => s.id === valueId)?.labels[theme] ?? valueId,
     [samples, theme],
   );
+  const animateInput = activeCaseInput ?? behaviorCases[0]?.inputValueId;
   const behaviorFlow = useMemo<BehaviorContext | undefined>(
     () =>
-      isBehavior && behaviorRule
-        ? { diagram, inputValueId: behaviorRule.inputValueId, labelOf }
+      isBehavior && animateInput
+        ? { diagram, inputValueId: animateInput, labelOf }
         : undefined,
-    [isBehavior, diagram, behaviorRule, labelOf],
+    [isBehavior, diagram, animateInput, labelOf],
   );
 
   const tokenValueByObjectId = useMemo(() => {
@@ -132,15 +139,29 @@ function TourStep({
     graphRef.current = g;
   }, []);
 
+  function runCase(inputValueId: string) {
+    const graph = graphRef.current ?? step.initialGraph;
+    const traced = tracePath(diagram, graph);
+    const out = traced.ok ? runChain(diagram, traced.value.morphismIds, inputValueId) : null;
+    setActualByCase((m) => ({ ...m, [inputValueId]: out && out.ok ? out.value : null }));
+    setActiveCaseInput(inputValueId);
+    setRunSignal((s) => s + 1);
+  }
+
   function runCheck() {
     const graph = graphRef.current ?? step.initialGraph;
     const res = validatePuzzle(toValidationInput(step), graph);
     setResult(res);
 
-    if (isBehavior && behaviorRule) {
+    if (isBehavior) {
       const traced = tracePath(diagram, graph);
-      const out = traced.ok ? runChain(diagram, traced.value.morphismIds, behaviorRule.inputValueId) : null;
-      setActualOutputId(out && out.ok ? out.value : null);
+      const next: Record<string, string | null> = {};
+      for (const c of behaviorCases) {
+        const out = traced.ok ? runChain(diagram, traced.value.morphismIds, c.inputValueId) : null;
+        next[c.inputValueId] = out && out.ok ? out.value : null;
+      }
+      setActualByCase(next);
+      setActiveCaseInput(behaviorCases[0]?.inputValueId ?? null);
       setRunSignal((s) => s + 1);
     }
 
@@ -159,8 +180,8 @@ function TourStep({
     setResult(null);
     setStatus('editing');
     setResetToken((t) => t + 1);
-    setActualOutputId(null);
-    setPredictedId(null);
+    setActualByCase({});
+    setActiveCaseInput(null);
   }
 
   const canvasKey = `${step.id}:${theme}:${resetToken}`;
@@ -198,16 +219,14 @@ function TourStep({
           </div>
         )}
 
-        {isBehavior && behaviorRule && (
-          <BehaviorPanel
+        {isBehavior && (
+          <TestCasePanel
             samples={samples}
             theme={theme}
-            inputValueId={behaviorRule.inputValueId}
-            goalValueId={behaviorRule.outputValueId}
-            predictedId={predictedId}
-            onPredict={setPredictedId}
-            actualOutputId={actualOutputId}
-            ran={runSignal > 0}
+            cases={behaviorCases}
+            actualByCase={actualByCase}
+            onRunCase={runCase}
+            activeCaseInput={activeCaseInput}
             locked={status === 'success'}
           />
         )}

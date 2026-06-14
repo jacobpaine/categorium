@@ -13,7 +13,7 @@ import { tracePath, runChain } from '../../domain';
 import { PuzzleCanvas } from '../canvas/PuzzleCanvas';
 import type { BehaviorContext } from '../canvas/sampleAnimation';
 import { RevealPanel } from '../components/RevealPanel';
-import { BehaviorPanel } from '../components/BehaviorPanel';
+import { TestCasePanel, type BehaviorCase } from '../components/TestCasePanel';
 import { SolutionPreview } from '../components/SolutionPreview';
 
 type RunStatus = 'editing' | 'success' | 'error';
@@ -47,29 +47,37 @@ function PuzzleScreenInner({ puzzleId }: { puzzleId?: string }) {
   const [result, setResult] = useState<ValidationResult | null>(null);
   const [status, setStatus] = useState<RunStatus>('editing');
   const [resetToken, setResetToken] = useState(0);
-  const [predictedId, setPredictedId] = useState<string | null>(null);
   const [runSignal, setRunSignal] = useState(0);
-  const [actualOutputId, setActualOutputId] = useState<string | null>(null);
+  const [actualByCase, setActualByCase] = useState<Record<string, string | null>>({});
+  const [activeCaseInput, setActiveCaseInput] = useState<string | null>(null);
   const graphRef = useRef<PuzzleGraph | null>(null);
 
   const diagram = useMemo(() => (authored ? toDiagram(authored) : null), [authored]);
 
-  // Behavior puzzles carry sample values + a `required-output` rule. When present, the player
-  // predicts and runs real values through the machines (see BehaviorPanel / the value runtime).
-  const behaviorRule = authored?.validation.find((r) => r.type === 'required-output');
+  // Behavior puzzles carry sample values + one or more `required-output` rules — these are the
+  // TEST CASES: the player builds one pipeline that must satisfy them all (see TestCasePanel).
+  const behaviorCases = useMemo<BehaviorCase[]>(
+    () =>
+      (authored?.validation ?? [])
+        .filter((r) => r.type === 'required-output')
+        .map((r) => ({ inputValueId: r.inputValueId, outputValueId: r.outputValueId })),
+    [authored],
+  );
   const samples = authored?.samples ?? [];
-  const isBehavior = Boolean(behaviorRule && samples.length > 0);
+  const isBehavior = behaviorCases.length > 0 && samples.length > 0;
 
   const labelOf = useCallback(
     (valueId: string) => samples.find((s) => s.id === valueId)?.labels[theme] ?? valueId,
     [samples, theme],
   );
+  // The token animates whichever case the player last ran (defaults to the first case).
+  const animateInput = activeCaseInput ?? behaviorCases[0]?.inputValueId;
   const behaviorFlow = useMemo<BehaviorContext | undefined>(
     () =>
-      isBehavior && diagram && behaviorRule
-        ? { diagram, inputValueId: behaviorRule.inputValueId, labelOf }
+      isBehavior && diagram && animateInput
+        ? { diagram, inputValueId: animateInput, labelOf }
         : undefined,
-    [isBehavior, diagram, behaviorRule, labelOf],
+    [isBehavior, diagram, animateInput, labelOf],
   );
 
   // Theme-resolved value shown on the flowing sample token at each object (sample > label).
@@ -109,16 +117,32 @@ function PuzzleScreenInner({ puzzleId }: { puzzleId?: string }) {
     (p) => p.chapterId === authored.chapterId && p.order === authored.order + 1 && isAuthored(p),
   );
 
+  /** Run one test case's value through the wired pipeline; record its actual output + animate it. */
+  function runCase(inputValueId: string) {
+    if (!diagram) return;
+    const graph = graphRef.current ?? initialGraph;
+    const traced = tracePath(diagram, graph);
+    const out = traced.ok ? runChain(diagram, traced.value.morphismIds, inputValueId) : null;
+    setActualByCase((m) => ({ ...m, [inputValueId]: out && out.ok ? out.value : null }));
+    setActiveCaseInput(inputValueId);
+    setRunSignal((s) => s + 1);
+  }
+
   function runCheck() {
     const graph = graphRef.current ?? initialGraph;
     const res = validatePuzzle(toValidationInput(authored!), graph);
     setResult(res);
 
-    // Behavior puzzles: run the real value through to show (and report) what was produced.
-    if (isBehavior && behaviorRule && diagram) {
+    // Behavior puzzles: run every test case through and record what each produced.
+    if (isBehavior && diagram) {
       const traced = tracePath(diagram, graph);
-      const out = traced.ok ? runChain(diagram, traced.value.morphismIds, behaviorRule.inputValueId) : null;
-      setActualOutputId(out && out.ok ? out.value : null);
+      const next: Record<string, string | null> = {};
+      for (const c of behaviorCases) {
+        const out = traced.ok ? runChain(diagram, traced.value.morphismIds, c.inputValueId) : null;
+        next[c.inputValueId] = out && out.ok ? out.value : null;
+      }
+      setActualByCase(next);
+      setActiveCaseInput(behaviorCases[0]?.inputValueId ?? null);
       setRunSignal((s) => s + 1);
     }
 
@@ -144,8 +168,8 @@ function PuzzleScreenInner({ puzzleId }: { puzzleId?: string }) {
     setResult(null);
     setStatus('editing');
     setResetToken((t) => t + 1);
-    setActualOutputId(null);
-    setPredictedId(null);
+    setActualByCase({});
+    setActiveCaseInput(null);
   }
 
   return (
@@ -192,16 +216,14 @@ function PuzzleScreenInner({ puzzleId }: { puzzleId?: string }) {
           </div>
         )}
 
-        {isBehavior && behaviorRule && (
-          <BehaviorPanel
+        {isBehavior && (
+          <TestCasePanel
             samples={samples}
             theme={theme}
-            inputValueId={behaviorRule.inputValueId}
-            goalValueId={behaviorRule.outputValueId}
-            predictedId={predictedId}
-            onPredict={setPredictedId}
-            actualOutputId={actualOutputId}
-            ran={runSignal > 0}
+            cases={behaviorCases}
+            actualByCase={actualByCase}
+            onRunCase={runCase}
+            activeCaseInput={activeCaseInput}
             locked={status === 'success'}
           />
         )}

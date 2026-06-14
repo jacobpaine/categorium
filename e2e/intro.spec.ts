@@ -30,8 +30,7 @@ test('walkthrough: solving the first step advances to the next', async ({ page }
   await expect(page.locator('.react-flow__node[data-id="n-f"]')).toBeVisible();
   await page.waitForTimeout(400);
 
-  // Predict, then build A -> f -> B and run.
-  await page.getByRole('button', { name: 'clean table', exact: true }).click();
+  // Build A -> f -> B and run.
   await connect(page, right('n-a'), left('n-f'));
   await connect(page, right('n-f'), left('n-b'));
   await page.getByTestId('run-check').click();
