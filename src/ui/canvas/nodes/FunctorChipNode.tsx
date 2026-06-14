@@ -5,6 +5,7 @@
  */
 import { Handle, Position, type NodeProps } from 'reactflow';
 import { colorClasses } from '../colors';
+import { NodeHoverCard } from './NodeHoverCard';
 
 export type FunctorChipData = {
   side: 'source' | 'target';
@@ -14,6 +15,8 @@ export type FunctorChipData = {
   label: string;
   /** For morphisms: the "A → B" endpoint hint. */
   sub?: string;
+  /** One-line, theme-flavored "what this is", shown on hover. */
+  description?: string;
   colorToken?: string;
 };
 
@@ -34,7 +37,16 @@ export function FunctorChipNode({ data }: NodeProps<FunctorChipData>) {
   );
 
   return (
-    <div className="relative">
+    // pointer-events-auto: the NT chips are non-draggable, so React Flow would otherwise leave the
+    // node non-interactive and the hover-card would never trigger.
+    <div className="group relative pointer-events-auto">
+      <NodeHoverCard
+        name={data.label}
+        role={isObject ? 'object' : 'process'}
+        signature={data.sub}
+        description={data.description}
+        placement="bottom"
+      />
       {data.side === 'target' && (
         <Handle type="target" position={Position.Left} className="!h-3 !w-3 !border-2 !border-white !bg-indigo-500" />
       )}

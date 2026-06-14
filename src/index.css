@@ -39,3 +39,12 @@ body,
     transition: none;
   }
 }
+
+/*
+ * Raise a hovered node above its neighbors so its hover-card (which overflows the node bounds)
+ * paints on top of adjacent nodes instead of slipping under them. React Flow sets an inline
+ * z-index per node, so this needs !important.
+ */
+.react-flow__node:hover {
+  z-index: 50 !important;
+}

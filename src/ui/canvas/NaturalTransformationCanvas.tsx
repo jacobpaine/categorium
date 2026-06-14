@@ -68,6 +68,7 @@ export function NaturalTransformationCanvas({
           refId: o.id,
           label: o.labels[theme],
           sub: fa && ga ? `α : ${dLabel(targetCategory, fa)} → ${dLabel(targetCategory, ga)}` : undefined,
+          description: o.description?.[theme],
           colorToken: o.colorToken,
         },
       });
@@ -95,6 +96,7 @@ export function NaturalTransformationCanvas({
           refId: m.id,
           label: m.labels[theme],
           sub: `${dLabel(targetCategory, m.sourceObjectId)} → ${dLabel(targetCategory, m.targetObjectId)}`,
+          description: m.description?.[theme],
         },
       });
       y += 80;
