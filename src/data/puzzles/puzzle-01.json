@@ -11,16 +11,16 @@
   },
   "conceptTags": ["object", "morphism"],
   "intro": {
-    "data": "A process turns one thing into another. Your toolkit holds two machines that both accept the messy spreadsheet — but they do different things to it. Bring the one you trust onto the board, wire it from the input to the clean table, and leave the other in the tray.",
-    "alchemy": "A process turns one material into another. Your toolkit holds two apparatuses that both accept the raw ore — but they do different things to it. Bring the one you trust onto the board, wire it from the ore to the pure ingot, and leave the other in the tray.",
-    "spellcraft": "A working turns one essence into another. Your toolkit holds two runes that both accept the wild spark — but they do different things to it. Bring the one you trust onto the board, wire it from the spark to the steady flame, and leave the other in the tray.",
-    "abstract": "A morphism turns one object into another. Your toolkit holds two machines of the same type A → B that behave differently: f sends a ↦ b, g sends a ↦ b′. Place the one that yields the goal value b and wire it from the input."
+    "data": "A process turns one thing into another. Both machines in your toolkit have the SAME type — messy spreadsheet → table — so the type alone can't tell you which is right. Only what each one DOES can: the Parser makes the clean table the goal wants, the Shredder makes a shredded mess. The test case below is the requirement (messy spreadsheet → clean table); bring the machine that meets it onto the board and wire it, leaving the other in the tray.",
+    "alchemy": "A process turns one material into another. Both apparatuses have the SAME type — ore → ingot — so the type alone can't tell you which is right. Only what each one DOES can: the Smelter makes the pure ingot the goal wants, the Crusher makes a cracked one. The test case below is the requirement (ore → pure ingot); bring the apparatus that meets it onto the board, leaving the other in the tray.",
+    "spellcraft": "A working turns one essence into another. Both runes have the SAME type — spark → flame — so the type alone can't tell you which is right. Only what each one DOES can: Ignition makes the steady flame the goal wants, Smother makes a sputtering one. The test case below is the requirement (spark → steady flame); bring the rune that meets it onto the board, leaving the other in the tray.",
+    "abstract": "A morphism turns one object into another. Both machines have the SAME type, A → B, so the type cannot tell them apart — only behavior can. The test case is the requirement: a ↦ b. f meets it; g sends a ↦ b′ and fails. 'Correct' means nothing more than meeting that requirement — there is no other reason b beats b′. Place f and wire it from the input."
   },
   "goal": {
-    "data": "Drag the machine you need onto the board and wire the input through it to the clean table.",
-    "alchemy": "Drag the apparatus you need onto the board and wire the ore through it to the pure ingot.",
-    "spellcraft": "Drag the rune you need onto the board and wire the spark through it to the steady flame.",
-    "abstract": "Place and wire the machine that sends the input a to the goal value b."
+    "data": "Place and wire the machine whose behavior turns the messy spreadsheet into the clean table the test case requires (not the shredded mess).",
+    "alchemy": "Place and wire the apparatus whose behavior turns the ore into the pure ingot the test case requires (not the cracked one).",
+    "spellcraft": "Place and wire the rune whose behavior turns the spark into the steady flame the test case requires (not the sputtering one).",
+    "abstract": "Both machines are A → B; place and wire the one whose behavior meets the test case a ↦ b (f), not a ↦ b′ (g)."
   },
   "objects": [
     { "id": "obj-a", "formalLabel": "A", "labels": { "data": "Raw CSV", "alchemy": "Ore", "spellcraft": "Spark", "abstract": "A" }, "description": { "data": "the messy input you start with", "alchemy": "the raw material you start with", "spellcraft": "the wild essence you start with", "abstract": "the source object" }, "colorToken": "sky" },

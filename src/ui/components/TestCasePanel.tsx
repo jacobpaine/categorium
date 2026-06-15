@@ -78,7 +78,10 @@ export function TestCasePanel({
                   {label(samples, c.inputValueId, theme)}
                 </span>
                 <span className="text-slate-400">→</span>
-                <span className="rounded-full bg-slate-100 px-2 py-0.5 text-xs text-slate-700">
+                <span
+                  title="The required output — the value your pipeline must produce"
+                  className="rounded-full bg-emerald-100 px-2 py-0.5 text-xs font-medium text-emerald-800 ring-1 ring-emerald-300"
+                >
                   {label(samples, c.outputValueId, theme)}
                 </span>
                 {ran && (
@@ -92,11 +95,16 @@ export function TestCasePanel({
                 )}
               </div>
               {ran && !pass && (
-                <div className="mt-1 pl-6 text-xs text-rose-700">
-                  got{' '}
-                  <span className="font-medium">
-                    {actual === null ? 'a jam (a machine couldn’t process the value)' : label(samples, actual, theme)}
-                  </span>
+                <div className="mt-1 flex items-center gap-1.5 pl-6 text-xs text-rose-700">
+                  <span>got</span>
+                  {actual === null ? (
+                    <span className="font-medium">a jam (a machine couldn’t process the value)</span>
+                  ) : (
+                    <span className="rounded-full bg-rose-100 px-2 py-0.5 font-medium text-rose-800 ring-1 ring-rose-300">
+                      {label(samples, actual, theme)}
+                    </span>
+                  )}
+                  <span className="text-rose-400">≠ required output</span>
                 </div>
               )}
             </div>

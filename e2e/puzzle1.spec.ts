@@ -65,7 +65,9 @@ test('toolkit: choosing the wrong tray piece (Shredder) is rejected', async ({ p
   await page.getByTestId('run-check').click();
   await expect(page.getByText('Not quite yet')).toBeVisible();
   await expect(page.getByText('0 / 1 pass')).toBeVisible();
-  await expect(page.getByText('shredded mess', { exact: false })).toBeVisible();
+  // The produced wrong value shows in the rose "got" chip (scoped to avoid the intro prose).
+  await expect(page.locator('.bg-rose-100').filter({ hasText: 'shredded mess' })).toBeVisible();
+  await expect(page.getByText('≠ required output')).toBeVisible();
   await expect(page.getByTestId('solved')).toHaveCount(0);
 });
 
