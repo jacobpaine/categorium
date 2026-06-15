@@ -25,14 +25,19 @@ import ReactFlow, {
 } from 'reactflow';
 import 'reactflow/dist/style.css';
 import type { Diagram, PuzzleGraph, ThemeId } from '../../domain';
+import type { Toolkit } from '../../schemas';
 import {
+  buildMorphismNode,
+  buildObjectNode,
   fromReactFlow,
   toReactFlow,
+  OBJECT_NODE_TYPE,
   type MachineNodeData,
   type ObjectNodeData,
   type RFNode,
 } from '../../flow/adapter';
 import { nodeTypes } from './nodeTypes';
+import { ToolkitPalette } from './ToolkitPalette';
 import {
   SAMPLE_TOKEN_ID,
   SAMPLE_TOKEN_TYPE,
@@ -65,6 +70,11 @@ export type PuzzleCanvasProps = {
   runSignal?: number;
   /** Show the live category-theory notation box at the bottom of the board. */
   showNotation?: boolean;
+  /**
+   * Toolkit mode: candidate objects/morphisms start in a side tray; the player clicks them onto
+   * the board. Absent => every node is pre-placed (classic mode), rendered exactly as before.
+   */
+  toolkit?: Toolkit;
   onGraphChange: (graph: PuzzleGraph) => void;
 };
 
@@ -80,6 +90,7 @@ export function PuzzleCanvas({
   behaviorFlow,
   runSignal = 0,
   showNotation = true,
+  toolkit,
   onGraphChange,
 }: PuzzleCanvasProps) {
   const initial = useMemo(
@@ -92,6 +103,24 @@ export function PuzzleCanvas({
   const [nodes, setNodes, onNodesChange] = useNodesState<RFNodeData>(initial.nodes as Node<RFNodeData>[]);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initial.edges);
   const edgeCounter = useRef(initial.edges.length);
+
+  // Toolkit tray: candidates not already on the board (subtracting placed ids handles restore of a
+  // saved in-progress graph). Pinned start/goal objects are never in the tray.
+  const [trayObjectIds, setTrayObjectIds] = useState<string[]>(() => {
+    if (!toolkit) return [];
+    const placed = new Set(
+      initialGraph.nodes.flatMap((n) => (n.kind === 'object' ? [n.objectId] : [])),
+    );
+    return toolkit.paletteObjectIds.filter((id) => !placed.has(id));
+  });
+  const [trayMorphismIds, setTrayMorphismIds] = useState<string[]>(() => {
+    if (!toolkit) return [];
+    const placed = new Set(
+      initialGraph.nodes.flatMap((n) => (n.kind === 'morphism' ? [n.morphismId] : [])),
+    );
+    return toolkit.paletteMorphismIds.filter((id) => !placed.has(id));
+  });
+  const placeCounter = useRef(0);
 
   // The sample token lives outside `nodes` so it never reaches onGraphChange / validation.
   const [token, setToken] = useState<Node<SampleTokenData> | null>(null);
@@ -201,9 +230,85 @@ export function PuzzleCanvas({
     [animated, setEdges],
   );
 
+  // Toolkit click-to-place: materialize a tray item as a real node (same builders as a pre-placed
+  // node, so it round-trips through fromReactFlow identically) and remove it from the tray.
+  const placeFromTray = useCallback(
+    (kind: 'object' | 'morphism', refId: string) => {
+      const n = placeCounter.current++;
+      // Spawn in a staging area below the pinned start/goal row (which sits at y~180): clear of the
+      // pinned nodes so a fresh piece never lands on the start node's handle, yet inside the
+      // mount-time fitView band so it's visible. The player drags it where they like.
+      const position = { x: 220 + (n % 3) * 170, y: 300 + Math.floor(n / 3) * 90 };
+      const nodeId = `tk-${kind}-${refId}-${n}`;
+      const opts = { theme, showFormalLabels, animated };
+      const built =
+        kind === 'object'
+          ? buildObjectNode({ kind: 'object', nodeId, objectId: refId, position }, diagram, opts, position)
+          : buildMorphismNode(
+              { kind: 'morphism', nodeId, morphismId: refId, position },
+              diagram,
+              opts,
+              position,
+            );
+      setNodes((nds) => [...nds, built as Node<RFNodeData>]);
+      if (kind === 'object') setTrayObjectIds((ids) => ids.filter((i) => i !== refId));
+      else setTrayMorphismIds((ids) => ids.filter((i) => i !== refId));
+    },
+    [diagram, theme, showFormalLabels, animated, setNodes],
+  );
+
+  // Toolkit return-to-tray: drop a placed (non-pinned) node and its edges, returning it to the tray.
+  // Pinned start/goal objects are refused.
+  const removeNode = useCallback(
+    (nodeId: string) => {
+      setNodes((nds) => {
+        const node = nds.find((n) => n.id === nodeId);
+        if (!node) return nds;
+        if (node.type === OBJECT_NODE_TYPE) {
+          const d = node.data as ObjectNodeData;
+          if (d.role === 'start' || d.role === 'goal') return nds; // pinned: never removable
+          setTrayObjectIds((ids) => (ids.includes(d.objectId) ? ids : [...ids, d.objectId]));
+        } else {
+          const refId = (node.data as MachineNodeData).morphismId;
+          setTrayMorphismIds((ids) => (ids.includes(refId) ? ids : [...ids, refId]));
+        }
+        setEdges((eds) => eds.filter((e) => e.source !== nodeId && e.target !== nodeId));
+        return nds.filter((n) => n.id !== nodeId);
+      });
+    },
+    [setNodes, setEdges],
+  );
+
+  // Delete/Backspace returns the selected placed node(s) to the tray (toolkit only). RF's own
+  // delete is disabled in toolkit mode (deleteKeyCode={null}) so pinned nodes can't be dropped.
+  useEffect(() => {
+    if (!toolkit || locked) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== 'Delete' && e.key !== 'Backspace') return;
+      if (selectedNodeIds.length === 0) return;
+      const t = e.target as HTMLElement | null;
+      if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable)) return;
+      selectedNodeIds.forEach(removeNode);
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [toolkit, locked, selectedNodeIds, removeNode]);
+
+  // Decorate placed (non-pinned) nodes with the ✕ return-to-tray affordance in toolkit mode.
+  const decoratedNodes = useMemo(() => {
+    if (!toolkit || locked) return nodes;
+    return nodes.map((n) => {
+      const isPinned =
+        n.type === OBJECT_NODE_TYPE &&
+        ((n.data as ObjectNodeData).role === 'start' || (n.data as ObjectNodeData).role === 'goal');
+      if (isPinned) return n;
+      return { ...n, data: { ...n.data, removable: true, onRemove: () => removeNode(n.id) } };
+    });
+  }, [nodes, toolkit, locked, removeNode]);
+
   const renderedNodes = useMemo(
-    () => (token ? ([...nodes, token] as Node[]) : (nodes as Node[])),
-    [nodes, token],
+    () => (token ? ([...decoratedNodes, token] as Node[]) : (decoratedNodes as Node[])),
+    [decoratedNodes, token],
   );
 
   const onSelectionChange = useCallback(
@@ -219,7 +324,19 @@ export function PuzzleCanvas({
   }, [showNotation, nodes, edges, diagram, selectedNodeIds, theme]);
 
   return (
-    <div className="relative h-full w-full">
+    <div className="relative flex h-full w-full">
+      {toolkit && (
+        <ToolkitPalette
+          diagram={diagram}
+          theme={theme}
+          showFormalLabels={showFormalLabels}
+          objectIds={trayObjectIds}
+          morphismIds={trayMorphismIds}
+          locked={locked}
+          onPlace={placeFromTray}
+        />
+      )}
+      <div className="relative h-full flex-1">
       <ReactFlow
         nodes={renderedNodes}
         edges={edges}
@@ -233,6 +350,7 @@ export function PuzzleCanvas({
         nodesDraggable={!locked}
         edgesUpdatable={!locked}
         elementsSelectable
+        deleteKeyCode={toolkit ? null : undefined}
         fitView
         proOptions={{ hideAttribution: true }}
       >
@@ -240,6 +358,7 @@ export function PuzzleCanvas({
         <Controls showInteractive={false} />
       </ReactFlow>
       {showNotation && <NotationBox lines={notationLines} />}
+      </div>
     </div>
   );
 }

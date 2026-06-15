@@ -352,6 +352,7 @@ function PuzzleScreenInner({ puzzleId }: { puzzleId?: string }) {
           tokenValueByObjectId={tokenValueByObjectId}
           behaviorFlow={behaviorFlow}
           runSignal={runSignal}
+          toolkit={authored.toolkit}
           onGraphChange={onGraphChange}
         />
       </div>

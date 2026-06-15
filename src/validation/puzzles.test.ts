@@ -4,12 +4,16 @@ import { isAuthored } from '../schemas';
 import type { PuzzleGraph } from '../domain';
 import { validatePuzzle } from './validatePuzzle';
 
-/** Build a graph from a puzzle's initial nodes plus a custom set of wires. */
+/**
+ * Build a graph from a puzzle's authored nodes plus a custom set of wires. Toolkit puzzles pin
+ * only start/goal in `initialGraph`, so we take the node set from `referenceSolution` (which still
+ * lists every authored object/morphism node, including distractors) and fall back to initialGraph.
+ */
 function wire(puzzleId: string, edges: [string, string][]): PuzzleGraph {
   const p = getPuzzle(puzzleId);
   if (!p || !isAuthored(p)) throw new Error(`fixture ${puzzleId}`);
   return {
-    nodes: p.initialGraph.nodes,
+    nodes: (p.referenceSolution ?? p.initialGraph).nodes,
     edges: edges.map(([s, t], i) => ({ id: `e${i}`, sourceNodeId: s, targetNodeId: t })),
   };
 }

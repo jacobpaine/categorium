@@ -4,7 +4,7 @@
  * type). Shows the formal label once the morphism concept is unlocked.
  */
 import { Handle, Position, type NodeProps } from 'reactflow';
-import { Cog } from 'lucide-react';
+import { Cog, X } from 'lucide-react';
 import type { MachineNodeData } from '../../../flow/adapter';
 import { colorClasses } from '../colors';
 import { NodeHoverCard } from './NodeHoverCard';
@@ -21,7 +21,10 @@ export function MachineNode({ data }: NodeProps<MachineNodeData>) {
   const output = colorClasses(data.outputColorToken);
 
   return (
-    <div className="group relative rounded-lg border-2 border-slate-400 bg-white px-5 py-3 shadow-sm">
+    <div
+      data-testid={`node-machine-${data.morphismId}`}
+      className="group relative rounded-lg border-2 border-slate-400 bg-white px-5 py-3 shadow-sm"
+    >
       <NodeHoverCard
         name={data.label}
         role="process"
@@ -29,6 +32,20 @@ export function MachineNode({ data }: NodeProps<MachineNodeData>) {
         signature={signatureOf(data)}
         description={data.description}
       />
+      {data.removable && (
+        <button
+          type="button"
+          aria-label={`Return ${data.label} to the tray`}
+          data-testid={`remove-machine-${data.morphismId}`}
+          onClick={(e) => {
+            e.stopPropagation();
+            data.onRemove?.();
+          }}
+          className="absolute -right-2 -top-2 z-10 hidden rounded-full bg-slate-700 p-0.5 text-white shadow group-hover:block hover:bg-slate-900"
+        >
+          <X className="h-3 w-3" aria-hidden />
+        </button>
+      )}
       <Handle
         type="target"
         position={Position.Left}

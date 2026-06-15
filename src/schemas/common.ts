@@ -97,6 +97,20 @@ export const puzzleGraphSchema = z.object({
   edges: z.array(graphEdgeSchema),
 });
 
+/**
+ * Toolkit mode (optional). When present, the named objects/morphisms are NOT pre-placed on the
+ * board — they start in a side tray and the player clicks them onto the canvas, choosing which
+ * pieces to use and how to route them. Ids reference entries in the puzzle's `objects`/`morphisms`
+ * catalog. Pinned start/goal nodes stay in `initialGraph.nodes`. Validation is unchanged: it only
+ * ever sees the final built graph, so distractors left in the tray simply never appear in it.
+ */
+export const toolkitSchema = z.object({
+  paletteObjectIds: z.array(z.string().min(1)).default([]),
+  paletteMorphismIds: z.array(z.string().min(1)).default([]),
+});
+
+export type Toolkit = z.infer<typeof toolkitSchema>;
+
 /** A read-only diagram shown for context (e.g. the "plain world" a lifting puzzle transports). */
 export const referenceDiagramSchema = z.object({
   objects: z.array(categoryObjectSchema).min(1),

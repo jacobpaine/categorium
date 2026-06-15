@@ -3,7 +3,7 @@
  * Pill-shaped; shows a Start/Goal badge and, once the concept is unlocked, the formal label.
  */
 import { Handle, Position, type NodeProps } from 'reactflow';
-import { Flag, Target } from 'lucide-react';
+import { Flag, Target, X } from 'lucide-react';
 import type { ObjectNodeData } from '../../../flow/adapter';
 import { colorClasses } from '../colors';
 import { NodeHoverCard } from './NodeHoverCard';
@@ -15,6 +15,7 @@ export function ObjectTerminalNode({ data }: NodeProps<ObjectNodeData>) {
 
   return (
     <div
+      data-testid={`node-object-${data.objectId}`}
       className={`group relative rounded-full border-2 px-5 py-3 shadow-sm ${c.bg} ${c.border} ${c.text}`}
     >
       <NodeHoverCard
@@ -23,6 +24,20 @@ export function ObjectTerminalNode({ data }: NodeProps<ObjectNodeData>) {
         formalLabel={data.formalLabel}
         description={data.description}
       />
+      {data.removable && (
+        <button
+          type="button"
+          aria-label={`Return ${data.label} to the tray`}
+          data-testid={`remove-object-${data.objectId}`}
+          onClick={(e) => {
+            e.stopPropagation();
+            data.onRemove?.();
+          }}
+          className="absolute -right-2 -top-2 z-10 hidden rounded-full bg-slate-700 p-0.5 text-white shadow group-hover:block hover:bg-slate-900"
+        >
+          <X className="h-3 w-3" aria-hidden />
+        </button>
+      )}
       {/* Goal objects accept an incoming wire on the left. */}
       {!isStart && (
         <Handle

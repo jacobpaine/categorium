@@ -27,6 +27,10 @@ export type ObjectNodeData = {
   colorToken?: string;
   /** Whether to surface the formal label (concept unlocked). */
   showFormal: boolean;
+  /** Toolkit mode: this node was placed from the tray and can be sent back. Display-only. */
+  removable?: boolean;
+  /** Toolkit mode: send this placed node back to the tray. Display-only (not serialized). */
+  onRemove?: () => void;
 };
 
 export type MachineNodeData = {
@@ -46,6 +50,10 @@ export type MachineNodeData = {
   inputColorToken?: string;
   outputColorToken?: string;
   showFormal: boolean;
+  /** Toolkit mode: this node was placed from the tray and can be sent back. Display-only. */
+  removable?: boolean;
+  /** Toolkit mode: send this placed node back to the tray. Display-only (not serialized). */
+  onRemove?: () => void;
 };
 
 export type ObjectNode = Node<ObjectNodeData, typeof OBJECT_NODE_TYPE>;
@@ -65,47 +73,67 @@ function fallbackPosition(node: GraphNode, index: number): { x: number; y: numbe
   return node.position ?? { x: 40 + index * 300, y: 140 };
 }
 
+/**
+ * Build the React Flow node for an object placement. Shared by `toReactFlow` and the toolkit
+ * click-to-place path, so a tray-placed object node is byte-identical to a pre-placed one.
+ */
+export function buildObjectNode(
+  node: Extract<GraphNode, { kind: 'object' }>,
+  diagram: Diagram,
+  opts: ToReactFlowOptions,
+  position: { x: number; y: number },
+): ObjectNode {
+  const obj = getObject(diagram, node.objectId);
+  const data: ObjectNodeData = {
+    objectId: node.objectId,
+    label: obj?.labels[opts.theme] ?? node.objectId,
+    formalLabel: obj?.formalLabel,
+    description: obj?.description?.[opts.theme],
+    role: node.role,
+    colorToken: obj?.colorToken,
+    showFormal: Boolean(opts.showFormalLabels),
+  };
+  return { id: node.nodeId, type: OBJECT_NODE_TYPE, position, data };
+}
+
+/** Build the React Flow node for a morphism placement. See `buildObjectNode`. */
+export function buildMorphismNode(
+  node: Extract<GraphNode, { kind: 'morphism' }>,
+  diagram: Diagram,
+  opts: ToReactFlowOptions,
+  position: { x: number; y: number },
+): MachineNode {
+  const mor = getMorphism(diagram, node.morphismId);
+  const inputObj = mor ? getObject(diagram, mor.sourceObjectId) : undefined;
+  const outputObj = mor ? getObject(diagram, mor.targetObjectId) : undefined;
+  const data: MachineNodeData = {
+    morphismId: node.morphismId,
+    label: mor?.labels[opts.theme] ?? node.morphismId,
+    formalLabel: mor?.formalLabel,
+    description: mor?.description?.[opts.theme],
+    sourceObjectId: mor?.sourceObjectId ?? '',
+    targetObjectId: mor?.targetObjectId ?? '',
+    sourceFormal: inputObj?.formalLabel,
+    targetFormal: outputObj?.formalLabel,
+    sourceLabel: inputObj?.labels[opts.theme],
+    targetLabel: outputObj?.labels[opts.theme],
+    inputColorToken: inputObj?.colorToken,
+    outputColorToken: outputObj?.colorToken,
+    showFormal: Boolean(opts.showFormalLabels),
+  };
+  return { id: node.nodeId, type: MACHINE_NODE_TYPE, position, data };
+}
+
 export function toReactFlow(
   graph: PuzzleGraph,
   diagram: Diagram,
   opts: ToReactFlowOptions,
 ): { nodes: RFNode[]; edges: Edge[] } {
-  const showFormal = Boolean(opts.showFormalLabels);
-
   const nodes: RFNode[] = graph.nodes.map((node, index) => {
     const position = fallbackPosition(node, index);
-    if (node.kind === 'object') {
-      const obj = getObject(diagram, node.objectId);
-      const data: ObjectNodeData = {
-        objectId: node.objectId,
-        label: obj?.labels[opts.theme] ?? node.objectId,
-        formalLabel: obj?.formalLabel,
-        description: obj?.description?.[opts.theme],
-        role: node.role,
-        colorToken: obj?.colorToken,
-        showFormal,
-      };
-      return { id: node.nodeId, type: OBJECT_NODE_TYPE, position, data };
-    }
-    const mor = getMorphism(diagram, node.morphismId);
-    const inputObj = mor ? getObject(diagram, mor.sourceObjectId) : undefined;
-    const outputObj = mor ? getObject(diagram, mor.targetObjectId) : undefined;
-    const data: MachineNodeData = {
-      morphismId: node.morphismId,
-      label: mor?.labels[opts.theme] ?? node.morphismId,
-      formalLabel: mor?.formalLabel,
-      description: mor?.description?.[opts.theme],
-      sourceObjectId: mor?.sourceObjectId ?? '',
-      targetObjectId: mor?.targetObjectId ?? '',
-      sourceFormal: inputObj?.formalLabel,
-      targetFormal: outputObj?.formalLabel,
-      sourceLabel: inputObj?.labels[opts.theme],
-      targetLabel: outputObj?.labels[opts.theme],
-      inputColorToken: inputObj?.colorToken,
-      outputColorToken: outputObj?.colorToken,
-      showFormal,
-    };
-    return { id: node.nodeId, type: MACHINE_NODE_TYPE, position, data };
+    return node.kind === 'object'
+      ? buildObjectNode(node, diagram, opts, position)
+      : buildMorphismNode(node, diagram, opts, position);
   });
 
   const edges: Edge[] = graph.edges.map((e) => ({

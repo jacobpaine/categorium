@@ -14,8 +14,14 @@ for the authoritative shape. Key fields:
 - `conceptTags` — which category-theory concepts the puzzle exercises.
 - `objects`, `morphisms` — the local diagram. Each object/morphism carries per-theme `labels`
   and an optional `formalLabel` (`A`, `B`, `f`, …).
-- `initialGraph` — nodes/edges the puzzle starts with (fixed pieces, pre-placed machines).
-- `allowedMorphismIds` — the palette of machines the player may use.
+- `initialGraph` — nodes/edges the puzzle starts with. In classic mode this pre-places every
+  object and machine; in **toolkit mode** it pins only the start/goal objects.
+- `toolkit` *(optional)* — `{ paletteObjectIds, paletteMorphismIds }`. When present, those pieces
+  start in a side **tray** and the player clicks them onto the board (then wires them), choosing
+  *which* objects/arrows to use; distractors are left in the tray. Purely additive — the validator
+  only sees the final built graph. See `## Toolkit mode` below.
+- `allowedMorphismIds` — the machines the player may use (the permitted superset; in toolkit mode
+  this is what the tray offers).
 - `validation` — ordered list of `PuzzleValidationRule`s (see below).
 - `samples` — optional sample values that flow through machines in metaphor mode.
 - `reveal` — formal reveal text/notation shown after completion.
@@ -39,13 +45,27 @@ Multiple valid solutions are allowed — rules describe constraints, not a singl
 Path equivalence uses **puzzle-declared** equivalence, optionally corroborated by running
 sample values through both paths. The engine does not infer deep categorical equality.
 
-## Chapter 1 — `chapter-01-transformations`  *(behavior pilot)*
+## Toolkit mode
+
+Originally every puzzle pre-placed all objects and machines and the player's only verb was *draw
+a wire* — "connect the dots." **Toolkit mode** (the optional `toolkit` field) instead pins only
+the start/goal objects and puts the candidate objects *and* machines in a side tray (rendered by
+`ToolkitPalette`). The player **clicks a tray piece to place it** (then wires it), and can send a
+placed piece back with its ✕ or the Delete key. This gives real agency — *which* pieces to use and
+*how* to route them — and distractors (a lying shortcut, a same-typed wrong machine) are simply
+left in the tray. It reuses the entire wiring/validation/notation stack: a placed node is built by
+the same adapter code as a pre-placed one, and the validator only ever sees the final built graph,
+so **no validation change**. A puzzle without `toolkit` behaves exactly as before. Chapter 1 is the
+pilot.
+
+## Chapter 1 — `chapter-01-transformations`  *(behavior + toolkit pilot)*
 
 > "The Shape of Transformation." Object/morphism → typed transform → composition → identity →
-> commutative diagram. **Rebuilt around the behavior runtime**: each puzzle has `samples` +
-> machine `action` tables + a `required-output` rule, so it's solved by producing the right output
-> *value*, not by matching colors. Every chapter-1 puzzle includes a **type-valid-but-wrong**
-> distractor (same type/color, different behavior), and the player **predicts then runs**.
+> commutative diagram. Built around the behavior runtime (`samples` + machine `action` tables + a
+> `required-output` rule), so it's solved by producing the right output *value*, not by matching
+> colors — and **converted to toolkit mode**: only start/goal are pinned, and the player brings the
+> machines (and, from puzzle 3 on, the intermediate objects) onto the board from the tray, leaving
+> the type-valid-but-wrong distractors behind. The player **predicts then runs**.
 
 | Puzzle | Concept | The consideration |
 |---|---|---|

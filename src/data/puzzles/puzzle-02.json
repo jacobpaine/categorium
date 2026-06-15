@@ -11,16 +11,16 @@
   },
   "conceptTags": ["typed-transform"],
   "intro": {
-    "data": "Three machines on the bench. One doesn't even fit — its input port is the wrong type. Of the two that fit, only one actually produces the clean table. Predict what each does, then build the right one.",
-    "alchemy": "Three apparatuses on the bench. One doesn't fit — its input is the wrong material. Of the two that fit, only one produces the pure ingot. Predict, then build the right one.",
-    "spellcraft": "Three runes on the bench. One doesn't fit — its input essence is wrong. Of the two that fit, only one produces the steady flame. Predict, then build the right one.",
-    "abstract": "Three machines. One has the wrong source type. Of the typed-valid ones, only one produces the goal value."
+    "data": "Three machines in your toolkit. One doesn't even fit — its input port wants a chart, not a CSV (check the type on its tray card). Of the two that fit, only one actually produces the clean table. Bring the right one onto the board and wire it; leave the rest in the tray.",
+    "alchemy": "Three apparatuses in your toolkit. One doesn't fit — its input wants a tool, not ore. Of the two that fit, only one produces the pure ingot. Bring the right one onto the board; leave the rest in the tray.",
+    "spellcraft": "Three runes in your toolkit. One doesn't fit — its input wants a beacon, not a spark. Of the two that fit, only one produces the steady flame. Bring the right one onto the board; leave the rest in the tray.",
+    "abstract": "Three machines in the toolkit. One has the wrong source type. Of the type-valid ones, only one produces the goal. Place and wire it."
   },
   "goal": {
-    "data": "Find the machine that fits AND makes the clean table.",
-    "alchemy": "Find the apparatus that fits AND makes the pure ingot.",
-    "spellcraft": "Find the rune that fits AND makes the steady flame.",
-    "abstract": "Find the machine that is type-valid and produces the goal value."
+    "data": "Place the machine that fits AND makes the clean table, and wire it.",
+    "alchemy": "Place the apparatus that fits AND makes the pure ingot, and wire it.",
+    "spellcraft": "Place the rune that fits AND makes the steady flame, and wire it.",
+    "abstract": "Place and wire the machine that is type-valid and produces the goal value."
   },
   "objects": [
     { "id": "obj-a", "formalLabel": "A", "labels": { "data": "Raw CSV", "alchemy": "Ore", "spellcraft": "Spark", "abstract": "A" }, "description": { "data": "the messy input you start with", "alchemy": "the raw material you start with", "spellcraft": "the wild essence you start with", "abstract": "the source object" }, "colorToken": "sky" },
@@ -40,13 +40,11 @@
   "initialGraph": {
     "nodes": [
       { "kind": "object", "nodeId": "n-a", "objectId": "obj-a", "role": "start", "position": { "x": 40, "y": 200 } },
-      { "kind": "morphism", "nodeId": "n-parser", "morphismId": "mor-parser", "position": { "x": 340, "y": 70 } },
-      { "kind": "morphism", "nodeId": "n-shred", "morphismId": "mor-shred", "position": { "x": 340, "y": 200 } },
-      { "kind": "morphism", "nodeId": "n-importer", "morphismId": "mor-importer", "position": { "x": 340, "y": 330 } },
       { "kind": "object", "nodeId": "n-b", "objectId": "obj-b", "role": "goal", "position": { "x": 640, "y": 200 } }
     ],
     "edges": []
   },
+  "toolkit": { "paletteObjectIds": [], "paletteMorphismIds": ["mor-parser", "mor-shred", "mor-importer"] },
   "allowedMorphismIds": ["mor-parser", "mor-shred", "mor-importer"],
   "validation": [
     { "type": "type-valid-wiring" },

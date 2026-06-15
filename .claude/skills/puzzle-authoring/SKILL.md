@@ -19,6 +19,17 @@ Nodes are `{kind:"object", nodeId, objectId, role?}` or `{kind:"morphism", nodeI
 Edges are `{id, sourceNodeId, targetNodeId}` (a wire). `initialGraph` is what the player starts
 with; `referenceSolution` is the canonical completed graph.
 
+## Toolkit mode (optional `toolkit` field)
+`toolkit: { paletteObjectIds, paletteMorphismIds }` turns a transformation puzzle into a
+choose-your-pieces board: pin ONLY the start/goal objects in `initialGraph`, and list every other
+candidate object/morphism (correct pieces AND distractors) in the palette arrays. The player
+clicks tray pieces onto the board and wires them; unused distractors stay in the tray. Rules are
+unchanged — author them against the *built* graph exactly as in classic mode, and keep a full
+`referenceSolution` (it still lists every authored node, including distractors, so the validation
+tests' node fixtures resolve). Authoring tips: pinned nodes are detected by `role:"start"|"goal"`,
+so always set roles; palette ids must exist in `objects`/`morphisms`; don't also pre-place a
+palette piece in `initialGraph`. Omit `toolkit` entirely for classic pre-placed boards.
+
 ## Validation rules (evaluated in order; first failure shown)
 - `type-valid-wiring` — every wire must connect type-compatible ports (machine input/output
   must match the thing it's wired to; no thing-to-thing wires). This is what makes distractor

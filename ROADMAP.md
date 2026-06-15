@@ -17,11 +17,18 @@ computation and mathematics.
 Each chapter introduces one idea, framed first in metaphor and only later in formal terms. A
 chapter unlocks when the previous one is complete.
 
-### Chapter 1 — The Shape of Transformation  ✅ *authored*
+### Chapter 1 — The Shape of Transformation  ✅ *authored — toolkit pilot*
 `chapter-01-transformations`
 
 Object, morphism, typed transformation, composition, identity, commutative diagram. The
 category **laws** are *implied through play* here, not yet stated.
+
+> **Toolkit mechanic (pilot).** To move past "connect the dots," Chapter 1 now pins only the
+> start/goal objects and puts the candidate objects *and* machines in a side tray; the player
+> chooses *which* pieces to bring onto the board and *how* to route them, leaving distractors
+> behind (see the `toolkit` field in `SPEC.md`/`PUZZLES.md`). It's additive and reuses the whole
+> wiring/validation stack. **Next decision:** whether to propagate toolkit mode to the other
+> transformation chapters (2–5, 8) after playing Chapter 1.
 
 | Concept | Formal reveal | Engine support |
 |---|---|---|

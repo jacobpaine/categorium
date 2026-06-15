@@ -11,16 +11,16 @@
   },
   "conceptTags": ["composition"],
   "intro": {
-    "data": "One machine won't reach the chart. Chain two — but watch what flows between them: feed the wrong table into the second machine and it jams or draws the wrong chart. Plan the chain that lands on the clear chart.",
-    "alchemy": "One apparatus won't reach the tool. Chain two — but watch what flows between them: feed the wrong ingot into the second and it jams or makes a blunt tool. Plan the chain that makes the fine tool.",
-    "spellcraft": "One rune won't reach the beacon. Chain two — but watch what flows between them: feed the wrong flame into the second and it jams or makes a dim beacon. Plan the chain that makes the bright beacon.",
-    "abstract": "One step won't reach C. Chain two; only one chain's behavior lands on the goal value."
+    "data": "No single machine reaches the chart — you'll need a stepping-stone in the middle. Your toolkit holds the machines AND the intermediate Clean Table: bring the ones you need onto the board and chain them. Watch what flows between steps — feed the wrong table into the second machine and it jams or draws the wrong chart.",
+    "alchemy": "No single apparatus reaches the tool — you'll need a stepping-stone in the middle. Your toolkit holds the apparatuses AND the intermediate Ingot: bring the ones you need onto the board and chain them. Feed the wrong ingot into the second and it jams or makes a blunt tool.",
+    "spellcraft": "No single rune reaches the beacon — you'll need a stepping-stone in the middle. Your toolkit holds the runes AND the intermediate Flame: bring the ones you need onto the board and chain them. Feed the wrong flame into the second and it jams or makes a dim beacon.",
+    "abstract": "One step won't reach C. The toolkit holds the machines and the intermediate object B; place what you need and chain so the behavior lands on the goal value."
   },
   "goal": {
-    "data": "Chain machines so the messy spreadsheet becomes the clear chart.",
-    "alchemy": "Chain apparatuses so the raw ore becomes the fine tool.",
-    "spellcraft": "Chain runes so the wild spark becomes the bright beacon.",
-    "abstract": "Chain machines so the input becomes the goal value at C."
+    "data": "Bring the intermediate Clean Table and the right machines onto the board, and chain them so the messy spreadsheet becomes the clear chart.",
+    "alchemy": "Bring the intermediate Ingot and the right apparatuses onto the board, and chain them so the raw ore becomes the fine tool.",
+    "spellcraft": "Bring the intermediate Flame and the right runes onto the board, and chain them so the wild spark becomes the bright beacon.",
+    "abstract": "Place the intermediate object and the machines you need, and chain them so the input becomes the goal value at C."
   },
   "objects": [
     { "id": "obj-a", "formalLabel": "A", "labels": { "data": "Raw CSV", "alchemy": "Ore", "spellcraft": "Spark", "abstract": "A" }, "description": { "data": "the messy input you start with", "alchemy": "the raw material you start with", "spellcraft": "the wild essence you start with", "abstract": "the source object" }, "colorToken": "sky" },
@@ -43,14 +43,13 @@
   "initialGraph": {
     "nodes": [
       { "kind": "object", "nodeId": "n-a", "objectId": "obj-a", "role": "start", "position": { "x": 30, "y": 200 } },
-      { "kind": "morphism", "nodeId": "n-parser", "morphismId": "mor-parser", "position": { "x": 210, "y": 110 } },
-      { "kind": "morphism", "nodeId": "n-shred", "morphismId": "mor-shred", "position": { "x": 210, "y": 300 } },
-      { "kind": "object", "nodeId": "n-b", "objectId": "obj-b", "position": { "x": 400, "y": 200 } },
-      { "kind": "morphism", "nodeId": "n-charter", "morphismId": "mor-charter", "position": { "x": 580, "y": 110 } },
-      { "kind": "morphism", "nodeId": "n-scribbler", "morphismId": "mor-scribbler", "position": { "x": 580, "y": 300 } },
       { "kind": "object", "nodeId": "n-c", "objectId": "obj-c", "role": "goal", "position": { "x": 770, "y": 200 } }
     ],
     "edges": []
+  },
+  "toolkit": {
+    "paletteObjectIds": ["obj-b"],
+    "paletteMorphismIds": ["mor-parser", "mor-shred", "mor-charter", "mor-scribbler"]
   },
   "allowedMorphismIds": ["mor-parser", "mor-shred", "mor-charter", "mor-scribbler"],
   "validation": [

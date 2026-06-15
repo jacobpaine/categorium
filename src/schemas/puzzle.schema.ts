@@ -12,6 +12,7 @@ import {
   pathEquivalenceSchema,
   puzzleGraphSchema,
   referenceDiagramSchema,
+  toolkitSchema,
   validationRuleSchema,
   sampleValueSchema,
   formalRevealSchema,
@@ -49,6 +50,11 @@ export const puzzleAuthoredSchema = z.object({
   paths: z.array(pathSchema).optional(),
   equivalences: z.array(pathEquivalenceSchema).optional(),
   initialGraph: puzzleGraphSchema,
+  /**
+   * Toolkit mode (optional): named objects/morphisms start in a side tray instead of pre-placed,
+   * and the player clicks them onto the board. Absent => every node is pre-placed (classic mode).
+   */
+  toolkit: toolkitSchema.optional(),
   allowedMorphismIds: z.array(z.string().min(1)),
   validation: z.array(validationRuleSchema).min(1),
   samples: z.array(sampleValueSchema).optional(),

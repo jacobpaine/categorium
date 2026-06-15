@@ -119,6 +119,7 @@ type Puzzle = {
   objects: CategoryObject[];
   morphisms: Morphism[];
   initialGraph: PuzzleGraph;
+  toolkit?: { paletteObjectIds: string[]; paletteMorphismIds: string[] };
   allowedMorphismIds: string[];
   validation: PuzzleValidationRule[];
   samples?: SampleValue[];
@@ -127,6 +128,16 @@ type Puzzle = {
   referenceSolution?: PuzzleGraph;
 };
 ```
+
+**Toolkit mode (optional).** When `toolkit` is present, the named objects/morphisms are *not*
+pre-placed: `initialGraph` pins only the start/goal objects, and the named pieces start in a side
+**tray**. The player clicks a tray piece to place it on the board (then wires it), and can send a
+placed piece back with its ✕ (or Delete). This gives agency over *which* objects and arrows get
+used and *how* to route them — distractors are left in the tray. It is purely additive: the
+validator only ever sees the final built graph (so nothing changes there), and a puzzle without
+`toolkit` pre-places everything exactly as before. The tray/click-to-place lives entirely in
+`PuzzleCanvas` + `ToolkitPalette`, reusing the adapter's node builders so a placed node is
+identical to a pre-placed one. Chapter 1 is the pilot; other transformation chapters may follow.
 
 `validatePuzzle(puzzle, playerGraph)` evaluates rules in order and returns the **first**
 failing rule with a theme-first message and an optional "near concept" hint. **Multiple valid

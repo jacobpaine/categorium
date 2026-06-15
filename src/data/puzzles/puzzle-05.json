@@ -11,16 +11,16 @@
   },
   "conceptTags": ["commutative-diagram"],
   "intro": {
-    "data": "You already know one route to the report: Parser then Publisher turns the raw file into THE report. Now build a different route — through the data sample — that lands on the exact same report. One finishing machine makes a different report; predict and pick the one that matches.",
-    "alchemy": "You already know one route to the alloy: Smelter then Caster turns the raw ore into THE alloy. Build a different route — through the powder — landing on the exact same alloy. One finisher makes a different alloy; predict and pick the matching one.",
-    "spellcraft": "You already know one route to the ward: Ignition then Weaver turns the wild spark into THE ward. Build a different route — through the mote — landing on the exact same ward. One finisher makes a different ward; predict and pick the matching one.",
-    "abstract": "One route A→B→C is known. Build the other route A→D→C that produces the SAME output value."
+    "data": "You already know one route to the report: Parser then Publisher turns the raw file into THE report. From your toolkit, build a different route — through the data sample — that lands on the exact same report. Bring the Sample object and the arrows you need onto the board; one finishing machine makes a DIFFERENT report, so leave that one in the tray.",
+    "alchemy": "You already know one route to the alloy: Smelter then Caster turns the raw ore into THE alloy. From your toolkit, build a different route — through the powder — landing on the exact same alloy. Bring the Powder and the arrows you need onto the board; one finisher makes a different alloy, so leave it in the tray.",
+    "spellcraft": "You already know one route to the ward: Ignition then Weaver turns the wild spark into THE ward. From your toolkit, build a different route — through the mote — landing on the exact same ward. Bring the Mote and the arrows you need onto the board; one finisher makes a different ward, so leave it in the tray.",
+    "abstract": "One route A→B→C is known. From the toolkit, place object D and build the other route A→D→C that produces the SAME output value; leave the diverging finisher in the tray."
   },
   "goal": {
-    "data": "Build the second route so it produces the very same report as the first.",
-    "alchemy": "Build the second route so it produces the very same alloy as the first.",
-    "spellcraft": "Build the second route so it produces the very same ward as the first.",
-    "abstract": "Build A→D→C producing the same value as A→B→C."
+    "data": "Bring the Sample and the right arrows onto the board and build the second route so it produces the very same report as the first.",
+    "alchemy": "Bring the Powder and the right arrows onto the board and build the second route so it produces the very same alloy as the first.",
+    "spellcraft": "Bring the Mote and the right arrows onto the board and build the second route so it produces the very same ward as the first.",
+    "abstract": "Place D and build A→D→C producing the same value as A→B→C."
   },
   "objects": [
     { "id": "obj-a", "formalLabel": "A", "labels": { "data": "Raw CSV", "alchemy": "Ore", "spellcraft": "Spark", "abstract": "A" }, "description": { "data": "the messy input you start with", "alchemy": "the raw material you start with", "spellcraft": "the wild essence you start with", "abstract": "the source object" }, "colorToken": "sky" },
@@ -45,14 +45,11 @@
   "initialGraph": {
     "nodes": [
       { "kind": "object", "nodeId": "n-a", "objectId": "obj-a", "role": "start", "position": { "x": 40, "y": 200 } },
-      { "kind": "morphism", "nodeId": "n-h", "morphismId": "mor-h", "position": { "x": 240, "y": 200 } },
-      { "kind": "object", "nodeId": "n-d", "objectId": "obj-d", "position": { "x": 430, "y": 200 } },
-      { "kind": "morphism", "nodeId": "n-k", "morphismId": "mor-k", "position": { "x": 620, "y": 110 } },
-      { "kind": "morphism", "nodeId": "n-skew", "morphismId": "mor-skew", "position": { "x": 620, "y": 300 } },
       { "kind": "object", "nodeId": "n-c", "objectId": "obj-c", "role": "goal", "position": { "x": 810, "y": 200 } }
     ],
     "edges": []
   },
+  "toolkit": { "paletteObjectIds": ["obj-d"], "paletteMorphismIds": ["mor-h", "mor-k", "mor-skew"] },
   "allowedMorphismIds": ["mor-h", "mor-k", "mor-skew"],
   "validation": [
     { "type": "type-valid-wiring" },

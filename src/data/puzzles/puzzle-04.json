@@ -11,16 +11,16 @@
   },
   "conceptTags": ["identity"],
   "intro": {
-    "data": "The goal is the very thing you started with. You still need a step — but one that changes nothing. One machine returns the spreadsheet untouched; the other smudges it. Predict which, then build the do-nothing step.",
-    "alchemy": "The goal is the very thing you started with. You still need a step — but one that changes nothing. One apparatus returns the ore untouched; the other taints it. Predict which, then build the do-nothing step.",
-    "spellcraft": "The goal is the very thing you started with. You still need a step — but one that changes nothing. One rune returns the spark untouched; the other warps it. Predict which, then build the do-nothing step.",
-    "abstract": "The goal value equals the input. Use the step whose behavior leaves the value unchanged."
+    "data": "The goal is the very thing you started with. You still need a step — but one that changes nothing. Your toolkit holds two: one returns the spreadsheet untouched, the other smudges it. Bring the do-nothing step onto the board, wire it, and leave the smudger in the tray.",
+    "alchemy": "The goal is the very thing you started with. You still need a step — but one that changes nothing. Your toolkit holds two: one returns the ore untouched, the other taints it. Bring the do-nothing step onto the board and leave the tainter in the tray.",
+    "spellcraft": "The goal is the very thing you started with. You still need a step — but one that changes nothing. Your toolkit holds two: one returns the spark untouched, the other warps it. Bring the do-nothing step onto the board and leave the warper in the tray.",
+    "abstract": "The goal value equals the input. Place the step whose behavior leaves the value unchanged; leave its look-alike in the tray."
   },
   "goal": {
-    "data": "Send the spreadsheet through a step and get the very same spreadsheet out.",
-    "alchemy": "Send the ore through a step and get the very same ore out.",
-    "spellcraft": "Send the spark through a step and get the very same spark out.",
-    "abstract": "Get the input value back out unchanged."
+    "data": "Place a step and wire it so the spreadsheet comes out as the very same spreadsheet.",
+    "alchemy": "Place a step and wire it so the ore comes out as the very same ore.",
+    "spellcraft": "Place a step and wire it so the spark comes out as the very same spark.",
+    "abstract": "Place and wire the step that returns the input value unchanged."
   },
   "objects": [
     { "id": "obj-a", "formalLabel": "A", "labels": { "data": "Raw CSV", "alchemy": "Ore", "spellcraft": "Spark", "abstract": "A" }, "description": { "data": "the thing you must return unchanged", "alchemy": "the thing you must return unchanged", "spellcraft": "the thing you must return unchanged", "abstract": "object A" }, "colorToken": "sky" }
@@ -36,12 +36,11 @@
   "initialGraph": {
     "nodes": [
       { "kind": "object", "nodeId": "n-a-start", "objectId": "obj-a", "role": "start", "position": { "x": 40, "y": 180 } },
-      { "kind": "morphism", "nodeId": "n-id", "morphismId": "mor-id", "position": { "x": 340, "y": 90 } },
-      { "kind": "morphism", "nodeId": "n-tweak", "morphismId": "mor-tweak", "position": { "x": 340, "y": 270 } },
       { "kind": "object", "nodeId": "n-a-goal", "objectId": "obj-a", "role": "goal", "position": { "x": 640, "y": 180 } }
     ],
     "edges": []
   },
+  "toolkit": { "paletteObjectIds": [], "paletteMorphismIds": ["mor-id", "mor-tweak"] },
   "allowedMorphismIds": ["mor-id", "mor-tweak"],
   "validation": [
     { "type": "type-valid-wiring" },

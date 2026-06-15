@@ -7,7 +7,9 @@ import { deriveNotation } from './notation';
 function fixture(id: string) {
   const p = getPuzzle(id);
   if (!p || !isAuthored(p)) throw new Error(id);
-  return { diagram: toDiagram(p), nodes: p.initialGraph.nodes };
+  // Use the full solution graph: toolkit puzzles pin only start/goal in `initialGraph`, so the
+  // intermediate object/morphism nodes the notation tests wire live in `referenceSolution`.
+  return { diagram: toDiagram(p), nodes: (p.referenceSolution ?? p.initialGraph).nodes };
 }
 function graphWith(id: string, edges: [string, string][]): PuzzleGraph {
   const { nodes } = fixture(id);

@@ -11,16 +11,16 @@
   },
   "conceptTags": ["object", "morphism"],
   "intro": {
-    "data": "A process turns one thing into another. Two machines both accept the messy spreadsheet — but they do different things to it. Before you run, predict what each would produce, then build the one that makes a clean table.",
-    "alchemy": "A process turns one material into another. Two apparatuses both accept the raw ore — but they do different things to it. Predict what each would produce, then build the one that makes a pure ingot.",
-    "spellcraft": "A working turns one essence into another. Two runes both accept the wild spark — but they do different things to it. Predict what each would produce, then build the one that makes a steady flame.",
-    "abstract": "A morphism turns one object into another. Two machines both accept the input value but produce different outputs. Build the one that yields the goal."
+    "data": "A process turns one thing into another. Your toolkit holds two machines that both accept the messy spreadsheet — but they do different things to it. Bring the one you trust onto the board, wire it from the input to the clean table, and leave the other in the tray.",
+    "alchemy": "A process turns one material into another. Your toolkit holds two apparatuses that both accept the raw ore — but they do different things to it. Bring the one you trust onto the board, wire it from the ore to the pure ingot, and leave the other in the tray.",
+    "spellcraft": "A working turns one essence into another. Your toolkit holds two runes that both accept the wild spark — but they do different things to it. Bring the one you trust onto the board, wire it from the spark to the steady flame, and leave the other in the tray.",
+    "abstract": "A morphism turns one object into another. Your toolkit holds two machines of the same type that produce different outputs. Place the right one and wire it from the input to the goal."
   },
   "goal": {
-    "data": "Wire the input through a machine so it comes out as the clean table.",
-    "alchemy": "Wire the input through an apparatus so it comes out as the pure ingot.",
-    "spellcraft": "Wire the input through a rune so it comes out as the steady flame.",
-    "abstract": "Wire the input through a machine so it produces the goal value."
+    "data": "Drag the machine you need onto the board and wire the input through it to the clean table.",
+    "alchemy": "Drag the apparatus you need onto the board and wire the ore through it to the pure ingot.",
+    "spellcraft": "Drag the rune you need onto the board and wire the spark through it to the steady flame.",
+    "abstract": "Place the machine you need and wire the input through it to the goal."
   },
   "objects": [
     { "id": "obj-a", "formalLabel": "A", "labels": { "data": "Raw CSV", "alchemy": "Ore", "spellcraft": "Spark", "abstract": "A" }, "description": { "data": "the messy input you start with", "alchemy": "the raw material you start with", "spellcraft": "the wild essence you start with", "abstract": "the source object" }, "colorToken": "sky" },
@@ -38,12 +38,11 @@
   "initialGraph": {
     "nodes": [
       { "kind": "object", "nodeId": "n-a", "objectId": "obj-a", "role": "start", "position": { "x": 40, "y": 180 } },
-      { "kind": "morphism", "nodeId": "n-parser", "morphismId": "mor-parser", "position": { "x": 340, "y": 90 } },
-      { "kind": "morphism", "nodeId": "n-shred", "morphismId": "mor-shred", "position": { "x": 340, "y": 270 } },
       { "kind": "object", "nodeId": "n-b", "objectId": "obj-b", "role": "goal", "position": { "x": 640, "y": 180 } }
     ],
     "edges": []
   },
+  "toolkit": { "paletteObjectIds": [], "paletteMorphismIds": ["mor-parser", "mor-shred"] },
   "allowedMorphismIds": ["mor-parser", "mor-shred"],
   "validation": [
     { "type": "type-valid-wiring" },
