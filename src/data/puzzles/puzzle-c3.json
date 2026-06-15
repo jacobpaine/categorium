@@ -6,47 +6,43 @@
   "title": { "data": "Encode Twice, Undo Once", "alchemy": "Encode Twice, Undo Once", "spellcraft": "Encode Twice, Undo Once", "abstract": "Invert a Composite" },
   "conceptTags": ["isomorphism"],
   "intro": {
-    "data": "Encoding here is TWO steps: first Encode the text, then Compress it — that's the only way to reach C. The way back is a single Decode that must undo BOTH steps at once and return the EXACT original. There's no shortcut home from B, so you must encode fully; and among the three decoders, only one truly inverts the pair. Pick the faithful steps and the true decoder.",
-    "alchemy": "Transmuting here is TWO steps: Transmute the lead, then Condense it — the only path to C. The way back is a single Revert that must undo BOTH and return the EXACT original. There's no shortcut from B, so transmute fully; among the three reverters, only one truly inverts the pair.",
-    "spellcraft": "Sealing here is TWO steps: Seal the sigil, then Fold it — the only path to C. The way back is a single Unseal that must undo BOTH and return the EXACT original. There's no shortcut from B, so seal fully; among the three unsealings, only one truly inverts the pair.",
-    "abstract": "g∘f : A → C is a composite isomorphism (A only reaches C via f then g). Its inverse is a single C → A. Build f, g, then the decoder d with d ∘ (g∘f) = id_A; same-typed decoders that don't restore the value fail."
+    "data": "Encoding here is TWO steps: first Encode the text, then Compress it — the only way to reach C. The way back is a single Decode that must undo BOTH steps at once and return the EXACT original. Bring the faithful Encode, Compress, and the true Decode from the tray onto the board and wire the round trip, leaving the garbling look-alikes behind. Among the three decoders, only one truly inverts the pair.",
+    "alchemy": "Transmuting here is TWO steps: Transmute the lead, then Condense it — the only path to C. The way back is a single Revert that must undo BOTH and return the EXACT original. Bring the faithful Transmute, Condense, and the true Revert from the tray onto the board and wire the round trip, leaving the look-alikes behind.",
+    "spellcraft": "Sealing here is TWO steps: Seal the sigil, then Fold it — the only path to C. The way back is a single Unseal that must undo BOTH and return the EXACT original. Bring the faithful Seal, Fold, and the true Unseal from the tray onto the board and wire the round trip, leaving the look-alikes behind.",
+    "abstract": "Values are concrete round-trip tokens: f sends 3 ↦ 3◆, g sends 3◆ ↦ 3◆◆, and the true decoder d sends 3◆◆ ↦ 3 — so the faithful round trip 3 → 3◆ → 3◆◆ → 3 returns the original. From the tray bring f, g, and d, wiring A back to A; the garbling look-alikes (which land on 5◆, 8◆◆, or 7) never bring 3 back. d = (g∘f)⁻¹."
   },
-  "goal": { "data": "Round-trip the original text back to itself: encode, compress, then truly decode.", "alchemy": "Round-trip the original lead back to itself.", "spellcraft": "Round-trip the original sigil back to itself.", "abstract": "Build the round trip returning v-a, inverting g∘f." },
+  "goal": { "data": "Bring the faithful encode, compress, and true decode from the tray and wire the round trip back to the original text.", "alchemy": "Bring the faithful steps and true revert from the tray and wire the round trip back to the original lead.", "spellcraft": "Bring the faithful steps and true unseal from the tray and wire the round trip back to the original sigil.", "abstract": "Bring f, g, and the true inverse d from the tray and wire the round trip so 3 returns to 3, leaving the look-alikes in the tray." },
   "objects": [
     { "id": "obj-a", "formalLabel": "A", "labels": { "data": "Plain Text", "alchemy": "Lead", "spellcraft": "Sigil", "abstract": "A" }, "description": { "data": "the original — you must get it back exactly", "alchemy": "the original — you must get it back exactly", "spellcraft": "the original — you must get it back exactly", "abstract": "object A" }, "colorToken": "sky" },
     { "id": "obj-b", "formalLabel": "B", "labels": { "data": "Cipher", "alchemy": "Gold", "spellcraft": "Seal", "abstract": "B" }, "description": { "data": "the once-encoded form", "alchemy": "the transmuted form", "spellcraft": "the sealed form", "abstract": "object B" }, "colorToken": "violet" },
     { "id": "obj-c", "formalLabel": "C", "labels": { "data": "Packed Cipher", "alchemy": "Dense Gold", "spellcraft": "Folded Seal", "abstract": "C" }, "description": { "data": "the twice-encoded form", "alchemy": "the condensed form", "spellcraft": "the folded form", "abstract": "object C" }, "colorToken": "amber" }
   ],
   "morphisms": [
-    { "id": "mor-f", "formalLabel": "f", "sourceObjectId": "obj-a", "targetObjectId": "obj-b", "labels": { "data": "Encode", "alchemy": "Transmute", "spellcraft": "Seal", "abstract": "f" }, "description": { "data": "encodes the text", "alchemy": "transmutes the lead", "spellcraft": "seals the sigil", "abstract": "A → B" }, "action": { "v-a": "v-b" } },
-    { "id": "mor-fbad", "formalLabel": "f?", "sourceObjectId": "obj-a", "targetObjectId": "obj-b", "labels": { "data": "Scramble", "alchemy": "Mis-Transmute", "spellcraft": "Mis-Seal", "abstract": "f?" }, "description": { "data": "same type, but garbles the text", "alchemy": "same type, but spoils the lead", "spellcraft": "same type, but mars the sigil", "abstract": "A → B, wrong" }, "action": { "v-a": "v-bx" } },
-    { "id": "mor-g", "formalLabel": "g", "sourceObjectId": "obj-b", "targetObjectId": "obj-c", "labels": { "data": "Compress", "alchemy": "Condense", "spellcraft": "Fold", "abstract": "g" }, "description": { "data": "packs the cipher; jams on a garble", "alchemy": "condenses the gold; jams on a spoil", "spellcraft": "folds the seal; jams on a mar", "abstract": "B → C" }, "action": { "v-b": "v-c" } },
-    { "id": "mor-gbad", "formalLabel": "g?", "sourceObjectId": "obj-b", "targetObjectId": "obj-c", "labels": { "data": "Mash", "alchemy": "Mis-Condense", "spellcraft": "Mis-Fold", "abstract": "g?" }, "description": { "data": "same type, but packs it wrong", "alchemy": "same type, but condenses wrong", "spellcraft": "same type, but folds wrong", "abstract": "B → C, wrong" }, "action": { "v-b": "v-cx" } },
-    { "id": "mor-d", "formalLabel": "d", "sourceObjectId": "obj-c", "targetObjectId": "obj-a", "labels": { "data": "Decode", "alchemy": "Revert", "spellcraft": "Unseal", "abstract": "d" }, "description": { "data": "undoes both steps, restoring the exact original", "alchemy": "undoes both steps, restoring the exact original", "spellcraft": "undoes both steps, restoring the exact original", "abstract": "the inverse (g∘f)⁻¹ : C → A" }, "action": { "v-c": "v-a" } },
-    { "id": "mor-dbad", "formalLabel": "d?", "sourceObjectId": "obj-c", "targetObjectId": "obj-a", "labels": { "data": "Lossy Decode", "alchemy": "Rough Revert", "spellcraft": "Cracked Unseal", "abstract": "d?" }, "description": { "data": "same type, but loses something — not a true inverse", "alchemy": "same type, but loses metal — not a true inverse", "spellcraft": "same type, but frays it — not a true inverse", "abstract": "C → A, not the inverse" }, "action": { "v-c": "v-ax" } }
+    { "id": "mor-f", "formalLabel": "f", "sourceObjectId": "obj-a", "targetObjectId": "obj-b", "labels": { "data": "Encode", "alchemy": "Transmute", "spellcraft": "Seal", "abstract": "f" }, "description": { "data": "encodes the text", "alchemy": "transmutes the lead", "spellcraft": "seals the sigil", "abstract": "sends 3 ↦ 3◆" }, "action": { "v-a": "v-b" } },
+    { "id": "mor-fbad", "formalLabel": "f?", "sourceObjectId": "obj-a", "targetObjectId": "obj-b", "labels": { "data": "Scramble", "alchemy": "Mis-Transmute", "spellcraft": "Mis-Seal", "abstract": "f?" }, "description": { "data": "same type, but garbles the text", "alchemy": "same type, but spoils the lead", "spellcraft": "same type, but mars the sigil", "abstract": "sends 3 ↦ 5◆ (garbles it, not f)" }, "action": { "v-a": "v-bx" } },
+    { "id": "mor-g", "formalLabel": "g", "sourceObjectId": "obj-b", "targetObjectId": "obj-c", "labels": { "data": "Compress", "alchemy": "Condense", "spellcraft": "Fold", "abstract": "g" }, "description": { "data": "packs the cipher; jams on a garble", "alchemy": "condenses the gold; jams on a spoil", "spellcraft": "folds the seal; jams on a mar", "abstract": "sends 3◆ ↦ 3◆◆" }, "action": { "v-b": "v-c" } },
+    { "id": "mor-gbad", "formalLabel": "g?", "sourceObjectId": "obj-b", "targetObjectId": "obj-c", "labels": { "data": "Mash", "alchemy": "Mis-Condense", "spellcraft": "Mis-Fold", "abstract": "g?" }, "description": { "data": "same type, but packs it wrong", "alchemy": "same type, but condenses wrong", "spellcraft": "same type, but folds wrong", "abstract": "sends 3◆ ↦ 8◆◆ (packs it wrong, not g)" }, "action": { "v-b": "v-cx" } },
+    { "id": "mor-d", "formalLabel": "d", "sourceObjectId": "obj-c", "targetObjectId": "obj-a", "labels": { "data": "Decode", "alchemy": "Revert", "spellcraft": "Unseal", "abstract": "d" }, "description": { "data": "undoes both steps, restoring the exact original", "alchemy": "undoes both steps, restoring the exact original", "spellcraft": "undoes both steps, restoring the exact original", "abstract": "the inverse (g∘f)⁻¹: sends 3◆◆ ↦ 3 (returns the original)" }, "action": { "v-c": "v-a" } },
+    { "id": "mor-dbad", "formalLabel": "d?", "sourceObjectId": "obj-c", "targetObjectId": "obj-a", "labels": { "data": "Lossy Decode", "alchemy": "Rough Revert", "spellcraft": "Cracked Unseal", "abstract": "d?" }, "description": { "data": "same type, but loses something — not a true inverse", "alchemy": "same type, but loses metal — not a true inverse", "spellcraft": "same type, but frays it — not a true inverse", "abstract": "sends 3◆◆ ↦ 7 (does NOT return the original)" }, "action": { "v-c": "v-ax" } }
   ],
   "samples": [
-    { "id": "v-a", "objectId": "obj-a", "labels": { "data": "the original message", "alchemy": "the original lead", "spellcraft": "the original sigil", "abstract": "a" } },
-    { "id": "v-b", "objectId": "obj-b", "labels": { "data": "the cipher", "alchemy": "the gold", "spellcraft": "the seal", "abstract": "b" } },
-    { "id": "v-bx", "objectId": "obj-b", "labels": { "data": "a garbled cipher", "alchemy": "spoiled gold", "spellcraft": "a marred seal", "abstract": "b?" } },
-    { "id": "v-c", "objectId": "obj-c", "labels": { "data": "the packed cipher", "alchemy": "the dense gold", "spellcraft": "the folded seal", "abstract": "c" } },
-    { "id": "v-cx", "objectId": "obj-c", "labels": { "data": "a mashed cipher", "alchemy": "mis-condensed gold", "spellcraft": "a mis-folded seal", "abstract": "c?" } },
-    { "id": "v-ax", "objectId": "obj-a", "labels": { "data": "a corrupted copy", "alchemy": "diminished lead", "spellcraft": "a frayed sigil", "abstract": "a?" } }
+    { "id": "v-a", "objectId": "obj-a", "labels": { "data": "the original message", "alchemy": "the original lead", "spellcraft": "the original sigil", "abstract": "3" } },
+    { "id": "v-b", "objectId": "obj-b", "labels": { "data": "the cipher", "alchemy": "the gold", "spellcraft": "the seal", "abstract": "3◆" } },
+    { "id": "v-bx", "objectId": "obj-b", "labels": { "data": "a garbled cipher", "alchemy": "spoiled gold", "spellcraft": "a marred seal", "abstract": "5◆" } },
+    { "id": "v-c", "objectId": "obj-c", "labels": { "data": "the packed cipher", "alchemy": "the dense gold", "spellcraft": "the folded seal", "abstract": "3◆◆" } },
+    { "id": "v-cx", "objectId": "obj-c", "labels": { "data": "a mashed cipher", "alchemy": "mis-condensed gold", "spellcraft": "a mis-folded seal", "abstract": "8◆◆" } },
+    { "id": "v-ax", "objectId": "obj-a", "labels": { "data": "a corrupted copy", "alchemy": "diminished lead", "spellcraft": "a frayed sigil", "abstract": "7" } }
   ],
   "initialGraph": {
     "nodes": [
       { "kind": "object", "nodeId": "n-a-start", "objectId": "obj-a", "role": "start", "position": { "x": 40, "y": 220 } },
-      { "kind": "morphism", "nodeId": "n-f", "morphismId": "mor-f", "position": { "x": 240, "y": 100 } },
-      { "kind": "morphism", "nodeId": "n-fbad", "morphismId": "mor-fbad", "position": { "x": 240, "y": 330 } },
-      { "kind": "object", "nodeId": "n-b", "objectId": "obj-b", "position": { "x": 460, "y": 220 } },
-      { "kind": "morphism", "nodeId": "n-g", "morphismId": "mor-g", "position": { "x": 680, "y": 100 } },
-      { "kind": "morphism", "nodeId": "n-gbad", "morphismId": "mor-gbad", "position": { "x": 680, "y": 330 } },
-      { "kind": "object", "nodeId": "n-c", "objectId": "obj-c", "position": { "x": 900, "y": 220 } },
-      { "kind": "morphism", "nodeId": "n-d", "morphismId": "mor-d", "position": { "x": 1120, "y": 100 } },
-      { "kind": "morphism", "nodeId": "n-dbad", "morphismId": "mor-dbad", "position": { "x": 1120, "y": 330 } },
       { "kind": "object", "nodeId": "n-a-goal", "objectId": "obj-a", "role": "goal", "position": { "x": 1340, "y": 220 } }
     ],
     "edges": []
+  },
+  "toolkit": {
+    "paletteObjectIds": ["obj-b", "obj-c"],
+    "paletteMorphismIds": ["mor-f", "mor-fbad", "mor-g", "mor-gbad", "mor-d", "mor-dbad"]
   },
   "allowedMorphismIds": ["mor-f", "mor-fbad", "mor-g", "mor-gbad", "mor-d", "mor-dbad"],
   "validation": [

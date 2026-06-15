@@ -6,12 +6,12 @@
   "title": { "data": "Group Them Any Way", "alchemy": "Group Them Any Way", "spellcraft": "Group Them Any Way", "abstract": "Group Them Any Way" },
   "conceptTags": ["associativity", "composition"],
   "intro": {
-    "data": "Three real steps run A→B→C→D. Some steps come pre-bundled — 'Parse+Chart' does the first two at once, 'Chart+Report' does the last two. Associativity says HOW you group them never changes the result: f then (g then h) equals (f then g) then h. So several routes reach the true report — but two of the bundles are buggy and produce junk. Find ANY grouping of the faithful steps.",
-    "alchemy": "Three real steps run A→B→C→D. Some come pre-bundled — 'Smelt+Shape' does the first two, 'Shape+Cast' the last two. Associativity says the grouping never changes the result. Several routes reach the true alloy — but two bundles are botched. Find any grouping of the faithful steps.",
-    "spellcraft": "Three real steps run A→B→C→D. Some come pre-bundled — 'Tame+Kindle' does the first two, 'Kindle+Bind' the last two. Associativity says the grouping never changes the result. Several routes reach the true ward — but two bundles are broken. Find any grouping of the faithful steps.",
-    "abstract": "Reach D from A. f,g,h compose stepwise; the bundles g∘f and h∘g are pre-composed. By associativity every faithful grouping gives the same value; the buggy bundles do not."
+    "data": "Three real steps run A→B→C→D, and the tray holds pre-bundles too — 'Parse+Chart' does the first two at once, 'Chart+Report' the last two. Bring whatever faithful pieces you like from the tray onto the board and wire a route to the true report: all three steps, or a bundle plus a step. Associativity says HOW you group them never changes the result. Two bundles are buggy and produce junk — leave those in the tray.",
+    "alchemy": "Three real steps run A→B→C→D, and the tray holds pre-bundles too — 'Smelt+Shape' does the first two, 'Shape+Cast' the last two. Bring whatever faithful pieces you like from the tray onto the board and wire a route to the true alloy. Associativity says the grouping never changes the result. Two bundles are botched — leave those in the tray.",
+    "spellcraft": "Three real steps run A→B→C→D, and the tray holds pre-bundles too — 'Tame+Kindle' does the first two, 'Kindle+Bind' the last two. Bring whatever faithful pieces you like from the tray onto the board and wire a route to the true ward. Associativity says the grouping never changes the result. Two bundles are broken — leave those in the tray.",
+    "abstract": "Values are plain numbers: f sends 2 ↦ 3, g sends 3 ↦ 6, h sends 6 ↦ 16, so 2 → 3 → 6 → 16 reaches the same 16 however you group it. The tray also holds bundles g∘f (2 ↦ 6) and h∘g (3 ↦ 16), plus buggy look-alikes (2 ↦ 10 and 3 ↦ 40). Bring any faithful grouping from the tray and wire 2 to 16, leaving the buggy bundles in the tray."
   },
-  "goal": { "data": "Reach the true report by any faithful grouping of the steps.", "alchemy": "Reach the true alloy by any faithful grouping.", "spellcraft": "Reach the true ward by any faithful grouping.", "abstract": "Produce D's goal value by any associativity-equivalent route." },
+  "goal": { "data": "Bring faithful steps or bundles from the tray and wire any grouping that reaches the true report.", "alchemy": "Bring faithful steps or bundles from the tray and wire any grouping that reaches the true alloy.", "spellcraft": "Bring faithful steps or bundles from the tray and wire any grouping that reaches the true ward.", "abstract": "Bring any associativity-equivalent grouping from the tray and wire 2 to D's goal value 16, leaving the buggy bundles behind." },
   "objects": [
     { "id": "obj-a", "formalLabel": "A", "labels": { "data": "Raw CSV", "alchemy": "Ore", "spellcraft": "Spark", "abstract": "A" }, "description": { "data": "the raw input", "alchemy": "the raw ore", "spellcraft": "the wild spark", "abstract": "object A" }, "colorToken": "sky" },
     { "id": "obj-b", "formalLabel": "B", "labels": { "data": "Clean Table", "alchemy": "Ingot", "spellcraft": "Flame", "abstract": "B" }, "description": { "data": "a clean table", "alchemy": "a pure ingot", "spellcraft": "a steady flame", "abstract": "object B" }, "colorToken": "emerald" },
@@ -19,37 +19,32 @@
     { "id": "obj-d", "formalLabel": "D", "labels": { "data": "Report", "alchemy": "Alloy", "spellcraft": "Ward", "abstract": "D" }, "description": { "data": "the finished report", "alchemy": "the cast alloy", "spellcraft": "the bound ward", "abstract": "object D" }, "colorToken": "amber" }
   ],
   "morphisms": [
-    { "id": "mor-f", "formalLabel": "f", "sourceObjectId": "obj-a", "targetObjectId": "obj-b", "labels": { "data": "Parser", "alchemy": "Smelter", "spellcraft": "Ignition", "abstract": "f" }, "description": { "data": "cleans the data", "alchemy": "refines the ore", "spellcraft": "tames the spark", "abstract": "A → B" }, "action": { "v-a": "v-b" } },
-    { "id": "mor-g", "formalLabel": "g", "sourceObjectId": "obj-b", "targetObjectId": "obj-c", "labels": { "data": "Charter", "alchemy": "Toolsmith", "spellcraft": "Kindler", "abstract": "g" }, "description": { "data": "charts the clean table", "alchemy": "shapes the ingot", "spellcraft": "kindles the flame", "abstract": "B → C" }, "action": { "v-b": "v-c" } },
-    { "id": "mor-h", "formalLabel": "h", "sourceObjectId": "obj-c", "targetObjectId": "obj-d", "labels": { "data": "Reporter", "alchemy": "Caster", "spellcraft": "Warder", "abstract": "h" }, "description": { "data": "writes the report", "alchemy": "casts the alloy", "spellcraft": "binds the ward", "abstract": "C → D" }, "action": { "v-c": "v-d" } },
-    { "id": "mor-gf", "formalLabel": "g∘f", "sourceObjectId": "obj-a", "targetObjectId": "obj-c", "labels": { "data": "Parse+Chart", "alchemy": "Smelt+Shape", "spellcraft": "Tame+Kindle", "abstract": "g∘f" }, "description": { "data": "the first two steps, pre-bundled", "alchemy": "the first two steps, pre-bundled", "spellcraft": "the first two steps, pre-bundled", "abstract": "g∘f : A → C" }, "action": { "v-a": "v-c" } },
-    { "id": "mor-hg", "formalLabel": "h∘g", "sourceObjectId": "obj-b", "targetObjectId": "obj-d", "labels": { "data": "Chart+Report", "alchemy": "Shape+Cast", "spellcraft": "Kindle+Bind", "abstract": "h∘g" }, "description": { "data": "the last two steps, pre-bundled", "alchemy": "the last two steps, pre-bundled", "spellcraft": "the last two steps, pre-bundled", "abstract": "h∘g : B → D" }, "action": { "v-b": "v-d" } },
-    { "id": "mor-gfbad", "formalLabel": "(g∘f)?", "sourceObjectId": "obj-a", "targetObjectId": "obj-c", "labels": { "data": "Parse+Chart?", "alchemy": "Smelt+Shape?", "spellcraft": "Tame+Kindle?", "abstract": "(g∘f)?" }, "description": { "data": "same type, but a buggy bundle", "alchemy": "same type, but a botched bundle", "spellcraft": "same type, but a broken bundle", "abstract": "A → C, ≠ g∘f" }, "action": { "v-a": "v-cx" } },
-    { "id": "mor-hgbad", "formalLabel": "(h∘g)?", "sourceObjectId": "obj-b", "targetObjectId": "obj-d", "labels": { "data": "Chart+Report?", "alchemy": "Shape+Cast?", "spellcraft": "Kindle+Bind?", "abstract": "(h∘g)?" }, "description": { "data": "same type, but a buggy bundle", "alchemy": "same type, but a botched bundle", "spellcraft": "same type, but a broken bundle", "abstract": "B → D, ≠ h∘g" }, "action": { "v-b": "v-dx" } }
+    { "id": "mor-f", "formalLabel": "f", "sourceObjectId": "obj-a", "targetObjectId": "obj-b", "labels": { "data": "Parser", "alchemy": "Smelter", "spellcraft": "Ignition", "abstract": "f" }, "description": { "data": "cleans the data", "alchemy": "refines the ore", "spellcraft": "tames the spark", "abstract": "sends 2 ↦ 3" }, "action": { "v-a": "v-b" } },
+    { "id": "mor-g", "formalLabel": "g", "sourceObjectId": "obj-b", "targetObjectId": "obj-c", "labels": { "data": "Charter", "alchemy": "Toolsmith", "spellcraft": "Kindler", "abstract": "g" }, "description": { "data": "charts the clean table", "alchemy": "shapes the ingot", "spellcraft": "kindles the flame", "abstract": "sends 3 ↦ 6" }, "action": { "v-b": "v-c" } },
+    { "id": "mor-h", "formalLabel": "h", "sourceObjectId": "obj-c", "targetObjectId": "obj-d", "labels": { "data": "Reporter", "alchemy": "Caster", "spellcraft": "Warder", "abstract": "h" }, "description": { "data": "writes the report", "alchemy": "casts the alloy", "spellcraft": "binds the ward", "abstract": "sends 6 ↦ 16" }, "action": { "v-c": "v-d" } },
+    { "id": "mor-gf", "formalLabel": "g∘f", "sourceObjectId": "obj-a", "targetObjectId": "obj-c", "labels": { "data": "Parse+Chart", "alchemy": "Smelt+Shape", "spellcraft": "Tame+Kindle", "abstract": "g∘f" }, "description": { "data": "the first two steps, pre-bundled", "alchemy": "the first two steps, pre-bundled", "spellcraft": "the first two steps, pre-bundled", "abstract": "the faithful bundle g ∘ f: sends 2 ↦ 6" }, "action": { "v-a": "v-c" } },
+    { "id": "mor-hg", "formalLabel": "h∘g", "sourceObjectId": "obj-b", "targetObjectId": "obj-d", "labels": { "data": "Chart+Report", "alchemy": "Shape+Cast", "spellcraft": "Kindle+Bind", "abstract": "h∘g" }, "description": { "data": "the last two steps, pre-bundled", "alchemy": "the last two steps, pre-bundled", "spellcraft": "the last two steps, pre-bundled", "abstract": "the faithful bundle h ∘ g: sends 3 ↦ 16" }, "action": { "v-b": "v-d" } },
+    { "id": "mor-gfbad", "formalLabel": "(g∘f)?", "sourceObjectId": "obj-a", "targetObjectId": "obj-c", "labels": { "data": "Parse+Chart?", "alchemy": "Smelt+Shape?", "spellcraft": "Tame+Kindle?", "abstract": "(g∘f)?" }, "description": { "data": "same type, but a buggy bundle", "alchemy": "same type, but a botched bundle", "spellcraft": "same type, but a broken bundle", "abstract": "sends 2 ↦ 10 (not g ∘ f)" }, "action": { "v-a": "v-cx" } },
+    { "id": "mor-hgbad", "formalLabel": "(h∘g)?", "sourceObjectId": "obj-b", "targetObjectId": "obj-d", "labels": { "data": "Chart+Report?", "alchemy": "Shape+Cast?", "spellcraft": "Kindle+Bind?", "abstract": "(h∘g)?" }, "description": { "data": "same type, but a buggy bundle", "alchemy": "same type, but a botched bundle", "spellcraft": "same type, but a broken bundle", "abstract": "sends 3 ↦ 40 (not h ∘ g)" }, "action": { "v-b": "v-dx" } }
   ],
   "samples": [
-    { "id": "v-a", "objectId": "obj-a", "labels": { "data": "messy spreadsheet", "alchemy": "raw ore", "spellcraft": "wild spark", "abstract": "a" } },
-    { "id": "v-b", "objectId": "obj-b", "labels": { "data": "clean table", "alchemy": "pure ingot", "spellcraft": "steady flame", "abstract": "b" } },
-    { "id": "v-c", "objectId": "obj-c", "labels": { "data": "real chart", "alchemy": "true tool", "spellcraft": "bright beacon", "abstract": "c" } },
-    { "id": "v-cx", "objectId": "obj-c", "labels": { "data": "wrong chart", "alchemy": "wrong tool", "spellcraft": "wrong beacon", "abstract": "c?" } },
-    { "id": "v-d", "objectId": "obj-d", "labels": { "data": "true report", "alchemy": "true alloy", "spellcraft": "true ward", "abstract": "d" } },
-    { "id": "v-dx", "objectId": "obj-d", "labels": { "data": "wrong report", "alchemy": "wrong alloy", "spellcraft": "wrong ward", "abstract": "d?" } }
+    { "id": "v-a", "objectId": "obj-a", "labels": { "data": "messy spreadsheet", "alchemy": "raw ore", "spellcraft": "wild spark", "abstract": "2" } },
+    { "id": "v-b", "objectId": "obj-b", "labels": { "data": "clean table", "alchemy": "pure ingot", "spellcraft": "steady flame", "abstract": "3" } },
+    { "id": "v-c", "objectId": "obj-c", "labels": { "data": "real chart", "alchemy": "true tool", "spellcraft": "bright beacon", "abstract": "6" } },
+    { "id": "v-cx", "objectId": "obj-c", "labels": { "data": "wrong chart", "alchemy": "wrong tool", "spellcraft": "wrong beacon", "abstract": "10" } },
+    { "id": "v-d", "objectId": "obj-d", "labels": { "data": "true report", "alchemy": "true alloy", "spellcraft": "true ward", "abstract": "16" } },
+    { "id": "v-dx", "objectId": "obj-d", "labels": { "data": "wrong report", "alchemy": "wrong alloy", "spellcraft": "wrong ward", "abstract": "40" } }
   ],
   "initialGraph": {
     "nodes": [
       { "kind": "object", "nodeId": "n-a", "objectId": "obj-a", "role": "start", "position": { "x": 40, "y": 220 } },
-      { "kind": "morphism", "nodeId": "n-f", "morphismId": "mor-f", "position": { "x": 240, "y": 100 } },
-      { "kind": "object", "nodeId": "n-b", "objectId": "obj-b", "position": { "x": 440, "y": 220 } },
-      { "kind": "morphism", "nodeId": "n-g", "morphismId": "mor-g", "position": { "x": 640, "y": 100 } },
-      { "kind": "object", "nodeId": "n-c", "objectId": "obj-c", "position": { "x": 840, "y": 220 } },
-      { "kind": "morphism", "nodeId": "n-h", "morphismId": "mor-h", "position": { "x": 1040, "y": 100 } },
-      { "kind": "object", "nodeId": "n-d", "objectId": "obj-d", "role": "goal", "position": { "x": 1240, "y": 220 } },
-      { "kind": "morphism", "nodeId": "n-gf", "morphismId": "mor-gf", "position": { "x": 360, "y": 380 } },
-      { "kind": "morphism", "nodeId": "n-hg", "morphismId": "mor-hg", "position": { "x": 740, "y": 380 } },
-      { "kind": "morphism", "nodeId": "n-gfbad", "morphismId": "mor-gfbad", "position": { "x": 360, "y": 510 } },
-      { "kind": "morphism", "nodeId": "n-hgbad", "morphismId": "mor-hgbad", "position": { "x": 740, "y": 510 } }
+      { "kind": "object", "nodeId": "n-d", "objectId": "obj-d", "role": "goal", "position": { "x": 1240, "y": 220 } }
     ],
     "edges": []
+  },
+  "toolkit": {
+    "paletteObjectIds": ["obj-b", "obj-c"],
+    "paletteMorphismIds": ["mor-f", "mor-g", "mor-h", "mor-gf", "mor-hg", "mor-gfbad", "mor-hgbad"]
   },
   "allowedMorphismIds": ["mor-f", "mor-g", "mor-h", "mor-gf", "mor-hg", "mor-gfbad", "mor-hgbad"],
   "validation": [

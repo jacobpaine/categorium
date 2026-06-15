@@ -9,14 +9,27 @@ const toolkitPuzzles = PUZZLES.filter(
   (p): p is AuthoredPuzzle => isAuthored(p) && p.toolkit !== undefined,
 );
 
+/** Every transformation chapter that has been converted to the toolkit board. */
+const TOOLKIT_CHAPTERS = [
+  'chapter-01-transformations',
+  'chapter-02-laws',
+  'chapter-03-isomorphisms',
+  'chapter-04-functors',
+  'chapter-05-products',
+  'chapter-07-monads',
+  'chapter-08-limits',
+];
+
 describe('toolkit puzzles — schema invariants', () => {
-  it('Chapter 1 is fully converted to toolkit mode', () => {
-    const ch1 = PUZZLES.filter(
-      (p): p is AuthoredPuzzle => isAuthored(p) && p.chapterId === 'chapter-01-transformations',
-    );
-    expect(ch1.length).toBeGreaterThan(0);
-    expect(ch1.every((p) => p.toolkit !== undefined)).toBe(true);
-  });
+  for (const chapterId of TOOLKIT_CHAPTERS) {
+    it(`${chapterId} is fully converted to toolkit mode`, () => {
+      const chapter = PUZZLES.filter(
+        (p): p is AuthoredPuzzle => isAuthored(p) && p.chapterId === chapterId,
+      );
+      expect(chapter.length).toBeGreaterThan(0);
+      expect(chapter.every((p) => p.toolkit !== undefined)).toBe(true);
+    });
+  }
 
   for (const p of toolkitPuzzles) {
     describe(p.id, () => {

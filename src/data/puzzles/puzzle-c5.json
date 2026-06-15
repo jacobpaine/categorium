@@ -6,42 +6,41 @@
   "title": { "data": "Pair, Then Project", "alchemy": "Pair, Then Project", "spellcraft": "Pair, Then Project", "abstract": "Pair, Then Project" },
   "conceptTags": ["product"],
   "intro": {
-    "data": "Two steps: from the form, BUILD a record that bundles the name and age; then PROJECT the name back out. The whole round must return the original name. One builder packs the fields in order; the other swaps them. One projection reads the first field; the other misreads. Only the faithful pair survives — picking by color won't.",
-    "alchemy": "Two steps: from the seed, COMBINE a compound bundling salt and sulfur; then DRAW the salt back out. The whole round must return the original salt. One combiner orders the parts; the other swaps them. One draw reads the first part; the other misreads.",
-    "spellcraft": "Two steps: from the caster, WEAVE a blend bundling light and heat; then DRAW the light back out. The whole round must return the original light. One weaver orders the parts; the other swaps them. One draw reads the first part; the other misreads.",
-    "abstract": "Build ⟨f,g⟩ : X→A×B, then apply π₁ : A×B→A; the composite must recover the A-component. A swapped pairing or a mis-projection returns the wrong value."
+    "data": "Two steps: from the form, BUILD a record that bundles the name and age; then PROJECT the name back out. Bring the right builder and the right projection from the tray onto the board and wire them so the original name comes back. One builder packs the fields in order; the other swaps them. One projection reads the first field; the other misreads — leave the wrong ones in the tray.",
+    "alchemy": "Two steps: from the seed, COMBINE a compound bundling salt and sulfur; then DRAW the salt back out. Bring the right combiner and draw from the tray onto the board and wire them so the original salt comes back. One combiner orders the parts, the other swaps them; one draw reads the first part, the other misreads — leave the wrong ones in the tray.",
+    "spellcraft": "Two steps: from the caster, WEAVE a blend bundling light and heat; then DRAW the light back out. Bring the right weaver and draw from the tray onto the board and wire them so the original light comes back. One weaver orders the parts, the other swaps them; one draw reads the first part, the other misreads — leave the wrong ones in the tray.",
+    "abstract": "Notation: (a,b) is the pair holding a then b; the pairing ⟨f,g⟩ : X → A×B builds (3,4) from x; the projection π₁ : A×B → A pulls out the first component, sending (3,4) ↦ 3. From the tray bring ⟨f,g⟩ and π₁ and wire X to A so the round trip recovers 3; the swapped pairing ⟨g,f⟩ (which builds (4,3), giving 4) and the mis-projection π₁? (sending (3,4) ↦ 9) fail, so leave them in the tray. π₁ ∘ ⟨f,g⟩ = f."
   },
-  "goal": { "data": "Build the record, then project it, so the original name comes back out.", "alchemy": "Combine the compound, then draw it, so the original salt comes back.", "spellcraft": "Weave the blend, then draw it, so the original light comes back.", "abstract": "Recover the A-component through a pairing then a projection." },
+  "goal": { "data": "Bring the right builder and projection from the tray and wire them so the original name comes back out.", "alchemy": "Bring the right combiner and draw from the tray and wire them so the original salt comes back.", "spellcraft": "Bring the right weaver and draw from the tray and wire them so the original light comes back.", "abstract": "Bring ⟨f,g⟩ and π₁ from the tray and wire X to A so the round trip recovers the first component 3, leaving the swapped pairing and mis-projection in the tray." },
   "objects": [
     { "id": "obj-x", "formalLabel": "X", "labels": { "data": "Form", "alchemy": "Seed", "spellcraft": "Caster", "abstract": "X" }, "description": { "data": "the form holding a name and an age", "alchemy": "the seed holding salt and sulfur", "spellcraft": "the caster holding light and heat", "abstract": "the source object X" }, "colorToken": "amber" },
     { "id": "obj-p", "formalLabel": "A×B", "labels": { "data": "Record", "alchemy": "Compound", "spellcraft": "Blend", "abstract": "A×B" }, "description": { "data": "a record bundling a name and an age", "alchemy": "a compound bundling salt and sulfur", "spellcraft": "a blend bundling light and heat", "abstract": "the product A×B" }, "colorToken": "violet" },
     { "id": "obj-a", "formalLabel": "A", "labels": { "data": "Name", "alchemy": "Salt", "spellcraft": "Light", "abstract": "A" }, "description": { "data": "the name component you must recover", "alchemy": "the salt component you must recover", "spellcraft": "the light component you must recover", "abstract": "component A" }, "colorToken": "sky" }
   ],
   "morphisms": [
-    { "id": "mor-pair", "formalLabel": "⟨f,g⟩", "sourceObjectId": "obj-x", "targetObjectId": "obj-p", "labels": { "data": "Build Record", "alchemy": "Combine", "spellcraft": "Weave", "abstract": "⟨f,g⟩" }, "description": { "data": "packs the form into a record — name first, age second", "alchemy": "combines the seed — salt first, sulfur second", "spellcraft": "weaves the caster — light first, heat second", "abstract": "the pairing ⟨f,g⟩ : X → A×B" }, "action": { "v-x": "v-rec" } },
-    { "id": "mor-pairbad", "formalLabel": "⟨g,f⟩", "sourceObjectId": "obj-x", "targetObjectId": "obj-p", "labels": { "data": "Swap & Pack", "alchemy": "Mis-Combine", "spellcraft": "Mis-Weave", "abstract": "⟨g,f⟩" }, "description": { "data": "packs the fields in the WRONG order", "alchemy": "combines the parts in the WRONG order", "spellcraft": "weaves the parts in the WRONG order", "abstract": "the swapped pairing" }, "action": { "v-x": "v-rec2" } },
-    { "id": "mor-pi1", "formalLabel": "π₁", "sourceObjectId": "obj-p", "targetObjectId": "obj-a", "labels": { "data": "Get Name", "alchemy": "Salt Out", "spellcraft": "Draw Light", "abstract": "π₁" }, "description": { "data": "reads the FIRST field back out of the record", "alchemy": "draws the FIRST part out of the compound", "spellcraft": "draws the FIRST part out of the blend", "abstract": "the projection π₁ : A×B → A" }, "action": { "v-rec": "v-name", "v-rec2": "v-swap" } },
-    { "id": "mor-pi1bad", "formalLabel": "π₁?", "sourceObjectId": "obj-p", "targetObjectId": "obj-a", "labels": { "data": "Misread Name", "alchemy": "Mis-Salt", "spellcraft": "Mis-Light", "abstract": "π₁?" }, "description": { "data": "same type, but returns the wrong field", "alchemy": "same type, but returns the wrong part", "spellcraft": "same type, but returns the wrong part", "abstract": "A×B → A, but wrong" }, "action": { "v-rec": "v-wrong", "v-rec2": "v-wrong" } }
+    { "id": "mor-pair", "formalLabel": "⟨f,g⟩", "sourceObjectId": "obj-x", "targetObjectId": "obj-p", "labels": { "data": "Build Record", "alchemy": "Combine", "spellcraft": "Weave", "abstract": "⟨f,g⟩" }, "description": { "data": "packs the form into a record — name first, age second", "alchemy": "combines the seed — salt first, sulfur second", "spellcraft": "weaves the caster — light first, heat second", "abstract": "the pairing ⟨f,g⟩: sends x ↦ (3,4) (builds the pair in order)" }, "action": { "v-x": "v-rec" } },
+    { "id": "mor-pairbad", "formalLabel": "⟨g,f⟩", "sourceObjectId": "obj-x", "targetObjectId": "obj-p", "labels": { "data": "Swap & Pack", "alchemy": "Mis-Combine", "spellcraft": "Mis-Weave", "abstract": "⟨g,f⟩" }, "description": { "data": "packs the fields in the WRONG order", "alchemy": "combines the parts in the WRONG order", "spellcraft": "weaves the parts in the WRONG order", "abstract": "the swapped pairing ⟨g,f⟩: sends x ↦ (4,3) (wrong order)" }, "action": { "v-x": "v-rec2" } },
+    { "id": "mor-pi1", "formalLabel": "π₁", "sourceObjectId": "obj-p", "targetObjectId": "obj-a", "labels": { "data": "Get Name", "alchemy": "Salt Out", "spellcraft": "Draw Light", "abstract": "π₁" }, "description": { "data": "reads the FIRST field back out of the record", "alchemy": "draws the FIRST part out of the compound", "spellcraft": "draws the FIRST part out of the blend", "abstract": "the first projection π₁: sends (3,4) ↦ 3 and (4,3) ↦ 4 (the first component)" }, "action": { "v-rec": "v-name", "v-rec2": "v-swap" } },
+    { "id": "mor-pi1bad", "formalLabel": "π₁?", "sourceObjectId": "obj-p", "targetObjectId": "obj-a", "labels": { "data": "Misread Name", "alchemy": "Mis-Salt", "spellcraft": "Mis-Light", "abstract": "π₁?" }, "description": { "data": "same type, but returns the wrong field", "alchemy": "same type, but returns the wrong part", "spellcraft": "same type, but returns the wrong part", "abstract": "claims to be π₁ but sends (3,4) ↦ 9 and (4,3) ↦ 9 — neither component" }, "action": { "v-rec": "v-wrong", "v-rec2": "v-wrong" } }
   ],
   "samples": [
     { "id": "v-x", "objectId": "obj-x", "labels": { "data": "the form {Ada, 30}", "alchemy": "the seed {Salt, Sulfur}", "spellcraft": "the caster {Light, Heat}", "abstract": "x" } },
-    { "id": "v-rec", "objectId": "obj-p", "labels": { "data": "record {Ada, 30}", "alchemy": "compound {Salt, Sulfur}", "spellcraft": "blend {Light, Heat}", "abstract": "⟨a,b⟩" } },
-    { "id": "v-rec2", "objectId": "obj-p", "labels": { "data": "record {30, Ada}", "alchemy": "compound {Sulfur, Salt}", "spellcraft": "blend {Heat, Light}", "abstract": "⟨b,a⟩" } },
-    { "id": "v-name", "objectId": "obj-a", "labels": { "data": "Ada", "alchemy": "Salt", "spellcraft": "Light", "abstract": "a" } },
-    { "id": "v-swap", "objectId": "obj-a", "labels": { "data": "30 (wrong)", "alchemy": "Sulfur (wrong)", "spellcraft": "Heat (wrong)", "abstract": "b" } },
-    { "id": "v-wrong", "objectId": "obj-a", "labels": { "data": "Bob (wrong)", "alchemy": "Mercury (wrong)", "spellcraft": "Shadow (wrong)", "abstract": "a?" } }
+    { "id": "v-rec", "objectId": "obj-p", "labels": { "data": "record {Ada, 30}", "alchemy": "compound {Salt, Sulfur}", "spellcraft": "blend {Light, Heat}", "abstract": "(3,4)" } },
+    { "id": "v-rec2", "objectId": "obj-p", "labels": { "data": "record {30, Ada}", "alchemy": "compound {Sulfur, Salt}", "spellcraft": "blend {Heat, Light}", "abstract": "(4,3)" } },
+    { "id": "v-name", "objectId": "obj-a", "labels": { "data": "Ada", "alchemy": "Salt", "spellcraft": "Light", "abstract": "3" } },
+    { "id": "v-swap", "objectId": "obj-a", "labels": { "data": "30 (wrong)", "alchemy": "Sulfur (wrong)", "spellcraft": "Heat (wrong)", "abstract": "4 (wrong)" } },
+    { "id": "v-wrong", "objectId": "obj-a", "labels": { "data": "Bob (wrong)", "alchemy": "Mercury (wrong)", "spellcraft": "Shadow (wrong)", "abstract": "9 (wrong)" } }
   ],
   "initialGraph": {
     "nodes": [
       { "kind": "object", "nodeId": "n-x", "objectId": "obj-x", "role": "start", "position": { "x": 40, "y": 220 } },
-      { "kind": "morphism", "nodeId": "n-pair", "morphismId": "mor-pair", "position": { "x": 280, "y": 90 } },
-      { "kind": "morphism", "nodeId": "n-pairbad", "morphismId": "mor-pairbad", "position": { "x": 280, "y": 340 } },
-      { "kind": "object", "nodeId": "n-p", "objectId": "obj-p", "position": { "x": 540, "y": 220 } },
-      { "kind": "morphism", "nodeId": "n-pi1", "morphismId": "mor-pi1", "position": { "x": 800, "y": 90 } },
-      { "kind": "morphism", "nodeId": "n-pi1bad", "morphismId": "mor-pi1bad", "position": { "x": 800, "y": 340 } },
       { "kind": "object", "nodeId": "n-a", "objectId": "obj-a", "role": "goal", "position": { "x": 1060, "y": 220 } }
     ],
     "edges": []
+  },
+  "toolkit": {
+    "paletteObjectIds": ["obj-p"],
+    "paletteMorphismIds": ["mor-pair", "mor-pairbad", "mor-pi1", "mor-pi1bad"]
   },
   "allowedMorphismIds": ["mor-pair", "mor-pairbad", "mor-pi1", "mor-pi1bad"],
   "validation": [
