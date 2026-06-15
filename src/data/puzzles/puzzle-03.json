@@ -9,7 +9,9 @@
     "spellcraft": "Chain Two Transformations",
     "abstract": "Chain Two Transformations"
   },
-  "conceptTags": ["composition"],
+  "conceptTags": [
+    "composition"
+  ],
   "intro": {
     "data": "No single machine reaches the chart — you'll need a stepping-stone in the middle. Your toolkit holds the machines AND the intermediate Clean Table: bring the ones you need onto the board and chain them. Watch what flows between steps — feed the wrong table into the second machine and it jams or draws the wrong chart.",
     "alchemy": "No single apparatus reaches the tool — you'll need a stepping-stone in the middle. Your toolkit holds the apparatuses AND the intermediate Ingot: bring the ones you need onto the board and chain them. Feed the wrong ingot into the second and it jams or makes a blunt tool.",
@@ -23,38 +25,247 @@
     "abstract": "Place the intermediate object B and the machines you need, and chain them so the input a becomes the goal value c at C."
   },
   "objects": [
-    { "id": "obj-a", "formalLabel": "A", "labels": { "data": "Raw CSV", "alchemy": "Ore", "spellcraft": "Spark", "abstract": "A" }, "description": { "data": "the messy input you start with", "alchemy": "the raw material you start with", "spellcraft": "the wild essence you start with", "abstract": "the source object" }, "colorToken": "sky" },
-    { "id": "obj-b", "formalLabel": "B", "labels": { "data": "Clean Table", "alchemy": "Ingot", "spellcraft": "Flame", "abstract": "B" }, "description": { "data": "the tidy result you want — a clean table", "alchemy": "the refined result — a pure ingot", "spellcraft": "the steady result — a flame", "abstract": "object B" }, "colorToken": "emerald" },
-    { "id": "obj-c", "formalLabel": "C", "labels": { "data": "Chart", "alchemy": "Tool", "spellcraft": "Beacon", "abstract": "C" }, "description": { "data": "a chart drawn from the clean data", "alchemy": "a tool shaped from the ingot", "spellcraft": "a beacon lit from the flame", "abstract": "object C" }, "colorToken": "amber" }
+    {
+      "id": "obj-a",
+      "formalLabel": "A",
+      "labels": {
+        "data": "Raw CSV",
+        "alchemy": "Ore",
+        "spellcraft": "Spark",
+        "abstract": "A"
+      },
+      "description": {
+        "data": "the messy input you start with",
+        "alchemy": "the raw material you start with",
+        "spellcraft": "the wild essence you start with",
+        "abstract": "the source object"
+      },
+      "colorToken": "sky"
+    },
+    {
+      "id": "obj-b",
+      "formalLabel": "B",
+      "labels": {
+        "data": "Clean Table",
+        "alchemy": "Ingot",
+        "spellcraft": "Flame",
+        "abstract": "B"
+      },
+      "description": {
+        "data": "the tidy result you want — a clean table",
+        "alchemy": "the refined result — a pure ingot",
+        "spellcraft": "the steady result — a flame",
+        "abstract": "object B"
+      },
+      "colorToken": "emerald"
+    },
+    {
+      "id": "obj-c",
+      "formalLabel": "C",
+      "labels": {
+        "data": "Chart",
+        "alchemy": "Tool",
+        "spellcraft": "Beacon",
+        "abstract": "C"
+      },
+      "description": {
+        "data": "a chart drawn from the clean data",
+        "alchemy": "a tool shaped from the ingot",
+        "spellcraft": "a beacon lit from the flame",
+        "abstract": "object C"
+      },
+      "colorToken": "amber"
+    }
   ],
   "morphisms": [
-    { "id": "mor-parser", "formalLabel": "f", "sourceObjectId": "obj-a", "targetObjectId": "obj-b", "labels": { "data": "Parser", "alchemy": "Smelter", "spellcraft": "Ignition", "abstract": "f" }, "description": { "data": "cleans the data", "alchemy": "refines the ore", "spellcraft": "tames the spark", "abstract": "A → B; sends a ↦ b" }, "action": { "v-messy": "v-clean" } },
-    { "id": "mor-shred", "formalLabel": "g", "sourceObjectId": "obj-a", "targetObjectId": "obj-b", "labels": { "data": "Shredder", "alchemy": "Crusher", "spellcraft": "Smother", "abstract": "g" }, "description": { "data": "wrecks the data", "alchemy": "cracks the ore", "spellcraft": "chokes the spark", "abstract": "A → B; sends a ↦ b′" }, "action": { "v-messy": "v-shred" } },
-    { "id": "mor-charter", "formalLabel": "h", "sourceObjectId": "obj-b", "targetObjectId": "obj-c", "labels": { "data": "Charter", "alchemy": "Toolsmith", "spellcraft": "Kindler", "abstract": "h" }, "description": { "data": "charts a clean table; jams on a mess", "alchemy": "shapes a pure ingot; jams on a crack", "spellcraft": "kindles a steady flame; jams on a sputter", "abstract": "B → C; sends b ↦ c, jams on b′" }, "action": { "v-clean": "v-chart" } },
-    { "id": "mor-scribbler", "formalLabel": "k", "sourceObjectId": "obj-b", "targetObjectId": "obj-c", "labels": { "data": "Scribbler", "alchemy": "Bodger", "spellcraft": "Flicker", "abstract": "k" }, "description": { "data": "always scribbles", "alchemy": "always bodges", "spellcraft": "always flickers", "abstract": "B → C; sends b ↦ c′" }, "action": { "v-clean": "v-doodle" } }
+    {
+      "id": "mor-parser",
+      "formalLabel": "f",
+      "sourceObjectId": "obj-a",
+      "targetObjectId": "obj-b",
+      "labels": {
+        "data": "Parser",
+        "alchemy": "Smelter",
+        "spellcraft": "Ignition",
+        "abstract": "f"
+      },
+      "description": {
+        "data": "cleans the data",
+        "alchemy": "refines the ore",
+        "spellcraft": "tames the spark",
+        "abstract": "sends a ↦ b"
+      },
+      "action": {
+        "v-messy": "v-clean"
+      }
+    },
+    {
+      "id": "mor-shred",
+      "formalLabel": "g",
+      "sourceObjectId": "obj-a",
+      "targetObjectId": "obj-b",
+      "labels": {
+        "data": "Shredder",
+        "alchemy": "Crusher",
+        "spellcraft": "Smother",
+        "abstract": "g"
+      },
+      "description": {
+        "data": "wrecks the data",
+        "alchemy": "cracks the ore",
+        "spellcraft": "chokes the spark",
+        "abstract": "sends a ↦ b′"
+      },
+      "action": {
+        "v-messy": "v-shred"
+      }
+    },
+    {
+      "id": "mor-charter",
+      "formalLabel": "h",
+      "sourceObjectId": "obj-b",
+      "targetObjectId": "obj-c",
+      "labels": {
+        "data": "Charter",
+        "alchemy": "Toolsmith",
+        "spellcraft": "Kindler",
+        "abstract": "h"
+      },
+      "description": {
+        "data": "charts a clean table; jams on a mess",
+        "alchemy": "shapes a pure ingot; jams on a crack",
+        "spellcraft": "kindles a steady flame; jams on a sputter",
+        "abstract": "sends b ↦ c, jams on b′"
+      },
+      "action": {
+        "v-clean": "v-chart"
+      }
+    },
+    {
+      "id": "mor-scribbler",
+      "formalLabel": "k",
+      "sourceObjectId": "obj-b",
+      "targetObjectId": "obj-c",
+      "labels": {
+        "data": "Scribbler",
+        "alchemy": "Bodger",
+        "spellcraft": "Flicker",
+        "abstract": "k"
+      },
+      "description": {
+        "data": "always scribbles",
+        "alchemy": "always bodges",
+        "spellcraft": "always flickers",
+        "abstract": "sends b ↦ c′"
+      },
+      "action": {
+        "v-clean": "v-doodle"
+      }
+    }
   ],
   "samples": [
-    { "id": "v-messy", "objectId": "obj-a", "labels": { "data": "messy spreadsheet", "alchemy": "raw ore", "spellcraft": "wild spark", "abstract": "a" } },
-    { "id": "v-clean", "objectId": "obj-b", "labels": { "data": "clean table", "alchemy": "pure ingot", "spellcraft": "steady flame", "abstract": "b" } },
-    { "id": "v-shred", "objectId": "obj-b", "labels": { "data": "shredded mess", "alchemy": "cracked ingot", "spellcraft": "sputtering flame", "abstract": "b′" } },
-    { "id": "v-chart", "objectId": "obj-c", "labels": { "data": "clear chart", "alchemy": "fine tool", "spellcraft": "bright beacon", "abstract": "c" } },
-    { "id": "v-doodle", "objectId": "obj-c", "labels": { "data": "scribbled chart", "alchemy": "blunt tool", "spellcraft": "dim beacon", "abstract": "c′" } }
+    {
+      "id": "v-messy",
+      "objectId": "obj-a",
+      "labels": {
+        "data": "messy spreadsheet",
+        "alchemy": "raw ore",
+        "spellcraft": "wild spark",
+        "abstract": "a"
+      }
+    },
+    {
+      "id": "v-clean",
+      "objectId": "obj-b",
+      "labels": {
+        "data": "clean table",
+        "alchemy": "pure ingot",
+        "spellcraft": "steady flame",
+        "abstract": "b"
+      }
+    },
+    {
+      "id": "v-shred",
+      "objectId": "obj-b",
+      "labels": {
+        "data": "shredded mess",
+        "alchemy": "cracked ingot",
+        "spellcraft": "sputtering flame",
+        "abstract": "b′"
+      }
+    },
+    {
+      "id": "v-chart",
+      "objectId": "obj-c",
+      "labels": {
+        "data": "clear chart",
+        "alchemy": "fine tool",
+        "spellcraft": "bright beacon",
+        "abstract": "c"
+      }
+    },
+    {
+      "id": "v-doodle",
+      "objectId": "obj-c",
+      "labels": {
+        "data": "scribbled chart",
+        "alchemy": "blunt tool",
+        "spellcraft": "dim beacon",
+        "abstract": "c′"
+      }
+    }
   ],
   "initialGraph": {
     "nodes": [
-      { "kind": "object", "nodeId": "n-a", "objectId": "obj-a", "role": "start", "position": { "x": 30, "y": 200 } },
-      { "kind": "object", "nodeId": "n-c", "objectId": "obj-c", "role": "goal", "position": { "x": 770, "y": 200 } }
+      {
+        "kind": "object",
+        "nodeId": "n-a",
+        "objectId": "obj-a",
+        "role": "start",
+        "position": {
+          "x": 30,
+          "y": 200
+        }
+      },
+      {
+        "kind": "object",
+        "nodeId": "n-c",
+        "objectId": "obj-c",
+        "role": "goal",
+        "position": {
+          "x": 770,
+          "y": 200
+        }
+      }
     ],
     "edges": []
   },
   "toolkit": {
-    "paletteObjectIds": ["obj-b"],
-    "paletteMorphismIds": ["mor-parser", "mor-shred", "mor-charter", "mor-scribbler"]
+    "paletteObjectIds": [
+      "obj-b"
+    ],
+    "paletteMorphismIds": [
+      "mor-parser",
+      "mor-shred",
+      "mor-charter",
+      "mor-scribbler"
+    ]
   },
-  "allowedMorphismIds": ["mor-parser", "mor-shred", "mor-charter", "mor-scribbler"],
+  "allowedMorphismIds": [
+    "mor-parser",
+    "mor-shred",
+    "mor-charter",
+    "mor-scribbler"
+  ],
   "validation": [
-    { "type": "type-valid-wiring" },
-    { "type": "required-output", "inputValueId": "v-messy", "outputValueId": "v-chart" }
+    {
+      "type": "type-valid-wiring"
+    },
+    {
+      "type": "required-output",
+      "inputValueId": "v-messy",
+      "outputValueId": "v-chart"
+    }
   ],
   "reveal": {
     "afterSuccess": {
@@ -64,26 +275,105 @@
       "abstract": "g ∘ f reaches the goal only when the intermediate value is what the second machine expects."
     },
     "summary": "Composition chains processes: the output of one becomes the input of the next. g ∘ f means do f first, then g — and the value f produces must be one g can act on.",
-    "notation": ["A --f--> B --g--> C", "g ∘ f: A → C"],
+    "notation": [
+      "A --f--> B --g--> C",
+      "g ∘ f: A → C"
+    ],
     "moreFormal": "Composition needs target(f) = source(g) for the types, AND the value f yields must be in the part of B that g handles — otherwise the pipeline jams or diverges.",
     "programmerAnalogy": "g(f(x)) — but f(x) must be something g is actually defined on."
   },
-  "glossaryUnlocks": ["composition"],
+  "glossaryUnlocks": [
+    "composition"
+  ],
   "referenceSolution": {
     "nodes": [
-      { "kind": "object", "nodeId": "n-a", "objectId": "obj-a", "role": "start", "position": { "x": 30, "y": 200 } },
-      { "kind": "morphism", "nodeId": "n-parser", "morphismId": "mor-parser", "position": { "x": 210, "y": 110 } },
-      { "kind": "morphism", "nodeId": "n-shred", "morphismId": "mor-shred", "position": { "x": 210, "y": 300 } },
-      { "kind": "object", "nodeId": "n-b", "objectId": "obj-b", "position": { "x": 400, "y": 200 } },
-      { "kind": "morphism", "nodeId": "n-charter", "morphismId": "mor-charter", "position": { "x": 580, "y": 110 } },
-      { "kind": "morphism", "nodeId": "n-scribbler", "morphismId": "mor-scribbler", "position": { "x": 580, "y": 300 } },
-      { "kind": "object", "nodeId": "n-c", "objectId": "obj-c", "role": "goal", "position": { "x": 770, "y": 200 } }
+      {
+        "kind": "object",
+        "nodeId": "n-a",
+        "objectId": "obj-a",
+        "role": "start",
+        "position": {
+          "x": 30,
+          "y": 200
+        }
+      },
+      {
+        "kind": "morphism",
+        "nodeId": "n-parser",
+        "morphismId": "mor-parser",
+        "position": {
+          "x": 210,
+          "y": 110
+        }
+      },
+      {
+        "kind": "morphism",
+        "nodeId": "n-shred",
+        "morphismId": "mor-shred",
+        "position": {
+          "x": 210,
+          "y": 300
+        }
+      },
+      {
+        "kind": "object",
+        "nodeId": "n-b",
+        "objectId": "obj-b",
+        "position": {
+          "x": 400,
+          "y": 200
+        }
+      },
+      {
+        "kind": "morphism",
+        "nodeId": "n-charter",
+        "morphismId": "mor-charter",
+        "position": {
+          "x": 580,
+          "y": 110
+        }
+      },
+      {
+        "kind": "morphism",
+        "nodeId": "n-scribbler",
+        "morphismId": "mor-scribbler",
+        "position": {
+          "x": 580,
+          "y": 300
+        }
+      },
+      {
+        "kind": "object",
+        "nodeId": "n-c",
+        "objectId": "obj-c",
+        "role": "goal",
+        "position": {
+          "x": 770,
+          "y": 200
+        }
+      }
     ],
     "edges": [
-      { "id": "e-a-parser", "sourceNodeId": "n-a", "targetNodeId": "n-parser" },
-      { "id": "e-parser-b", "sourceNodeId": "n-parser", "targetNodeId": "n-b" },
-      { "id": "e-b-charter", "sourceNodeId": "n-b", "targetNodeId": "n-charter" },
-      { "id": "e-charter-c", "sourceNodeId": "n-charter", "targetNodeId": "n-c" }
+      {
+        "id": "e-a-parser",
+        "sourceNodeId": "n-a",
+        "targetNodeId": "n-parser"
+      },
+      {
+        "id": "e-parser-b",
+        "sourceNodeId": "n-parser",
+        "targetNodeId": "n-b"
+      },
+      {
+        "id": "e-b-charter",
+        "sourceNodeId": "n-b",
+        "targetNodeId": "n-charter"
+      },
+      {
+        "id": "e-charter-c",
+        "sourceNodeId": "n-charter",
+        "targetNodeId": "n-c"
+      }
     ]
   }
 }

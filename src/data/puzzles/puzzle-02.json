@@ -9,7 +9,9 @@
     "spellcraft": "Choose the Valid Transformation",
     "abstract": "Choose the Valid Transformation"
   },
-  "conceptTags": ["typed-transform"],
+  "conceptTags": [
+    "typed-transform"
+  ],
   "intro": {
     "data": "Three machines in your toolkit. One doesn't even fit — its input port wants a chart, not a CSV (check the type on its tray card). Of the two that fit, only one actually produces the clean table. Bring the right one onto the board and wire it; leave the rest in the tray.",
     "alchemy": "Three apparatuses in your toolkit. One doesn't fit — its input wants a tool, not ore. Of the two that fit, only one produces the pure ingot. Bring the right one onto the board; leave the rest in the tray.",
@@ -23,32 +25,199 @@
     "abstract": "Place and wire the machine that is type-valid and produces the goal value b."
   },
   "objects": [
-    { "id": "obj-a", "formalLabel": "A", "labels": { "data": "Raw CSV", "alchemy": "Ore", "spellcraft": "Spark", "abstract": "A" }, "description": { "data": "the messy input you start with", "alchemy": "the raw material you start with", "spellcraft": "the wild essence you start with", "abstract": "the source object" }, "colorToken": "sky" },
-    { "id": "obj-b", "formalLabel": "B", "labels": { "data": "Clean Table", "alchemy": "Ingot", "spellcraft": "Flame", "abstract": "B" }, "description": { "data": "the tidy result you want — a clean table", "alchemy": "the refined result — a pure ingot", "spellcraft": "the steady result — a flame", "abstract": "object B" }, "colorToken": "emerald" },
-    { "id": "obj-c", "formalLabel": "C", "labels": { "data": "Chart", "alchemy": "Tool", "spellcraft": "Beacon", "abstract": "C" }, "description": { "data": "a chart drawn from the clean data", "alchemy": "a tool shaped from the ingot", "spellcraft": "a beacon lit from the flame", "abstract": "object C" }, "colorToken": "amber" }
+    {
+      "id": "obj-a",
+      "formalLabel": "A",
+      "labels": {
+        "data": "Raw CSV",
+        "alchemy": "Ore",
+        "spellcraft": "Spark",
+        "abstract": "A"
+      },
+      "description": {
+        "data": "the messy input you start with",
+        "alchemy": "the raw material you start with",
+        "spellcraft": "the wild essence you start with",
+        "abstract": "the source object"
+      },
+      "colorToken": "sky"
+    },
+    {
+      "id": "obj-b",
+      "formalLabel": "B",
+      "labels": {
+        "data": "Clean Table",
+        "alchemy": "Ingot",
+        "spellcraft": "Flame",
+        "abstract": "B"
+      },
+      "description": {
+        "data": "the tidy result you want — a clean table",
+        "alchemy": "the refined result — a pure ingot",
+        "spellcraft": "the steady result — a flame",
+        "abstract": "object B"
+      },
+      "colorToken": "emerald"
+    },
+    {
+      "id": "obj-c",
+      "formalLabel": "C",
+      "labels": {
+        "data": "Chart",
+        "alchemy": "Tool",
+        "spellcraft": "Beacon",
+        "abstract": "C"
+      },
+      "description": {
+        "data": "a chart drawn from the clean data",
+        "alchemy": "a tool shaped from the ingot",
+        "spellcraft": "a beacon lit from the flame",
+        "abstract": "object C"
+      },
+      "colorToken": "amber"
+    }
   ],
   "morphisms": [
-    { "id": "mor-parser", "formalLabel": "f", "sourceObjectId": "obj-a", "targetObjectId": "obj-b", "labels": { "data": "Parser", "alchemy": "Smelter", "spellcraft": "Ignition", "abstract": "f" }, "description": { "data": "cleans the data", "alchemy": "refines the ore", "spellcraft": "tames the spark", "abstract": "A → B; sends a ↦ b" }, "action": { "v-messy": "v-clean" } },
-    { "id": "mor-shred", "formalLabel": "g", "sourceObjectId": "obj-a", "targetObjectId": "obj-b", "labels": { "data": "Shredder", "alchemy": "Crusher", "spellcraft": "Smother", "abstract": "g" }, "description": { "data": "wrecks the data", "alchemy": "cracks the ore", "spellcraft": "chokes the spark", "abstract": "A → B; sends a ↦ b′" }, "action": { "v-messy": "v-shred" } },
-    { "id": "mor-importer", "formalLabel": "h", "sourceObjectId": "obj-c", "targetObjectId": "obj-b", "labels": { "data": "Importer", "alchemy": "Caster", "spellcraft": "Binder", "abstract": "h" }, "description": { "data": "needs a chart, not a CSV", "alchemy": "needs a tool, not ore", "spellcraft": "needs a beacon, not a spark", "abstract": "C → B (wrong input type)" } }
+    {
+      "id": "mor-parser",
+      "formalLabel": "f",
+      "sourceObjectId": "obj-a",
+      "targetObjectId": "obj-b",
+      "labels": {
+        "data": "Parser",
+        "alchemy": "Smelter",
+        "spellcraft": "Ignition",
+        "abstract": "f"
+      },
+      "description": {
+        "data": "cleans the data",
+        "alchemy": "refines the ore",
+        "spellcraft": "tames the spark",
+        "abstract": "sends a ↦ b"
+      },
+      "action": {
+        "v-messy": "v-clean"
+      }
+    },
+    {
+      "id": "mor-shred",
+      "formalLabel": "g",
+      "sourceObjectId": "obj-a",
+      "targetObjectId": "obj-b",
+      "labels": {
+        "data": "Shredder",
+        "alchemy": "Crusher",
+        "spellcraft": "Smother",
+        "abstract": "g"
+      },
+      "description": {
+        "data": "wrecks the data",
+        "alchemy": "cracks the ore",
+        "spellcraft": "chokes the spark",
+        "abstract": "sends a ↦ b′"
+      },
+      "action": {
+        "v-messy": "v-shred"
+      }
+    },
+    {
+      "id": "mor-importer",
+      "formalLabel": "h",
+      "sourceObjectId": "obj-c",
+      "targetObjectId": "obj-b",
+      "labels": {
+        "data": "Importer",
+        "alchemy": "Caster",
+        "spellcraft": "Binder",
+        "abstract": "h"
+      },
+      "description": {
+        "data": "needs a chart, not a CSV",
+        "alchemy": "needs a tool, not ore",
+        "spellcraft": "needs a beacon, not a spark",
+        "abstract": "C → B (wrong input type)"
+      }
+    }
   ],
   "samples": [
-    { "id": "v-messy", "objectId": "obj-a", "labels": { "data": "messy spreadsheet", "alchemy": "raw ore", "spellcraft": "wild spark", "abstract": "a" } },
-    { "id": "v-clean", "objectId": "obj-b", "labels": { "data": "clean table", "alchemy": "pure ingot", "spellcraft": "steady flame", "abstract": "b" } },
-    { "id": "v-shred", "objectId": "obj-b", "labels": { "data": "shredded mess", "alchemy": "cracked ingot", "spellcraft": "sputtering flame", "abstract": "b′" } }
+    {
+      "id": "v-messy",
+      "objectId": "obj-a",
+      "labels": {
+        "data": "messy spreadsheet",
+        "alchemy": "raw ore",
+        "spellcraft": "wild spark",
+        "abstract": "a"
+      }
+    },
+    {
+      "id": "v-clean",
+      "objectId": "obj-b",
+      "labels": {
+        "data": "clean table",
+        "alchemy": "pure ingot",
+        "spellcraft": "steady flame",
+        "abstract": "b"
+      }
+    },
+    {
+      "id": "v-shred",
+      "objectId": "obj-b",
+      "labels": {
+        "data": "shredded mess",
+        "alchemy": "cracked ingot",
+        "spellcraft": "sputtering flame",
+        "abstract": "b′"
+      }
+    }
   ],
   "initialGraph": {
     "nodes": [
-      { "kind": "object", "nodeId": "n-a", "objectId": "obj-a", "role": "start", "position": { "x": 40, "y": 200 } },
-      { "kind": "object", "nodeId": "n-b", "objectId": "obj-b", "role": "goal", "position": { "x": 640, "y": 200 } }
+      {
+        "kind": "object",
+        "nodeId": "n-a",
+        "objectId": "obj-a",
+        "role": "start",
+        "position": {
+          "x": 40,
+          "y": 200
+        }
+      },
+      {
+        "kind": "object",
+        "nodeId": "n-b",
+        "objectId": "obj-b",
+        "role": "goal",
+        "position": {
+          "x": 640,
+          "y": 200
+        }
+      }
     ],
     "edges": []
   },
-  "toolkit": { "paletteObjectIds": [], "paletteMorphismIds": ["mor-parser", "mor-shred", "mor-importer"] },
-  "allowedMorphismIds": ["mor-parser", "mor-shred", "mor-importer"],
+  "toolkit": {
+    "paletteObjectIds": [],
+    "paletteMorphismIds": [
+      "mor-parser",
+      "mor-shred",
+      "mor-importer"
+    ]
+  },
+  "allowedMorphismIds": [
+    "mor-parser",
+    "mor-shred",
+    "mor-importer"
+  ],
   "validation": [
-    { "type": "type-valid-wiring" },
-    { "type": "required-output", "inputValueId": "v-messy", "outputValueId": "v-clean" }
+    {
+      "type": "type-valid-wiring"
+    },
+    {
+      "type": "required-output",
+      "inputValueId": "v-messy",
+      "outputValueId": "v-clean"
+    }
   ],
   "reveal": {
     "afterSuccess": {
@@ -58,22 +227,75 @@
       "abstract": "The wrong-typed machine couldn't connect; of the type-valid ones, only one produced the goal. Type is necessary but not sufficient."
     },
     "summary": "Machines have typed input and output ports: only matching types connect. But among machines that fit, behavior still decides the result.",
-    "notation": ["f: A → B", "h: C → B  (won't accept an A)"],
+    "notation": [
+      "f: A → B",
+      "h: C → B  (won't accept an A)"
+    ],
     "moreFormal": "A morphism only applies to its source type — that's what the port colors enforce. Two morphisms A → B are both applicable, yet need not agree.",
     "programmerAnalogy": "A function expecting C won't take an A (a type error); two A→B functions can still differ."
   },
   "glossaryUnlocks": [],
   "referenceSolution": {
     "nodes": [
-      { "kind": "object", "nodeId": "n-a", "objectId": "obj-a", "role": "start", "position": { "x": 40, "y": 200 } },
-      { "kind": "morphism", "nodeId": "n-parser", "morphismId": "mor-parser", "position": { "x": 340, "y": 70 } },
-      { "kind": "morphism", "nodeId": "n-shred", "morphismId": "mor-shred", "position": { "x": 340, "y": 200 } },
-      { "kind": "morphism", "nodeId": "n-importer", "morphismId": "mor-importer", "position": { "x": 340, "y": 330 } },
-      { "kind": "object", "nodeId": "n-b", "objectId": "obj-b", "role": "goal", "position": { "x": 640, "y": 200 } }
+      {
+        "kind": "object",
+        "nodeId": "n-a",
+        "objectId": "obj-a",
+        "role": "start",
+        "position": {
+          "x": 40,
+          "y": 200
+        }
+      },
+      {
+        "kind": "morphism",
+        "nodeId": "n-parser",
+        "morphismId": "mor-parser",
+        "position": {
+          "x": 340,
+          "y": 70
+        }
+      },
+      {
+        "kind": "morphism",
+        "nodeId": "n-shred",
+        "morphismId": "mor-shred",
+        "position": {
+          "x": 340,
+          "y": 200
+        }
+      },
+      {
+        "kind": "morphism",
+        "nodeId": "n-importer",
+        "morphismId": "mor-importer",
+        "position": {
+          "x": 340,
+          "y": 330
+        }
+      },
+      {
+        "kind": "object",
+        "nodeId": "n-b",
+        "objectId": "obj-b",
+        "role": "goal",
+        "position": {
+          "x": 640,
+          "y": 200
+        }
+      }
     ],
     "edges": [
-      { "id": "e-a-parser", "sourceNodeId": "n-a", "targetNodeId": "n-parser" },
-      { "id": "e-parser-b", "sourceNodeId": "n-parser", "targetNodeId": "n-b" }
+      {
+        "id": "e-a-parser",
+        "sourceNodeId": "n-a",
+        "targetNodeId": "n-parser"
+      },
+      {
+        "id": "e-parser-b",
+        "sourceNodeId": "n-parser",
+        "targetNodeId": "n-b"
+      }
     ]
   }
 }

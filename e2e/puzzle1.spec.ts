@@ -71,6 +71,16 @@ test('toolkit: choosing the wrong tray piece (Shredder) is rejected', async ({ p
   await expect(page.getByTestId('solved')).toHaveCount(0);
 });
 
+test('abstract theme: the tray distinguishes f and g by their behavior, not just the letter', async ({ page }) => {
+  await page.goto('/');
+  await page.getByTestId('theme-abstract').click();
+  await page.getByTestId('puzzle-link-puzzle-01').click();
+  await page.waitForTimeout(300);
+  // Same type (A → B) for both, but each card shows what it DOES — so they aren't identical.
+  await expect(page.getByTestId('tray-morphism-mor-parser')).toContainText('sends a ↦ b');
+  await expect(page.getByTestId('tray-morphism-mor-shred')).toContainText('sends a ↦ b′');
+});
+
 test('toolkit: a placed piece can be sent back to the tray with its ✕', async ({ page }) => {
   await openPuzzle1(page);
 

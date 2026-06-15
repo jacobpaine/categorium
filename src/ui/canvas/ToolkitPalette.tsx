@@ -113,6 +113,11 @@ export function ToolkitPalette({
                       <span className="block font-mono text-[10px] text-slate-400">
                         {signature(diagram, theme, id, showFormalLabels)}
                       </span>
+                      {mor?.description?.[theme] && (
+                        <span className="mt-0.5 block text-[10px] leading-snug text-slate-500">
+                          {mor.description[theme]}
+                        </span>
+                      )}
                     </span>
                     <Plus className="mt-0.5 h-3.5 w-3.5 shrink-0 opacity-0 group-hover:opacity-70" aria-hidden />
                   </button>

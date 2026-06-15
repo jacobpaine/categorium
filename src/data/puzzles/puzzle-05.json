@@ -9,7 +9,9 @@
     "spellcraft": "Equivalent Paths",
     "abstract": "Equivalent Paths"
   },
-  "conceptTags": ["commutative-diagram"],
+  "conceptTags": [
+    "commutative-diagram"
+  ],
   "intro": {
     "data": "You already know one route to the report: Parser then Publisher turns the raw file into THE report. From your toolkit, build a different route — through the data sample — that lands on the exact same report. Bring the Sample object and the arrows you need onto the board; one finishing machine makes a DIFFERENT report, so leave that one in the tray.",
     "alchemy": "You already know one route to the alloy: Smelter then Caster turns the raw ore into THE alloy. From your toolkit, build a different route — through the powder — landing on the exact same alloy. Bring the Powder and the arrows you need onto the board; one finisher makes a different alloy, so leave it in the tray.",
@@ -23,37 +25,283 @@
     "abstract": "Place D and build A→D→C producing the same value c as A→B→C."
   },
   "objects": [
-    { "id": "obj-a", "formalLabel": "A", "labels": { "data": "Raw CSV", "alchemy": "Ore", "spellcraft": "Spark", "abstract": "A" }, "description": { "data": "the messy input you start with", "alchemy": "the raw material you start with", "spellcraft": "the wild essence you start with", "abstract": "the source object" }, "colorToken": "sky" },
-    { "id": "obj-b", "formalLabel": "B", "labels": { "data": "Clean Table", "alchemy": "Ingot", "spellcraft": "Flame", "abstract": "B" }, "description": { "data": "the tidy result you want — a clean table", "alchemy": "the refined result — a pure ingot", "spellcraft": "the steady result — a flame", "abstract": "object B" }, "colorToken": "emerald" },
-    { "id": "obj-c", "formalLabel": "C", "labels": { "data": "Report", "alchemy": "Alloy", "spellcraft": "Ward", "abstract": "C" }, "description": { "data": "the published report", "alchemy": "the cast alloy", "spellcraft": "the woven ward", "abstract": "object C" }, "colorToken": "amber" },
-    { "id": "obj-d", "formalLabel": "D", "labels": { "data": "Sample", "alchemy": "Powder", "spellcraft": "Mote", "abstract": "D" }, "description": { "data": "a small sample drawn from the raw input", "alchemy": "a pinch of powder ground from the ore", "spellcraft": "a mote siphoned from the spark", "abstract": "object D" }, "colorToken": "violet" }
+    {
+      "id": "obj-a",
+      "formalLabel": "A",
+      "labels": {
+        "data": "Raw CSV",
+        "alchemy": "Ore",
+        "spellcraft": "Spark",
+        "abstract": "A"
+      },
+      "description": {
+        "data": "the messy input you start with",
+        "alchemy": "the raw material you start with",
+        "spellcraft": "the wild essence you start with",
+        "abstract": "the source object"
+      },
+      "colorToken": "sky"
+    },
+    {
+      "id": "obj-b",
+      "formalLabel": "B",
+      "labels": {
+        "data": "Clean Table",
+        "alchemy": "Ingot",
+        "spellcraft": "Flame",
+        "abstract": "B"
+      },
+      "description": {
+        "data": "the tidy result you want — a clean table",
+        "alchemy": "the refined result — a pure ingot",
+        "spellcraft": "the steady result — a flame",
+        "abstract": "object B"
+      },
+      "colorToken": "emerald"
+    },
+    {
+      "id": "obj-c",
+      "formalLabel": "C",
+      "labels": {
+        "data": "Report",
+        "alchemy": "Alloy",
+        "spellcraft": "Ward",
+        "abstract": "C"
+      },
+      "description": {
+        "data": "the published report",
+        "alchemy": "the cast alloy",
+        "spellcraft": "the woven ward",
+        "abstract": "object C"
+      },
+      "colorToken": "amber"
+    },
+    {
+      "id": "obj-d",
+      "formalLabel": "D",
+      "labels": {
+        "data": "Sample",
+        "alchemy": "Powder",
+        "spellcraft": "Mote",
+        "abstract": "D"
+      },
+      "description": {
+        "data": "a small sample drawn from the raw input",
+        "alchemy": "a pinch of powder ground from the ore",
+        "spellcraft": "a mote siphoned from the spark",
+        "abstract": "object D"
+      },
+      "colorToken": "violet"
+    }
   ],
   "morphisms": [
-    { "id": "mor-f", "formalLabel": "f", "sourceObjectId": "obj-a", "targetObjectId": "obj-b", "labels": { "data": "Parser", "alchemy": "Smelter", "spellcraft": "Ignition", "abstract": "f" }, "description": { "data": "cleans the data", "alchemy": "refines the ore", "spellcraft": "tames the spark", "abstract": "a morphism A → B" }, "action": { "v-raw": "v-b1" } },
-    { "id": "mor-g", "formalLabel": "g", "sourceObjectId": "obj-b", "targetObjectId": "obj-c", "labels": { "data": "Publisher", "alchemy": "Caster", "spellcraft": "Weaver", "abstract": "g" }, "description": { "data": "publishes the clean table as a report", "alchemy": "casts the ingot into an alloy", "spellcraft": "weaves the flame into a ward", "abstract": "a morphism B → C" }, "action": { "v-b1": "v-final" } },
-    { "id": "mor-h", "formalLabel": "h", "sourceObjectId": "obj-a", "targetObjectId": "obj-d", "labels": { "data": "Sampler", "alchemy": "Grinder", "spellcraft": "Siphon", "abstract": "h" }, "description": { "data": "draws a small sample from the raw input", "alchemy": "grinds a pinch of powder from the ore", "spellcraft": "siphons a mote from the spark", "abstract": "A → D; sends a ↦ d" }, "action": { "v-raw": "v-d1" } },
-    { "id": "mor-k", "formalLabel": "k", "sourceObjectId": "obj-d", "targetObjectId": "obj-c", "labels": { "data": "Plotter", "alchemy": "Founder", "spellcraft": "Binder", "abstract": "k" }, "description": { "data": "matches the first route", "alchemy": "matches the first route", "spellcraft": "matches the first route", "abstract": "D → C; sends d ↦ c (matches the first route)" }, "action": { "v-d1": "v-final" } },
-    { "id": "mor-skew", "formalLabel": "k′", "sourceObjectId": "obj-d", "targetObjectId": "obj-c", "labels": { "data": "Skewer", "alchemy": "Misfounder", "spellcraft": "Twister", "abstract": "k′" }, "description": { "data": "makes a different report", "alchemy": "makes a different alloy", "spellcraft": "makes a different ward", "abstract": "D → C; sends d ↦ c′ (diverges)" }, "action": { "v-d1": "v-other" } }
+    {
+      "id": "mor-f",
+      "formalLabel": "f",
+      "sourceObjectId": "obj-a",
+      "targetObjectId": "obj-b",
+      "labels": {
+        "data": "Parser",
+        "alchemy": "Smelter",
+        "spellcraft": "Ignition",
+        "abstract": "f"
+      },
+      "description": {
+        "data": "cleans the data",
+        "alchemy": "refines the ore",
+        "spellcraft": "tames the spark",
+        "abstract": "a morphism A → B"
+      },
+      "action": {
+        "v-raw": "v-b1"
+      }
+    },
+    {
+      "id": "mor-g",
+      "formalLabel": "g",
+      "sourceObjectId": "obj-b",
+      "targetObjectId": "obj-c",
+      "labels": {
+        "data": "Publisher",
+        "alchemy": "Caster",
+        "spellcraft": "Weaver",
+        "abstract": "g"
+      },
+      "description": {
+        "data": "publishes the clean table as a report",
+        "alchemy": "casts the ingot into an alloy",
+        "spellcraft": "weaves the flame into a ward",
+        "abstract": "a morphism B → C"
+      },
+      "action": {
+        "v-b1": "v-final"
+      }
+    },
+    {
+      "id": "mor-h",
+      "formalLabel": "h",
+      "sourceObjectId": "obj-a",
+      "targetObjectId": "obj-d",
+      "labels": {
+        "data": "Sampler",
+        "alchemy": "Grinder",
+        "spellcraft": "Siphon",
+        "abstract": "h"
+      },
+      "description": {
+        "data": "draws a small sample from the raw input",
+        "alchemy": "grinds a pinch of powder from the ore",
+        "spellcraft": "siphons a mote from the spark",
+        "abstract": "sends a ↦ d"
+      },
+      "action": {
+        "v-raw": "v-d1"
+      }
+    },
+    {
+      "id": "mor-k",
+      "formalLabel": "k",
+      "sourceObjectId": "obj-d",
+      "targetObjectId": "obj-c",
+      "labels": {
+        "data": "Plotter",
+        "alchemy": "Founder",
+        "spellcraft": "Binder",
+        "abstract": "k"
+      },
+      "description": {
+        "data": "matches the first route",
+        "alchemy": "matches the first route",
+        "spellcraft": "matches the first route",
+        "abstract": "sends d ↦ c (matches the first route)"
+      },
+      "action": {
+        "v-d1": "v-final"
+      }
+    },
+    {
+      "id": "mor-skew",
+      "formalLabel": "k′",
+      "sourceObjectId": "obj-d",
+      "targetObjectId": "obj-c",
+      "labels": {
+        "data": "Skewer",
+        "alchemy": "Misfounder",
+        "spellcraft": "Twister",
+        "abstract": "k′"
+      },
+      "description": {
+        "data": "makes a different report",
+        "alchemy": "makes a different alloy",
+        "spellcraft": "makes a different ward",
+        "abstract": "sends d ↦ c′ (diverges)"
+      },
+      "action": {
+        "v-d1": "v-other"
+      }
+    }
   ],
   "samples": [
-    { "id": "v-raw", "objectId": "obj-a", "labels": { "data": "raw file", "alchemy": "raw ore", "spellcraft": "wild spark", "abstract": "a" } },
-    { "id": "v-b1", "objectId": "obj-b", "labels": { "data": "clean table", "alchemy": "pure ingot", "spellcraft": "steady flame", "abstract": "b" } },
-    { "id": "v-d1", "objectId": "obj-d", "labels": { "data": "data sample", "alchemy": "fine powder", "spellcraft": "bright mote", "abstract": "d" } },
-    { "id": "v-final", "objectId": "obj-c", "labels": { "data": "the report", "alchemy": "the alloy", "spellcraft": "the ward", "abstract": "c" } },
-    { "id": "v-other", "objectId": "obj-c", "labels": { "data": "a different report", "alchemy": "a different alloy", "spellcraft": "a different ward", "abstract": "c′" } }
+    {
+      "id": "v-raw",
+      "objectId": "obj-a",
+      "labels": {
+        "data": "raw file",
+        "alchemy": "raw ore",
+        "spellcraft": "wild spark",
+        "abstract": "a"
+      }
+    },
+    {
+      "id": "v-b1",
+      "objectId": "obj-b",
+      "labels": {
+        "data": "clean table",
+        "alchemy": "pure ingot",
+        "spellcraft": "steady flame",
+        "abstract": "b"
+      }
+    },
+    {
+      "id": "v-d1",
+      "objectId": "obj-d",
+      "labels": {
+        "data": "data sample",
+        "alchemy": "fine powder",
+        "spellcraft": "bright mote",
+        "abstract": "d"
+      }
+    },
+    {
+      "id": "v-final",
+      "objectId": "obj-c",
+      "labels": {
+        "data": "the report",
+        "alchemy": "the alloy",
+        "spellcraft": "the ward",
+        "abstract": "c"
+      }
+    },
+    {
+      "id": "v-other",
+      "objectId": "obj-c",
+      "labels": {
+        "data": "a different report",
+        "alchemy": "a different alloy",
+        "spellcraft": "a different ward",
+        "abstract": "c′"
+      }
+    }
   ],
   "initialGraph": {
     "nodes": [
-      { "kind": "object", "nodeId": "n-a", "objectId": "obj-a", "role": "start", "position": { "x": 40, "y": 200 } },
-      { "kind": "object", "nodeId": "n-c", "objectId": "obj-c", "role": "goal", "position": { "x": 810, "y": 200 } }
+      {
+        "kind": "object",
+        "nodeId": "n-a",
+        "objectId": "obj-a",
+        "role": "start",
+        "position": {
+          "x": 40,
+          "y": 200
+        }
+      },
+      {
+        "kind": "object",
+        "nodeId": "n-c",
+        "objectId": "obj-c",
+        "role": "goal",
+        "position": {
+          "x": 810,
+          "y": 200
+        }
+      }
     ],
     "edges": []
   },
-  "toolkit": { "paletteObjectIds": ["obj-d"], "paletteMorphismIds": ["mor-h", "mor-k", "mor-skew"] },
-  "allowedMorphismIds": ["mor-h", "mor-k", "mor-skew"],
+  "toolkit": {
+    "paletteObjectIds": [
+      "obj-d"
+    ],
+    "paletteMorphismIds": [
+      "mor-h",
+      "mor-k",
+      "mor-skew"
+    ]
+  },
+  "allowedMorphismIds": [
+    "mor-h",
+    "mor-k",
+    "mor-skew"
+  ],
   "validation": [
-    { "type": "type-valid-wiring" },
-    { "type": "required-output", "inputValueId": "v-raw", "outputValueId": "v-final" }
+    {
+      "type": "type-valid-wiring"
+    },
+    {
+      "type": "required-output",
+      "inputValueId": "v-raw",
+      "outputValueId": "v-final"
+    }
   ],
   "reveal": {
     "afterSuccess": {
@@ -63,25 +311,96 @@
       "abstract": "Both routes produced the same value. Two parallel routes that agree are equal — the square commutes."
     },
     "summary": "Different routes with the same start and end can produce the same result. When they always agree, the diagram commutes — here, checked by actually running the value.",
-    "notation": ["g ∘ f = k ∘ h", "both: A → C"],
+    "notation": [
+      "g ∘ f = k ∘ h",
+      "both: A → C"
+    ],
     "moreFormal": "Two parallel morphisms are equal when they agree on inputs. This puzzle confirms it by running the value through both routes — genuine equality, not just matching types.",
     "programmerAnalogy": "Two different implementations that return the same output for the same input."
   },
-  "glossaryUnlocks": ["commutative-diagram"],
+  "glossaryUnlocks": [
+    "commutative-diagram"
+  ],
   "referenceSolution": {
     "nodes": [
-      { "kind": "object", "nodeId": "n-a", "objectId": "obj-a", "role": "start", "position": { "x": 40, "y": 200 } },
-      { "kind": "morphism", "nodeId": "n-h", "morphismId": "mor-h", "position": { "x": 240, "y": 200 } },
-      { "kind": "object", "nodeId": "n-d", "objectId": "obj-d", "position": { "x": 430, "y": 200 } },
-      { "kind": "morphism", "nodeId": "n-k", "morphismId": "mor-k", "position": { "x": 620, "y": 110 } },
-      { "kind": "morphism", "nodeId": "n-skew", "morphismId": "mor-skew", "position": { "x": 620, "y": 300 } },
-      { "kind": "object", "nodeId": "n-c", "objectId": "obj-c", "role": "goal", "position": { "x": 810, "y": 200 } }
+      {
+        "kind": "object",
+        "nodeId": "n-a",
+        "objectId": "obj-a",
+        "role": "start",
+        "position": {
+          "x": 40,
+          "y": 200
+        }
+      },
+      {
+        "kind": "morphism",
+        "nodeId": "n-h",
+        "morphismId": "mor-h",
+        "position": {
+          "x": 240,
+          "y": 200
+        }
+      },
+      {
+        "kind": "object",
+        "nodeId": "n-d",
+        "objectId": "obj-d",
+        "position": {
+          "x": 430,
+          "y": 200
+        }
+      },
+      {
+        "kind": "morphism",
+        "nodeId": "n-k",
+        "morphismId": "mor-k",
+        "position": {
+          "x": 620,
+          "y": 110
+        }
+      },
+      {
+        "kind": "morphism",
+        "nodeId": "n-skew",
+        "morphismId": "mor-skew",
+        "position": {
+          "x": 620,
+          "y": 300
+        }
+      },
+      {
+        "kind": "object",
+        "nodeId": "n-c",
+        "objectId": "obj-c",
+        "role": "goal",
+        "position": {
+          "x": 810,
+          "y": 200
+        }
+      }
     ],
     "edges": [
-      { "id": "e-a-h", "sourceNodeId": "n-a", "targetNodeId": "n-h" },
-      { "id": "e-h-d", "sourceNodeId": "n-h", "targetNodeId": "n-d" },
-      { "id": "e-d-k", "sourceNodeId": "n-d", "targetNodeId": "n-k" },
-      { "id": "e-k-c", "sourceNodeId": "n-k", "targetNodeId": "n-c" }
+      {
+        "id": "e-a-h",
+        "sourceNodeId": "n-a",
+        "targetNodeId": "n-h"
+      },
+      {
+        "id": "e-h-d",
+        "sourceNodeId": "n-h",
+        "targetNodeId": "n-d"
+      },
+      {
+        "id": "e-d-k",
+        "sourceNodeId": "n-d",
+        "targetNodeId": "n-k"
+      },
+      {
+        "id": "e-k-c",
+        "sourceNodeId": "n-k",
+        "targetNodeId": "n-c"
+      }
     ]
   }
 }
