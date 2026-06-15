@@ -6,37 +6,38 @@
   "title": { "data": "Project Out", "alchemy": "Project Out", "spellcraft": "Project Out", "abstract": "Project Out" },
   "conceptTags": ["product"],
   "intro": {
-    "data": "A record bundles a name and an age. Pull the NAME back out. Two extractors return an A — one gives the right name, the other gives the wrong one. Pick the genuine projection.",
-    "alchemy": "A compound bundles salt and sulfur. Pull the SALT back out. Two extractors return an A — one right, one wrong. Pick the genuine projection.",
-    "spellcraft": "A blend bundles light and heat. Pull the LIGHT back out. Two extractors return an A — one right, one wrong. Pick the genuine projection.",
-    "abstract": "A×B bundles A and B. Recover A with the projection that returns the right component value."
+    "data": "A record bundles a name and an age. The tray holds extractors; bring the right one onto the board and wire the record to the NAME. Two extractors return an A — one gives the right name, the other the wrong one — and one returns the age instead. Leave the wrong ones in the tray.",
+    "alchemy": "A compound bundles salt and sulfur. The tray holds extractors; bring the right one onto the board and wire the compound to the SALT. One is right, one wrong, one draws the sulfur instead. Leave the wrong ones in the tray.",
+    "spellcraft": "A blend bundles light and heat. The tray holds extractors; bring the right one onto the board and wire the blend to the LIGHT. One is right, one wrong, one draws the heat instead. Leave the wrong ones in the tray.",
+    "abstract": "(a,b) is the pair holding both a and b; π₁ pulls out the first component, π₂ the second. From the tray bring the genuine first projection and wire A×B to A. Here (3,4) ↦ 3 under π₁; leave the impostor (and π₂, which returns 4) in the tray."
   },
-  "goal": { "data": "Project the record to recover the name (Ada).", "alchemy": "Project the compound to recover the salt.", "spellcraft": "Project the blend to recover the light.", "abstract": "Recover the A-component value." },
+  "goal": { "data": "Bring the right extractor from the tray and wire the record to the name (Ada).", "alchemy": "Bring the right extractor from the tray and wire the compound to the salt.", "spellcraft": "Bring the right extractor from the tray and wire the blend to the light.", "abstract": "Bring π₁ from the tray and wire A×B to A, recovering the first component." },
   "objects": [
     { "id": "obj-p", "formalLabel": "A×B", "labels": { "data": "Record", "alchemy": "Compound", "spellcraft": "Blend", "abstract": "A×B" }, "description": { "data": "a record bundling a name and an age", "alchemy": "a compound blending salt and sulfur", "spellcraft": "a blend of light and heat", "abstract": "the product A×B" }, "colorToken": "violet" },
     { "id": "obj-a", "formalLabel": "A", "labels": { "data": "Name", "alchemy": "Salt", "spellcraft": "Light", "abstract": "A" }, "description": { "data": "the name held inside the record", "alchemy": "the salt held inside the compound", "spellcraft": "the light held inside the blend", "abstract": "component A" }, "colorToken": "sky" },
     { "id": "obj-b", "formalLabel": "B", "labels": { "data": "Age", "alchemy": "Sulfur", "spellcraft": "Heat", "abstract": "B" }, "description": { "data": "the age held inside the record", "alchemy": "the sulfur held inside the compound", "spellcraft": "the heat held inside the blend", "abstract": "component B" }, "colorToken": "emerald" }
   ],
   "morphisms": [
-    { "id": "mor-pi1", "formalLabel": "π₁", "sourceObjectId": "obj-p", "targetObjectId": "obj-a", "labels": { "data": "Get Name", "alchemy": "Salt Out", "spellcraft": "Draw Light", "abstract": "π₁" }, "description": { "data": "reads the Name back out of the record", "alchemy": "draws the Salt back out of the compound", "spellcraft": "draws the Light back out of the blend", "abstract": "the first projection π₁ : A×B → A" }, "action": { "v-rec": "v-name" } },
-    { "id": "mor-pi1bad", "formalLabel": "π₁?", "sourceObjectId": "obj-p", "targetObjectId": "obj-a", "labels": { "data": "Misread Name", "alchemy": "Mis-Salt", "spellcraft": "Mis-Light", "abstract": "π₁?" }, "description": { "data": "returns the wrong name", "alchemy": "returns the wrong salt", "spellcraft": "returns the wrong light", "abstract": "A×B → A, but wrong" }, "action": { "v-rec": "v-wrong" } },
-    { "id": "mor-pi2", "formalLabel": "π₂", "sourceObjectId": "obj-p", "targetObjectId": "obj-b", "labels": { "data": "Get Age", "alchemy": "Sulfur Out", "spellcraft": "Draw Heat", "abstract": "π₂" }, "description": { "data": "projects out the Age, discarding the rest", "alchemy": "draws off the Sulfur, discarding the rest", "spellcraft": "draws the Heat, discarding the rest", "abstract": "the projection π₂ : A×B → B" }, "action": { "v-rec": "v-age" } }
+    { "id": "mor-pi1", "formalLabel": "π₁", "sourceObjectId": "obj-p", "targetObjectId": "obj-a", "labels": { "data": "Get Name", "alchemy": "Salt Out", "spellcraft": "Draw Light", "abstract": "π₁" }, "description": { "data": "reads the Name back out of the record", "alchemy": "draws the Salt back out of the compound", "spellcraft": "draws the Light back out of the blend", "abstract": "the first projection: sends (3,4) ↦ 3" }, "action": { "v-rec": "v-name" } },
+    { "id": "mor-pi1bad", "formalLabel": "π₁?", "sourceObjectId": "obj-p", "targetObjectId": "obj-a", "labels": { "data": "Misread Name", "alchemy": "Mis-Salt", "spellcraft": "Mis-Light", "abstract": "π₁?" }, "description": { "data": "returns the wrong name", "alchemy": "returns the wrong salt", "spellcraft": "returns the wrong light", "abstract": "claims to be π₁ but sends (3,4) ↦ 9 — not the first component" }, "action": { "v-rec": "v-wrong" } },
+    { "id": "mor-pi2", "formalLabel": "π₂", "sourceObjectId": "obj-p", "targetObjectId": "obj-b", "labels": { "data": "Get Age", "alchemy": "Sulfur Out", "spellcraft": "Draw Heat", "abstract": "π₂" }, "description": { "data": "projects out the Age, discarding the rest", "alchemy": "draws off the Sulfur, discarding the rest", "spellcraft": "draws the Heat, discarding the rest", "abstract": "the second projection: sends (3,4) ↦ 4" }, "action": { "v-rec": "v-age" } }
   ],
   "samples": [
-    { "id": "v-rec", "objectId": "obj-p", "labels": { "data": "record {Ada, 30}", "alchemy": "salt+sulfur compound", "spellcraft": "light+heat blend", "abstract": "(a,b)" } },
-    { "id": "v-name", "objectId": "obj-a", "labels": { "data": "Ada", "alchemy": "the salt", "spellcraft": "the light", "abstract": "a" } },
-    { "id": "v-age", "objectId": "obj-b", "labels": { "data": "30", "alchemy": "the sulfur", "spellcraft": "the heat", "abstract": "b" } },
-    { "id": "v-wrong", "objectId": "obj-a", "labels": { "data": "Bob (wrong)", "alchemy": "wrong salt", "spellcraft": "wrong light", "abstract": "a′" } }
+    { "id": "v-rec", "objectId": "obj-p", "labels": { "data": "record {Ada, 30}", "alchemy": "salt+sulfur compound", "spellcraft": "light+heat blend", "abstract": "(3,4)" } },
+    { "id": "v-name", "objectId": "obj-a", "labels": { "data": "Ada", "alchemy": "the salt", "spellcraft": "the light", "abstract": "3" } },
+    { "id": "v-age", "objectId": "obj-b", "labels": { "data": "30", "alchemy": "the sulfur", "spellcraft": "the heat", "abstract": "4" } },
+    { "id": "v-wrong", "objectId": "obj-a", "labels": { "data": "Bob (wrong)", "alchemy": "wrong salt", "spellcraft": "wrong light", "abstract": "9 — wrong" } }
   ],
   "initialGraph": {
     "nodes": [
       { "kind": "object", "nodeId": "n-p", "objectId": "obj-p", "role": "start", "position": { "x": 40, "y": 200 } },
-      { "kind": "morphism", "nodeId": "n-pi1", "morphismId": "mor-pi1", "position": { "x": 300, "y": 80 } },
-      { "kind": "morphism", "nodeId": "n-pi1bad", "morphismId": "mor-pi1bad", "position": { "x": 300, "y": 200 } },
-      { "kind": "morphism", "nodeId": "n-pi2", "morphismId": "mor-pi2", "position": { "x": 300, "y": 320 } },
       { "kind": "object", "nodeId": "n-a", "objectId": "obj-a", "role": "goal", "position": { "x": 560, "y": 200 } }
     ],
     "edges": []
+  },
+  "toolkit": {
+    "paletteObjectIds": ["obj-b"],
+    "paletteMorphismIds": ["mor-pi1", "mor-pi1bad", "mor-pi2"]
   },
   "allowedMorphismIds": ["mor-pi1", "mor-pi1bad", "mor-pi2"],
   "validation": [

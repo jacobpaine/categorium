@@ -6,35 +6,37 @@
   "title": { "data": "Either Way", "alchemy": "Either Way", "spellcraft": "Either Way", "abstract": "Either Way" },
   "conceptTags": ["coproduct"],
   "intro": {
-    "data": "A payment is either a card or cash. Build ONE handler that copes with both: charge the card, log the cash. One handler covers both cases correctly; the other mishandles the card. Pick the genuine case-split.",
-    "alchemy": "A reagent is either acid or base. Build ONE handler that neutralizes both. One covers both cases; the other mishandles one. Pick the genuine case-split.",
-    "spellcraft": "A charm is either ward or hex. Build ONE handler that resolves both. One covers both; the other mishandles one. Pick the genuine case-split.",
-    "abstract": "Build [f,g] : A+B→Y that handles both injected cases correctly."
+    "data": "A payment is either a card or cash. The tray holds two handlers; bring the right one onto the board and wire the payment to its receipt — it must charge the card AND log the cash. One handler covers both cases; the other mishandles the card. Leave the bad one in the tray.",
+    "alchemy": "A reagent is either acid or base. The tray holds two handlers; bring the right one onto the board and wire the reagent to its result — it must neutralize both. One covers both cases; the other mishandles one. Leave the bad one in the tray.",
+    "spellcraft": "A charm is either ward or hex. The tray holds two handlers; bring the right one onto the board and wire the charm to its effect — it must resolve both. One covers both; the other mishandles one. Leave the bad one in the tray.",
+    "abstract": "ι₁ a tags a as the left option, ι₂ b tags b as the right; [f,g] picks the matching branch for each. From the tray bring the genuine case-split and wire A+B to Y, so ι₁ 3 ↦ 30 and ι₂ 4 ↦ 40; leave the impostor (wrong on the left case) in the tray."
   },
-  "goal": { "data": "One handler that turns a card payment into its receipt AND a cash payment into its receipt.", "alchemy": "One handler that neutralizes both acid and base correctly.", "spellcraft": "One handler that resolves both ward and hex correctly.", "abstract": "Handle both cases of A+B to Y." },
+  "goal": { "data": "Bring the right handler from the tray and wire the payment to its receipt — card AND cash.", "alchemy": "Bring the right handler from the tray and wire the reagent to its result — acid AND base.", "spellcraft": "Bring the right handler from the tray and wire the charm to its effect — ward AND hex.", "abstract": "Bring [f,g] from the tray and wire A+B to Y, handling both injected cases." },
   "objects": [
     { "id": "obj-s", "formalLabel": "A+B", "labels": { "data": "Payment", "alchemy": "Reagent", "spellcraft": "Charm", "abstract": "A+B" }, "description": { "data": "a payment — either a card or cash", "alchemy": "a reagent — either one kind or the other", "spellcraft": "a charm — either one kind or the other", "abstract": "the coproduct A+B (one case OR the other)" }, "colorToken": "violet" },
     { "id": "obj-y", "formalLabel": "Y", "labels": { "data": "Receipt", "alchemy": "Result", "spellcraft": "Effect", "abstract": "Y" }, "description": { "data": "the receipt either case produces", "alchemy": "the result either case produces", "spellcraft": "the effect either case produces", "abstract": "the target object Y" }, "colorToken": "amber" }
   ],
   "morphisms": [
-    { "id": "mor-case", "formalLabel": "[f,g]", "sourceObjectId": "obj-s", "targetObjectId": "obj-y", "labels": { "data": "Process Payment", "alchemy": "Neutralize", "spellcraft": "Resolve", "abstract": "[f,g]" }, "description": { "data": "one handler that copes with BOTH cases — charges a card, logs cash", "alchemy": "one process that copes with BOTH cases", "spellcraft": "one working that copes with BOTH cases", "abstract": "the genuine case-split [f,g]" }, "action": { "v-card": "v-rcard", "v-cash": "v-rcash" } },
-    { "id": "mor-casebad", "formalLabel": "[f,g]?", "sourceObjectId": "obj-s", "targetObjectId": "obj-y", "labels": { "data": "Mishandle Card", "alchemy": "Mis-Neutralize", "spellcraft": "Mis-Resolve", "abstract": "[f,g]?" }, "description": { "data": "same type, but botches the card case", "alchemy": "same type, but botches one case", "spellcraft": "same type, but botches one case", "abstract": "wrong on one injection" }, "action": { "v-card": "v-wrong", "v-cash": "v-rcash" } }
+    { "id": "mor-case", "formalLabel": "[f,g]", "sourceObjectId": "obj-s", "targetObjectId": "obj-y", "labels": { "data": "Process Payment", "alchemy": "Neutralize", "spellcraft": "Resolve", "abstract": "[f,g]" }, "description": { "data": "one handler that copes with BOTH cases — charges a card, logs cash", "alchemy": "one process that copes with BOTH cases", "spellcraft": "one working that copes with BOTH cases", "abstract": "case-split: handles ι₁/ι₂ by the matching branch — sends ι₁ 3 ↦ 30 and ι₂ 4 ↦ 40" }, "action": { "v-card": "v-rcard", "v-cash": "v-rcash" } },
+    { "id": "mor-casebad", "formalLabel": "[f,g]?", "sourceObjectId": "obj-s", "targetObjectId": "obj-y", "labels": { "data": "Mishandle Card", "alchemy": "Mis-Neutralize", "spellcraft": "Mis-Resolve", "abstract": "[f,g]?" }, "description": { "data": "same type, but botches the card case", "alchemy": "same type, but botches one case", "spellcraft": "same type, but botches one case", "abstract": "botches the left branch: sends ι₁ 3 ↦ 99 (should be 30), ι₂ 4 ↦ 40" }, "action": { "v-card": "v-wrong", "v-cash": "v-rcash" } }
   ],
   "samples": [
-    { "id": "v-card", "objectId": "obj-s", "labels": { "data": "a card payment", "alchemy": "an acid", "spellcraft": "a ward", "abstract": "ι₁ a" } },
-    { "id": "v-cash", "objectId": "obj-s", "labels": { "data": "a cash payment", "alchemy": "a base", "spellcraft": "a hex", "abstract": "ι₂ b" } },
-    { "id": "v-rcard", "objectId": "obj-y", "labels": { "data": "card receipt", "alchemy": "salt (from acid)", "spellcraft": "ward effect", "abstract": "f a" } },
-    { "id": "v-rcash", "objectId": "obj-y", "labels": { "data": "cash receipt", "alchemy": "salt (from base)", "spellcraft": "hex effect", "abstract": "g b" } },
-    { "id": "v-wrong", "objectId": "obj-y", "labels": { "data": "a bad receipt", "alchemy": "a bad result", "spellcraft": "a bad effect", "abstract": "wrong" } }
+    { "id": "v-card", "objectId": "obj-s", "labels": { "data": "a card payment", "alchemy": "an acid", "spellcraft": "a ward", "abstract": "ι₁ 3" } },
+    { "id": "v-cash", "objectId": "obj-s", "labels": { "data": "a cash payment", "alchemy": "a base", "spellcraft": "a hex", "abstract": "ι₂ 4" } },
+    { "id": "v-rcard", "objectId": "obj-y", "labels": { "data": "card receipt", "alchemy": "salt (from acid)", "spellcraft": "ward effect", "abstract": "30" } },
+    { "id": "v-rcash", "objectId": "obj-y", "labels": { "data": "cash receipt", "alchemy": "salt (from base)", "spellcraft": "hex effect", "abstract": "40" } },
+    { "id": "v-wrong", "objectId": "obj-y", "labels": { "data": "a bad receipt", "alchemy": "a bad result", "spellcraft": "a bad effect", "abstract": "99 — wrong" } }
   ],
   "initialGraph": {
     "nodes": [
       { "kind": "object", "nodeId": "n-s", "objectId": "obj-s", "role": "start", "position": { "x": 40, "y": 190 } },
-      { "kind": "morphism", "nodeId": "n-case", "morphismId": "mor-case", "position": { "x": 320, "y": 90 } },
-      { "kind": "morphism", "nodeId": "n-casebad", "morphismId": "mor-casebad", "position": { "x": 320, "y": 290 } },
       { "kind": "object", "nodeId": "n-y", "objectId": "obj-y", "role": "goal", "position": { "x": 620, "y": 190 } }
     ],
     "edges": []
+  },
+  "toolkit": {
+    "paletteObjectIds": [],
+    "paletteMorphismIds": ["mor-case", "mor-casebad"]
   },
   "allowedMorphismIds": ["mor-case", "mor-casebad"],
   "validation": [

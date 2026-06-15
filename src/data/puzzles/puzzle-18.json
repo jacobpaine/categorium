@@ -6,33 +6,35 @@
   "title": { "data": "Pair It Up", "alchemy": "Pair It Up", "spellcraft": "Pair It Up", "abstract": "Pair It Up" },
   "conceptTags": ["product"],
   "intro": {
-    "data": "From a form you can read a name and an age. Build the single machine that packs BOTH into the record — so Get Name gives the name and Get Age gives the age. One pairing builds it right; the other swaps the fields. Pick the correct pairing.",
-    "alchemy": "From a seed you can draw salt and sulfur. Build the one apparatus that packs BOTH into the compound, correctly ordered. One pairing is right; the other swaps. Pick the correct one.",
-    "spellcraft": "From a caster you can draw light and heat. Build the one rune that packs BOTH into the blend, correctly ordered. One pairing is right; the other swaps. Pick the correct one.",
-    "abstract": "Build ⟨f,g⟩ : X→A×B so the projections recover f and g. One pairing is correct; the other swaps the components."
+    "data": "From a form you can read a name and an age. The tray holds two pairing machines; bring the right one onto the board and wire the form to the record — so Get Name gives the name and Get Age gives the age. One pairing builds it right; the other swaps the fields. Leave the swapper in the tray.",
+    "alchemy": "From a seed you can draw salt and sulfur. The tray holds two pairing apparatus; bring the right one onto the board and wire the seed to the compound, correctly ordered. One is right; the other swaps. Leave the swapper in the tray.",
+    "spellcraft": "From a caster you can draw light and heat. The tray holds two pairing runes; bring the right one onto the board and wire the caster to the blend, correctly ordered. One is right; the other swaps. Leave the swapper in the tray.",
+    "abstract": "⟨f,g⟩ runs both maps and pairs the results into (a,b), holding both a and b; π₁/π₂ then pull out the first/second. From the tray bring the pairing that sends x ↦ (3,4) and wire X to A×B; leave the swapped one (x ↦ (4,3)) in the tray."
   },
-  "goal": { "data": "Build the record so Get Name→name and Get Age→age.", "alchemy": "Build the compound so the projections recover salt and sulfur.", "spellcraft": "Build the blend so the projections recover light and heat.", "abstract": "Build the correct pairing into A×B." },
+  "goal": { "data": "Bring the right pairing from the tray and wire the form to the record so Get Name→name and Get Age→age.", "alchemy": "Bring the right pairing from the tray and wire the seed to the compound so the projections recover salt and sulfur.", "spellcraft": "Bring the right pairing from the tray and wire the caster to the blend so the projections recover light and heat.", "abstract": "Bring the correct ⟨f,g⟩ from the tray and wire X to A×B." },
   "objects": [
     { "id": "obj-x", "formalLabel": "X", "labels": { "data": "Form", "alchemy": "Seed", "spellcraft": "Caster", "abstract": "X" }, "description": { "data": "the form you read a name and an age from", "alchemy": "the seed you draw two essences from", "spellcraft": "the caster you read two essences from", "abstract": "the source object X" }, "colorToken": "amber" },
     { "id": "obj-p", "formalLabel": "A×B", "labels": { "data": "Record", "alchemy": "Compound", "spellcraft": "Blend", "abstract": "A×B" }, "description": { "data": "a record bundling a name and an age", "alchemy": "a compound blending salt and sulfur", "spellcraft": "a blend of light and heat", "abstract": "the product A×B" }, "colorToken": "violet" }
   ],
   "morphisms": [
-    { "id": "mor-pair", "formalLabel": "⟨f,g⟩", "sourceObjectId": "obj-x", "targetObjectId": "obj-p", "labels": { "data": "Build Record", "alchemy": "Combine", "spellcraft": "Weave", "abstract": "⟨f,g⟩" }, "description": { "data": "packs the form into a record — name first, age second", "alchemy": "packs the seed into a compound — salt first, sulfur second", "spellcraft": "packs the caster into a blend — light first, heat second", "abstract": "the pairing ⟨f,g⟩ : X → A×B" }, "action": { "v-x": "v-rec" } },
-    { "id": "mor-pairbad", "formalLabel": "⟨g,f⟩", "sourceObjectId": "obj-x", "targetObjectId": "obj-p", "labels": { "data": "Swap & Pack", "alchemy": "Mis-Combine", "spellcraft": "Mis-Weave", "abstract": "⟨g,f⟩" }, "description": { "data": "swaps name and age", "alchemy": "swaps the components", "spellcraft": "swaps the components", "abstract": "the swapped pairing" }, "action": { "v-x": "v-rec2" } }
+    { "id": "mor-pair", "formalLabel": "⟨f,g⟩", "sourceObjectId": "obj-x", "targetObjectId": "obj-p", "labels": { "data": "Build Record", "alchemy": "Combine", "spellcraft": "Weave", "abstract": "⟨f,g⟩" }, "description": { "data": "packs the form into a record — name first, age second", "alchemy": "packs the seed into a compound — salt first, sulfur second", "spellcraft": "packs the caster into a blend — light first, heat second", "abstract": "pairs the two outputs: sends x ↦ (3,4) (so π₁ recovers 3, π₂ recovers 4)" }, "action": { "v-x": "v-rec" } },
+    { "id": "mor-pairbad", "formalLabel": "⟨g,f⟩", "sourceObjectId": "obj-x", "targetObjectId": "obj-p", "labels": { "data": "Swap & Pack", "alchemy": "Mis-Combine", "spellcraft": "Mis-Weave", "abstract": "⟨g,f⟩" }, "description": { "data": "swaps name and age", "alchemy": "swaps the components", "spellcraft": "swaps the components", "abstract": "the swapped pairing: sends x ↦ (4,3) — components in the wrong order" }, "action": { "v-x": "v-rec2" } }
   ],
   "samples": [
     { "id": "v-x", "objectId": "obj-x", "labels": { "data": "the form", "alchemy": "the seed", "spellcraft": "the caster", "abstract": "x" } },
-    { "id": "v-rec", "objectId": "obj-p", "labels": { "data": "record {Ada, 30}", "alchemy": "salt+sulfur compound", "spellcraft": "light+heat blend", "abstract": "(a,b)" } },
-    { "id": "v-rec2", "objectId": "obj-p", "labels": { "data": "record {30, Ada}", "alchemy": "sulfur+salt compound", "spellcraft": "heat+light blend", "abstract": "(b,a)" } }
+    { "id": "v-rec", "objectId": "obj-p", "labels": { "data": "record {Ada, 30}", "alchemy": "salt+sulfur compound", "spellcraft": "light+heat blend", "abstract": "(3,4)" } },
+    { "id": "v-rec2", "objectId": "obj-p", "labels": { "data": "record {30, Ada}", "alchemy": "sulfur+salt compound", "spellcraft": "heat+light blend", "abstract": "(4,3) — swapped" } }
   ],
   "initialGraph": {
     "nodes": [
       { "kind": "object", "nodeId": "n-x", "objectId": "obj-x", "role": "start", "position": { "x": 40, "y": 190 } },
-      { "kind": "morphism", "nodeId": "n-pair", "morphismId": "mor-pair", "position": { "x": 320, "y": 90 } },
-      { "kind": "morphism", "nodeId": "n-pairbad", "morphismId": "mor-pairbad", "position": { "x": 320, "y": 290 } },
       { "kind": "object", "nodeId": "n-p", "objectId": "obj-p", "role": "goal", "position": { "x": 620, "y": 190 } }
     ],
     "edges": []
+  },
+  "toolkit": {
+    "paletteObjectIds": [],
+    "paletteMorphismIds": ["mor-pair", "mor-pairbad"]
   },
   "allowedMorphismIds": ["mor-pair", "mor-pairbad"],
   "validation": [

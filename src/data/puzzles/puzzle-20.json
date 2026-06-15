@@ -6,33 +6,35 @@
   "title": { "data": "Make a Copy", "alchemy": "Make a Copy", "spellcraft": "Make a Copy", "abstract": "Make a Copy" },
   "conceptTags": ["product"],
   "intro": {
-    "data": "Pair a thing with itself and you get a duplicator. Build the Diagonal that copies the name into a pair of IDENTICAL copies — so both projections return the original. One machine makes a true twin; the other makes a mismatched pair. Pick the real Diagonal.",
-    "alchemy": "Pair a thing with itself and you get a duplicator. Build the Diagonal that copies the salt into identical twins. One makes a true twin; the other a mismatch. Pick the real Diagonal.",
-    "spellcraft": "Pair a thing with itself and you get a duplicator. Build the Diagonal that copies the light into identical twins. One is a true twin; the other a mismatch. Pick the real Diagonal.",
-    "abstract": "Δ = ⟨id, id⟩ : A→A×A. Pick the one that makes an equal pair, so π₁∘Δ = π₂∘Δ = id."
+    "data": "Pair a thing with itself and you get a duplicator. The tray holds two machines; bring the Diagonal onto the board and wire the name to a pair of IDENTICAL copies — so both projections return the original. One makes a true twin; the other a mismatched pair. Leave the mismatch in the tray.",
+    "alchemy": "Pair a thing with itself and you get a duplicator. The tray holds two machines; bring the Diagonal onto the board and wire the salt to identical twins. One makes a true twin; the other a mismatch. Leave the mismatch in the tray.",
+    "spellcraft": "Pair a thing with itself and you get a duplicator. The tray holds two machines; bring the Diagonal onto the board and wire the light to identical twins. One is a true twin; the other a mismatch. Leave the mismatch in the tray.",
+    "abstract": "Δ copies a value into the pair (a,a), holding it twice; π₁/π₂ then both recover it. From the tray bring Δ and wire A to A×A, so 3 ↦ (3,3); leave the mismatch (3 ↦ (3,4)) in the tray."
   },
-  "goal": { "data": "Duplicate the name into an identical pair.", "alchemy": "Duplicate the salt into identical twins.", "spellcraft": "Duplicate the light into identical twins.", "abstract": "Build A×A as two equal copies of A." },
+  "goal": { "data": "Bring the Diagonal from the tray and wire the name into an identical pair.", "alchemy": "Bring the Diagonal from the tray and wire the salt into identical twins.", "spellcraft": "Bring the Diagonal from the tray and wire the light into identical twins.", "abstract": "Bring Δ from the tray and wire A to A×A as two equal copies." },
   "objects": [
     { "id": "obj-a", "formalLabel": "A", "labels": { "data": "Name", "alchemy": "Salt", "spellcraft": "Light", "abstract": "A" }, "description": { "data": "the name you will duplicate", "alchemy": "the salt you will twin", "spellcraft": "the light you will mirror", "abstract": "object A" }, "colorToken": "sky" },
     { "id": "obj-p", "formalLabel": "A×A", "labels": { "data": "Two Names", "alchemy": "Salt Pair", "spellcraft": "Twin Light", "abstract": "A×A" }, "description": { "data": "a pair of two names", "alchemy": "a pair of two salts", "spellcraft": "a pair of twinned lights", "abstract": "the product A×A" }, "colorToken": "violet" }
   ],
   "morphisms": [
-    { "id": "mor-delta", "formalLabel": "Δ", "sourceObjectId": "obj-a", "targetObjectId": "obj-p", "labels": { "data": "Duplicate", "alchemy": "Twin", "spellcraft": "Mirror", "abstract": "Δ" }, "description": { "data": "two identical copies", "alchemy": "two identical copies", "spellcraft": "two identical copies", "abstract": "⟨id, id⟩" }, "action": { "v-a": "v-pair" } },
-    { "id": "mor-deltabad", "formalLabel": "Δ?", "sourceObjectId": "obj-a", "targetObjectId": "obj-p", "labels": { "data": "Mispair", "alchemy": "Mis-Twin", "spellcraft": "Mis-Mirror", "abstract": "Δ?" }, "description": { "data": "a mismatched pair", "alchemy": "a mismatched pair", "spellcraft": "a mismatched pair", "abstract": "not the diagonal" }, "action": { "v-a": "v-pairbad" } }
+    { "id": "mor-delta", "formalLabel": "Δ", "sourceObjectId": "obj-a", "targetObjectId": "obj-p", "labels": { "data": "Duplicate", "alchemy": "Twin", "spellcraft": "Mirror", "abstract": "Δ" }, "description": { "data": "two identical copies", "alchemy": "two identical copies", "spellcraft": "two identical copies", "abstract": "the diagonal Δ = ⟨id, id⟩: sends 3 ↦ (3,3)" }, "action": { "v-a": "v-pair" } },
+    { "id": "mor-deltabad", "formalLabel": "Δ?", "sourceObjectId": "obj-a", "targetObjectId": "obj-p", "labels": { "data": "Mispair", "alchemy": "Mis-Twin", "spellcraft": "Mis-Mirror", "abstract": "Δ?" }, "description": { "data": "a mismatched pair", "alchemy": "a mismatched pair", "spellcraft": "a mismatched pair", "abstract": "not the diagonal: sends 3 ↦ (3,4) — the two copies differ" }, "action": { "v-a": "v-pairbad" } }
   ],
   "samples": [
-    { "id": "v-a", "objectId": "obj-a", "labels": { "data": "Ada", "alchemy": "the salt", "spellcraft": "the light", "abstract": "a" } },
-    { "id": "v-pair", "objectId": "obj-p", "labels": { "data": "{Ada, Ada}", "alchemy": "salt + same salt", "spellcraft": "light + same light", "abstract": "(a,a)" } },
-    { "id": "v-pairbad", "objectId": "obj-p", "labels": { "data": "{Ada, Bob}", "alchemy": "salt + other salt", "spellcraft": "light + other light", "abstract": "(a,a′)" } }
+    { "id": "v-a", "objectId": "obj-a", "labels": { "data": "Ada", "alchemy": "the salt", "spellcraft": "the light", "abstract": "3" } },
+    { "id": "v-pair", "objectId": "obj-p", "labels": { "data": "{Ada, Ada}", "alchemy": "salt + same salt", "spellcraft": "light + same light", "abstract": "(3,3)" } },
+    { "id": "v-pairbad", "objectId": "obj-p", "labels": { "data": "{Ada, Bob}", "alchemy": "salt + other salt", "spellcraft": "light + other light", "abstract": "(3,4) — mismatched" } }
   ],
   "initialGraph": {
     "nodes": [
       { "kind": "object", "nodeId": "n-a", "objectId": "obj-a", "role": "start", "position": { "x": 40, "y": 190 } },
-      { "kind": "morphism", "nodeId": "n-delta", "morphismId": "mor-delta", "position": { "x": 320, "y": 90 } },
-      { "kind": "morphism", "nodeId": "n-deltabad", "morphismId": "mor-deltabad", "position": { "x": 320, "y": 290 } },
       { "kind": "object", "nodeId": "n-p", "objectId": "obj-p", "role": "goal", "position": { "x": 620, "y": 190 } }
     ],
     "edges": []
+  },
+  "toolkit": {
+    "paletteObjectIds": [],
+    "paletteMorphismIds": ["mor-delta", "mor-deltabad"]
   },
   "allowedMorphismIds": ["mor-delta", "mor-deltabad"],
   "validation": [
