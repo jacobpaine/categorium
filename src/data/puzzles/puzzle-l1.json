@@ -6,32 +6,34 @@
   "title": { "data": "Collapse to a Point", "alchemy": "Collapse to a Point", "spellcraft": "Collapse to a Point", "abstract": "The Terminal Object" },
   "conceptTags": ["terminal"],
   "intro": {
-    "data": "The Unit type holds exactly ONE value — a single point. From any data, there's exactly one way to map into it: forget everything and land on that point. One machine does that honest collapse; the other tries to keep the record's details, but the one-point Unit has nowhere to put them, so it jams. Build the collapse.",
-    "alchemy": "The Residue is a single inert speck — one point. From any material, there's exactly one way to reach it: reduce everything to that speck. One apparatus does the honest reduction; the other tries to preserve the material, but the speck has nowhere to hold it, so it jams. Build the reduction.",
-    "spellcraft": "The Null is a single still point. From any essence, there's exactly one way to reach it: let everything settle to that point. One rune does the honest settling; the other tries to keep the essence, but the still point has nowhere to hold it, so it jams. Build the settling.",
-    "abstract": "1 is terminal: from every object there is exactly one morphism A → 1, collapsing all structure to the single point. Build that unique map; a map that tries to retain information cannot exist (it jams)."
+    "data": "The Unit type holds exactly ONE value — a single point. From any data, there's exactly one way to map into it: forget everything and land on that point. The tray holds two machines; bring the right one onto the board and wire the record to the Unit. The honest collapse works; the other tries to keep the record's details, but the one-point Unit has nowhere to put them, so it jams. Leave the jamming machine in the tray.",
+    "alchemy": "The Residue is a single inert speck — one point. From any material, there's exactly one way to reach it: reduce everything to that speck. The tray holds two apparatus; bring the right one onto the board and wire the material to the Residue. The honest reduction works; the other tries to preserve the material, but the speck has nowhere to hold it, so it jams. Leave the jamming one in the tray.",
+    "spellcraft": "The Null is a single still point. From any essence, there's exactly one way to reach it: let everything settle to that point. The tray holds two runes; bring the right one onto the board and wire the essence to the Null. The honest settling works; the other tries to keep the essence, but the still point has nowhere to hold it, so it jams. Leave the jamming one in the tray.",
+    "abstract": "The terminal object 1 has exactly one element • (the single point), and from any object there is exactly one map ! into it. From the tray bring that unique map ! and wire A to 1, sending every value to • (a ↦ •). The impostor tries to retain information, so it cannot exist as a map into 1; leave it behind."
   },
-  "goal": { "data": "Collapse any record to the single point of the Unit.", "alchemy": "Reduce any material to the single speck of Residue.", "spellcraft": "Settle any essence to the single point of Null.", "abstract": "Build the unique morphism A → 1." },
+  "goal": { "data": "Bring the right machine from the tray and wire any record to the single point of the Unit.", "alchemy": "Bring the right apparatus from the tray and wire any material to the single speck of Residue.", "spellcraft": "Bring the right rune from the tray and wire any essence to the single point of Null.", "abstract": "Bring the unique map ! from the tray and wire A to 1, leaving the impostor behind." },
   "objects": [
     { "id": "obj-a", "formalLabel": "A", "labels": { "data": "Record", "alchemy": "Material", "spellcraft": "Essence", "abstract": "A" }, "description": { "data": "any data — it has many possible values", "alchemy": "any material — it has many forms", "spellcraft": "any essence — it has many forms", "abstract": "any object A" }, "colorToken": "sky" },
     { "id": "obj-1", "formalLabel": "1", "labels": { "data": "Unit", "alchemy": "Residue", "spellcraft": "Null", "abstract": "1" }, "description": { "data": "the one-point type — exactly one value", "alchemy": "the single inert speck — exactly one form", "spellcraft": "the single still point — exactly one form", "abstract": "the terminal object 1" }, "colorToken": "emerald" }
   ],
   "morphisms": [
-    { "id": "mor-collapse", "formalLabel": "!", "sourceObjectId": "obj-a", "targetObjectId": "obj-1", "labels": { "data": "Collapse", "alchemy": "Reduce", "spellcraft": "Settle", "abstract": "!" }, "description": { "data": "forgets everything and lands on the single point", "alchemy": "reduces everything to the single speck", "spellcraft": "settles everything to the single point", "abstract": "the unique map A → 1" }, "action": { "v-a": "v-star" } },
-    { "id": "mor-hold", "formalLabel": "!?", "sourceObjectId": "obj-a", "targetObjectId": "obj-1", "labels": { "data": "Hold On", "alchemy": "Preserve", "spellcraft": "Cling", "abstract": "!?" }, "description": { "data": "tries to keep the record's details — but the one point has nowhere to put them, so it jams", "alchemy": "tries to preserve the material — but the speck can't hold it, so it jams", "spellcraft": "tries to keep the essence — but the still point can't hold it, so it jams", "abstract": "A → 1 that retains information — cannot exist" } }
+    { "id": "mor-collapse", "formalLabel": "!", "sourceObjectId": "obj-a", "targetObjectId": "obj-1", "labels": { "data": "Collapse", "alchemy": "Reduce", "spellcraft": "Settle", "abstract": "!" }, "description": { "data": "forgets everything and lands on the single point", "alchemy": "reduces everything to the single speck", "spellcraft": "settles everything to the single point", "abstract": "the unique map !: sends every value to the single point • (a ↦ •)" }, "action": { "v-a": "v-star" } },
+    { "id": "mor-hold", "formalLabel": "!?", "sourceObjectId": "obj-a", "targetObjectId": "obj-1", "labels": { "data": "Hold On", "alchemy": "Preserve", "spellcraft": "Cling", "abstract": "!?" }, "description": { "data": "tries to keep the record's details — but the one point has nowhere to put them, so it jams", "alchemy": "tries to preserve the material — but the speck can't hold it, so it jams", "spellcraft": "tries to keep the essence — but the still point can't hold it, so it jams", "abstract": "tries to send a ↦ a (retain information) — but 1 has only •, so no such map exists; it jams" } }
   ],
   "samples": [
     { "id": "v-a", "objectId": "obj-a", "labels": { "data": "a detailed record", "alchemy": "a rich material", "spellcraft": "a vivid essence", "abstract": "a" } },
-    { "id": "v-star", "objectId": "obj-1", "labels": { "data": "the one point ✓", "alchemy": "the one speck ✓", "spellcraft": "the one point ✓", "abstract": "★" } }
+    { "id": "v-star", "objectId": "obj-1", "labels": { "data": "the one point ✓", "alchemy": "the one speck ✓", "spellcraft": "the one point ✓", "abstract": "•" } }
   ],
   "initialGraph": {
     "nodes": [
       { "kind": "object", "nodeId": "n-a", "objectId": "obj-a", "role": "start", "position": { "x": 40, "y": 180 } },
-      { "kind": "morphism", "nodeId": "n-collapse", "morphismId": "mor-collapse", "position": { "x": 330, "y": 90 } },
-      { "kind": "morphism", "nodeId": "n-hold", "morphismId": "mor-hold", "position": { "x": 330, "y": 270 } },
       { "kind": "object", "nodeId": "n-1", "objectId": "obj-1", "role": "goal", "position": { "x": 640, "y": 180 } }
     ],
     "edges": []
+  },
+  "toolkit": {
+    "paletteObjectIds": [],
+    "paletteMorphismIds": ["mor-collapse", "mor-hold"]
   },
   "allowedMorphismIds": ["mor-collapse", "mor-hold"],
   "validation": [
