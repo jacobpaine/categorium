@@ -137,7 +137,9 @@ used and *how* to route them — distractors are left in the tray. It is purely 
 validator only ever sees the final built graph (so nothing changes there), and a puzzle without
 `toolkit` pre-places everything exactly as before. The tray/click-to-place lives entirely in
 `PuzzleCanvas` + `ToolkitPalette`, reusing the adapter's node builders so a placed node is
-identical to a pre-placed one. Chapter 1 is the pilot; other transformation chapters may follow.
+identical to a pre-placed one. All transformation chapters (1–5, 7, 8) use toolkit mode; the
+natural-transformation (6, 9) and matching (10, 11) boards already make the player pick
+components/pairs and so don't use it.
 
 `validatePuzzle(puzzle, playerGraph)` evaluates rules in order and returns the **first**
 failing rule with a theme-first message and an optional "near concept" hint. **Multiple valid

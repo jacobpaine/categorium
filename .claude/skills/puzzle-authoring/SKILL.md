@@ -29,6 +29,18 @@ unchanged — author them against the *built* graph exactly as in classic mode, 
 tests' node fixtures resolve). Authoring tips: pinned nodes are detected by `role:"start"|"goal"`,
 so always set roles; palette ids must exist in `objects`/`morphisms`; don't also pre-place a
 palette piece in `initialGraph`. Omit `toolkit` entirely for classic pre-placed boards.
+**Toolkit is the default for transformation puzzles** (chapters 1–5, 7, 8 all use it).
+
+## Abstract-theme clarity (the "blend" convention)
+Same-typed machines must NOT look identical in the Abstract theme. Every transformation puzzle:
+(1) gives each morphism an `abstract` `description` that states BEHAVIOR via its `action` (e.g.
+"sends 3 ↦ 4"), never a bare "a morphism A → B" (it shows on the tray card + hover); (2) uses
+**concrete example values** for `samples[].abstract` where they make behavior self-evident (numbers
+for identity/associativity/inverses — identity sends `n ↦ n`, a fake lands elsewhere); (3) for
+**structural** ideas keeps the notation but DEFINES it in the abstract `intro` in one clause
+(`F(x)`, `(a,b)`, `π₁`, `⟨f,g⟩`, `[f,g]`, `ι₁`, `Just`/`Nothing`, terminal `1`, prime `b′` = "a
+different value of the same type") and makes carried values concrete (`F(3)`, `(3,4)`, `Just 3`).
+Only the `abstract` strings change for this; leave flavored labels/descriptions alone.
 
 ## Validation rules (evaluated in order; first failure shown)
 - `type-valid-wiring` — every wire must connect type-compatible ports (machine input/output

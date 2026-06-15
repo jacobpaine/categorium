@@ -55,10 +55,27 @@ placed piece back with its ✕ or the Delete key. This gives real agency — *wh
 *how* to route them — and distractors (a lying shortcut, a same-typed wrong machine) are simply
 left in the tray. It reuses the entire wiring/validation/notation stack: a placed node is built by
 the same adapter code as a pre-placed one, and the validator only ever sees the final built graph,
-so **no validation change**. A puzzle without `toolkit` behaves exactly as before. Chapter 1 is the
-pilot.
+so **no validation change**. A puzzle without `toolkit` behaves exactly as before. **All
+transformation chapters (1–5, 7, 8) use toolkit mode**; the natural-transformation (6, 9) and
+matching (10, 11) boards already make the player pick components/pairs and keep their own UI.
 
-## Chapter 1 — `chapter-01-transformations`  *(behavior + toolkit pilot)*
+## Abstract-theme clarity (the "blend" convention)
+
+In the flavored themes a machine's behavior is obvious from its words ("cleans" vs "wrecks"); in the
+**Abstract** theme the symbols are bare, so two same-typed machines once looked identical. Every
+transformation chapter now follows a blend:
+- **Concrete example values** where they make behavior self-evident (Ch1–3): identity `5 ↦ 5`,
+  a look-alike `5 ↦ 7`, associativity `2 →3 →6 →16` reaching the same number either way, a true
+  inverse returning the original (`3 ↦ 3● ↦ 3`).
+- **Keep + define structural notation** where concreteness can't carry the idea (Ch4 `F(…)`, Ch5
+  `(a,b)`/`π`/`⟨f,g⟩`/`[f,g]`/`ι₁`, Ch7 `Just`/`Nothing`/`[…]`, Ch8 terminal `1`/equalizer/pullback):
+  the abstract `intro` defines the notation in one clause (the way Ch1 defines `b′` = "a different
+  value of the same type"), and carried values are concrete (`F(3)`, `(3,4)`, `Just 3`).
+- **Every** morphism's abstract `description` states what it DOES (shown on the tray card + hover),
+  never a bare `"a morphism A → B"`. The Test-case panel colors the required output (emerald) vs a
+  produced wrong value (rose, "≠ required output").
+
+## Chapter 1 — `chapter-01-transformations`  *(behavior + toolkit)*
 
 > "The Shape of Transformation." Object/morphism → typed transform → composition → identity →
 > commutative diagram. Built around the behavior runtime (`samples` + machine `action` tables + a
