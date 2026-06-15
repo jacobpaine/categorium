@@ -6,41 +6,40 @@
   "title": { "data": "Redundant Steps", "alchemy": "Redundant Steps", "spellcraft": "Redundant Steps", "abstract": "Redundant Steps" },
   "conceptTags": ["identity-law"],
   "intro": {
-    "data": "Do-nothing steps can sit anywhere — as long as they really do nothing. Sprinkle Pass Through steps into the Parser→Charter pipeline and still land on the clear chart. Beware the Smudger that only looks like a do-nothing.",
-    "alchemy": "Do-nothing steps can sit anywhere — as long as they really do nothing. Sprinkle Preserve steps into the pipeline and still land on the fine tool. Beware the Tainter.",
-    "spellcraft": "Do-nothing steps can sit anywhere — as long as they really do nothing. Sprinkle Echo steps into the working and still land on the bright beacon. Beware the Warper.",
-    "abstract": "Identity steps can be inserted anywhere they truly leave the value alone. Build id_A, f, id_B, g and still reach the goal value."
+    "data": "Do-nothing steps can sit anywhere — as long as they really do nothing. Your tray holds the Parser, the Charter, the intermediate Clean Table, two do-nothing steps, and a Smudger that only looks like one. Bring the pieces you need onto the board and wire a pipeline that still lands on the clear chart, leaving the Smudger in the tray.",
+    "alchemy": "Do-nothing steps can sit anywhere — as long as they really do nothing. Your tray holds the Smelter, the Toolsmith, the intermediate Ingot, two do-nothing steps, and a Tainter. Bring the pieces you need onto the board and wire a pipeline that still lands on the fine tool, leaving the Tainter in the tray.",
+    "spellcraft": "Do-nothing steps can sit anywhere — as long as they really do nothing. Your tray holds Ignition, the Kindler, the intermediate Flame, two do-nothing steps, and a Warper. Bring the pieces you need onto the board and wire a working that still lands on the bright beacon, leaving the Warper in the tray.",
+    "abstract": "Identity steps can be inserted anywhere they truly leave the value alone. Here the values are plain numbers: id_A sends 3 ↦ 3, f sends 3 ↦ 9, id_B sends 9 ↦ 9, g sends 9 ↦ 30, and the look-alike alters 3 ↦ 8. Bring id_A, f, id_B, g and the intermediate object B onto the board and wire them to still reach the goal value, leaving the look-alike in the tray."
   },
-  "goal": { "data": "Chain the pipeline with do-nothing steps and still produce the clear chart.", "alchemy": "Chain the pipeline with do-nothing steps and still produce the fine tool.", "spellcraft": "Chain the working with do-nothing steps and still produce the bright beacon.", "abstract": "Reach the goal value with identity steps inserted." },
+  "goal": { "data": "Bring the machines, the intermediate Clean Table, and do-nothing steps from the tray and wire a pipeline that still produces the clear chart.", "alchemy": "Bring the apparatuses, the intermediate Ingot, and do-nothing steps from the tray and wire a pipeline that still produces the fine tool.", "spellcraft": "Bring the runes, the intermediate Flame, and do-nothing steps from the tray and wire a working that still produces the bright beacon.", "abstract": "Bring the machines, the intermediate object B, and identity steps from the tray and wire them to reach the goal value, leaving the look-alike in the tray." },
   "objects": [
     { "id": "obj-a", "formalLabel": "A", "labels": { "data": "Raw CSV", "alchemy": "Ore", "spellcraft": "Spark", "abstract": "A" }, "colorToken": "sky" },
     { "id": "obj-b", "formalLabel": "B", "labels": { "data": "Clean Table", "alchemy": "Ingot", "spellcraft": "Flame", "abstract": "B" }, "colorToken": "emerald" },
     { "id": "obj-c", "formalLabel": "C", "labels": { "data": "Chart", "alchemy": "Tool", "spellcraft": "Beacon", "abstract": "C" }, "colorToken": "amber" }
   ],
   "morphisms": [
-    { "id": "mor-idA", "formalLabel": "id_A", "sourceObjectId": "obj-a", "targetObjectId": "obj-a", "labels": { "data": "Pass Through", "alchemy": "Preserve", "spellcraft": "Echo", "abstract": "id_A" }, "description": { "data": "returns it unchanged — the identity", "alchemy": "returns it unchanged — the identity", "spellcraft": "returns it unchanged — the identity", "abstract": "the identity (source = target)" }, "action": { "v-a": "v-a" } },
-    { "id": "mor-tweak", "formalLabel": "t", "sourceObjectId": "obj-a", "targetObjectId": "obj-a", "labels": { "data": "Smudger", "alchemy": "Tainter", "spellcraft": "Warper", "abstract": "t" }, "description": { "data": "A → A, not identity", "alchemy": "A → A, not identity", "spellcraft": "A → A, not identity", "abstract": "A → A, not identity" }, "action": { "v-a": "v-a2" } },
-    { "id": "mor-f", "formalLabel": "f", "sourceObjectId": "obj-a", "targetObjectId": "obj-b", "labels": { "data": "Parser", "alchemy": "Smelter", "spellcraft": "Ignition", "abstract": "f" }, "description": { "data": "cleans the data", "alchemy": "refines the ore", "spellcraft": "tames the spark", "abstract": "a morphism A → B" }, "action": { "v-a": "v-b" } },
-    { "id": "mor-idB", "formalLabel": "id_B", "sourceObjectId": "obj-b", "targetObjectId": "obj-b", "labels": { "data": "Pass Through", "alchemy": "Preserve", "spellcraft": "Echo", "abstract": "id_B" }, "description": { "data": "returns it unchanged — the identity", "alchemy": "returns it unchanged — the identity", "spellcraft": "returns it unchanged — the identity", "abstract": "the identity (source = target)" }, "action": { "v-b": "v-b" } },
-    { "id": "mor-g", "formalLabel": "g", "sourceObjectId": "obj-b", "targetObjectId": "obj-c", "labels": { "data": "Charter", "alchemy": "Toolsmith", "spellcraft": "Kindler", "abstract": "g" }, "description": { "data": "charts the clean table", "alchemy": "shapes the ingot into a tool", "spellcraft": "kindles the flame into a beacon", "abstract": "a morphism B → C" }, "action": { "v-b": "v-c" } }
+    { "id": "mor-idA", "formalLabel": "id_A", "sourceObjectId": "obj-a", "targetObjectId": "obj-a", "labels": { "data": "Pass Through", "alchemy": "Preserve", "spellcraft": "Echo", "abstract": "id_A" }, "description": { "data": "returns it unchanged — the identity", "alchemy": "returns it unchanged — the identity", "spellcraft": "returns it unchanged — the identity", "abstract": "sends 3 ↦ 3 (unchanged)" }, "action": { "v-a": "v-a" } },
+    { "id": "mor-tweak", "formalLabel": "t", "sourceObjectId": "obj-a", "targetObjectId": "obj-a", "labels": { "data": "Smudger", "alchemy": "Tainter", "spellcraft": "Warper", "abstract": "t" }, "description": { "data": "A → A, not identity", "alchemy": "A → A, not identity", "spellcraft": "A → A, not identity", "abstract": "sends 3 ↦ 8 (alters it)" }, "action": { "v-a": "v-a2" } },
+    { "id": "mor-f", "formalLabel": "f", "sourceObjectId": "obj-a", "targetObjectId": "obj-b", "labels": { "data": "Parser", "alchemy": "Smelter", "spellcraft": "Ignition", "abstract": "f" }, "description": { "data": "cleans the data", "alchemy": "refines the ore", "spellcraft": "tames the spark", "abstract": "sends 3 ↦ 9" }, "action": { "v-a": "v-b" } },
+    { "id": "mor-idB", "formalLabel": "id_B", "sourceObjectId": "obj-b", "targetObjectId": "obj-b", "labels": { "data": "Pass Through", "alchemy": "Preserve", "spellcraft": "Echo", "abstract": "id_B" }, "description": { "data": "returns it unchanged — the identity", "alchemy": "returns it unchanged — the identity", "spellcraft": "returns it unchanged — the identity", "abstract": "sends 9 ↦ 9 (unchanged)" }, "action": { "v-b": "v-b" } },
+    { "id": "mor-g", "formalLabel": "g", "sourceObjectId": "obj-b", "targetObjectId": "obj-c", "labels": { "data": "Charter", "alchemy": "Toolsmith", "spellcraft": "Kindler", "abstract": "g" }, "description": { "data": "charts the clean table", "alchemy": "shapes the ingot into a tool", "spellcraft": "kindles the flame into a beacon", "abstract": "sends 9 ↦ 30" }, "action": { "v-b": "v-c" } }
   ],
   "samples": [
-    { "id": "v-a", "objectId": "obj-a", "labels": { "data": "messy spreadsheet", "alchemy": "raw ore", "spellcraft": "wild spark", "abstract": "a" } },
-    { "id": "v-a2", "objectId": "obj-a", "labels": { "data": "smudged spreadsheet", "alchemy": "tainted ore", "spellcraft": "warped spark", "abstract": "a′" } },
-    { "id": "v-b", "objectId": "obj-b", "labels": { "data": "clean table", "alchemy": "pure ingot", "spellcraft": "steady flame", "abstract": "b" } },
-    { "id": "v-c", "objectId": "obj-c", "labels": { "data": "clear chart", "alchemy": "fine tool", "spellcraft": "bright beacon", "abstract": "c" } }
+    { "id": "v-a", "objectId": "obj-a", "labels": { "data": "messy spreadsheet", "alchemy": "raw ore", "spellcraft": "wild spark", "abstract": "3" } },
+    { "id": "v-a2", "objectId": "obj-a", "labels": { "data": "smudged spreadsheet", "alchemy": "tainted ore", "spellcraft": "warped spark", "abstract": "8" } },
+    { "id": "v-b", "objectId": "obj-b", "labels": { "data": "clean table", "alchemy": "pure ingot", "spellcraft": "steady flame", "abstract": "9" } },
+    { "id": "v-c", "objectId": "obj-c", "labels": { "data": "clear chart", "alchemy": "fine tool", "spellcraft": "bright beacon", "abstract": "30" } }
   ],
   "initialGraph": {
     "nodes": [
       { "kind": "object", "nodeId": "n-a", "objectId": "obj-a", "role": "start", "position": { "x": 20, "y": 200 } },
-      { "kind": "morphism", "nodeId": "n-idA", "morphismId": "mor-idA", "position": { "x": 150, "y": 110 } },
-      { "kind": "morphism", "nodeId": "n-tweak", "morphismId": "mor-tweak", "position": { "x": 150, "y": 300 } },
-      { "kind": "morphism", "nodeId": "n-f", "morphismId": "mor-f", "position": { "x": 300, "y": 200 } },
-      { "kind": "morphism", "nodeId": "n-idB", "morphismId": "mor-idB", "position": { "x": 450, "y": 110 } },
-      { "kind": "morphism", "nodeId": "n-g", "morphismId": "mor-g", "position": { "x": 600, "y": 200 } },
       { "kind": "object", "nodeId": "n-c", "objectId": "obj-c", "role": "goal", "position": { "x": 750, "y": 200 } }
     ],
     "edges": []
+  },
+  "toolkit": {
+    "paletteObjectIds": ["obj-b"],
+    "paletteMorphismIds": ["mor-idA", "mor-tweak", "mor-f", "mor-idB", "mor-g"]
   },
   "allowedMorphismIds": ["mor-idA", "mor-tweak", "mor-f", "mor-idB", "mor-g"],
   "validation": [
