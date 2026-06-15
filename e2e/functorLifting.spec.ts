@@ -17,21 +17,27 @@ async function connect(page: Page, fromSelector: string, toSelector: string) {
 
 const right = (id: string) => `.react-flow__node[data-id="${id}"] .react-flow__handle-right`;
 const left = (id: string) => `.react-flow__node[data-id="${id}"] .react-flow__handle-left`;
+const placed = (kind: 'object' | 'morphism', refId: string) => `tk-${kind}-${refId}-0`;
 
 async function openPuzzle14(page: Page) {
   await page.goto('/?debug=true'); // unlock Chapter 4
   await page.getByTestId('theme-data').click();
   await page.getByTestId('puzzle-link-puzzle-14').click();
-  await expect(page.locator('.react-flow__node[data-id="n-Ff"]')).toBeVisible();
-  await expect(page.locator('.react-flow__node[data-id="n-Ffbad"]')).toBeVisible();
+  // Only start/goal are pinned; the lifts wait in the toolkit tray.
+  await expect(page.locator('.react-flow__node[data-id="n-fa"]')).toBeVisible();
+  await expect(page.locator('.react-flow__node[data-id="n-fb"]')).toBeVisible();
+  await expect(page.getByTestId('tray-morphism-mor-Ff')).toBeVisible();
   await page.waitForTimeout(400);
 }
 
 test('lifting a machine: the faithful lift transforms the whole batch', async ({ page }) => {
   await openPuzzle14(page);
 
-  await connect(page, right('n-fa'), left('n-Ff'));
-  await connect(page, right('n-Ff'), left('n-fb'));
+  await page.getByTestId('tray-morphism-mor-Ff').click();
+  await expect(page.locator(`.react-flow__node[data-id="${placed('morphism', 'mor-Ff')}"]`)).toBeVisible();
+  await page.waitForTimeout(150);
+  await connect(page, right('n-fa'), left(placed('morphism', 'mor-Ff')));
+  await connect(page, right(placed('morphism', 'mor-Ff')), left('n-fb'));
 
   await page.getByTestId('run-check').click();
   await expect(page.getByTestId('solved')).toBeVisible();
@@ -41,12 +47,15 @@ test('lifting a machine: the faithful lift transforms the whole batch', async ({
 test('the impostor lift (same type) produces the wrong batch', async ({ page }) => {
   await openPuzzle14(page);
 
-  await connect(page, right('n-fa'), left('n-Ffbad'));
-  await connect(page, right('n-Ffbad'), left('n-fb'));
+  await page.getByTestId('tray-morphism-mor-Ffbad').click();
+  await expect(page.locator(`.react-flow__node[data-id="${placed('morphism', 'mor-Ffbad')}"]`)).toBeVisible();
+  await page.waitForTimeout(150);
+  await connect(page, right('n-fa'), left(placed('morphism', 'mor-Ffbad')));
+  await connect(page, right(placed('morphism', 'mor-Ffbad')), left('n-fb'));
 
   await page.getByTestId('run-check').click();
   await expect(page.getByText('Not quite yet')).toBeVisible();
   await expect(page.getByText('0 / 1 pass')).toBeVisible();
-  await expect(page.getByText('a batch of shredded records', { exact: true }).first()).toBeVisible();
+  await expect(page.locator('.bg-rose-100').filter({ hasText: 'a batch of shredded records' })).toBeVisible();
   await expect(page.getByTestId('solved')).toHaveCount(0);
 });

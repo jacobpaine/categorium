@@ -6,12 +6,12 @@
   "title": { "data": "Lift a Machine", "alchemy": "Lift a Machine", "spellcraft": "Lift a Machine", "abstract": "Lift a Machine" },
   "conceptTags": ["functor"],
   "intro": {
-    "data": "A functor takes a machine and hands you a SECOND machine that runs it across a whole batch at once — many records in, many records out, the same job done to each one. The plain Cleaner (shown at right) cleans one record. Build its lift: the machine that takes a batch of records and cleans every one. One choice does exactly that; the other wrecks them.",
-    "alchemy": "A functor takes an apparatus and hands you a SECOND apparatus that runs it across a whole crate at once — many ores in, many ingots out, the same job done to each one. The plain Smelter (shown at right) refines one ore. Build its lift: the apparatus that takes a crate of ore and refines every one. One choice does exactly that; the other wrecks them.",
-    "spellcraft": "A functor takes a working and hands you a SECOND working that runs it across a whole flock at once — many sparks in, many flames out, the same job done to each one. The plain Kindler (shown at right) kindles one spark. Build its lift: the working that takes a flock of sparks and kindles every one. One choice does exactly that; the other wrecks them.",
-    "abstract": "For a machine f : A → B, a functor F provides a lifted machine F(f) : F(A) → F(B) that runs f on every item of a wrapped value (a whole batch): many in, many out. Build F(f); the impostor is the lift of some other machine, not of f."
+    "data": "A functor takes a machine and hands you a SECOND machine that runs it across a whole batch at once — many records in, many records out, the same job done to each one. The plain Cleaner (shown at right) cleans one record. Its lift is in the tray: the machine that takes a batch and cleans every record. Bring the true lift onto the board and wire it; the impostor lift wrecks the records, so leave it in the tray.",
+    "alchemy": "A functor takes an apparatus and hands you a SECOND apparatus that runs it across a whole crate at once — many ores in, many ingots out, the same job done to each one. The plain Smelter (shown at right) refines one ore. Its lift is in the tray: the apparatus that takes a crate and refines every ore. Bring the true lift onto the board and wire it; the impostor lift wrecks the ore, so leave it in the tray.",
+    "spellcraft": "A functor takes a working and hands you a SECOND working that runs it across a whole flock at once — many sparks in, many flames out, the same job done to each one. The plain Kindler (shown at right) kindles one spark. Its lift is in the tray: the working that takes a flock and kindles every spark. Bring the true lift onto the board and wire it; the impostor lift wrecks the sparks, so leave it in the tray.",
+    "abstract": "F(x) means the value x lifted into the batch world (the box holding x), and a functor's lift F(f) does f to each item inside the box — so here F(3) ↦ F(4). From the tray bring the faithful lift F(f) and wire F(A) to F(B); the impostor is the lift of some OTHER machine (it sends F(3) ↦ F(9)), so leave it behind."
   },
-  "goal": { "data": "Turn a batch of raw records into a batch of clean records — by lifting the Cleaner.", "alchemy": "Turn a crate of ore into a crate of ingots — by lifting the Smelter.", "spellcraft": "Turn a flock of sparks into a flock of flames — by lifting Kindler.", "abstract": "Take F(A) to F(B) with F(f)." },
+  "goal": { "data": "Bring the right batch machine from the tray and wire a batch of raw records to a batch of clean records, leaving the impostor in the tray.", "alchemy": "Bring the right crate apparatus from the tray and wire a crate of ore to a crate of ingots, leaving the impostor in the tray.", "spellcraft": "Bring the right flock working from the tray and wire a flock of sparks to a flock of flames, leaving the impostor in the tray.", "abstract": "Bring F(f) from the tray and wire F(A) to F(B), leaving the impostor lift behind." },
   "referenceLabel": { "data": "One record at a time", "alchemy": "One ore at a time", "spellcraft": "One spark at a time", "abstract": "The plain machine f" },
   "referenceDiagram": {
     "objects": [
@@ -38,22 +38,24 @@
     { "id": "obj-fb", "formalLabel": "F(B)", "labels": { "data": "Batch of Clean", "alchemy": "Crate of Ingots", "spellcraft": "Flock of Flames", "abstract": "F(B)" }, "colorToken": "emerald" }
   ],
   "morphisms": [
-    { "id": "mor-Ff", "formalLabel": "F(f)", "sourceObjectId": "obj-fa", "targetObjectId": "obj-fb", "labels": { "data": "Batch Cleaner", "alchemy": "Crate Smelter", "spellcraft": "Flock Kindler", "abstract": "F(f)" }, "description": { "data": "the Cleaner run on a whole batch — cleans every record, same as the plain Cleaner does to one", "alchemy": "the Smelter run on a whole crate — refines every ore, same as the plain Smelter does to one", "spellcraft": "the Kindler run on a whole flock — kindles every spark, same as the plain Kindler does to one", "abstract": "F(f) — the lift of f, run on every item" }, "action": { "box-raw": "box-clean" } },
-    { "id": "mor-Ffbad", "formalLabel": "F(f)?", "sourceObjectId": "obj-fa", "targetObjectId": "obj-fb", "labels": { "data": "Batch Shredder", "alchemy": "Crate Crusher", "spellcraft": "Flock Smotherer", "abstract": "F(f)?" }, "description": { "data": "a DIFFERENT machine run on the batch — shreds every record, so it is not the lift of the Cleaner", "alchemy": "a DIFFERENT apparatus run on the crate — crushes every ore, so it is not the lift of the Smelter", "spellcraft": "a DIFFERENT working run on the flock — smothers every spark, so it is not the lift of Kindler", "abstract": "a same-typed lift of some OTHER machine, not of f" }, "action": { "box-raw": "box-garbage" } }
+    { "id": "mor-Ff", "formalLabel": "F(f)", "sourceObjectId": "obj-fa", "targetObjectId": "obj-fb", "labels": { "data": "Batch Cleaner", "alchemy": "Crate Smelter", "spellcraft": "Flock Kindler", "abstract": "F(f)" }, "description": { "data": "the Cleaner run on a whole batch — cleans every record, same as the plain Cleaner does to one", "alchemy": "the Smelter run on a whole crate — refines every ore, same as the plain Smelter does to one", "spellcraft": "the Kindler run on a whole flock — kindles every spark, same as the plain Kindler does to one", "abstract": "the faithful lift of f: sends F(3) ↦ F(4) (does f to each item in the box)" }, "action": { "box-raw": "box-clean" } },
+    { "id": "mor-Ffbad", "formalLabel": "F(f)?", "sourceObjectId": "obj-fa", "targetObjectId": "obj-fb", "labels": { "data": "Batch Shredder", "alchemy": "Crate Crusher", "spellcraft": "Flock Smotherer", "abstract": "F(f)?" }, "description": { "data": "a DIFFERENT machine run on the batch — shreds every record, so it is not the lift of the Cleaner", "alchemy": "a DIFFERENT apparatus run on the crate — crushes every ore, so it is not the lift of the Smelter", "spellcraft": "a DIFFERENT working run on the flock — smothers every spark, so it is not the lift of Kindler", "abstract": "sends F(3) ↦ F(9) — does NOT lift f (the lift of some other machine)" }, "action": { "box-raw": "box-garbage" } }
   ],
   "samples": [
-    { "id": "box-raw", "objectId": "obj-fa", "labels": { "data": "a batch of raw records", "alchemy": "a crate of ore", "spellcraft": "a flock of sparks", "abstract": "F(a)" } },
-    { "id": "box-clean", "objectId": "obj-fb", "labels": { "data": "a batch of clean records", "alchemy": "a crate of ingots", "spellcraft": "a flock of flames", "abstract": "F(b)" } },
-    { "id": "box-garbage", "objectId": "obj-fb", "labels": { "data": "a batch of shredded records", "alchemy": "a crate of slag", "spellcraft": "a flock of cinders", "abstract": "F(b)?" } }
+    { "id": "box-raw", "objectId": "obj-fa", "labels": { "data": "a batch of raw records", "alchemy": "a crate of ore", "spellcraft": "a flock of sparks", "abstract": "F(3)" } },
+    { "id": "box-clean", "objectId": "obj-fb", "labels": { "data": "a batch of clean records", "alchemy": "a crate of ingots", "spellcraft": "a flock of flames", "abstract": "F(4)" } },
+    { "id": "box-garbage", "objectId": "obj-fb", "labels": { "data": "a batch of shredded records", "alchemy": "a crate of slag", "spellcraft": "a flock of cinders", "abstract": "F(9) — wrong" } }
   ],
   "initialGraph": {
     "nodes": [
       { "kind": "object", "nodeId": "n-fa", "objectId": "obj-fa", "role": "start", "position": { "x": 40, "y": 180 } },
-      { "kind": "morphism", "nodeId": "n-Ff", "morphismId": "mor-Ff", "position": { "x": 330, "y": 90 } },
-      { "kind": "morphism", "nodeId": "n-Ffbad", "morphismId": "mor-Ffbad", "position": { "x": 330, "y": 270 } },
       { "kind": "object", "nodeId": "n-fb", "objectId": "obj-fb", "role": "goal", "position": { "x": 640, "y": 180 } }
     ],
     "edges": []
+  },
+  "toolkit": {
+    "paletteObjectIds": [],
+    "paletteMorphismIds": ["mor-Ff", "mor-Ffbad"]
   },
   "allowedMorphismIds": ["mor-Ff", "mor-Ffbad"],
   "validation": [

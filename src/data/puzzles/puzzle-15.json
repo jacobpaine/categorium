@@ -6,12 +6,12 @@
   "title": { "data": "Lift a Pipeline", "alchemy": "Lift a Pipeline", "spellcraft": "Lift a Pipeline", "abstract": "Lift a Pipeline" },
   "conceptTags": ["functor"],
   "intro": {
-    "data": "The plain pipeline (at right) Cleans one record, then Charts it. Lift the whole pipeline to run on a batch. You can lift each step (Batch Cleaner, then Batch Charter) OR use the single pre-lifted machine (Batch Processor). Both must reach the same batch of charts — that's the point. Avoid the impostor charter.",
-    "alchemy": "The plain pipeline (at right) Smelts one ore, then Shapes it. Lift the whole pipeline to run on a crate. You can lift each step (Crate Smelter, then Crate Shaper) OR use the single pre-lifted apparatus (Crate Forger). Both must reach the same crate of tools. Avoid the impostor.",
-    "spellcraft": "The plain pipeline (at right) Kindles one spark, then Beacons it. Lift the whole pipeline to run on a flock. You can lift each step (Flock Kindler, then Flock Beaconer) OR use the single pre-lifted working (Flock Conjurer). Both must reach the same flock of beacons. Avoid the impostor.",
-    "abstract": "Lift f then g, or use the single pre-lifted F(g∘f). Both reach the same F(C): F(g∘f) = F(g)∘F(f)."
+    "data": "The plain pipeline (at right) Cleans one record, then Charts it. The tray holds batch machines to lift the whole pipeline. Bring either two steps (Batch Cleaner, then Batch Charter) OR the single pre-lifted Batch Processor onto the board and wire a route to the batch of charts — both routes reach it, that's the point. Leave the impostor charter in the tray.",
+    "alchemy": "The plain pipeline (at right) Smelts one ore, then Shapes it. The tray holds crate apparatus to lift the whole pipeline. Bring either two steps (Crate Smelter, then Crate Shaper) OR the single pre-lifted Crate Forger onto the board and wire a route to the crate of tools — both routes reach it. Leave the impostor in the tray.",
+    "spellcraft": "The plain pipeline (at right) Kindles one spark, then Beacons it. The tray holds flock workings to lift the whole pipeline. Bring either two steps (Flock Kindler, then Flock Beaconer) OR the single pre-lifted Flock Conjurer onto the board and wire a route to the flock of beacons — both routes reach it. Leave the impostor in the tray.",
+    "abstract": "F(x) means the value x lifted into the batch world (the box holding x), and the lift F(f) does f to each item inside — so F(g∘f) = F(g)∘F(f). From the tray, bring either F(f) then F(g), or the single pre-lifted F(g∘f) (each F(2) ↦ F(6)), and wire F(A) to F(C); leave the impostor F(g)? (F(3) ↦ F(10)) behind."
   },
-  "goal": { "data": "Turn a batch of raw records into a batch of charts.", "alchemy": "Turn a crate of ore into a crate of tools.", "spellcraft": "Turn a flock of sparks into a flock of beacons.", "abstract": "Take F(A) to F(C)." },
+  "goal": { "data": "Bring batch machines from the tray and wire a batch of raw records to a batch of charts, by either route.", "alchemy": "Bring crate apparatus from the tray and wire a crate of ore to a crate of tools, by either route.", "spellcraft": "Bring flock workings from the tray and wire a flock of sparks to a flock of beacons, by either route.", "abstract": "Bring lifts from the tray and wire F(A) to F(C), by either route." },
   "referenceLabel": { "data": "One record at a time", "alchemy": "One ore at a time", "spellcraft": "One spark at a time", "abstract": "The plain pipeline" },
   "referenceDiagram": {
     "objects": [
@@ -45,28 +45,27 @@
     { "id": "obj-fc", "formalLabel": "F(C)", "labels": { "data": "Batch of Charts", "alchemy": "Crate of Tools", "spellcraft": "Flock of Beacons", "abstract": "F(C)" }, "colorToken": "amber" }
   ],
   "morphisms": [
-    { "id": "mor-Ff", "formalLabel": "F(f)", "sourceObjectId": "obj-fa", "targetObjectId": "obj-fb", "labels": { "data": "Batch Cleaner", "alchemy": "Crate Smelter", "spellcraft": "Flock Kindler", "abstract": "F(f)" }, "description": { "data": "the Cleaner run on a whole batch — cleans every record", "alchemy": "the Smelter run on a whole crate — refines every ore", "spellcraft": "the Kindler run on a whole flock — kindles every spark", "abstract": "F(f) — the lift of f" }, "action": { "box-raw": "box-clean" } },
-    { "id": "mor-Fg", "formalLabel": "F(g)", "sourceObjectId": "obj-fb", "targetObjectId": "obj-fc", "labels": { "data": "Batch Charter", "alchemy": "Crate Shaper", "spellcraft": "Flock Beaconer", "abstract": "F(g)" }, "description": { "data": "the Charter run on a whole batch — charts every record", "alchemy": "the Shaper run on a whole crate — shapes every ingot", "spellcraft": "the Beaconer run on a whole flock — beacons every flame", "abstract": "F(g) — the lift of g" }, "action": { "box-clean": "box-chart" } },
-    { "id": "mor-Fgf", "formalLabel": "F(g∘f)", "sourceObjectId": "obj-fa", "targetObjectId": "obj-fc", "labels": { "data": "Batch Processor", "alchemy": "Crate Forger", "spellcraft": "Flock Conjurer", "abstract": "F(g∘f)" }, "description": { "data": "the whole pipeline lifted as one — clean then chart, on a whole batch", "alchemy": "the whole process lifted as one — smelt then shape, on a whole crate", "spellcraft": "the whole working lifted as one — kindle then beacon, on a whole flock", "abstract": "F(g∘f) — the lift of the composite (= F(g) ∘ F(f))" }, "action": { "box-raw": "box-chart" } },
-    { "id": "mor-Fgbad", "formalLabel": "F(g)?", "sourceObjectId": "obj-fb", "targetObjectId": "obj-fc", "labels": { "data": "Batch Scribbler", "alchemy": "Crate Botcher", "spellcraft": "Flock Flickerer", "abstract": "F(g)?" }, "description": { "data": "a DIFFERENT machine run on the batch — not the lift of the Charter", "alchemy": "a DIFFERENT apparatus run on the crate — not the lift of the Shaper", "spellcraft": "a DIFFERENT working run on the flock — not the lift of the Beaconer", "abstract": "a same-typed impostor, not the lift of g" }, "action": { "box-clean": "box-bad" } }
+    { "id": "mor-Ff", "formalLabel": "F(f)", "sourceObjectId": "obj-fa", "targetObjectId": "obj-fb", "labels": { "data": "Batch Cleaner", "alchemy": "Crate Smelter", "spellcraft": "Flock Kindler", "abstract": "F(f)" }, "description": { "data": "the Cleaner run on a whole batch — cleans every record", "alchemy": "the Smelter run on a whole crate — refines every ore", "spellcraft": "the Kindler run on a whole flock — kindles every spark", "abstract": "the faithful lift of f: sends F(2) ↦ F(3) (does f to each item in the box)" }, "action": { "box-raw": "box-clean" } },
+    { "id": "mor-Fg", "formalLabel": "F(g)", "sourceObjectId": "obj-fb", "targetObjectId": "obj-fc", "labels": { "data": "Batch Charter", "alchemy": "Crate Shaper", "spellcraft": "Flock Beaconer", "abstract": "F(g)" }, "description": { "data": "the Charter run on a whole batch — charts every record", "alchemy": "the Shaper run on a whole crate — shapes every ingot", "spellcraft": "the Beaconer run on a whole flock — beacons every flame", "abstract": "the faithful lift of g: sends F(3) ↦ F(6) (does g to each item in the box)" }, "action": { "box-clean": "box-chart" } },
+    { "id": "mor-Fgf", "formalLabel": "F(g∘f)", "sourceObjectId": "obj-fa", "targetObjectId": "obj-fc", "labels": { "data": "Batch Processor", "alchemy": "Crate Forger", "spellcraft": "Flock Conjurer", "abstract": "F(g∘f)" }, "description": { "data": "the whole pipeline lifted as one — clean then chart, on a whole batch", "alchemy": "the whole process lifted as one — smelt then shape, on a whole crate", "spellcraft": "the whole working lifted as one — kindle then beacon, on a whole flock", "abstract": "the pre-lifted composite: sends F(2) ↦ F(6) (= F(g) ∘ F(f))" }, "action": { "box-raw": "box-chart" } },
+    { "id": "mor-Fgbad", "formalLabel": "F(g)?", "sourceObjectId": "obj-fb", "targetObjectId": "obj-fc", "labels": { "data": "Batch Scribbler", "alchemy": "Crate Botcher", "spellcraft": "Flock Flickerer", "abstract": "F(g)?" }, "description": { "data": "a DIFFERENT machine run on the batch — not the lift of the Charter", "alchemy": "a DIFFERENT apparatus run on the crate — not the lift of the Shaper", "spellcraft": "a DIFFERENT working run on the flock — not the lift of the Beaconer", "abstract": "sends F(3) ↦ F(10) — does NOT lift g (a same-typed impostor)" }, "action": { "box-clean": "box-bad" } }
   ],
   "samples": [
-    { "id": "box-raw", "objectId": "obj-fa", "labels": { "data": "a batch of raw records", "alchemy": "a crate of ore", "spellcraft": "a flock of sparks", "abstract": "F(a)" } },
-    { "id": "box-clean", "objectId": "obj-fb", "labels": { "data": "a batch of clean records", "alchemy": "a crate of ingots", "spellcraft": "a flock of flames", "abstract": "F(b)" } },
-    { "id": "box-chart", "objectId": "obj-fc", "labels": { "data": "a batch of charts", "alchemy": "a crate of tools", "spellcraft": "a flock of beacons", "abstract": "F(c)" } },
-    { "id": "box-bad", "objectId": "obj-fc", "labels": { "data": "a batch of scribbles", "alchemy": "a crate of botches", "spellcraft": "a flock of flickers", "abstract": "F(c)?" } }
+    { "id": "box-raw", "objectId": "obj-fa", "labels": { "data": "a batch of raw records", "alchemy": "a crate of ore", "spellcraft": "a flock of sparks", "abstract": "F(2)" } },
+    { "id": "box-clean", "objectId": "obj-fb", "labels": { "data": "a batch of clean records", "alchemy": "a crate of ingots", "spellcraft": "a flock of flames", "abstract": "F(3)" } },
+    { "id": "box-chart", "objectId": "obj-fc", "labels": { "data": "a batch of charts", "alchemy": "a crate of tools", "spellcraft": "a flock of beacons", "abstract": "F(6)" } },
+    { "id": "box-bad", "objectId": "obj-fc", "labels": { "data": "a batch of scribbles", "alchemy": "a crate of botches", "spellcraft": "a flock of flickers", "abstract": "F(10) — wrong" } }
   ],
   "initialGraph": {
     "nodes": [
       { "kind": "object", "nodeId": "n-fa", "objectId": "obj-fa", "role": "start", "position": { "x": 20, "y": 200 } },
-      { "kind": "morphism", "nodeId": "n-Ff", "morphismId": "mor-Ff", "position": { "x": 180, "y": 90 } },
-      { "kind": "object", "nodeId": "n-fb", "objectId": "obj-fb", "position": { "x": 350, "y": 90 } },
-      { "kind": "morphism", "nodeId": "n-Fg", "morphismId": "mor-Fg", "position": { "x": 520, "y": 40 } },
-      { "kind": "morphism", "nodeId": "n-Fgbad", "morphismId": "mor-Fgbad", "position": { "x": 520, "y": 160 } },
-      { "kind": "morphism", "nodeId": "n-Fgf", "morphismId": "mor-Fgf", "position": { "x": 360, "y": 320 } },
       { "kind": "object", "nodeId": "n-fc", "objectId": "obj-fc", "role": "goal", "position": { "x": 720, "y": 200 } }
     ],
     "edges": []
+  },
+  "toolkit": {
+    "paletteObjectIds": ["obj-fb"],
+    "paletteMorphismIds": ["mor-Ff", "mor-Fg", "mor-Fgf", "mor-Fgbad"]
   },
   "allowedMorphismIds": ["mor-Ff", "mor-Fg", "mor-Fgf", "mor-Fgbad"],
   "validation": [
