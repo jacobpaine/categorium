@@ -14,13 +14,13 @@
     "data": "No single machine reaches the chart — you'll need a stepping-stone in the middle. Your toolkit holds the machines AND the intermediate Clean Table: bring the ones you need onto the board and chain them. Watch what flows between steps — feed the wrong table into the second machine and it jams or draws the wrong chart.",
     "alchemy": "No single apparatus reaches the tool — you'll need a stepping-stone in the middle. Your toolkit holds the apparatuses AND the intermediate Ingot: bring the ones you need onto the board and chain them. Feed the wrong ingot into the second and it jams or makes a blunt tool.",
     "spellcraft": "No single rune reaches the beacon — you'll need a stepping-stone in the middle. Your toolkit holds the runes AND the intermediate Flame: bring the ones you need onto the board and chain them. Feed the wrong flame into the second and it jams or makes a dim beacon.",
-    "abstract": "One step won't reach C. The toolkit holds the machines and the intermediate object B; place what you need and chain so the behavior lands on the goal value."
+    "abstract": "One step won't reach C. The toolkit holds the machines and the intermediate object B. Read the maps: f sends a ↦ b, h sends b ↦ c (the distractors land on b′ / c′). Place B and chain f then h so the behavior lands on the goal value c."
   },
   "goal": {
     "data": "Bring the intermediate Clean Table and the right machines onto the board, and chain them so the messy spreadsheet becomes the clear chart.",
     "alchemy": "Bring the intermediate Ingot and the right apparatuses onto the board, and chain them so the raw ore becomes the fine tool.",
     "spellcraft": "Bring the intermediate Flame and the right runes onto the board, and chain them so the wild spark becomes the bright beacon.",
-    "abstract": "Place the intermediate object and the machines you need, and chain them so the input becomes the goal value at C."
+    "abstract": "Place the intermediate object B and the machines you need, and chain them so the input a becomes the goal value c at C."
   },
   "objects": [
     { "id": "obj-a", "formalLabel": "A", "labels": { "data": "Raw CSV", "alchemy": "Ore", "spellcraft": "Spark", "abstract": "A" }, "description": { "data": "the messy input you start with", "alchemy": "the raw material you start with", "spellcraft": "the wild essence you start with", "abstract": "the source object" }, "colorToken": "sky" },
@@ -28,10 +28,10 @@
     { "id": "obj-c", "formalLabel": "C", "labels": { "data": "Chart", "alchemy": "Tool", "spellcraft": "Beacon", "abstract": "C" }, "description": { "data": "a chart drawn from the clean data", "alchemy": "a tool shaped from the ingot", "spellcraft": "a beacon lit from the flame", "abstract": "object C" }, "colorToken": "amber" }
   ],
   "morphisms": [
-    { "id": "mor-parser", "formalLabel": "f", "sourceObjectId": "obj-a", "targetObjectId": "obj-b", "labels": { "data": "Parser", "alchemy": "Smelter", "spellcraft": "Ignition", "abstract": "f" }, "description": { "data": "cleans the data", "alchemy": "refines the ore", "spellcraft": "tames the spark", "abstract": "a morphism A → B" }, "action": { "v-messy": "v-clean" } },
-    { "id": "mor-shred", "formalLabel": "g", "sourceObjectId": "obj-a", "targetObjectId": "obj-b", "labels": { "data": "Shredder", "alchemy": "Crusher", "spellcraft": "Smother", "abstract": "g" }, "description": { "data": "wrecks the data", "alchemy": "cracks the ore", "spellcraft": "chokes the spark", "abstract": "another morphism A → B" }, "action": { "v-messy": "v-shred" } },
-    { "id": "mor-charter", "formalLabel": "h", "sourceObjectId": "obj-b", "targetObjectId": "obj-c", "labels": { "data": "Charter", "alchemy": "Toolsmith", "spellcraft": "Kindler", "abstract": "h" }, "description": { "data": "charts a clean table; jams on a mess", "alchemy": "shapes a pure ingot; jams on a crack", "spellcraft": "kindles a steady flame; jams on a sputter", "abstract": "B → C" }, "action": { "v-clean": "v-chart" } },
-    { "id": "mor-scribbler", "formalLabel": "k", "sourceObjectId": "obj-b", "targetObjectId": "obj-c", "labels": { "data": "Scribbler", "alchemy": "Bodger", "spellcraft": "Flicker", "abstract": "k" }, "description": { "data": "always scribbles", "alchemy": "always bodges", "spellcraft": "always flickers", "abstract": "B → C" }, "action": { "v-clean": "v-doodle" } }
+    { "id": "mor-parser", "formalLabel": "f", "sourceObjectId": "obj-a", "targetObjectId": "obj-b", "labels": { "data": "Parser", "alchemy": "Smelter", "spellcraft": "Ignition", "abstract": "f" }, "description": { "data": "cleans the data", "alchemy": "refines the ore", "spellcraft": "tames the spark", "abstract": "A → B; sends a ↦ b" }, "action": { "v-messy": "v-clean" } },
+    { "id": "mor-shred", "formalLabel": "g", "sourceObjectId": "obj-a", "targetObjectId": "obj-b", "labels": { "data": "Shredder", "alchemy": "Crusher", "spellcraft": "Smother", "abstract": "g" }, "description": { "data": "wrecks the data", "alchemy": "cracks the ore", "spellcraft": "chokes the spark", "abstract": "A → B; sends a ↦ b′" }, "action": { "v-messy": "v-shred" } },
+    { "id": "mor-charter", "formalLabel": "h", "sourceObjectId": "obj-b", "targetObjectId": "obj-c", "labels": { "data": "Charter", "alchemy": "Toolsmith", "spellcraft": "Kindler", "abstract": "h" }, "description": { "data": "charts a clean table; jams on a mess", "alchemy": "shapes a pure ingot; jams on a crack", "spellcraft": "kindles a steady flame; jams on a sputter", "abstract": "B → C; sends b ↦ c, jams on b′" }, "action": { "v-clean": "v-chart" } },
+    { "id": "mor-scribbler", "formalLabel": "k", "sourceObjectId": "obj-b", "targetObjectId": "obj-c", "labels": { "data": "Scribbler", "alchemy": "Bodger", "spellcraft": "Flicker", "abstract": "k" }, "description": { "data": "always scribbles", "alchemy": "always bodges", "spellcraft": "always flickers", "abstract": "B → C; sends b ↦ c′" }, "action": { "v-clean": "v-doodle" } }
   ],
   "samples": [
     { "id": "v-messy", "objectId": "obj-a", "labels": { "data": "messy spreadsheet", "alchemy": "raw ore", "spellcraft": "wild spark", "abstract": "a" } },

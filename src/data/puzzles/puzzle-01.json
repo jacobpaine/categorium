@@ -14,21 +14,21 @@
     "data": "A process turns one thing into another. Your toolkit holds two machines that both accept the messy spreadsheet — but they do different things to it. Bring the one you trust onto the board, wire it from the input to the clean table, and leave the other in the tray.",
     "alchemy": "A process turns one material into another. Your toolkit holds two apparatuses that both accept the raw ore — but they do different things to it. Bring the one you trust onto the board, wire it from the ore to the pure ingot, and leave the other in the tray.",
     "spellcraft": "A working turns one essence into another. Your toolkit holds two runes that both accept the wild spark — but they do different things to it. Bring the one you trust onto the board, wire it from the spark to the steady flame, and leave the other in the tray.",
-    "abstract": "A morphism turns one object into another. Your toolkit holds two machines of the same type that produce different outputs. Place the right one and wire it from the input to the goal."
+    "abstract": "A morphism turns one object into another. Your toolkit holds two machines of the same type A → B that behave differently: f sends a ↦ b, g sends a ↦ b′. Place the one that yields the goal value b and wire it from the input."
   },
   "goal": {
     "data": "Drag the machine you need onto the board and wire the input through it to the clean table.",
     "alchemy": "Drag the apparatus you need onto the board and wire the ore through it to the pure ingot.",
     "spellcraft": "Drag the rune you need onto the board and wire the spark through it to the steady flame.",
-    "abstract": "Place the machine you need and wire the input through it to the goal."
+    "abstract": "Place and wire the machine that sends the input a to the goal value b."
   },
   "objects": [
     { "id": "obj-a", "formalLabel": "A", "labels": { "data": "Raw CSV", "alchemy": "Ore", "spellcraft": "Spark", "abstract": "A" }, "description": { "data": "the messy input you start with", "alchemy": "the raw material you start with", "spellcraft": "the wild essence you start with", "abstract": "the source object" }, "colorToken": "sky" },
     { "id": "obj-b", "formalLabel": "B", "labels": { "data": "Clean Table", "alchemy": "Ingot", "spellcraft": "Flame", "abstract": "B" }, "description": { "data": "the tidy result you want — a clean table", "alchemy": "the refined result — a pure ingot", "spellcraft": "the steady result — a flame", "abstract": "object B" }, "colorToken": "emerald" }
   ],
   "morphisms": [
-    { "id": "mor-parser", "formalLabel": "f", "sourceObjectId": "obj-a", "targetObjectId": "obj-b", "labels": { "data": "Parser", "alchemy": "Smelter", "spellcraft": "Ignition", "abstract": "f" }, "description": { "data": "cleans the data", "alchemy": "refines the ore", "spellcraft": "tames the spark", "abstract": "A → B" }, "action": { "v-messy": "v-clean" } },
-    { "id": "mor-shred", "formalLabel": "g", "sourceObjectId": "obj-a", "targetObjectId": "obj-b", "labels": { "data": "Shredder", "alchemy": "Crusher", "spellcraft": "Smother", "abstract": "g" }, "description": { "data": "wrecks the data", "alchemy": "cracks the ore", "spellcraft": "chokes the spark", "abstract": "A → B" }, "action": { "v-messy": "v-shred" } }
+    { "id": "mor-parser", "formalLabel": "f", "sourceObjectId": "obj-a", "targetObjectId": "obj-b", "labels": { "data": "Parser", "alchemy": "Smelter", "spellcraft": "Ignition", "abstract": "f" }, "description": { "data": "cleans the data", "alchemy": "refines the ore", "spellcraft": "tames the spark", "abstract": "A → B; sends a ↦ b" }, "action": { "v-messy": "v-clean" } },
+    { "id": "mor-shred", "formalLabel": "g", "sourceObjectId": "obj-a", "targetObjectId": "obj-b", "labels": { "data": "Shredder", "alchemy": "Crusher", "spellcraft": "Smother", "abstract": "g" }, "description": { "data": "wrecks the data", "alchemy": "cracks the ore", "spellcraft": "chokes the spark", "abstract": "A → B; sends a ↦ b′" }, "action": { "v-messy": "v-shred" } }
   ],
   "samples": [
     { "id": "v-messy", "objectId": "obj-a", "labels": { "data": "messy spreadsheet", "alchemy": "raw ore", "spellcraft": "wild spark", "abstract": "a" } },

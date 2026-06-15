@@ -14,13 +14,13 @@
     "data": "Three machines in your toolkit. One doesn't even fit — its input port wants a chart, not a CSV (check the type on its tray card). Of the two that fit, only one actually produces the clean table. Bring the right one onto the board and wire it; leave the rest in the tray.",
     "alchemy": "Three apparatuses in your toolkit. One doesn't fit — its input wants a tool, not ore. Of the two that fit, only one produces the pure ingot. Bring the right one onto the board; leave the rest in the tray.",
     "spellcraft": "Three runes in your toolkit. One doesn't fit — its input wants a beacon, not a spark. Of the two that fit, only one produces the steady flame. Bring the right one onto the board; leave the rest in the tray.",
-    "abstract": "Three machines in the toolkit. One has the wrong source type. Of the type-valid ones, only one produces the goal. Place and wire it."
+    "abstract": "Three machines in the toolkit. h has the wrong source type (C → B). Of the type-valid A → B machines, f sends a ↦ b and g sends a ↦ b′ — place and wire the one that yields the goal value b."
   },
   "goal": {
     "data": "Place the machine that fits AND makes the clean table, and wire it.",
     "alchemy": "Place the apparatus that fits AND makes the pure ingot, and wire it.",
     "spellcraft": "Place the rune that fits AND makes the steady flame, and wire it.",
-    "abstract": "Place and wire the machine that is type-valid and produces the goal value."
+    "abstract": "Place and wire the machine that is type-valid and produces the goal value b."
   },
   "objects": [
     { "id": "obj-a", "formalLabel": "A", "labels": { "data": "Raw CSV", "alchemy": "Ore", "spellcraft": "Spark", "abstract": "A" }, "description": { "data": "the messy input you start with", "alchemy": "the raw material you start with", "spellcraft": "the wild essence you start with", "abstract": "the source object" }, "colorToken": "sky" },
@@ -28,8 +28,8 @@
     { "id": "obj-c", "formalLabel": "C", "labels": { "data": "Chart", "alchemy": "Tool", "spellcraft": "Beacon", "abstract": "C" }, "description": { "data": "a chart drawn from the clean data", "alchemy": "a tool shaped from the ingot", "spellcraft": "a beacon lit from the flame", "abstract": "object C" }, "colorToken": "amber" }
   ],
   "morphisms": [
-    { "id": "mor-parser", "formalLabel": "f", "sourceObjectId": "obj-a", "targetObjectId": "obj-b", "labels": { "data": "Parser", "alchemy": "Smelter", "spellcraft": "Ignition", "abstract": "f" }, "description": { "data": "cleans the data", "alchemy": "refines the ore", "spellcraft": "tames the spark", "abstract": "A → B" }, "action": { "v-messy": "v-clean" } },
-    { "id": "mor-shred", "formalLabel": "g", "sourceObjectId": "obj-a", "targetObjectId": "obj-b", "labels": { "data": "Shredder", "alchemy": "Crusher", "spellcraft": "Smother", "abstract": "g" }, "description": { "data": "wrecks the data", "alchemy": "cracks the ore", "spellcraft": "chokes the spark", "abstract": "A → B" }, "action": { "v-messy": "v-shred" } },
+    { "id": "mor-parser", "formalLabel": "f", "sourceObjectId": "obj-a", "targetObjectId": "obj-b", "labels": { "data": "Parser", "alchemy": "Smelter", "spellcraft": "Ignition", "abstract": "f" }, "description": { "data": "cleans the data", "alchemy": "refines the ore", "spellcraft": "tames the spark", "abstract": "A → B; sends a ↦ b" }, "action": { "v-messy": "v-clean" } },
+    { "id": "mor-shred", "formalLabel": "g", "sourceObjectId": "obj-a", "targetObjectId": "obj-b", "labels": { "data": "Shredder", "alchemy": "Crusher", "spellcraft": "Smother", "abstract": "g" }, "description": { "data": "wrecks the data", "alchemy": "cracks the ore", "spellcraft": "chokes the spark", "abstract": "A → B; sends a ↦ b′" }, "action": { "v-messy": "v-shred" } },
     { "id": "mor-importer", "formalLabel": "h", "sourceObjectId": "obj-c", "targetObjectId": "obj-b", "labels": { "data": "Importer", "alchemy": "Caster", "spellcraft": "Binder", "abstract": "h" }, "description": { "data": "needs a chart, not a CSV", "alchemy": "needs a tool, not ore", "spellcraft": "needs a beacon, not a spark", "abstract": "C → B (wrong input type)" } }
   ],
   "samples": [
