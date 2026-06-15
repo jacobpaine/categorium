@@ -6,36 +6,36 @@
   "title": { "data": "Build the Inverse", "alchemy": "Build the Inverse", "spellcraft": "Build the Inverse", "abstract": "Build the Inverse" },
   "conceptTags": ["isomorphism"],
   "intro": {
-    "data": "Encode packs the file. To undo it you need a decoder that returns the EXACT original. Two decoders are offered — one restores the file, the other returns something corrupted. Encode, then pick the true inverse.",
-    "alchemy": "Grind turns the bar to dust. To undo it you need a recast that returns the EXACT original. Two are offered — one restores the bar, the other returns something impure. Grind, then pick the true inverse.",
-    "spellcraft": "Etch turns the sigil to a glyph. To undo it you need a reading that returns the EXACT original. Two are offered — one restores the sigil, the other returns something broken. Etch, then pick the true inverse.",
-    "abstract": "f maps A→B. Pick the g : B→A whose round trip returns the original value, not a corrupted one."
+    "data": "Encode packs the file. To undo it you need a decoder that returns the EXACT original. Your tray holds Encode and two decoders — one restores the file, the other returns something corrupted. Bring Encode and the true decoder onto the board and wire them, leaving the corrupting one in the tray.",
+    "alchemy": "Grind turns the bar to dust. To undo it you need a recast that returns the EXACT original. Your tray holds Grind and two recasts — one restores the bar, the other returns something impure. Bring Grind and the true recast onto the board and wire them, leaving the impure one in the tray.",
+    "spellcraft": "Etch turns the sigil to a glyph. To undo it you need a reading that returns the EXACT original. Your tray holds Etch and two readings — one restores the sigil, the other returns something broken. Bring Etch and the true reading onto the board and wire them, leaving the broken one in the tray.",
+    "abstract": "f maps A→B; pick the g : B→A whose round trip returns the original value. Here values are concrete: f sends 4 ↦ 4★ and the true inverse sends 4★ ↦ 4, so 4 reappears, while the fake one lands on 9 instead. Bring f and the true inverse from the tray onto the board and wire them, leaving the fake inverse behind."
   },
-  "goal": { "data": "Encode, then decode back to the very same file you started with.", "alchemy": "Grind, then recast back to the very same bar.", "spellcraft": "Etch, then read back to the very same sigil.", "abstract": "Round-trip back to the original value." },
+  "goal": { "data": "Bring Encode and a decoder from the tray and wire them so the file decodes back to the very same file you started with.", "alchemy": "Bring Grind and a recast from the tray and wire them so it recasts back to the very same bar.", "spellcraft": "Bring Etch and a reading from the tray and wire them so it reads back to the very same sigil.", "abstract": "Bring f and a B→A morphism from the tray and wire them so the round trip returns the original 4, leaving the fake inverse in the tray." },
   "objects": [
     { "id": "obj-a", "formalLabel": "A", "labels": { "data": "Raw CSV", "alchemy": "Gold Bar", "spellcraft": "Sigil", "abstract": "A" }, "colorToken": "sky" },
     { "id": "obj-b", "formalLabel": "B", "labels": { "data": "Packed Blob", "alchemy": "Gold Dust", "spellcraft": "Glyph", "abstract": "B" }, "colorToken": "emerald" }
   ],
   "morphisms": [
-    { "id": "mor-f", "formalLabel": "f", "sourceObjectId": "obj-a", "targetObjectId": "obj-b", "labels": { "data": "Encode", "alchemy": "Grind", "spellcraft": "Etch", "abstract": "f" }, "description": { "data": "packs the data into a blob", "alchemy": "grinds the ore into powder", "spellcraft": "etches the spark into a glyph", "abstract": "a morphism A → B" }, "action": { "v-a": "v-b" } },
-    { "id": "mor-g", "formalLabel": "g", "sourceObjectId": "obj-b", "targetObjectId": "obj-a", "labels": { "data": "Decode", "alchemy": "Recast", "spellcraft": "Read", "abstract": "g" }, "description": { "data": "the true inverse", "alchemy": "the true inverse", "spellcraft": "the true inverse", "abstract": "B → A, inverts f" }, "action": { "v-b": "v-a" } },
-    { "id": "mor-gbad", "formalLabel": "g′", "sourceObjectId": "obj-b", "targetObjectId": "obj-a", "labels": { "data": "Garble", "alchemy": "Miscast", "spellcraft": "Misread", "abstract": "g′" }, "description": { "data": "returns a corrupted file", "alchemy": "returns an impure bar", "spellcraft": "returns a broken sigil", "abstract": "B → A, but not an inverse" }, "action": { "v-b": "v-a2" } }
+    { "id": "mor-f", "formalLabel": "f", "sourceObjectId": "obj-a", "targetObjectId": "obj-b", "labels": { "data": "Encode", "alchemy": "Grind", "spellcraft": "Etch", "abstract": "f" }, "description": { "data": "packs the data into a blob", "alchemy": "grinds the ore into powder", "spellcraft": "etches the spark into a glyph", "abstract": "sends 4 ↦ 4★" }, "action": { "v-a": "v-b" } },
+    { "id": "mor-g", "formalLabel": "g", "sourceObjectId": "obj-b", "targetObjectId": "obj-a", "labels": { "data": "Decode", "alchemy": "Recast", "spellcraft": "Read", "abstract": "g" }, "description": { "data": "the true inverse", "alchemy": "the true inverse", "spellcraft": "the true inverse", "abstract": "sends 4★ ↦ 4 (returns the original)" }, "action": { "v-b": "v-a" } },
+    { "id": "mor-gbad", "formalLabel": "g′", "sourceObjectId": "obj-b", "targetObjectId": "obj-a", "labels": { "data": "Garble", "alchemy": "Miscast", "spellcraft": "Misread", "abstract": "g′" }, "description": { "data": "returns a corrupted file", "alchemy": "returns an impure bar", "spellcraft": "returns a broken sigil", "abstract": "sends 4★ ↦ 9 (does NOT return the original)" }, "action": { "v-b": "v-a2" } }
   ],
   "samples": [
-    { "id": "v-a", "objectId": "obj-a", "labels": { "data": "the original file", "alchemy": "the gold bar", "spellcraft": "the sigil", "abstract": "a" } },
-    { "id": "v-b", "objectId": "obj-b", "labels": { "data": "packed blob", "alchemy": "gold dust", "spellcraft": "glyph", "abstract": "b" } },
-    { "id": "v-a2", "objectId": "obj-a", "labels": { "data": "corrupted file", "alchemy": "impure bar", "spellcraft": "broken sigil", "abstract": "a′" } }
+    { "id": "v-a", "objectId": "obj-a", "labels": { "data": "the original file", "alchemy": "the gold bar", "spellcraft": "the sigil", "abstract": "4" } },
+    { "id": "v-b", "objectId": "obj-b", "labels": { "data": "packed blob", "alchemy": "gold dust", "spellcraft": "glyph", "abstract": "4★" } },
+    { "id": "v-a2", "objectId": "obj-a", "labels": { "data": "corrupted file", "alchemy": "impure bar", "spellcraft": "broken sigil", "abstract": "9" } }
   ],
   "initialGraph": {
     "nodes": [
       { "kind": "object", "nodeId": "n-a-start", "objectId": "obj-a", "role": "start", "position": { "x": 30, "y": 190 } },
-      { "kind": "morphism", "nodeId": "n-f", "morphismId": "mor-f", "position": { "x": 210, "y": 190 } },
-      { "kind": "object", "nodeId": "n-b", "objectId": "obj-b", "position": { "x": 390, "y": 190 } },
-      { "kind": "morphism", "nodeId": "n-g", "morphismId": "mor-g", "position": { "x": 560, "y": 90 } },
-      { "kind": "morphism", "nodeId": "n-gbad", "morphismId": "mor-gbad", "position": { "x": 560, "y": 290 } },
       { "kind": "object", "nodeId": "n-a-goal", "objectId": "obj-a", "role": "goal", "position": { "x": 740, "y": 190 } }
     ],
     "edges": []
+  },
+  "toolkit": {
+    "paletteObjectIds": ["obj-b"],
+    "paletteMorphismIds": ["mor-f", "mor-g", "mor-gbad"]
   },
   "allowedMorphismIds": ["mor-f", "mor-g", "mor-gbad"],
   "validation": [
