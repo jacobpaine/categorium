@@ -251,6 +251,22 @@ describe('capstones — the harder end-of-chapter puzzles really resist shortcut
     expect(res.ok).toBe(false);
     if (!res.ok) expect(res.firstFailure.rule.type).toBe('required-output');
   });
+
+  it('d1 (multi-case): the faithful chain passes BOTH batches; a coincidental impostor passes only the small one', () => {
+    const d1 = () => toValidationInput(getPuzzle('puzzle-d1') as never);
+    // f (+1) → g (×2) → h (+4) sends 2 ↦ 10 and 5 ↦ 16.
+    const faithful = wire('puzzle-d1', [['n-a', 'n-f'], ['n-f', 'n-b'], ['n-b', 'n-g'], ['n-g', 'n-c'], ['n-c', 'n-h'], ['n-h', 'n-d']]);
+    expect(validatePuzzle(d1(), faithful).ok).toBe(true);
+    // 'Bump' (g?, +3) coincides with Double at 3 (→6) so batch 2 still reaches 10, but batch 5 drifts to 13.
+    const impostor = wire('puzzle-d1', [['n-a', 'n-f'], ['n-f', 'n-b'], ['n-b', 'n-gbad'], ['n-gbad', 'n-c'], ['n-c', 'n-h'], ['n-h', 'n-d']]);
+    const res = validatePuzzle(d1(), impostor);
+    expect(res.ok).toBe(false);
+    if (!res.ok) {
+      expect(res.firstFailure.rule.type).toBe('required-output');
+      // It is the LARGE batch (5 ↦ 16) the impostor fails, not the small one.
+      expect((res.firstFailure.rule as { inputValueId: string }).inputValueId).toBe('v-a5');
+    }
+  });
 });
 
 describe('chapter 7 — monads (return, join, bind, short-circuit)', () => {

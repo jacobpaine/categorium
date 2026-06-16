@@ -1,0 +1,98 @@
+{
+  "status": "authored",
+  "id": "puzzle-d1",
+  "chapterId": "chapter-01-transformations",
+  "order": 7,
+  "title": { "data": "Two Batches, One Pipeline", "alchemy": "Two Batches, One Pipeline", "spellcraft": "Two Batches, One Pipeline", "abstract": "Two Batches, One Pipeline" },
+  "conceptTags": ["composition"],
+  "intro": {
+    "data": "One pipeline must process TWO batches: a small batch (2) and a large batch (5). Bring in both stepping-stone tables (Normalized, Scaled) and chain three machines — Increment (+1), Double (x2), Finalize (+4) — to turn each batch into its true report. The tray hides look-alikes at every stage, and one sneaky machine 'Bump' matches Double on the small batch but drifts on the large one. A pipeline that only gets the small batch right is still wrong; build the chain that nails BOTH.",
+    "alchemy": "One process must refine TWO charges: a light charge (2) and a heavy charge (5). Bring in both stepping-stone vessels (Tempered, Concentrated) and chain three apparatuses — Quicken (+1), Redouble (x2), Seal (+4) — to turn each charge into its true alloy. The tray hides look-alikes at every stage, and a sly 'Nudge' matches Redouble on the light charge but drifts on the heavy one. A process that only gets the light charge right is still false; build the chain that nails BOTH.",
+    "spellcraft": "One rite must bind TWO sparks: a faint spark (2) and a fierce spark (5). Bring in both stepping-stone flames (Steadied, Swelled) and chain three runes — Quicken (+1), Redouble (x2), Seal (+4) — to turn each spark into its true ward. The tray hides look-alikes at every stage, and a sly 'Nudge' matches Redouble on the faint spark but drifts on the fierce one. A rite that only binds the faint spark is still hollow; build the chain that nails BOTH.",
+    "abstract": "Here numbers are the carried values and a prime b′ is a different value of the same type. One pipeline A→B→C→D must satisfy two cases over the same start A and goal D: case 1 sends 2 ↦ 10, case 2 sends 5 ↦ 16. Compose f (+1), g (×2), h (+4); each stage has a same-typed impostor, and g? (+3) coincides with g at one value so it passes case 1 but fails case 2. Build the one chain that passes both and leave the impostors in the tray."
+  },
+  "goal": { "data": "Bring both stepping-stone tables and the three faithful machines, and wire ONE pipeline that turns batch 2 into report 10 AND batch 5 into report 16.", "alchemy": "Bring both stepping-stone vessels and the three faithful apparatuses, and wire ONE process that turns charge 2 into alloy 10 AND charge 5 into alloy 16.", "spellcraft": "Bring both stepping-stone flames and the three faithful runes, and wire ONE rite that turns spark 2 into ward 10 AND spark 5 into ward 16.", "abstract": "Place B and C and the faithful machines, and wire one A→D chain that sends 2 ↦ 10 and 5 ↦ 16." },
+  "objects": [
+    { "id": "obj-a", "formalLabel": "A", "labels": { "data": "Batch", "alchemy": "Charge", "spellcraft": "Spark", "abstract": "A" }, "description": { "data": "an incoming batch of records", "alchemy": "an incoming charge of matter", "spellcraft": "an incoming spark", "abstract": "object A" }, "colorToken": "sky" },
+    { "id": "obj-b", "formalLabel": "B", "labels": { "data": "Normalized", "alchemy": "Tempered", "spellcraft": "Steadied", "abstract": "B" }, "description": { "data": "a normalized table", "alchemy": "a tempered vessel", "spellcraft": "a steadied flame", "abstract": "object B" }, "colorToken": "emerald" },
+    { "id": "obj-c", "formalLabel": "C", "labels": { "data": "Scaled", "alchemy": "Concentrated", "spellcraft": "Swelled", "abstract": "C" }, "description": { "data": "a scaled table", "alchemy": "a concentrated vessel", "spellcraft": "a swelled flame", "abstract": "object C" }, "colorToken": "violet" },
+    { "id": "obj-d", "formalLabel": "D", "labels": { "data": "Report", "alchemy": "Alloy", "spellcraft": "Ward", "abstract": "D" }, "description": { "data": "the finished report", "alchemy": "the cast alloy", "spellcraft": "the bound ward", "abstract": "object D" }, "colorToken": "amber" }
+  ],
+  "morphisms": [
+    { "id": "mor-f", "formalLabel": "f", "sourceObjectId": "obj-a", "targetObjectId": "obj-b", "labels": { "data": "Increment", "alchemy": "Quicken", "spellcraft": "Quicken", "abstract": "f" }, "description": { "data": "normalizes by adding 1", "alchemy": "tempers by adding 1", "spellcraft": "steadies by adding 1", "abstract": "+1: sends 2 ↦ 3, 5 ↦ 6" }, "action": { "v-a2": "v-b3", "v-a5": "v-b6" } },
+    { "id": "mor-fbad", "formalLabel": "f?", "sourceObjectId": "obj-a", "targetObjectId": "obj-b", "labels": { "data": "Offset", "alchemy": "Overquicken", "spellcraft": "Overquicken", "abstract": "f?" }, "description": { "data": "same type, but adds 2 instead of 1", "alchemy": "same type, but adds 2 instead of 1", "spellcraft": "same type, but adds 2 instead of 1", "abstract": "+2: sends 2 ↦ 4, 5 ↦ 7 (wrong behavior)" }, "action": { "v-a2": "v-b4", "v-a5": "v-b7" } },
+    { "id": "mor-g", "formalLabel": "g", "sourceObjectId": "obj-b", "targetObjectId": "obj-c", "labels": { "data": "Double", "alchemy": "Redouble", "spellcraft": "Redouble", "abstract": "g" }, "description": { "data": "scales by doubling", "alchemy": "concentrates by doubling", "spellcraft": "swells by doubling", "abstract": "×2: sends 3 ↦ 6, 6 ↦ 12" }, "action": { "v-b3": "v-c6", "v-b6": "v-c12" } },
+    { "id": "mor-gbad", "formalLabel": "g?", "sourceObjectId": "obj-b", "targetObjectId": "obj-c", "labels": { "data": "Bump", "alchemy": "Nudge", "spellcraft": "Nudge", "abstract": "g?" }, "description": { "data": "same type, adds 3 — looks like Double on batch 2's table, but drifts on batch 5's", "alchemy": "same type, adds 3 — looks like Redouble on the light charge, but drifts on the heavy one", "spellcraft": "same type, adds 3 — looks like Redouble on the faint spark, but drifts on the fierce one", "abstract": "+3: sends 3 ↦ 6 (matches ×2 here), 6 ↦ 9 (wrong: ×2 gives 12)" }, "action": { "v-b3": "v-c6", "v-b6": "v-c9" } },
+    { "id": "mor-h", "formalLabel": "h", "sourceObjectId": "obj-c", "targetObjectId": "obj-d", "labels": { "data": "Finalize", "alchemy": "Seal", "spellcraft": "Seal", "abstract": "h" }, "description": { "data": "finalizes by adding 4", "alchemy": "seals by adding 4", "spellcraft": "seals by adding 4", "abstract": "+4: sends 6 ↦ 10, 12 ↦ 16, 9 ↦ 13" }, "action": { "v-c6": "v-d10", "v-c12": "v-d16", "v-c9": "v-d13" } },
+    { "id": "mor-hbad", "formalLabel": "h?", "sourceObjectId": "obj-c", "targetObjectId": "obj-d", "labels": { "data": "Misfile", "alchemy": "Misseal", "spellcraft": "Misseal", "abstract": "h?" }, "description": { "data": "same type, but adds 5 instead of 4", "alchemy": "same type, but adds 5 instead of 4", "spellcraft": "same type, but adds 5 instead of 4", "abstract": "+5: sends 6 ↦ 11, 12 ↦ 17, 9 ↦ 14 (wrong behavior)" }, "action": { "v-c6": "v-d11", "v-c12": "v-d17", "v-c9": "v-d14" } }
+  ],
+  "samples": [
+    { "id": "v-a2", "objectId": "obj-a", "labels": { "data": "small batch", "alchemy": "light charge", "spellcraft": "faint spark", "abstract": "2" } },
+    { "id": "v-a5", "objectId": "obj-a", "labels": { "data": "large batch", "alchemy": "heavy charge", "spellcraft": "fierce spark", "abstract": "5" } },
+    { "id": "v-b3", "objectId": "obj-b", "labels": { "data": "normalized small", "alchemy": "tempered light", "spellcraft": "steadied faint", "abstract": "3" } },
+    { "id": "v-b6", "objectId": "obj-b", "labels": { "data": "normalized large", "alchemy": "tempered heavy", "spellcraft": "steadied fierce", "abstract": "6" } },
+    { "id": "v-b4", "objectId": "obj-b", "labels": { "data": "over-normalized small", "alchemy": "over-tempered light", "spellcraft": "over-steadied faint", "abstract": "4" } },
+    { "id": "v-b7", "objectId": "obj-b", "labels": { "data": "over-normalized large", "alchemy": "over-tempered heavy", "spellcraft": "over-steadied fierce", "abstract": "7" } },
+    { "id": "v-c6", "objectId": "obj-c", "labels": { "data": "scaled small", "alchemy": "concentrated light", "spellcraft": "swelled faint", "abstract": "6" } },
+    { "id": "v-c12", "objectId": "obj-c", "labels": { "data": "scaled large", "alchemy": "concentrated heavy", "spellcraft": "swelled fierce", "abstract": "12" } },
+    { "id": "v-c9", "objectId": "obj-c", "labels": { "data": "drifted scale", "alchemy": "drifted concentrate", "spellcraft": "drifted swell", "abstract": "9" } },
+    { "id": "v-d10", "objectId": "obj-d", "labels": { "data": "true small report", "alchemy": "true light alloy", "spellcraft": "true faint ward", "abstract": "10" } },
+    { "id": "v-d16", "objectId": "obj-d", "labels": { "data": "true large report", "alchemy": "true heavy alloy", "spellcraft": "true fierce ward", "abstract": "16" } },
+    { "id": "v-d13", "objectId": "obj-d", "labels": { "data": "drifted report", "alchemy": "drifted alloy", "spellcraft": "drifted ward", "abstract": "13" } },
+    { "id": "v-d11", "objectId": "obj-d", "labels": { "data": "misfiled small report", "alchemy": "missealed light alloy", "spellcraft": "missealed faint ward", "abstract": "11" } },
+    { "id": "v-d17", "objectId": "obj-d", "labels": { "data": "misfiled large report", "alchemy": "missealed heavy alloy", "spellcraft": "missealed fierce ward", "abstract": "17" } },
+    { "id": "v-d14", "objectId": "obj-d", "labels": { "data": "misfiled drift report", "alchemy": "missealed drift alloy", "spellcraft": "missealed drift ward", "abstract": "14" } }
+  ],
+  "initialGraph": {
+    "nodes": [
+      { "kind": "object", "nodeId": "n-a", "objectId": "obj-a", "role": "start", "position": { "x": 40, "y": 220 } },
+      { "kind": "object", "nodeId": "n-d", "objectId": "obj-d", "role": "goal", "position": { "x": 1420, "y": 220 } }
+    ],
+    "edges": []
+  },
+  "toolkit": {
+    "paletteObjectIds": ["obj-b", "obj-c"],
+    "paletteMorphismIds": ["mor-f", "mor-fbad", "mor-g", "mor-gbad", "mor-h", "mor-hbad"]
+  },
+  "allowedMorphismIds": ["mor-f", "mor-fbad", "mor-g", "mor-gbad", "mor-h", "mor-hbad"],
+  "validation": [
+    { "type": "type-valid-wiring" },
+    { "type": "concept-tag-required", "conceptTag": "composition" },
+    { "type": "required-output", "inputValueId": "v-a2", "outputValueId": "v-d10" },
+    { "type": "required-output", "inputValueId": "v-a5", "outputValueId": "v-d16" }
+  ],
+  "reveal": {
+    "afterSuccess": {
+      "data": "One pipeline handled both batches: Increment, Double, Finalize sent 2 to 10 and 5 to 16. The 'Bump' machine doubled-by-coincidence on the small batch but added 3 on the large one, so it passed the easy case and failed the hard one. That second batch is why a pipeline is the composite of correct steps, not steps that merely happen to agree once: report = h ∘ g ∘ f.",
+      "alchemy": "One process handled both charges: Quicken, Redouble, Seal sent 2 to 10 and 5 to 16. 'Nudge' matched Redouble on the light charge by coincidence but drifted on the heavy one, passing the easy case and failing the hard one. The second charge is why a process is the composite of correct steps: h ∘ g ∘ f.",
+      "spellcraft": "One rite bound both sparks: Quicken, Redouble, Seal sent 2 to 10 and 5 to 16. 'Nudge' matched Redouble on the faint spark by coincidence but drifted on the fierce one, passing the easy case and failing the hard one. The second spark is why a rite is the composite of correct steps: h ∘ g ∘ f.",
+      "abstract": "The faithful composite h ∘ g ∘ f sent 2 ↦ 10 and 5 ↦ 16. g? = +3 coincides with g = ×2 at 3 (both give 6), so it passes case 1, but at 6 it gives 9 not 12 and fails case 2. Two cases pin the behavior: agreeing on one input is not equality of morphisms."
+    },
+    "summary": "Two test cases over one pipeline force every stage to be genuinely correct, not coincidentally right on a single input. h ∘ g ∘ f : A → D must send 2 ↦ 10 AND 5 ↦ 16; an impostor that matches a faithful step at just one value still corrupts the composite on another.",
+    "notation": ["h ∘ g ∘ f : A → D", "(h ∘ g ∘ f)(2) = 10, (h ∘ g ∘ f)(5) = 16"],
+    "programmerAnalogy": "const pipeline = (x: number) => x + 1 |> double |> (+4); a unit test on one input can pass a buggy stage — a second case catches it."
+  },
+  "glossaryUnlocks": [],
+  "referenceSolution": {
+    "nodes": [
+      { "kind": "object", "nodeId": "n-a", "objectId": "obj-a", "role": "start", "position": { "x": 40, "y": 220 } },
+      { "kind": "morphism", "nodeId": "n-f", "morphismId": "mor-f", "position": { "x": 260, "y": 90 } },
+      { "kind": "morphism", "nodeId": "n-fbad", "morphismId": "mor-fbad", "position": { "x": 260, "y": 360 } },
+      { "kind": "object", "nodeId": "n-b", "objectId": "obj-b", "position": { "x": 500, "y": 220 } },
+      { "kind": "morphism", "nodeId": "n-g", "morphismId": "mor-g", "position": { "x": 720, "y": 90 } },
+      { "kind": "morphism", "nodeId": "n-gbad", "morphismId": "mor-gbad", "position": { "x": 720, "y": 360 } },
+      { "kind": "object", "nodeId": "n-c", "objectId": "obj-c", "position": { "x": 960, "y": 220 } },
+      { "kind": "morphism", "nodeId": "n-h", "morphismId": "mor-h", "position": { "x": 1180, "y": 90 } },
+      { "kind": "morphism", "nodeId": "n-hbad", "morphismId": "mor-hbad", "position": { "x": 1180, "y": 360 } },
+      { "kind": "object", "nodeId": "n-d", "objectId": "obj-d", "role": "goal", "position": { "x": 1420, "y": 220 } }
+    ],
+    "edges": [
+      { "id": "e1", "sourceNodeId": "n-a", "targetNodeId": "n-f" },
+      { "id": "e2", "sourceNodeId": "n-f", "targetNodeId": "n-b" },
+      { "id": "e3", "sourceNodeId": "n-b", "targetNodeId": "n-g" },
+      { "id": "e4", "sourceNodeId": "n-g", "targetNodeId": "n-c" },
+      { "id": "e5", "sourceNodeId": "n-c", "targetNodeId": "n-h" },
+      { "id": "e6", "sourceNodeId": "n-h", "targetNodeId": "n-d" }
+    ]
+  }
+}
