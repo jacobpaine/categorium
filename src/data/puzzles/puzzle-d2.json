@@ -1,0 +1,106 @@
+{
+  "status": "authored",
+  "id": "puzzle-d2",
+  "chapterId": "chapter-02-laws",
+  "order": 11,
+  "title": { "data": "Bundle However You Like — But Bundle Truly", "alchemy": "Bundle However You Like — But Bundle Truly", "spellcraft": "Bundle However You Like — But Bundle Truly", "abstract": "Bundle However You Like — But Bundle Truly" },
+  "conceptTags": ["associativity"],
+  "intro": {
+    "data": "One pipeline A→B→C→D must process TWO batches — a near batch (3) and a far batch (5) — into their true reports. Bring whatever faithful pieces you like: the three steps Double (x2), Shift (+3), Twin (x2), or a bundle plus a step. Grouping is free, so a faithful (g∘f) bundle then Twin works just as well as all three steps. But the tray hides a sly bundle 'Premix' that matches the real (g∘f) on the near batch and drifts on the far one — it passes the easy case and fails the hard one. Build the chain that nails BOTH batches and leave the look-alikes in the tray.",
+    "alchemy": "One process A→B→C→D must refine TWO charges — a near charge (3) and a far charge (5) — into their true alloys. Bring whatever faithful pieces you like: the three steps Redouble (x2), Infuse (+3), Mirror (x2), or a bundle plus a step. Grouping is free, so a faithful (g∘f) bundle then Mirror works as well as all three steps. But the tray hides a sly bundle 'Premix' that matches the real (g∘f) on the near charge and drifts on the far one — passing the easy case and failing the hard one. Build the chain that nails BOTH charges and leave the look-alikes in the tray.",
+    "spellcraft": "One rite A→B→C→D must bind TWO sparks — a near spark (3) and a far spark (5) — into their true wards. Bring whatever faithful runes you like: the three steps Redouble (x2), Infuse (+3), Mirror (x2), or a bundle plus a step. Grouping is free, so a faithful (g∘f) bundle then Mirror works as well as all three steps. But the tray hides a sly bundle 'Premix' that matches the real (g∘f) on the near spark and drifts on the far one — passing the easy case and failing the hard one. Build the chain that nails BOTH sparks and leave the look-alikes in the tray.",
+    "abstract": "Here numbers are the carried values and a prime b′ is a different value of the same type. One A→B→C→D chain must satisfy two cases over the same start A and goal D: case 1 sends 3 ↦ 18, case 2 sends 5 ↦ 26. Compose f (×2), g (+3), h (×2); associativity makes h ∘ (g ∘ f), (h ∘ g) ∘ f, and h ∘ g ∘ f equal, so any faithful grouping works. But (g∘f)? (+6) coincides with g ∘ f at 3 (both give 9) so it passes case 1, while at 5 it gives 11 not 13 and fails case 2. Build the one chain that passes both and leave the impostors in the tray."
+  },
+  "goal": { "data": "Bring faithful steps or a faithful bundle from the tray and wire ONE pipeline that turns batch 3 into report 18 AND batch 5 into report 26.", "alchemy": "Bring faithful steps or a faithful bundle from the tray and wire ONE process that turns charge 3 into alloy 18 AND charge 5 into alloy 26.", "spellcraft": "Bring faithful runes or a faithful bundle from the tray and wire ONE rite that turns spark 3 into ward 18 AND spark 5 into ward 26.", "abstract": "Place B and/or C and wire any faithful grouping of f, g, h so it sends 3 ↦ 18 and 5 ↦ 26, leaving the impostor bundle behind." },
+  "objects": [
+    { "id": "obj-a", "formalLabel": "A", "labels": { "data": "Batch", "alchemy": "Charge", "spellcraft": "Spark", "abstract": "A" }, "description": { "data": "an incoming batch of records", "alchemy": "an incoming charge of matter", "spellcraft": "an incoming spark", "abstract": "object A" }, "colorToken": "sky" },
+    { "id": "obj-b", "formalLabel": "B", "labels": { "data": "Scaled", "alchemy": "Heated", "spellcraft": "Stoked", "abstract": "B" }, "description": { "data": "a scaled table", "alchemy": "a heated vessel", "spellcraft": "a stoked flame", "abstract": "object B" }, "colorToken": "emerald" },
+    { "id": "obj-c", "formalLabel": "C", "labels": { "data": "Shifted", "alchemy": "Infused", "spellcraft": "Charged", "abstract": "C" }, "description": { "data": "a shifted table", "alchemy": "an infused vessel", "spellcraft": "a charged flame", "abstract": "object C" }, "colorToken": "violet" },
+    { "id": "obj-d", "formalLabel": "D", "labels": { "data": "Report", "alchemy": "Alloy", "spellcraft": "Ward", "abstract": "D" }, "description": { "data": "the finished report", "alchemy": "the cast alloy", "spellcraft": "the bound ward", "abstract": "object D" }, "colorToken": "amber" }
+  ],
+  "morphisms": [
+    { "id": "mor-f", "formalLabel": "f", "sourceObjectId": "obj-a", "targetObjectId": "obj-b", "labels": { "data": "Double", "alchemy": "Redouble", "spellcraft": "Redouble", "abstract": "f" }, "description": { "data": "scales by doubling", "alchemy": "heats by doubling", "spellcraft": "stokes by doubling", "abstract": "×2: sends 3 ↦ 6, 5 ↦ 10" }, "action": { "v-a3": "v-b6", "v-a5": "v-b10" } },
+    { "id": "mor-fbad", "formalLabel": "f?", "sourceObjectId": "obj-a", "targetObjectId": "obj-b", "labels": { "data": "Triple", "alchemy": "Overheat", "spellcraft": "Overstoke", "abstract": "f?" }, "description": { "data": "same type, but triples instead of doubling", "alchemy": "same type, but triples instead of doubling", "spellcraft": "same type, but triples instead of doubling", "abstract": "×3: sends 3 ↦ 9, 5 ↦ 15 (wrong behavior)" }, "action": { "v-a3": "v-b9", "v-a5": "v-b15" } },
+    { "id": "mor-g", "formalLabel": "g", "sourceObjectId": "obj-b", "targetObjectId": "obj-c", "labels": { "data": "Shift", "alchemy": "Infuse", "spellcraft": "Infuse", "abstract": "g" }, "description": { "data": "shifts by adding 3", "alchemy": "infuses by adding 3", "spellcraft": "infuses by adding 3", "abstract": "+3: sends 6 ↦ 9, 10 ↦ 13" }, "action": { "v-b6": "v-c9", "v-b10": "v-c13" } },
+    { "id": "mor-gbad", "formalLabel": "g?", "sourceObjectId": "obj-b", "targetObjectId": "obj-c", "labels": { "data": "Misshift", "alchemy": "Misinfuse", "spellcraft": "Misinfuse", "abstract": "g?" }, "description": { "data": "same type, but adds 4 instead of 3", "alchemy": "same type, but adds 4 instead of 3", "spellcraft": "same type, but adds 4 instead of 3", "abstract": "+4: sends 6 ↦ 10, 10 ↦ 14 (wrong behavior)" }, "action": { "v-b6": "v-c10", "v-b10": "v-c14" } },
+    { "id": "mor-h", "formalLabel": "h", "sourceObjectId": "obj-c", "targetObjectId": "obj-d", "labels": { "data": "Twin", "alchemy": "Mirror", "spellcraft": "Mirror", "abstract": "h" }, "description": { "data": "finalizes by doubling", "alchemy": "casts by doubling", "spellcraft": "wards by doubling", "abstract": "×2: sends 9 ↦ 18, 13 ↦ 26, 11 ↦ 22" }, "action": { "v-c9": "v-d18", "v-c13": "v-d26", "v-c11": "v-d22" } },
+    { "id": "mor-hbad", "formalLabel": "h?", "sourceObjectId": "obj-c", "targetObjectId": "obj-d", "labels": { "data": "Mistwin", "alchemy": "Mismirror", "spellcraft": "Mismirror", "abstract": "h?" }, "description": { "data": "same type, but triples instead of doubling", "alchemy": "same type, but triples instead of doubling", "spellcraft": "same type, but triples instead of doubling", "abstract": "×3: sends 9 ↦ 27, 13 ↦ 39 (wrong behavior)" }, "action": { "v-c9": "v-d27", "v-c13": "v-d39" } },
+    { "id": "mor-gf", "formalLabel": "g∘f", "sourceObjectId": "obj-a", "targetObjectId": "obj-c", "labels": { "data": "Prep", "alchemy": "Prime", "spellcraft": "Prime", "abstract": "g∘f" }, "description": { "data": "the faithful bundle of Double then Shift", "alchemy": "the faithful bundle of Redouble then Infuse", "spellcraft": "the faithful bundle of Redouble then Infuse", "abstract": "the faithful bundle g ∘ f (×2 then +3): sends 3 ↦ 9, 5 ↦ 13" }, "action": { "v-a3": "v-c9", "v-a5": "v-c13" } },
+    { "id": "mor-hg", "formalLabel": "h∘g", "sourceObjectId": "obj-b", "targetObjectId": "obj-d", "labels": { "data": "Finish", "alchemy": "Forge", "spellcraft": "Seal", "abstract": "h∘g" }, "description": { "data": "the faithful bundle of Shift then Twin", "alchemy": "the faithful bundle of Infuse then Mirror", "spellcraft": "the faithful bundle of Infuse then Mirror", "abstract": "the faithful bundle h ∘ g (+3 then ×2): sends 6 ↦ 18, 10 ↦ 26" }, "action": { "v-b6": "v-d18", "v-b10": "v-d26" } },
+    { "id": "mor-gfbad", "formalLabel": "(g∘f)?", "sourceObjectId": "obj-a", "targetObjectId": "obj-c", "labels": { "data": "Premix", "alchemy": "Premix", "spellcraft": "Premix", "abstract": "(g∘f)?" }, "description": { "data": "same type, adds 6 — matches the real (g∘f) bundle on batch 3, but drifts on batch 5", "alchemy": "same type, adds 6 — matches the real (g∘f) bundle on the near charge, but drifts on the far one", "spellcraft": "same type, adds 6 — matches the real (g∘f) bundle on the near spark, but drifts on the far one", "abstract": "+6: sends 3 ↦ 9 (matches g ∘ f here), 5 ↦ 11 (wrong: g ∘ f gives 13)" }, "action": { "v-a3": "v-c9", "v-a5": "v-c11" } }
+  ],
+  "samples": [
+    { "id": "v-a3", "objectId": "obj-a", "labels": { "data": "near batch", "alchemy": "near charge", "spellcraft": "near spark", "abstract": "3" } },
+    { "id": "v-a5", "objectId": "obj-a", "labels": { "data": "far batch", "alchemy": "far charge", "spellcraft": "far spark", "abstract": "5" } },
+    { "id": "v-b6", "objectId": "obj-b", "labels": { "data": "scaled near", "alchemy": "heated near", "spellcraft": "stoked near", "abstract": "6" } },
+    { "id": "v-b10", "objectId": "obj-b", "labels": { "data": "scaled far", "alchemy": "heated far", "spellcraft": "stoked far", "abstract": "10" } },
+    { "id": "v-b9", "objectId": "obj-b", "labels": { "data": "over-scaled near", "alchemy": "over-heated near", "spellcraft": "over-stoked near", "abstract": "9" } },
+    { "id": "v-b15", "objectId": "obj-b", "labels": { "data": "over-scaled far", "alchemy": "over-heated far", "spellcraft": "over-stoked far", "abstract": "15" } },
+    { "id": "v-c9", "objectId": "obj-c", "labels": { "data": "shifted near", "alchemy": "infused near", "spellcraft": "charged near", "abstract": "9" } },
+    { "id": "v-c13", "objectId": "obj-c", "labels": { "data": "shifted far", "alchemy": "infused far", "spellcraft": "charged far", "abstract": "13" } },
+    { "id": "v-c11", "objectId": "obj-c", "labels": { "data": "drifted shift", "alchemy": "drifted infusion", "spellcraft": "drifted charge", "abstract": "11" } },
+    { "id": "v-c10", "objectId": "obj-c", "labels": { "data": "misshifted near", "alchemy": "misinfused near", "spellcraft": "misinfused near", "abstract": "10" } },
+    { "id": "v-c14", "objectId": "obj-c", "labels": { "data": "misshifted far", "alchemy": "misinfused far", "spellcraft": "misinfused far", "abstract": "14" } },
+    { "id": "v-d18", "objectId": "obj-d", "labels": { "data": "true near report", "alchemy": "true near alloy", "spellcraft": "true near ward", "abstract": "18" } },
+    { "id": "v-d26", "objectId": "obj-d", "labels": { "data": "true far report", "alchemy": "true far alloy", "spellcraft": "true far ward", "abstract": "26" } },
+    { "id": "v-d22", "objectId": "obj-d", "labels": { "data": "drifted report", "alchemy": "drifted alloy", "spellcraft": "drifted ward", "abstract": "22" } },
+    { "id": "v-d27", "objectId": "obj-d", "labels": { "data": "mistwinned near report", "alchemy": "mismirrored near alloy", "spellcraft": "mismirrored near ward", "abstract": "27" } },
+    { "id": "v-d39", "objectId": "obj-d", "labels": { "data": "mistwinned far report", "alchemy": "mismirrored far alloy", "spellcraft": "mismirrored far ward", "abstract": "39" } }
+  ],
+  "initialGraph": {
+    "nodes": [
+      { "kind": "object", "nodeId": "n-a", "objectId": "obj-a", "role": "start", "position": { "x": 40, "y": 240 } },
+      { "kind": "object", "nodeId": "n-d", "objectId": "obj-d", "role": "goal", "position": { "x": 1420, "y": 240 } }
+    ],
+    "edges": []
+  },
+  "toolkit": {
+    "paletteObjectIds": ["obj-b", "obj-c"],
+    "paletteMorphismIds": ["mor-f", "mor-fbad", "mor-g", "mor-gbad", "mor-h", "mor-hbad", "mor-gf", "mor-hg", "mor-gfbad"]
+  },
+  "allowedMorphismIds": ["mor-f", "mor-fbad", "mor-g", "mor-gbad", "mor-h", "mor-hbad", "mor-gf", "mor-hg", "mor-gfbad"],
+  "validation": [
+    { "type": "type-valid-wiring" },
+    { "type": "concept-tag-required", "conceptTag": "composition" },
+    { "type": "required-output", "inputValueId": "v-a3", "outputValueId": "v-d18" },
+    { "type": "required-output", "inputValueId": "v-a5", "outputValueId": "v-d26" }
+  ],
+  "reveal": {
+    "afterSuccess": {
+      "data": "However you grouped the faithful steps — all three (Double, Shift, Twin), or the faithful Prep bundle then Twin, or Double then the Finish bundle — both batches landed on their true reports: 3 to 18 and 5 to 26. That is associativity: regrouping never changes the result. 'Premix' had the right type and even matched the real bundle on the near batch, but it added 6 instead of bundling x2 then +3, so it drifted to 22 on the far batch and fell out. The far batch is why a bundle must genuinely BE the composite it claims, not merely agree once: (h ∘ g) ∘ f = h ∘ (g ∘ f).",
+      "alchemy": "However you grouped the faithful steps — all three, or Prime then Mirror, or Redouble then Forge — both charges reached their true alloys: 3 to 18 and 5 to 26. That is associativity: regrouping never changes the result. 'Premix' had the right type and matched the real bundle on the near charge, but it added 6 instead of x2 then +3, drifting to 22 on the far charge. The far charge is why a bundle must genuinely be the composite: (h ∘ g) ∘ f = h ∘ (g ∘ f).",
+      "spellcraft": "However you grouped the faithful runes — all three, or Prime then Mirror, or Redouble then Seal — both sparks reached their true wards: 3 to 18 and 5 to 26. That is associativity: regrouping never changes the result. 'Premix' had the right type and matched the real bundle on the near spark, but it added 6 instead of x2 then +3, drifting to 22 on the far spark. The far spark is why a bundle must genuinely be the composite: (h ∘ g) ∘ f = h ∘ (g ∘ f).",
+      "abstract": "Every faithful grouping sent 3 ↦ 18 and 5 ↦ 26: h ∘ (g ∘ f) = (h ∘ g) ∘ f = h ∘ g ∘ f. (g∘f)? = +6 coincides with g ∘ f at 3 (both give 9), so it passed case 1, but at 5 it gives 11 not 13 and h then sends it to 22, failing case 2. Associativity lets you bundle freely — but only when each bundle is the true composite, and two cases prove it is."
+    },
+    "summary": "Associativity, under two test cases: (h ∘ g) ∘ f = h ∘ (g ∘ f) = h ∘ g ∘ f, so any grouping of the faithful steps reaches the goal — but a bundle that merely coincides with the real composite on one input still corrupts another, so two cases pin its behavior.",
+    "notation": ["(h ∘ g) ∘ f = h ∘ (g ∘ f)", "h ∘ g ∘ f : A → D", "(h ∘ g ∘ f)(3) = 18, (h ∘ g ∘ f)(5) = 26"],
+    "moreFormal": "Composition is associative, so chains need no parentheses: h ∘ g ∘ f is unambiguous. A pre-bundled sub-step is interchangeable with its steps only when it equals their composite on every input.",
+    "programmerAnalogy": "compose(compose(h, g), f) === compose(h, compose(g, f)); a precomputed sub-step can match on one test input yet still be the wrong function — a second case catches it."
+  },
+  "glossaryUnlocks": [],
+  "referenceSolution": {
+    "nodes": [
+      { "kind": "object", "nodeId": "n-a", "objectId": "obj-a", "role": "start", "position": { "x": 40, "y": 240 } },
+      { "kind": "morphism", "nodeId": "n-f", "morphismId": "mor-f", "position": { "x": 240, "y": 100 } },
+      { "kind": "morphism", "nodeId": "n-fbad", "morphismId": "mor-fbad", "position": { "x": 240, "y": 380 } },
+      { "kind": "object", "nodeId": "n-b", "objectId": "obj-b", "position": { "x": 460, "y": 240 } },
+      { "kind": "morphism", "nodeId": "n-g", "morphismId": "mor-g", "position": { "x": 660, "y": 100 } },
+      { "kind": "morphism", "nodeId": "n-gbad", "morphismId": "mor-gbad", "position": { "x": 660, "y": 380 } },
+      { "kind": "object", "nodeId": "n-c", "objectId": "obj-c", "position": { "x": 880, "y": 240 } },
+      { "kind": "morphism", "nodeId": "n-h", "morphismId": "mor-h", "position": { "x": 1080, "y": 100 } },
+      { "kind": "morphism", "nodeId": "n-hbad", "morphismId": "mor-hbad", "position": { "x": 1080, "y": 380 } },
+      { "kind": "object", "nodeId": "n-d", "objectId": "obj-d", "role": "goal", "position": { "x": 1420, "y": 240 } },
+      { "kind": "morphism", "nodeId": "n-gf", "morphismId": "mor-gf", "position": { "x": 360, "y": 520 } },
+      { "kind": "morphism", "nodeId": "n-hg", "morphismId": "mor-hg", "position": { "x": 760, "y": 520 } },
+      { "kind": "morphism", "nodeId": "n-gfbad", "morphismId": "mor-gfbad", "position": { "x": 360, "y": 640 } }
+    ],
+    "edges": [
+      { "id": "e1", "sourceNodeId": "n-a", "targetNodeId": "n-f" },
+      { "id": "e2", "sourceNodeId": "n-f", "targetNodeId": "n-b" },
+      { "id": "e3", "sourceNodeId": "n-b", "targetNodeId": "n-g" },
+      { "id": "e4", "sourceNodeId": "n-g", "targetNodeId": "n-c" },
+      { "id": "e5", "sourceNodeId": "n-c", "targetNodeId": "n-h" },
+      { "id": "e6", "sourceNodeId": "n-h", "targetNodeId": "n-d" }
+    ]
+  }
+}

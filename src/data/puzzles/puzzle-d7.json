@@ -1,0 +1,118 @@
+{
+  "status": "authored",
+  "id": "puzzle-d7",
+  "chapterId": "chapter-07-monads",
+  "order": 30,
+  "title": { "data": "The Four-Link Lookup", "alchemy": "The Four-Link Lookup", "spellcraft": "The Four-Link Lookup", "abstract": "A Four-Step Monadic Pipeline" },
+  "conceptTags": ["monad", "bind"],
+  "intro": {
+    "data": "Trace each user to their email, that email's host, the host's domain, and the domain's registrar — FOUR steps, each in a box, each able to fail. The tray holds the four steps and bind machines (faithful and impostor); bring the right ones onto the board and wire ONE pipeline. FIVE cases keep you honest: Ada is complete; Bo has no email; Cy has an email but no host; Di has a host but no domain; Eve has a domain but NO registrar — so the pipeline must reach Ada's registrar yet short-circuit to Nothing for the other four, never inventing anything. Watch the last bind: one impostor only fabricates when the emptiness appears at the FINAL step, so checking the shallow failures alone will pass a liar.",
+    "alchemy": "Trace each herb to its essence, that essence's salt, the salt's crystal, and the crystal's seal — FOUR steps, each in a vial, each able to come up empty. The tray holds the steps and decant apparatus (faithful and impostor); bring the right ones and wire ONE line. FIVE cases: Sage is complete; Rue has no essence; Cress has essence but no salt; Dill has salt but no crystal; Elder has a crystal but NO seal — so the line must reach Sage's seal yet stay empty for the other four. Watch the last decant: one impostor only invents when the emptiness lands at the FINAL step.",
+    "spellcraft": "Trace each rune to its omen, that omen's sign, the sign's fate, and the fate's seal — FOUR steps, each in a charm, each able to fizzle. The tray holds the workings (faithful and impostor); bring the right ones and wire ONE weave. FIVE cases: Ash is complete; Bramble has no omen; Cinder has an omen but no sign; Dusk has a sign but no fate; Ember has a fate but NO seal — so the weave must reach Ash's seal yet stay dark for the other four. Watch the last working: one impostor only fakes when the dark lands at the FINAL step.",
+    "abstract": "Just x means the value x is present; Nothing means absent; bind runs the next step on a Just but passes Nothing straight through. From the tray bring four Kleisli arrows and wire A through T(B), T(C), T(D) to T(E). Five inputs short-circuit at different depths (full success, then Nothing arising at step 1, 2, 3, and 4); a faithful chain passes all five. Each impostor fabricates on some short-circuit case — and the step-4 impostor passes the success and the step-1/2/3 failures, betraying itself ONLY when emptiness first arises at step 4. Leave them behind."
+  },
+  "goal": { "data": "Bring the four faithful machines from the tray and wire one pipeline: Ada → her registrar, and Bo, Cy, Di, Eve → Nothing.", "alchemy": "Bring the four faithful apparatus from the tray and wire one line: Sage → its seal, and Rue, Cress, Dill, Elder → empty.", "spellcraft": "Bring the four faithful workings from the tray and wire one weave: Ash → its seal, and Bramble, Cinder, Dusk, Ember → dark.", "abstract": "Bring the four arrows from the tray and wire A to T(E), passing all five cases with one chain." },
+  "objects": [
+    { "id": "obj-a", "formalLabel": "A", "labels": { "data": "User", "alchemy": "Herb", "spellcraft": "Rune", "abstract": "A" }, "description": { "data": "the user to trace", "alchemy": "the herb to trace", "spellcraft": "the rune to trace", "abstract": "object A" }, "colorToken": "sky" },
+    { "id": "obj-tb", "formalLabel": "T(B)", "labels": { "data": "Maybe Email", "alchemy": "Vial of Essence", "spellcraft": "Charm of Omen", "abstract": "T(B)" }, "description": { "data": "a box holding an email, or nothing", "alchemy": "a vial holding an essence, or empty", "spellcraft": "a charm holding an omen, or dark", "abstract": "T(B)" }, "colorToken": "amber" },
+    { "id": "obj-tc", "formalLabel": "T(C)", "labels": { "data": "Maybe Host", "alchemy": "Vial of Salt", "spellcraft": "Charm of Sign", "abstract": "T(C)" }, "description": { "data": "a box holding a host, or nothing", "alchemy": "a vial holding a salt, or empty", "spellcraft": "a charm holding a sign, or dark", "abstract": "T(C)" }, "colorToken": "violet" },
+    { "id": "obj-td", "formalLabel": "T(D)", "labels": { "data": "Maybe Domain", "alchemy": "Vial of Crystal", "spellcraft": "Charm of Fate", "abstract": "T(D)" }, "description": { "data": "a box holding a domain, or nothing", "alchemy": "a vial holding a crystal, or empty", "spellcraft": "a charm holding a fate, or dark", "abstract": "T(D)" }, "colorToken": "emerald" },
+    { "id": "obj-te", "formalLabel": "T(E)", "labels": { "data": "Maybe Registrar", "alchemy": "Vial of Seal", "spellcraft": "Charm of Seal", "abstract": "T(E)" }, "description": { "data": "a box holding a registrar, or nothing", "alchemy": "a vial holding a seal, or empty", "spellcraft": "a charm holding a seal, or dark", "abstract": "T(E)" }, "colorToken": "rose" }
+  ],
+  "morphisms": [
+    { "id": "mor-email", "formalLabel": "f", "sourceObjectId": "obj-a", "targetObjectId": "obj-tb", "labels": { "data": "Look Up Email", "alchemy": "Distil Essence", "spellcraft": "Divine Omen", "abstract": "f" }, "description": { "data": "finds the email, or Nothing when there is none (Bo)", "alchemy": "draws the essence, or empty when there is none (Rue)", "spellcraft": "divines the omen, or dark when there is none (Bramble)", "abstract": "looks up the email honestly: a₁,a₃,a₄,a₅ ↦ Just email; a₂ ↦ Nothing (Bo has none)" }, "action": { "v-ada": "v-e1", "v-bo": "v-enb", "v-cy": "v-e3", "v-di": "v-e4", "v-eve": "v-e5" } },
+    { "id": "mor-emailbad", "formalLabel": "f?", "sourceObjectId": "obj-a", "targetObjectId": "obj-tb", "labels": { "data": "Assume Email", "alchemy": "Invent Essence", "spellcraft": "Fake Omen", "abstract": "f?" }, "description": { "data": "same type, but fabricates an email even for Bo, who has none", "alchemy": "same type, but invents an essence even for Rue, who has none", "spellcraft": "same type, but fakes an omen even for Bramble, who has none", "abstract": "fakes an email on the step-1 empty case: a₂ ↦ Just fake-email (should stay Nothing)" }, "action": { "v-ada": "v-e1", "v-bo": "v-ebx", "v-cy": "v-e3", "v-di": "v-e4", "v-eve": "v-e5" } },
+    { "id": "mor-host", "formalLabel": "bind g", "sourceObjectId": "obj-tb", "targetObjectId": "obj-tc", "labels": { "data": "Then Look Up Host", "alchemy": "Then Distil Salt", "spellcraft": "Then Divine Sign", "abstract": "bind g" }, "description": { "data": "host of the email inside; Nothing when there's no host (Cy) or no email", "alchemy": "salt of the essence inside; empty when there's none", "spellcraft": "sign of the omen inside; dark when there's none", "abstract": "chains the host lookup, short-circuits honestly: Just email (a₁,a₄,a₅) ↦ Just host; Just email (a₃) ↦ Nothing (Cy has no host); Nothing ↦ Nothing" }, "action": { "v-e1": "v-h1", "v-e3": "v-hnc", "v-e4": "v-h4", "v-e5": "v-h5", "v-enb": "v-hnc", "v-ebx": "v-hbx" } },
+    { "id": "mor-hostbad", "formalLabel": "bind?", "sourceObjectId": "obj-tb", "targetObjectId": "obj-tc", "labels": { "data": "Invent Host", "alchemy": "Invent Salt", "spellcraft": "Invent Sign", "abstract": "bind?" }, "description": { "data": "same type, but conjures a host for Cy instead of admitting none", "alchemy": "same type, but conjures a salt instead of admitting none", "spellcraft": "same type, but conjures a sign instead of admitting none", "abstract": "fakes a host on the step-2 empty case: Just email (a₃) ↦ Just fake-host (should stay Nothing)" }, "action": { "v-e1": "v-h1", "v-e3": "v-hbx", "v-e4": "v-h4", "v-e5": "v-h5", "v-enb": "v-hnc", "v-ebx": "v-hbx" } },
+    { "id": "mor-domain", "formalLabel": "bind h", "sourceObjectId": "obj-tc", "targetObjectId": "obj-td", "labels": { "data": "Then Read Domain", "alchemy": "Then Cut Crystal", "spellcraft": "Then Seal Fate", "abstract": "bind h" }, "description": { "data": "domain of the host inside; Nothing when there's no domain (Di) or no host", "alchemy": "crystal of the salt inside; empty when there's none", "spellcraft": "fate of the sign inside; dark when there's none", "abstract": "chains the domain read, short-circuits honestly: Just host (a₁,a₅) ↦ Just domain; Just host (a₄) ↦ Nothing (Di has no domain); Nothing ↦ Nothing" }, "action": { "v-h1": "v-d1", "v-h4": "v-dnd", "v-h5": "v-d5", "v-hnc": "v-dnd", "v-hbx": "v-dbx" } },
+    { "id": "mor-domainbad", "formalLabel": "bind?", "sourceObjectId": "obj-tc", "targetObjectId": "obj-td", "labels": { "data": "Invent Domain", "alchemy": "Invent Crystal", "spellcraft": "Invent Fate", "abstract": "bind?" }, "description": { "data": "same type, but conjures a domain for Di instead of admitting none", "alchemy": "same type, but conjures a crystal instead of admitting none", "spellcraft": "same type, but conjures a fate instead of admitting none", "abstract": "fakes a domain on the step-3 empty case: Just host (a₄) ↦ Just fake-domain (should stay Nothing)" }, "action": { "v-h1": "v-d1", "v-h4": "v-dbx", "v-h5": "v-d5", "v-hnc": "v-dnd", "v-hbx": "v-dbx" } },
+    { "id": "mor-registrar", "formalLabel": "bind k", "sourceObjectId": "obj-td", "targetObjectId": "obj-te", "labels": { "data": "Then Look Up Registrar", "alchemy": "Then Stamp Seal", "spellcraft": "Then Cast Seal", "abstract": "bind k" }, "description": { "data": "registrar of the domain inside; Nothing when there's no registrar (Eve) or no domain", "alchemy": "seal of the crystal inside; empty when there's none", "spellcraft": "seal of the fate inside; dark when there's none", "abstract": "chains the registrar lookup, short-circuits honestly: Just domain (a₁) ↦ Just registrar; Just domain (a₅) ↦ Nothing (Eve has no registrar); Nothing ↦ Nothing" }, "action": { "v-d1": "v-r1", "v-d5": "v-rne", "v-dnd": "v-rne", "v-dbx": "v-rbx" } },
+    { "id": "mor-registrarbad", "formalLabel": "bind?", "sourceObjectId": "obj-td", "targetObjectId": "obj-te", "labels": { "data": "Invent Registrar", "alchemy": "Invent Seal", "spellcraft": "Invent Seal", "abstract": "bind?" }, "description": { "data": "same type, passes Nothing through and reads a real registrar — but conjures one for Eve, whose domain has none; only the DEEPEST empty case exposes it", "alchemy": "same type, passes empty through and reads a real seal — but conjures one for Elder, whose crystal has none; only the DEEPEST empty case exposes it", "spellcraft": "same type, passes dark through and reads a real seal — but conjures one for Ember, whose fate has none; only the DEEPEST dark case exposes it", "abstract": "passes Nothing through (a₂,a₃,a₄) and sends Just domain (a₁) ↦ Just registrar correctly, so it passes the success and every shallow empty; but on the step-4 empty case it fakes: Just domain (a₅) ↦ Just fake-registrar (should stay Nothing)" }, "action": { "v-d1": "v-r1", "v-d5": "v-rbx", "v-dnd": "v-rne", "v-dbx": "v-rbx" } }
+  ],
+  "samples": [
+    { "id": "v-ada", "objectId": "obj-a", "labels": { "data": "Ada (complete)", "alchemy": "Sage (complete)", "spellcraft": "Ash (complete)", "abstract": "a₁ (complete)" } },
+    { "id": "v-bo", "objectId": "obj-a", "labels": { "data": "Bo (no email)", "alchemy": "Rue (no essence)", "spellcraft": "Bramble (no omen)", "abstract": "a₂ (no email — step 1)" } },
+    { "id": "v-cy", "objectId": "obj-a", "labels": { "data": "Cy (no host)", "alchemy": "Cress (no salt)", "spellcraft": "Cinder (no sign)", "abstract": "a₃ (no host — step 2)" } },
+    { "id": "v-di", "objectId": "obj-a", "labels": { "data": "Di (no domain)", "alchemy": "Dill (no crystal)", "spellcraft": "Dusk (no fate)", "abstract": "a₄ (no domain — step 3)" } },
+    { "id": "v-eve", "objectId": "obj-a", "labels": { "data": "Eve (no registrar)", "alchemy": "Elder (no seal)", "spellcraft": "Ember (no seal)", "abstract": "a₅ (no registrar — step 4)" } },
+    { "id": "v-e1", "objectId": "obj-tb", "labels": { "data": "Just Ada's email", "alchemy": "Sage's essence", "spellcraft": "Ash's omen", "abstract": "Just email₁" } },
+    { "id": "v-e3", "objectId": "obj-tb", "labels": { "data": "Just Cy's email", "alchemy": "Cress's essence", "spellcraft": "Cinder's omen", "abstract": "Just email₃" } },
+    { "id": "v-e4", "objectId": "obj-tb", "labels": { "data": "Just Di's email", "alchemy": "Dill's essence", "spellcraft": "Dusk's omen", "abstract": "Just email₄" } },
+    { "id": "v-e5", "objectId": "obj-tb", "labels": { "data": "Just Eve's email", "alchemy": "Elder's essence", "spellcraft": "Ember's omen", "abstract": "Just email₅" } },
+    { "id": "v-enb", "objectId": "obj-tb", "labels": { "data": "Nothing (Bo has no email)", "alchemy": "empty (no essence)", "spellcraft": "dark (no omen)", "abstract": "Nothing (no email)" } },
+    { "id": "v-ebx", "objectId": "obj-tb", "labels": { "data": "Just a fabricated email", "alchemy": "a fabricated essence", "spellcraft": "a fabricated omen", "abstract": "Just fake-email — fabricated" } },
+    { "id": "v-h1", "objectId": "obj-tc", "labels": { "data": "Just Ada's host", "alchemy": "Sage's salt", "spellcraft": "Ash's sign", "abstract": "Just host₁" } },
+    { "id": "v-h4", "objectId": "obj-tc", "labels": { "data": "Just Di's host", "alchemy": "Dill's salt", "spellcraft": "Dusk's sign", "abstract": "Just host₄" } },
+    { "id": "v-h5", "objectId": "obj-tc", "labels": { "data": "Just Eve's host", "alchemy": "Elder's salt", "spellcraft": "Ember's sign", "abstract": "Just host₅" } },
+    { "id": "v-hnc", "objectId": "obj-tc", "labels": { "data": "Nothing (no host)", "alchemy": "empty (no salt)", "spellcraft": "dark (no sign)", "abstract": "Nothing (no host)" } },
+    { "id": "v-hbx", "objectId": "obj-tc", "labels": { "data": "Just a fabricated host", "alchemy": "a fabricated salt", "spellcraft": "a fabricated sign", "abstract": "Just fake-host — fabricated" } },
+    { "id": "v-d1", "objectId": "obj-td", "labels": { "data": "Just Ada's domain", "alchemy": "Sage's crystal", "spellcraft": "Ash's fate", "abstract": "Just domain₁" } },
+    { "id": "v-d5", "objectId": "obj-td", "labels": { "data": "Just Eve's domain", "alchemy": "Elder's crystal", "spellcraft": "Ember's fate", "abstract": "Just domain₅" } },
+    { "id": "v-dnd", "objectId": "obj-td", "labels": { "data": "Nothing (no domain)", "alchemy": "empty (no crystal)", "spellcraft": "dark (no fate)", "abstract": "Nothing (no domain)" } },
+    { "id": "v-dbx", "objectId": "obj-td", "labels": { "data": "Just a fabricated domain", "alchemy": "a fabricated crystal", "spellcraft": "a fabricated fate", "abstract": "Just fake-domain — fabricated" } },
+    { "id": "v-r1", "objectId": "obj-te", "labels": { "data": "Just Ada's registrar", "alchemy": "Sage's seal", "spellcraft": "Ash's seal", "abstract": "Just registrar" } },
+    { "id": "v-rne", "objectId": "obj-te", "labels": { "data": "Nothing (no registrar)", "alchemy": "empty (no seal)", "spellcraft": "dark (no seal)", "abstract": "Nothing (no registrar)" } },
+    { "id": "v-rbx", "objectId": "obj-te", "labels": { "data": "Just a fabricated registrar", "alchemy": "a fabricated seal", "spellcraft": "a fabricated seal", "abstract": "Just fake-registrar — fabricated" } }
+  ],
+  "initialGraph": {
+    "nodes": [
+      { "kind": "object", "nodeId": "n-a", "objectId": "obj-a", "role": "start", "position": { "x": 40, "y": 240 } },
+      { "kind": "object", "nodeId": "n-te", "objectId": "obj-te", "role": "goal", "position": { "x": 1620, "y": 240 } }
+    ],
+    "edges": []
+  },
+  "toolkit": {
+    "paletteObjectIds": ["obj-tb", "obj-tc", "obj-td"],
+    "paletteMorphismIds": ["mor-email", "mor-emailbad", "mor-host", "mor-hostbad", "mor-domain", "mor-domainbad", "mor-registrar", "mor-registrarbad"]
+  },
+  "allowedMorphismIds": ["mor-email", "mor-emailbad", "mor-host", "mor-hostbad", "mor-domain", "mor-domainbad", "mor-registrar", "mor-registrarbad"],
+  "validation": [
+    { "type": "type-valid-wiring" },
+    { "type": "concept-tag-required", "conceptTag": "composition" },
+    { "type": "required-output", "inputValueId": "v-ada", "outputValueId": "v-r1" },
+    { "type": "required-output", "inputValueId": "v-bo", "outputValueId": "v-rne" },
+    { "type": "required-output", "inputValueId": "v-cy", "outputValueId": "v-rne" },
+    { "type": "required-output", "inputValueId": "v-di", "outputValueId": "v-rne" },
+    { "type": "required-output", "inputValueId": "v-eve", "outputValueId": "v-rne" }
+  ],
+  "reveal": {
+    "afterSuccess": {
+      "data": "One pipeline, five outcomes: Ada reached her registrar, while Bo, Cy, Di, and Eve each short-circuited to Nothing at exactly the step their data ran out — no invented host, domain, or registrar anywhere. The dangerous impostor was 'Invent Registrar': it passed Nothing through correctly and read Ada's real registrar, so it sailed past the success AND the first three failures; it betrayed itself only on Eve, whose domain genuinely has no registrar — the DEEPEST empty case. That's the whole point of a monad: bind threads 'might be empty' through every step, so failure propagates honestly by construction — and it is why the suite tests every failure depth, not just the shallow ones.",
+      "alchemy": "One line, five outcomes: Sage reached its seal, while Rue, Cress, Dill, and Elder stayed empty exactly where the matter ran out. 'Invent Seal' passed empty through and read Sage's real seal, so it slipped past the success and the first three failures — and betrayed itself only on Elder, the deepest empty. That's a monad: bind threads 'might be empty' through every step.",
+      "spellcraft": "One weave, five outcomes: Ash reached its seal, while Bramble, Cinder, Dusk, and Ember stayed dark exactly where the thread ran out. 'Cast Seal's' impostor passed dark through and read Ash's real seal, so it slipped past the success and the first three failures — and betrayed itself only on Ember, the deepest dark. That's a monad: bind threads 'might fizzle' through every step.",
+      "abstract": "bind threaded ∅ through the four-arrow chain, so the composite short-circuited at the right depth for each input. The step-4 impostor passes Nothing through and agrees with the faithful bind on Just domain₁, so it clears the success and the depth-1/2/3 failures; it differs only on Just domain₅, the depth-4 empty, where it fabricates. The monad laws make this composition associative and unit-respecting — failure propagates by the laws, and only a suite covering every depth pins the behavior."
+    },
+    "summary": "A monad (a functor T with return η and bind/join μ obeying the unit and associativity laws) lets you chain steps that carry an effect — here 'might be empty' — so the effect threads through automatically. Testing every failure depth is what proves a long pipeline short-circuits instead of fabricating: an impostor can match the faithful bind on the success and every shallow failure and still invent a value when emptiness first appears at the last step.",
+    "notation": ["η : Id ⇒ T", "μ : T∘T ⇒ T", "u.bind(f).bind(g).bind(h).bind(k)"],
+    "moreFormal": "The monad laws — left/right identity (bind ∘ return = id) and associativity of bind — guarantee a chain of binds means one unambiguous thing, however grouped. Optional, List, State, and Promise are all monads.",
+    "programmerAnalogy": "user.flatMap(getEmail).flatMap(getHost).flatMap(getDomain).flatMap(getRegistrar) — one missing link anywhere yields None; nothing invented, even at the final hop."
+  },
+  "glossaryUnlocks": [],
+  "referenceSolution": {
+    "nodes": [
+      { "kind": "object", "nodeId": "n-a", "objectId": "obj-a", "role": "start", "position": { "x": 40, "y": 240 } },
+      { "kind": "morphism", "nodeId": "n-email", "morphismId": "mor-email", "position": { "x": 230, "y": 110 } },
+      { "kind": "morphism", "nodeId": "n-emailbad", "morphismId": "mor-emailbad", "position": { "x": 230, "y": 370 } },
+      { "kind": "object", "nodeId": "n-tb", "objectId": "obj-tb", "position": { "x": 430, "y": 240 } },
+      { "kind": "morphism", "nodeId": "n-host", "morphismId": "mor-host", "position": { "x": 620, "y": 110 } },
+      { "kind": "morphism", "nodeId": "n-hostbad", "morphismId": "mor-hostbad", "position": { "x": 620, "y": 370 } },
+      { "kind": "object", "nodeId": "n-tc", "objectId": "obj-tc", "position": { "x": 820, "y": 240 } },
+      { "kind": "morphism", "nodeId": "n-domain", "morphismId": "mor-domain", "position": { "x": 1010, "y": 110 } },
+      { "kind": "morphism", "nodeId": "n-domainbad", "morphismId": "mor-domainbad", "position": { "x": 1010, "y": 370 } },
+      { "kind": "object", "nodeId": "n-td", "objectId": "obj-td", "position": { "x": 1210, "y": 240 } },
+      { "kind": "morphism", "nodeId": "n-registrar", "morphismId": "mor-registrar", "position": { "x": 1400, "y": 110 } },
+      { "kind": "morphism", "nodeId": "n-registrarbad", "morphismId": "mor-registrarbad", "position": { "x": 1400, "y": 370 } },
+      { "kind": "object", "nodeId": "n-te", "objectId": "obj-te", "role": "goal", "position": { "x": 1620, "y": 240 } }
+    ],
+    "edges": [
+      { "id": "e1", "sourceNodeId": "n-a", "targetNodeId": "n-email" },
+      { "id": "e2", "sourceNodeId": "n-email", "targetNodeId": "n-tb" },
+      { "id": "e3", "sourceNodeId": "n-tb", "targetNodeId": "n-host" },
+      { "id": "e4", "sourceNodeId": "n-host", "targetNodeId": "n-tc" },
+      { "id": "e5", "sourceNodeId": "n-tc", "targetNodeId": "n-domain" },
+      { "id": "e6", "sourceNodeId": "n-domain", "targetNodeId": "n-td" },
+      { "id": "e7", "sourceNodeId": "n-td", "targetNodeId": "n-registrar" },
+      { "id": "e8", "sourceNodeId": "n-registrar", "targetNodeId": "n-te" }
+    ]
+  }
+}

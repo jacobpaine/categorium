@@ -1,0 +1,640 @@
+{
+  "status": "authored",
+  "id": "puzzle-d3",
+  "chapterId": "chapter-03-isomorphisms",
+  "order": 15,
+  "title": {
+    "data": "Undo Two Steps, Twice Over",
+    "alchemy": "Undo Two Steps, Twice Over",
+    "spellcraft": "Undo Two Steps, Twice Over",
+    "abstract": "Invert a Composite, Two Cases"
+  },
+  "intro": {
+    "data": "Sealing is TWO steps forward — Encode then Compress — and the return trip must undo BOTH with its own two steps so you get the EXACT original back. The tray hides look-alikes at every stage, and one sneaky decoder 'Lossy Open' returns the right file for message 3 but drifts to a stranger for message 5. A round trip that only restores message 3 is still broken; build the inverse chain that restores BOTH 3 and 5.",
+    "alchemy": "Sealing is TWO steps forward — Transmute then Condense — and the return must undo BOTH with its own two steps to recover the EXACT original. The tray hides look-alikes at every stage, and a sly 'Rough Revert' recovers the right bar for charge 3 but drifts to a stranger for charge 5. A round trip that only restores charge 3 is still false; build the inverse chain that restores BOTH 3 and 5.",
+    "spellcraft": "Sealing is TWO steps forward — Seal then Fold — and the return must undo BOTH with its own two steps to recover the EXACT original sigil. The tray hides look-alikes at every stage, and a sly 'Cracked Unseal' recovers the right sigil for spark 3 but drifts to a stranger for spark 5. A round trip that only restores spark 3 is still hollow; build the inverse chain that restores BOTH 3 and 5.",
+    "abstract": "Values are concrete round-trip tokens (a number, a ◆ for the once-sealed form, a ◆◆ for the twice-sealed form). The forward composite is g∘f : A→B→C; you must build the inverse chain g⁻¹ then f⁻¹ (C→B→A) so the round trip returns the original for TWO starts: 3 → 3◆ → 3◆◆ → 3◆ → 3 and 5 → 5◆ → 5◆◆ → 5◆ → 5. A fake f⁻¹ sends 3◆ ↦ 3 (matches the true one) but 5◆ ↦ 7, so it passes case 1 and fails case 2. Build the one chain that restores both and leave the impostors in the tray."
+  },
+  "goal": {
+    "data": "Bring the faithful Encode and Compress and the genuine two-step return, and wire ONE round trip that restores message 3 to 3 AND message 5 to 5.",
+    "alchemy": "Bring the faithful forward steps and the genuine two-step return, and wire ONE round trip that restores charge 3 to 3 AND charge 5 to 5.",
+    "spellcraft": "Bring the faithful forward steps and the genuine two-step return, and wire ONE round trip that restores spark 3 to 3 AND spark 5 to 5.",
+    "abstract": "Place B and C and the faithful machines, and wire one A→A round trip g⁻¹∘g and f⁻¹∘f so 3 ↦ 3 and 5 ↦ 5."
+  },
+  "conceptTags": [
+    "isomorphism"
+  ],
+  "objects": [
+    {
+      "id": "obj-a",
+      "formalLabel": "A",
+      "labels": {
+        "data": "Plain Text",
+        "alchemy": "Lead",
+        "spellcraft": "Sigil",
+        "abstract": "A"
+      },
+      "description": {
+        "data": "the original — you must get it back exactly",
+        "alchemy": "the original — you must get it back exactly",
+        "spellcraft": "the original — you must get it back exactly",
+        "abstract": "object A"
+      },
+      "colorToken": "sky"
+    },
+    {
+      "id": "obj-b",
+      "formalLabel": "B",
+      "labels": {
+        "data": "Cipher",
+        "alchemy": "Gold",
+        "spellcraft": "Seal",
+        "abstract": "B"
+      },
+      "description": {
+        "data": "the once-encoded form",
+        "alchemy": "the transmuted form",
+        "spellcraft": "the sealed form",
+        "abstract": "object B"
+      },
+      "colorToken": "violet"
+    },
+    {
+      "id": "obj-c",
+      "formalLabel": "C",
+      "labels": {
+        "data": "Packed Cipher",
+        "alchemy": "Dense Gold",
+        "spellcraft": "Folded Seal",
+        "abstract": "C"
+      },
+      "description": {
+        "data": "the twice-encoded form",
+        "alchemy": "the condensed form",
+        "spellcraft": "the folded form",
+        "abstract": "object C"
+      },
+      "colorToken": "amber"
+    }
+  ],
+  "morphisms": [
+    {
+      "id": "mor-f",
+      "formalLabel": "f",
+      "sourceObjectId": "obj-a",
+      "targetObjectId": "obj-b",
+      "labels": {
+        "data": "Encode",
+        "alchemy": "Transmute",
+        "spellcraft": "Seal",
+        "abstract": "f"
+      },
+      "description": {
+        "data": "encodes the text",
+        "alchemy": "transmutes the lead",
+        "spellcraft": "seals the sigil",
+        "abstract": "sends 3 ↦ 3◆, 5 ↦ 5◆"
+      },
+      "action": {
+        "v-a3": "v-b3",
+        "v-a5": "v-b5"
+      }
+    },
+    {
+      "id": "mor-fbad",
+      "formalLabel": "f?",
+      "sourceObjectId": "obj-a",
+      "targetObjectId": "obj-b",
+      "labels": {
+        "data": "Scramble",
+        "alchemy": "Mis-Transmute",
+        "spellcraft": "Mis-Seal",
+        "abstract": "f?"
+      },
+      "description": {
+        "data": "same type, but garbles the text",
+        "alchemy": "same type, but spoils the lead",
+        "spellcraft": "same type, but mars the sigil",
+        "abstract": "sends 3 ↦ 7◆, 5 ↦ 7◆ (garbles it, not f)"
+      },
+      "action": {
+        "v-a3": "v-b7",
+        "v-a5": "v-b7"
+      }
+    },
+    {
+      "id": "mor-g",
+      "formalLabel": "g",
+      "sourceObjectId": "obj-b",
+      "targetObjectId": "obj-c",
+      "labels": {
+        "data": "Compress",
+        "alchemy": "Condense",
+        "spellcraft": "Fold",
+        "abstract": "g"
+      },
+      "description": {
+        "data": "packs the cipher",
+        "alchemy": "condenses the gold",
+        "spellcraft": "folds the seal",
+        "abstract": "sends 3◆ ↦ 3◆◆, 5◆ ↦ 5◆◆"
+      },
+      "action": {
+        "v-b3": "v-c3",
+        "v-b5": "v-c5"
+      }
+    },
+    {
+      "id": "mor-gbad",
+      "formalLabel": "g?",
+      "sourceObjectId": "obj-b",
+      "targetObjectId": "obj-c",
+      "labels": {
+        "data": "Mash",
+        "alchemy": "Mis-Condense",
+        "spellcraft": "Mis-Fold",
+        "abstract": "g?"
+      },
+      "description": {
+        "data": "same type, but packs it wrong",
+        "alchemy": "same type, but condenses wrong",
+        "spellcraft": "same type, but folds wrong",
+        "abstract": "sends 3◆ ↦ 8◆◆, 5◆ ↦ 8◆◆ (packs it wrong, not g)"
+      },
+      "action": {
+        "v-b3": "v-c8",
+        "v-b5": "v-c8"
+      }
+    },
+    {
+      "id": "mor-p",
+      "formalLabel": "p",
+      "sourceObjectId": "obj-c",
+      "targetObjectId": "obj-b",
+      "labels": {
+        "data": "Unpack",
+        "alchemy": "Loosen",
+        "spellcraft": "Unfold",
+        "abstract": "p"
+      },
+      "description": {
+        "data": "the true inverse of Compress — unpacks back to the cipher",
+        "alchemy": "the true inverse of Condense — loosens back to the gold",
+        "spellcraft": "the true inverse of Fold — unfolds back to the seal",
+        "abstract": "g⁻¹: sends 3◆◆ ↦ 3◆, 5◆◆ ↦ 5◆ (undoes Compress)"
+      },
+      "action": {
+        "v-c3": "v-b3",
+        "v-c5": "v-b5"
+      }
+    },
+    {
+      "id": "mor-pbad",
+      "formalLabel": "p?",
+      "sourceObjectId": "obj-c",
+      "targetObjectId": "obj-b",
+      "labels": {
+        "data": "Spill",
+        "alchemy": "Spill",
+        "spellcraft": "Spill",
+        "abstract": "p?"
+      },
+      "description": {
+        "data": "same type, but unpacks to the wrong cipher",
+        "alchemy": "same type, but loosens to the wrong gold",
+        "spellcraft": "same type, but unfolds to the wrong seal",
+        "abstract": "sends 3◆◆ ↦ 9◆, 5◆◆ ↦ 9◆ (wrong cipher, not g⁻¹)"
+      },
+      "action": {
+        "v-c3": "v-b9",
+        "v-c5": "v-b9"
+      }
+    },
+    {
+      "id": "mor-q",
+      "formalLabel": "q",
+      "sourceObjectId": "obj-b",
+      "targetObjectId": "obj-a",
+      "labels": {
+        "data": "Decode",
+        "alchemy": "Revert",
+        "spellcraft": "Unseal",
+        "abstract": "q"
+      },
+      "description": {
+        "data": "the true inverse of Encode — restores the exact original",
+        "alchemy": "the true inverse of Transmute — restores the exact original",
+        "spellcraft": "the true inverse of Seal — restores the exact original",
+        "abstract": "f⁻¹: sends 3◆ ↦ 3, 5◆ ↦ 5 (undoes Encode)"
+      },
+      "action": {
+        "v-b3": "v-a3",
+        "v-b5": "v-a5"
+      }
+    },
+    {
+      "id": "mor-qfake",
+      "formalLabel": "q?",
+      "sourceObjectId": "obj-b",
+      "targetObjectId": "obj-a",
+      "labels": {
+        "data": "Lossy Open",
+        "alchemy": "Rough Revert",
+        "spellcraft": "Cracked Unseal",
+        "abstract": "q?"
+      },
+      "description": {
+        "data": "same type, restores message 3 by coincidence but drifts on message 5",
+        "alchemy": "same type, restores charge 3 by coincidence but drifts on charge 5",
+        "spellcraft": "same type, restores spark 3 by coincidence but drifts on spark 5",
+        "abstract": "sends 3◆ ↦ 3 (matches f⁻¹ here), 5◆ ↦ 7 (wrong: f⁻¹ gives 5)"
+      },
+      "action": {
+        "v-b3": "v-a3",
+        "v-b5": "v-a7"
+      }
+    },
+    {
+      "id": "mor-qbad",
+      "formalLabel": "q??",
+      "sourceObjectId": "obj-b",
+      "targetObjectId": "obj-a",
+      "labels": {
+        "data": "Shred Open",
+        "alchemy": "Botch Revert",
+        "spellcraft": "Botch Unseal",
+        "abstract": "q??"
+      },
+      "description": {
+        "data": "same type, but loses the message on both",
+        "alchemy": "same type, but loses the metal on both",
+        "spellcraft": "same type, but frays both",
+        "abstract": "sends 3◆ ↦ 7, 5◆ ↦ 7 (does NOT return the original)"
+      },
+      "action": {
+        "v-b3": "v-a7",
+        "v-b5": "v-a7"
+      }
+    }
+  ],
+  "samples": [
+    {
+      "id": "v-a3",
+      "objectId": "obj-a",
+      "labels": {
+        "data": "message 3",
+        "alchemy": "charge 3",
+        "spellcraft": "spark 3",
+        "abstract": "3"
+      }
+    },
+    {
+      "id": "v-a5",
+      "objectId": "obj-a",
+      "labels": {
+        "data": "message 5",
+        "alchemy": "charge 5",
+        "spellcraft": "spark 5",
+        "abstract": "5"
+      }
+    },
+    {
+      "id": "v-a7",
+      "objectId": "obj-a",
+      "labels": {
+        "data": "a corrupted copy",
+        "alchemy": "diminished lead",
+        "spellcraft": "a frayed sigil",
+        "abstract": "7"
+      }
+    },
+    {
+      "id": "v-b3",
+      "objectId": "obj-b",
+      "labels": {
+        "data": "cipher of 3",
+        "alchemy": "gold of 3",
+        "spellcraft": "seal of 3",
+        "abstract": "3◆"
+      }
+    },
+    {
+      "id": "v-b5",
+      "objectId": "obj-b",
+      "labels": {
+        "data": "cipher of 5",
+        "alchemy": "gold of 5",
+        "spellcraft": "seal of 5",
+        "abstract": "5◆"
+      }
+    },
+    {
+      "id": "v-b7",
+      "objectId": "obj-b",
+      "labels": {
+        "data": "a garbled cipher",
+        "alchemy": "spoiled gold",
+        "spellcraft": "a marred seal",
+        "abstract": "7◆"
+      }
+    },
+    {
+      "id": "v-b9",
+      "objectId": "obj-b",
+      "labels": {
+        "data": "a spilled cipher",
+        "alchemy": "spilled gold",
+        "spellcraft": "a spilled seal",
+        "abstract": "9◆"
+      }
+    },
+    {
+      "id": "v-c3",
+      "objectId": "obj-c",
+      "labels": {
+        "data": "packed cipher of 3",
+        "alchemy": "dense gold of 3",
+        "spellcraft": "folded seal of 3",
+        "abstract": "3◆◆"
+      }
+    },
+    {
+      "id": "v-c5",
+      "objectId": "obj-c",
+      "labels": {
+        "data": "packed cipher of 5",
+        "alchemy": "dense gold of 5",
+        "spellcraft": "folded seal of 5",
+        "abstract": "5◆◆"
+      }
+    },
+    {
+      "id": "v-c8",
+      "objectId": "obj-c",
+      "labels": {
+        "data": "a mashed cipher",
+        "alchemy": "mis-condensed gold",
+        "spellcraft": "a mis-folded seal",
+        "abstract": "8◆◆"
+      }
+    }
+  ],
+  "initialGraph": {
+    "nodes": [
+      {
+        "kind": "object",
+        "nodeId": "n-a-start",
+        "objectId": "obj-a",
+        "role": "start",
+        "position": {
+          "x": 40,
+          "y": 220
+        }
+      },
+      {
+        "kind": "object",
+        "nodeId": "n-a-goal",
+        "objectId": "obj-a",
+        "role": "goal",
+        "position": {
+          "x": 1640,
+          "y": 220
+        }
+      }
+    ],
+    "edges": []
+  },
+  "toolkit": {
+    "paletteObjectIds": [
+      "obj-b",
+      "obj-c"
+    ],
+    "paletteMorphismIds": [
+      "mor-f",
+      "mor-fbad",
+      "mor-g",
+      "mor-gbad",
+      "mor-p",
+      "mor-pbad",
+      "mor-q",
+      "mor-qfake",
+      "mor-qbad"
+    ]
+  },
+  "allowedMorphismIds": [
+    "mor-f",
+    "mor-fbad",
+    "mor-g",
+    "mor-gbad",
+    "mor-p",
+    "mor-pbad",
+    "mor-q",
+    "mor-qfake",
+    "mor-qbad"
+  ],
+  "validation": [
+    {
+      "type": "type-valid-wiring"
+    },
+    {
+      "type": "required-output",
+      "inputValueId": "v-a3",
+      "outputValueId": "v-a3"
+    },
+    {
+      "type": "required-output",
+      "inputValueId": "v-a5",
+      "outputValueId": "v-a5"
+    }
+  ],
+  "reveal": {
+    "afterSuccess": {
+      "data": "You sealed both steps forward and undid BOTH on the way back — Unpack then Decode — so message 3 and message 5 each returned exactly. 'Lossy Open' restored message 3 by coincidence but drifted to a stranger on message 5, so it passed the easy case and failed the hard one. Restoring two messages is why the return trip must be the genuine inverse of every step, not a step that merely happens to agree once.",
+      "alchemy": "You transmuted both steps forward and undid BOTH on the way back — Loosen then Revert — so charge 3 and charge 5 each returned exactly. 'Rough Revert' restored charge 3 by coincidence but drifted on charge 5, passing the easy case and failing the hard one. Two charges is why the return must be the genuine inverse of every step.",
+      "spellcraft": "You sealed both steps forward and undid BOTH on the way back — Unfold then Unseal — so spark 3 and spark 5 each returned exactly. 'Cracked Unseal' restored spark 3 by coincidence but drifted on spark 5, passing the easy case and failing the hard one. Two sparks is why the return must be the genuine inverse of every step.",
+      "abstract": "The faithful round trip (f⁻¹∘g⁻¹)∘(g∘f) sent 3 ↦ 3 and 5 ↦ 5. The fake f⁻¹ agrees with the true f⁻¹ at 3◆ (both give 3), so it passes case 1, but at 5◆ it gives 7 not 5 and fails case 2. Two cases pin the inverse: agreeing on one value is not being the inverse, and (g∘f)⁻¹ = f⁻¹∘g⁻¹ undoes the steps in reverse order."
+    },
+    "summary": "The inverse of a two-step composite is its own two steps run in reverse: (g∘f)⁻¹ = f⁻¹∘g⁻¹. Two test cases over one round trip force every return step to be the genuine inverse, not coincidentally right on a single value — a look-alike that matches the true inverse at one input still corrupts the round trip on another.",
+    "notation": [
+      "(g ∘ f)⁻¹ = f⁻¹ ∘ g⁻¹",
+      "(f⁻¹ ∘ g⁻¹) ∘ (g ∘ f) = id_A"
+    ],
+    "moreFormal": "If f : A→B and g : B→C are isomorphisms, g∘f is too, with inverse f⁻¹∘g⁻¹. A morphism that agrees with f⁻¹ on one value need not equal f⁻¹; a second case witnesses the difference.",
+    "programmerAnalogy": "decode(unpack(compress(encode(x)))) === x for every x; a round-trip test on one input can pass a buggy inverse stage — a second case catches it."
+  },
+  "glossaryUnlocks": [],
+  "referenceSolution": {
+    "nodes": [
+      {
+        "kind": "object",
+        "nodeId": "n-a-start",
+        "objectId": "obj-a",
+        "role": "start",
+        "position": {
+          "x": 40,
+          "y": 220
+        }
+      },
+      {
+        "kind": "morphism",
+        "nodeId": "n-f",
+        "morphismId": "mor-f",
+        "position": {
+          "x": 240,
+          "y": 100
+        }
+      },
+      {
+        "kind": "morphism",
+        "nodeId": "n-fbad",
+        "morphismId": "mor-fbad",
+        "position": {
+          "x": 240,
+          "y": 340
+        }
+      },
+      {
+        "kind": "object",
+        "nodeId": "n-b1",
+        "objectId": "obj-b",
+        "position": {
+          "x": 440,
+          "y": 220
+        }
+      },
+      {
+        "kind": "morphism",
+        "nodeId": "n-g",
+        "morphismId": "mor-g",
+        "position": {
+          "x": 640,
+          "y": 100
+        }
+      },
+      {
+        "kind": "morphism",
+        "nodeId": "n-gbad",
+        "morphismId": "mor-gbad",
+        "position": {
+          "x": 640,
+          "y": 340
+        }
+      },
+      {
+        "kind": "object",
+        "nodeId": "n-c",
+        "objectId": "obj-c",
+        "position": {
+          "x": 840,
+          "y": 220
+        }
+      },
+      {
+        "kind": "morphism",
+        "nodeId": "n-p",
+        "morphismId": "mor-p",
+        "position": {
+          "x": 1040,
+          "y": 100
+        }
+      },
+      {
+        "kind": "morphism",
+        "nodeId": "n-pbad",
+        "morphismId": "mor-pbad",
+        "position": {
+          "x": 1040,
+          "y": 340
+        }
+      },
+      {
+        "kind": "object",
+        "nodeId": "n-b2",
+        "objectId": "obj-b",
+        "position": {
+          "x": 1240,
+          "y": 220
+        }
+      },
+      {
+        "kind": "morphism",
+        "nodeId": "n-q",
+        "morphismId": "mor-q",
+        "position": {
+          "x": 1440,
+          "y": 100
+        }
+      },
+      {
+        "kind": "morphism",
+        "nodeId": "n-qfake",
+        "morphismId": "mor-qfake",
+        "position": {
+          "x": 1440,
+          "y": 320
+        }
+      },
+      {
+        "kind": "morphism",
+        "nodeId": "n-qbad",
+        "morphismId": "mor-qbad",
+        "position": {
+          "x": 1440,
+          "y": 460
+        }
+      },
+      {
+        "kind": "object",
+        "nodeId": "n-a-goal",
+        "objectId": "obj-a",
+        "role": "goal",
+        "position": {
+          "x": 1640,
+          "y": 220
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "e1",
+        "sourceNodeId": "n-a-start",
+        "targetNodeId": "n-f"
+      },
+      {
+        "id": "e2",
+        "sourceNodeId": "n-f",
+        "targetNodeId": "n-b1"
+      },
+      {
+        "id": "e3",
+        "sourceNodeId": "n-b1",
+        "targetNodeId": "n-g"
+      },
+      {
+        "id": "e4",
+        "sourceNodeId": "n-g",
+        "targetNodeId": "n-c"
+      },
+      {
+        "id": "e5",
+        "sourceNodeId": "n-c",
+        "targetNodeId": "n-p"
+      },
+      {
+        "id": "e6",
+        "sourceNodeId": "n-p",
+        "targetNodeId": "n-b2"
+      },
+      {
+        "id": "e7",
+        "sourceNodeId": "n-b2",
+        "targetNodeId": "n-q"
+      },
+      {
+        "id": "e8",
+        "sourceNodeId": "n-q",
+        "targetNodeId": "n-a-goal"
+      }
+    ]
+  }
+}

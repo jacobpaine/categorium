@@ -1,0 +1,99 @@
+{
+  "status": "authored",
+  "id": "puzzle-d4",
+  "chapterId": "chapter-04-functors",
+  "order": 18,
+  "title": { "data": "Lift One Pipeline, Two Crates", "alchemy": "Lift One Pipeline, Two Crates", "spellcraft": "Lift One Pipeline, Two Crates", "abstract": "Lift One Pipeline, Two Crates" },
+  "conceptTags": ["functor"],
+  "intro": {
+    "data": "One lifted line must run TWO crates: a starter crate and a heavier crate. Lift a three-step pipeline — Restock (+1), Double (x2), Seal (+5) — across the batch world, either stepwise (Batch Restocker, Batch Doubler, Batch Sealer) or with pre-lifted composites. The tray hides a sly 'Reset-to-4' lift that matches the Batch Restocker on the starter crate but stalls every item to 4 on the heavier one. A line that only ships the starter crate right is still wrong; build the lift that nails BOTH.",
+    "alchemy": "One lifted process must refine TWO crates: a starter crate and a heavier crate. Lift a three-step process — Restock (+1), Double (x2), Seal (+5) — across the crate world, either stepwise (Crate Restocker, Crate Doubler, Crate Sealer) or with pre-lifted composites. The tray hides a sly 'Reset-to-4' apparatus that matches the Crate Restocker on the starter crate but stalls every item to 4 on the heavier one. A process that only refines the starter crate is still false; build the lift that nails BOTH.",
+    "spellcraft": "One lifted rite must bind TWO flocks: a starter flock and a heavier flock. Lift a three-step rite — Restock (+1), Double (x2), Seal (+5) — across the flock world, either stepwise (Flock Restocker, Flock Doubler, Flock Sealer) or with pre-lifted composites. The tray hides a sly 'Reset-to-4' working that matches the Flock Restocker on the starter flock but stalls every item to 4 on the heavier one. A rite that only binds the starter flock is still hollow; build the lift that nails BOTH.",
+    "abstract": "F(x) means the value x lifted into the batch world (the box holding x), and a lift F(f) does f to each item inside, so F(g∘f) = F(g)∘F(f). One lifted line F(A)→F(B)→F(C)→F(D) must satisfy two cases over the same F(A) and F(D): case 1 sends F(3) ↦ F(13), case 2 sends F(4) ↦ F(15). Lift f (+1), g (×2), h (+5) stepwise or as pre-lifted composites; the impostor F(f)? (set every item to 4) coincides with F(f) on F(3) but diverges on F(4), so it passes case 1 and fails case 2. Build the one lift that passes both and leave the impostors in the tray."
+  },
+  "goal": { "data": "Bring lifts from the tray and wire ONE line that turns crate F(3) into shipment F(13) AND crate F(4) into shipment F(15).", "alchemy": "Bring lifts from the tray and wire ONE process that turns crate F(3) into batch F(13) AND crate F(4) into batch F(15).", "spellcraft": "Bring lifts from the tray and wire ONE rite that turns flock F(3) into ward F(13) AND flock F(4) into ward F(15).", "abstract": "Bring lifts from the tray and wire one F(A)→F(D) line that sends F(3) ↦ F(13) and F(4) ↦ F(15)." },
+  "objects": [
+    { "id": "obj-fa", "formalLabel": "F(A)", "labels": { "data": "Crate of Raw", "alchemy": "Crate of Ore", "spellcraft": "Flock of Sparks", "abstract": "F(A)" }, "description": { "data": "a whole crate of raw counts", "alchemy": "a whole crate of ore counts", "spellcraft": "a whole flock of spark counts", "abstract": "F(A)" }, "colorToken": "sky" },
+    { "id": "obj-fb", "formalLabel": "F(B)", "labels": { "data": "Crate of Restocked", "alchemy": "Crate of Restocked", "spellcraft": "Flock of Restocked", "abstract": "F(B)" }, "description": { "data": "a whole crate after restock", "alchemy": "a whole crate after restock", "spellcraft": "a whole flock after restock", "abstract": "F(B)" }, "colorToken": "emerald" },
+    { "id": "obj-fc", "formalLabel": "F(C)", "labels": { "data": "Crate of Doubled", "alchemy": "Crate of Doubled", "spellcraft": "Flock of Doubled", "abstract": "F(C)" }, "description": { "data": "a whole crate after doubling", "alchemy": "a whole crate after doubling", "spellcraft": "a whole flock after doubling", "abstract": "F(C)" }, "colorToken": "violet" },
+    { "id": "obj-fd", "formalLabel": "F(D)", "labels": { "data": "Crate of Shipment", "alchemy": "Crate of Batch", "spellcraft": "Flock of Wards", "abstract": "F(D)" }, "description": { "data": "the sealed shipment crate", "alchemy": "the sealed batch crate", "spellcraft": "the bound ward flock", "abstract": "F(D)" }, "colorToken": "amber" }
+  ],
+  "morphisms": [
+    { "id": "mor-Ff", "formalLabel": "F(f)", "sourceObjectId": "obj-fa", "targetObjectId": "obj-fb", "labels": { "data": "Batch Restocker", "alchemy": "Crate Restocker", "spellcraft": "Flock Restocker", "abstract": "F(f)" }, "description": { "data": "the Restock (+1) run on a whole crate — adds 1 to every item", "alchemy": "the Restock (+1) run on a whole crate — adds 1 to every item", "spellcraft": "the Restock (+1) run on a whole flock — adds 1 to every item", "abstract": "the faithful lift of f (+1): sends F(3) ↦ F(4), F(4) ↦ F(5) (does f to each item in the box)" }, "action": { "box-a3": "box-b4", "box-a4": "box-b5" } },
+    { "id": "mor-Ffbad", "formalLabel": "F(f)?", "sourceObjectId": "obj-fa", "targetObjectId": "obj-fb", "labels": { "data": "Reset-to-4", "alchemy": "Reset-to-4", "spellcraft": "Reset-to-4", "abstract": "F(f)?" }, "description": { "data": "a DIFFERENT lift — stalls every item to 4; looks like Restock on the starter crate, drifts on the heavier one", "alchemy": "a DIFFERENT lift — stalls every item to 4; looks like Restock on the starter crate, drifts on the heavier one", "spellcraft": "a DIFFERENT lift — stalls every item to 4; looks like Restock on the starter flock, drifts on the heavier one", "abstract": "set-every-item-to-4: sends F(3) ↦ F(4) (matches F(f) here), F(4) ↦ F(4) (wrong: F(f) gives F(5)) — does NOT lift f" }, "action": { "box-a3": "box-b4", "box-a4": "box-b4" } },
+    { "id": "mor-Fg", "formalLabel": "F(g)", "sourceObjectId": "obj-fb", "targetObjectId": "obj-fc", "labels": { "data": "Batch Doubler", "alchemy": "Crate Doubler", "spellcraft": "Flock Doubler", "abstract": "F(g)" }, "description": { "data": "the Double (x2) run on a whole crate — doubles every item", "alchemy": "the Double (x2) run on a whole crate — doubles every item", "spellcraft": "the Double (x2) run on a whole flock — doubles every item", "abstract": "the faithful lift of g (×2): sends F(4) ↦ F(8), F(5) ↦ F(10) (does g to each item in the box)" }, "action": { "box-b4": "box-c8", "box-b5": "box-c10" } },
+    { "id": "mor-Fgbad", "formalLabel": "F(g)?", "sourceObjectId": "obj-fb", "targetObjectId": "obj-fc", "labels": { "data": "Batch Tripler", "alchemy": "Crate Tripler", "spellcraft": "Flock Tripler", "abstract": "F(g)?" }, "description": { "data": "a DIFFERENT lift — triples every item instead of doubling", "alchemy": "a DIFFERENT lift — triples every item instead of doubling", "spellcraft": "a DIFFERENT lift — triples every item instead of doubling", "abstract": "×3: sends F(4) ↦ F(12), F(5) ↦ F(15) (wrong behavior) — does NOT lift g" }, "action": { "box-b4": "box-c12", "box-b5": "box-c15" } },
+    { "id": "mor-Fh", "formalLabel": "F(h)", "sourceObjectId": "obj-fc", "targetObjectId": "obj-fd", "labels": { "data": "Batch Sealer", "alchemy": "Crate Sealer", "spellcraft": "Flock Sealer", "abstract": "F(h)" }, "description": { "data": "the Seal (+5) run on a whole crate — adds 5 to every item", "alchemy": "the Seal (+5) run on a whole crate — adds 5 to every item", "spellcraft": "the Seal (+5) run on a whole flock — adds 5 to every item", "abstract": "the faithful lift of h (+5): sends F(8) ↦ F(13), F(10) ↦ F(15) (does h to each item in the box)" }, "action": { "box-c8": "box-d13", "box-c10": "box-d15" } },
+    { "id": "mor-Fhbad", "formalLabel": "F(h)?", "sourceObjectId": "obj-fc", "targetObjectId": "obj-fd", "labels": { "data": "Batch Misseal", "alchemy": "Crate Misseal", "spellcraft": "Flock Misseal", "abstract": "F(h)?" }, "description": { "data": "a DIFFERENT lift — adds 6 instead of 5", "alchemy": "a DIFFERENT lift — adds 6 instead of 5", "spellcraft": "a DIFFERENT lift — adds 6 instead of 5", "abstract": "+6: sends F(8) ↦ F(14), F(10) ↦ F(16) (wrong behavior) — does NOT lift h" }, "action": { "box-c8": "box-d14", "box-c10": "box-d16" } },
+    { "id": "mor-Fgf", "formalLabel": "F(g∘f)", "sourceObjectId": "obj-fa", "targetObjectId": "obj-fc", "labels": { "data": "Batch Restock+Double", "alchemy": "Crate Restock+Double", "spellcraft": "Flock Restock+Double", "abstract": "F(g∘f)" }, "description": { "data": "the first two steps lifted as one — restock then double, on a whole crate", "alchemy": "the first two steps lifted as one — restock then double, on a whole crate", "spellcraft": "the first two steps lifted as one — restock then double, on a whole flock", "abstract": "the pre-lifted composite (= F(g) ∘ F(f)): sends F(3) ↦ F(8), F(4) ↦ F(10)" }, "action": { "box-a3": "box-c8", "box-a4": "box-c10" } },
+    { "id": "mor-Fhg", "formalLabel": "F(h∘g)", "sourceObjectId": "obj-fb", "targetObjectId": "obj-fd", "labels": { "data": "Batch Double+Seal", "alchemy": "Crate Double+Seal", "spellcraft": "Flock Double+Seal", "abstract": "F(h∘g)" }, "description": { "data": "the last two steps lifted as one — double then seal, on a whole crate", "alchemy": "the last two steps lifted as one — double then seal, on a whole crate", "spellcraft": "the last two steps lifted as one — double then seal, on a whole flock", "abstract": "the pre-lifted composite (= F(h) ∘ F(g)): sends F(4) ↦ F(13), F(5) ↦ F(15)" }, "action": { "box-b4": "box-d13", "box-b5": "box-d15" } }
+  ],
+  "samples": [
+    { "id": "box-a3", "objectId": "obj-fa", "labels": { "data": "the starter crate", "alchemy": "the starter crate", "spellcraft": "the starter flock", "abstract": "F(3)" } },
+    { "id": "box-a4", "objectId": "obj-fa", "labels": { "data": "the heavier crate", "alchemy": "the heavier crate", "spellcraft": "the heavier flock", "abstract": "F(4)" } },
+    { "id": "box-b4", "objectId": "obj-fb", "labels": { "data": "restocked starter", "alchemy": "restocked starter", "spellcraft": "restocked starter", "abstract": "F(4)" } },
+    { "id": "box-b5", "objectId": "obj-fb", "labels": { "data": "restocked heavier", "alchemy": "restocked heavier", "spellcraft": "restocked heavier", "abstract": "F(5)" } },
+    { "id": "box-c8", "objectId": "obj-fc", "labels": { "data": "doubled starter", "alchemy": "doubled starter", "spellcraft": "doubled starter", "abstract": "F(8)" } },
+    { "id": "box-c10", "objectId": "obj-fc", "labels": { "data": "doubled heavier", "alchemy": "doubled heavier", "spellcraft": "doubled heavier", "abstract": "F(10)" } },
+    { "id": "box-c12", "objectId": "obj-fc", "labels": { "data": "tripled starter", "alchemy": "tripled starter", "spellcraft": "tripled starter", "abstract": "F(12) — wrong" } },
+    { "id": "box-c15", "objectId": "obj-fc", "labels": { "data": "tripled heavier", "alchemy": "tripled heavier", "spellcraft": "tripled heavier", "abstract": "F(15) — wrong" } },
+    { "id": "box-d13", "objectId": "obj-fd", "labels": { "data": "true starter shipment", "alchemy": "true starter batch", "spellcraft": "true starter ward", "abstract": "F(13)" } },
+    { "id": "box-d15", "objectId": "obj-fd", "labels": { "data": "true heavier shipment", "alchemy": "true heavier batch", "spellcraft": "true heavier ward", "abstract": "F(15)" } },
+    { "id": "box-d14", "objectId": "obj-fd", "labels": { "data": "missealed starter", "alchemy": "missealed starter", "spellcraft": "missealed starter", "abstract": "F(14) — wrong" } },
+    { "id": "box-d16", "objectId": "obj-fd", "labels": { "data": "missealed heavier", "alchemy": "missealed heavier", "spellcraft": "missealed heavier", "abstract": "F(16) — wrong" } }
+  ],
+  "initialGraph": {
+    "nodes": [
+      { "kind": "object", "nodeId": "n-fa", "objectId": "obj-fa", "role": "start", "position": { "x": 40, "y": 240 } },
+      { "kind": "object", "nodeId": "n-fd", "objectId": "obj-fd", "role": "goal", "position": { "x": 1420, "y": 240 } }
+    ],
+    "edges": []
+  },
+  "toolkit": {
+    "paletteObjectIds": ["obj-fb", "obj-fc"],
+    "paletteMorphismIds": ["mor-Ff", "mor-Ffbad", "mor-Fg", "mor-Fgbad", "mor-Fh", "mor-Fhbad", "mor-Fgf", "mor-Fhg"]
+  },
+  "allowedMorphismIds": ["mor-Ff", "mor-Ffbad", "mor-Fg", "mor-Fgbad", "mor-Fh", "mor-Fhbad", "mor-Fgf", "mor-Fhg"],
+  "validation": [
+    { "type": "type-valid-wiring" },
+    { "type": "required-output", "inputValueId": "box-a3", "outputValueId": "box-d13" },
+    { "type": "required-output", "inputValueId": "box-a4", "outputValueId": "box-d15" }
+  ],
+  "reveal": {
+    "afterSuccess": {
+      "data": "One lifted line shipped both crates: Batch Restocker, Batch Doubler, Batch Sealer sent F(3) to F(13) and F(4) to F(15). The 'Reset-to-4' lift matched the Restocker on the starter crate by coincidence but stalled the heavier one, passing the easy case and failing the hard one. The second crate is why lifting must be the genuine lift of each step, not a step that merely agrees once: F(h∘g∘f) = F(h)∘F(g)∘F(f).",
+      "alchemy": "One lifted process refined both crates: Crate Restocker, Crate Doubler, Crate Sealer sent F(3) to F(13) and F(4) to F(15). 'Reset-to-4' matched the Restocker on the starter crate by coincidence but stalled the heavier one, passing the easy case and failing the hard one. The second crate is why lifting must be the genuine lift of each step: F(h∘g∘f) = F(h)∘F(g)∘F(f).",
+      "spellcraft": "One lifted rite bound both flocks: Flock Restocker, Flock Doubler, Flock Sealer sent F(3) to F(13) and F(4) to F(15). 'Reset-to-4' matched the Restocker on the starter flock by coincidence but stalled the heavier one, passing the easy case and failing the hard one. The second flock is why lifting must be the genuine lift of each step: F(h∘g∘f) = F(h)∘F(g)∘F(f).",
+      "abstract": "The faithful lifted line F(h)∘F(g)∘F(f) sent F(3) ↦ F(13) and F(4) ↦ F(15). F(f)? (set-to-4) coincides with F(f) at F(3) (both give F(4)), so it passes case 1, but at F(4) it gives F(4) not F(5) and fails case 2. Two cases pin the lift: agreeing on one box is not the same lift — and by functoriality F(h∘g∘f) = F(h)∘F(g)∘F(f)."
+    },
+    "summary": "A functor preserves composition, so lifting a whole pipeline equals composing the lifts: F(h ∘ g ∘ f) = F(h) ∘ F(g) ∘ F(f). Two test cases over one lifted line force every lifted step to be the genuine lift, not coincidentally right on a single box; an impostor lift that matches a faithful step on one box still corrupts the line on another.",
+    "notation": ["F(h ∘ g ∘ f) = F(h) ∘ F(g) ∘ F(f) : F(A) → F(D)", "(F(h)∘F(g)∘F(f))(F(3)) = F(13), (…)(F(4)) = F(15)"],
+    "moreFormal": "F applied to a value carries it into the target category; F applied to a morphism carries the arrow. Functoriality (F(g∘f)=F(g)∘F(f), F(id)=id) means a chain of lifts equals the lift of the chain.",
+    "programmerAnalogy": "map(h ∘ g ∘ f) === map(h) ∘ map(g) ∘ map(f); a single test input can pass an impostor stage — a second input catches it."
+  },
+  "glossaryUnlocks": [],
+  "referenceSolution": {
+    "nodes": [
+      { "kind": "object", "nodeId": "n-fa", "objectId": "obj-fa", "role": "start", "position": { "x": 40, "y": 240 } },
+      { "kind": "morphism", "nodeId": "n-Ff", "morphismId": "mor-Ff", "position": { "x": 260, "y": 110 } },
+      { "kind": "morphism", "nodeId": "n-Ffbad", "morphismId": "mor-Ffbad", "position": { "x": 260, "y": 380 } },
+      { "kind": "object", "nodeId": "n-fb", "objectId": "obj-fb", "position": { "x": 500, "y": 240 } },
+      { "kind": "morphism", "nodeId": "n-Fg", "morphismId": "mor-Fg", "position": { "x": 720, "y": 110 } },
+      { "kind": "morphism", "nodeId": "n-Fgbad", "morphismId": "mor-Fgbad", "position": { "x": 720, "y": 380 } },
+      { "kind": "object", "nodeId": "n-fc", "objectId": "obj-fc", "position": { "x": 960, "y": 240 } },
+      { "kind": "morphism", "nodeId": "n-Fh", "morphismId": "mor-Fh", "position": { "x": 1180, "y": 110 } },
+      { "kind": "morphism", "nodeId": "n-Fhbad", "morphismId": "mor-Fhbad", "position": { "x": 1180, "y": 380 } },
+      { "kind": "object", "nodeId": "n-fd", "objectId": "obj-fd", "role": "goal", "position": { "x": 1420, "y": 240 } },
+      { "kind": "morphism", "nodeId": "n-Fgf", "morphismId": "mor-Fgf", "position": { "x": 500, "y": 520 } },
+      { "kind": "morphism", "nodeId": "n-Fhg", "morphismId": "mor-Fhg", "position": { "x": 960, "y": 520 } }
+    ],
+    "edges": [
+      { "id": "e1", "sourceNodeId": "n-fa", "targetNodeId": "n-Ff" },
+      { "id": "e2", "sourceNodeId": "n-Ff", "targetNodeId": "n-fb" },
+      { "id": "e3", "sourceNodeId": "n-fb", "targetNodeId": "n-Fg" },
+      { "id": "e4", "sourceNodeId": "n-Fg", "targetNodeId": "n-fc" },
+      { "id": "e5", "sourceNodeId": "n-fc", "targetNodeId": "n-Fh" },
+      { "id": "e6", "sourceNodeId": "n-Fh", "targetNodeId": "n-fd" }
+    ]
+  }
+}

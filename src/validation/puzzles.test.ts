@@ -252,6 +252,22 @@ describe('capstones — the harder end-of-chapter puzzles really resist shortcut
     if (!res.ok) expect(res.firstFailure.rule.type).toBe('required-output');
   });
 
+  it('d4 (functor, multi-case): the faithful lifted line passes BOTH crates; a coincidental impostor lift passes only the starter', () => {
+    const d4 = () => toValidationInput(getPuzzle('puzzle-d4') as never);
+    // F(f) (+1) → F(g) (×2) → F(h) (+5) sends F(3) ↦ F(13) and F(4) ↦ F(15).
+    const faithful = wire('puzzle-d4', [['n-fa', 'n-Ff'], ['n-Ff', 'n-fb'], ['n-fb', 'n-Fg'], ['n-Fg', 'n-fc'], ['n-fc', 'n-Fh'], ['n-Fh', 'n-fd']]);
+    expect(validatePuzzle(d4(), faithful).ok).toBe(true);
+    // 'Reset-to-4' (F(f)?) matches F(f) at F(3) (→F(4)) so the starter still reaches F(13), but F(4) stalls to F(4) and drifts to F(13) not F(15).
+    const impostor = wire('puzzle-d4', [['n-fa', 'n-Ffbad'], ['n-Ffbad', 'n-fb'], ['n-fb', 'n-Fg'], ['n-Fg', 'n-fc'], ['n-fc', 'n-Fh'], ['n-Fh', 'n-fd']]);
+    const res = validatePuzzle(d4(), impostor);
+    expect(res.ok).toBe(false);
+    if (!res.ok) {
+      expect(res.firstFailure.rule.type).toBe('required-output');
+      // It is the HEAVIER crate (F(4) ↦ F(15)) the impostor fails, not the starter.
+      expect((res.firstFailure.rule as { inputValueId: string }).inputValueId).toBe('box-a4');
+    }
+  });
+
   it('d1 (multi-case): the faithful chain passes BOTH batches; a coincidental impostor passes only the small one', () => {
     const d1 = () => toValidationInput(getPuzzle('puzzle-d1') as never);
     // f (+1) → g (×2) → h (+4) sends 2 ↦ 10 and 5 ↦ 16.
@@ -265,6 +281,51 @@ describe('capstones — the harder end-of-chapter puzzles really resist shortcut
       expect(res.firstFailure.rule.type).toBe('required-output');
       // It is the LARGE batch (5 ↦ 16) the impostor fails, not the small one.
       expect((res.firstFailure.rule as { inputValueId: string }).inputValueId).toBe('v-a5');
+    }
+  });
+
+  it('d2 (associativity, multi-case): every faithful grouping passes BOTH batches; the fabricating bundle passes only the near one', () => {
+    const d2 = () => toValidationInput(getPuzzle('puzzle-d2') as never);
+    // All three steps f (×2) → g (+3) → h (×2): 3 ↦ 18, 5 ↦ 26.
+    const allSteps = wire('puzzle-d2', [['n-a', 'n-f'], ['n-f', 'n-b'], ['n-b', 'n-g'], ['n-g', 'n-c'], ['n-c', 'n-h'], ['n-h', 'n-d']]);
+    expect(validatePuzzle(d2(), allSteps).ok).toBe(true);
+    // Faithful bundle then step: (g∘f) → h reaches the same goals (associativity).
+    const gfThenH = wire('puzzle-d2', [['n-a', 'n-gf'], ['n-gf', 'n-c'], ['n-c', 'n-h'], ['n-h', 'n-d']]);
+    expect(validatePuzzle(d2(), gfThenH).ok).toBe(true);
+    // Step then faithful bundle: f → (h∘g) reaches the same goals (associativity).
+    const fThenHg = wire('puzzle-d2', [['n-a', 'n-f'], ['n-f', 'n-b'], ['n-b', 'n-hg'], ['n-hg', 'n-d']]);
+    expect(validatePuzzle(d2(), fThenHg).ok).toBe(true);
+    // Fabricating bundle (g∘f)? (+6) → h: matches g∘f at 3 (→9→18) so case 1 passes, but 5→11→22 fails case 2.
+    const fabricating = wire('puzzle-d2', [['n-a', 'n-gfbad'], ['n-gfbad', 'n-c'], ['n-c', 'n-h'], ['n-h', 'n-d']]);
+    const res = validatePuzzle(d2(), fabricating);
+    expect(res.ok).toBe(false);
+    if (!res.ok) {
+      expect(res.firstFailure.rule.type).toBe('required-output');
+      // It is the FAR batch (5 ↦ 26) the fabricating bundle fails, not the near one.
+      expect((res.firstFailure.rule as { inputValueId: string }).inputValueId).toBe('v-a5');
+    }
+  });
+
+  it('d5 (product+coproduct, multi-case): the case-split then pairing passes BOTH injections; a swapped/faking pairing fails, and a one-branch impostor passes only the card case', () => {
+    const d5 = () => toValidationInput(getPuzzle('puzzle-d5') as never);
+    // [f,g] (case-split) → ⟨p,q⟩ (pair y ↦ (y,2y)) sends ι₁ 3 ↦ (5,10) and ι₂ 4 ↦ (8,16).
+    const faithful = wire('puzzle-d5', [['n-s', 'n-case'], ['n-case', 'n-y'], ['n-y', 'n-pair'], ['n-pair', 'n-p']]);
+    expect(validatePuzzle(d5(), faithful).ok).toBe(true);
+    // The case-split impostor [f,g′]? matches on ι₁ 3 (→5) so the card case still reaches (5,10),
+    // but mishandles ι₂ 4 (→9), so the pairing lands on (9,18) and the cash case fails.
+    const impostor = wire('puzzle-d5', [['n-s', 'n-casebad'], ['n-casebad', 'n-y'], ['n-y', 'n-pair'], ['n-pair', 'n-p']]);
+    const resImp = validatePuzzle(d5(), impostor);
+    expect(resImp.ok).toBe(false);
+    if (!resImp.ok) {
+      expect(resImp.firstFailure.rule.type).toBe('required-output');
+      // It is the CASH case (ι₂ 4 ↦ (8,16)) the one-branch impostor fails, not the card case.
+      expect((resImp.firstFailure.rule as { inputValueId: string }).inputValueId).toBe('v-s-cash');
+    }
+    // The swapped pairing reverses the components and the faking pairing fakes the tax — both fail.
+    for (const bad of ['n-pairswap', 'n-pairbad']) {
+      const res = validatePuzzle(d5(), wire('puzzle-d5', [['n-s', 'n-case'], ['n-case', 'n-y'], ['n-y', bad], [bad, 'n-p']]));
+      expect(res.ok, `${bad} should fail`).toBe(false);
+      if (!res.ok) expect(res.firstFailure.rule.type).toBe('required-output');
     }
   });
 });
@@ -308,6 +369,38 @@ describe('chapter 7 — monads (return, join, bind, short-circuit)', () => {
     expect(res.ok).toBe(false);
     if (!res.ok) expect(res.firstFailure.rule.type).toBe('required-output');
   });
+
+  it('d7 (four-step, five-case): the faithful chain short-circuits at every depth; the step-4 fabricating bind passes the success and the shallow failures but fails ONLY the deepest empty case', () => {
+    const d7 = () => toValidationInput(getPuzzle('puzzle-d7') as never);
+    // f → bind g → bind h → bind k : Ada ↦ Just registrar, and Bo/Cy/Di/Eve ↦ Nothing.
+    const faithful = wire('puzzle-d7', [
+      ['n-a', 'n-email'], ['n-email', 'n-tb'],
+      ['n-tb', 'n-host'], ['n-host', 'n-tc'],
+      ['n-tc', 'n-domain'], ['n-domain', 'n-td'],
+      ['n-td', 'n-registrar'], ['n-registrar', 'n-te'],
+    ]);
+    expect(validatePuzzle(d7(), faithful).ok).toBe(true);
+
+    // The reference solution (lists every authored node incl. distractors) also validates.
+    const ref = (getPuzzle('puzzle-d7') as never as { referenceSolution: PuzzleGraph }).referenceSolution;
+    expect(validatePuzzle(d7(), ref).ok).toBe(true);
+
+    // 'Invent Registrar' passes Nothing through and reads Ada's real registrar, so it clears the
+    // success AND the step-1/2/3 failures; it fabricates only when emptiness first arises at step 4 (Eve).
+    const fabricating = wire('puzzle-d7', [
+      ['n-a', 'n-email'], ['n-email', 'n-tb'],
+      ['n-tb', 'n-host'], ['n-host', 'n-tc'],
+      ['n-tc', 'n-domain'], ['n-domain', 'n-td'],
+      ['n-td', 'n-registrarbad'], ['n-registrarbad', 'n-te'],
+    ]);
+    const res2 = validatePuzzle(d7(), fabricating);
+    expect(res2.ok).toBe(false);
+    if (!res2.ok) {
+      expect(res2.firstFailure.rule.type).toBe('required-output');
+      // It is the DEEPEST empty case (Eve, no registrar at step 4) the fabricating bind fails.
+      expect((res2.firstFailure.rule as { inputValueId: string }).inputValueId).toBe('v-eve');
+    }
+  });
 });
 
 describe('chapter 8 — limits (terminal, equalizer, pullback, universal property)', () => {
@@ -338,5 +431,26 @@ describe('chapter 8 — limits (terminal, equalizer, pullback, universal propert
     const forced = validatePuzzle(toValidationInput(getPuzzle('puzzle-l4') as never), wire('puzzle-l4', [['n-x', 'n-u1'], ['n-u1', 'n-p'], ['n-p', 'n-p2'], ['n-p2', 'n-b'], ['n-b', 'n-region'], ['n-region', 'n-d']]));
     expect(forced.ok).toBe(false);
     if (!forced.ok) expect(forced.firstFailure.rule.type).toBe('required-output');
+  });
+
+  it('d8 (multi-case pullback): the key-respecting join passes BOTH cases; Force-Join passes only the matching one', () => {
+    const d8 = () => toValidationInput(getPuzzle('puzzle-d8') as never);
+    // u (join on key) → p₂ (read customer) sends the matching request (3,3) ↦ 3 AND the
+    // mismatched request (3,9) ↦ ⊥ (the no-match marker — the pullback refuses to fabricate a pair).
+    const faithful = wire('puzzle-d8', [['n-x', 'n-u'], ['n-u', 'n-p'], ['n-p', 'n-p2'], ['n-p2', 'n-b']]);
+    expect(validatePuzzle(d8(), faithful).ok).toBe(true);
+    // 'Force-Join' (u?) builds (3,3) on the matching request — so case 1 still reaches 3 — but
+    // force-fits (3,9) on the mismatched request, projecting to 9 instead of ⊥.
+    const forcedJoin = wire('puzzle-d8', [['n-x', 'n-uforce'], ['n-uforce', 'n-p'], ['n-p', 'n-p2'], ['n-p2', 'n-b']]);
+    const res = validatePuzzle(d8(), forcedJoin);
+    expect(res.ok).toBe(false);
+    if (!res.ok) {
+      expect(res.firstFailure.rule.type).toBe('required-output');
+      // It is the INCONSISTENT request (3,9 ↦ ⊥) the impostor fails, not the matching one.
+      expect((res.firstFailure.rule as { inputValueId: string }).inputValueId).toBe('v-x-incon');
+    }
+    // The loose join (u??) ignores the key entirely and fails even the matching case.
+    const loose = wire('puzzle-d8', [['n-x', 'n-uloose'], ['n-uloose', 'n-p'], ['n-p', 'n-p2'], ['n-p2', 'n-b']]);
+    expect(validatePuzzle(d8(), loose).ok).toBe(false);
   });
 });

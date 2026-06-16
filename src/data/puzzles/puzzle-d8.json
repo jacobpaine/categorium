@@ -1,0 +1,86 @@
+{
+  "status": "authored",
+  "id": "puzzle-d8",
+  "chapterId": "chapter-08-limits",
+  "order": 33,
+  "title": { "data": "The Join That Refuses to Lie", "alchemy": "The Join That Refuses to Lie", "spellcraft": "The Join That Refuses to Lie", "abstract": "The Pullback Across Two Cases" },
+  "conceptTags": ["pullback", "limit"],
+  "intro": {
+    "data": "ONE join must face TWO requests over the same source: a MATCHING request whose ids line up (3,3) and a MISMATCHED request whose ids clash (3,9). The pullback joins on the key, so it pairs the matching request into a real joined row and REFUSES the mismatched one — returning a no-match marker, never a stranger. Bring the joined-row table and the key-respecting join and projection from the tray, and wire each request through to the customer side. A sneaky 'Force-Join' returns the right customer on the matching request but fabricates a pair for the mismatched one, so it passes the easy case and fails the hard one. A join that only handles the matching request is still wrong; build the one that nails BOTH. Leave the loose join and mis-projection in the tray.",
+    "alchemy": "ONE pairing must face TWO ores over the same source: a MATCHING ore whose marks line up (3,3) and a MISMATCHED ore whose marks clash (3,9). The pullback pairs on the mark, so it matches the lined-up ore into a real pair and REFUSES the clashing one — yielding a no-match marker, never a wrong reagent. Bring the matched-pair vessel and the mark-respecting match and projection from the tray, and wire each ore through to the reagent side. A sly 'Force-Match' yields the right reagent on the matching ore but fabricates a pair for the clashing one, passing the easy case and failing the hard one. A pairing that only handles the matching ore is still false; build the one that nails BOTH. Leave the loose match and mis-projection in the tray.",
+    "spellcraft": "ONE bind must face TWO runes over the same source: a MATCHING rune whose sigils line up (3,3) and a MISMATCHED rune whose sigils clash (3,9). The pullback binds on the sigil, so it pairs the lined-up rune into a real pair and REFUSES the clashing one — yielding a no-match marker, never a wrong ward. Bring the matched-pair flame and the sigil-respecting bind and projection from the tray, and wire each rune through to the ward side. A sly 'Force-Bind' yields the right ward on the matching rune but fabricates a pair for the clashing one, passing the easy case and failing the hard one. A bind that only handles the matching rune is still hollow; build the one that nails BOTH. Leave the loose bind and mis-projection in the tray.",
+    "abstract": "Here a pair (a,b) is the carried value and a prime b′ is a different value of the same type. Given f : A → C and g : B → C, the pullback A×_C B holds only the matching pairs (a,b) with f(a)=g(b); the unique mediating map u : X → A×_C B builds that pair from a request and otherwise yields the no-match marker ⊥. Over the same X two cases run: a consistent request (3,3) with f(a)=g(b) must reach 3, and an inconsistent request (3,9) with f(a)≠g(b) must reach ⊥. From the tray bring A×_C B, the key-respecting u, and the projection p₂, and wire X → A×_C B → B for BOTH cases; an impostor u? builds (3,3) for the consistent request but force-fits (3,9) for the inconsistent one, so it passes case 1 and fails case 2. Leave the loose map and mis-projection behind."
+  },
+  "goal": { "data": "Bring the joined-row table and the faithful join and projection, and wire ONE join that turns the matching request (3,3) into customer 3 AND the mismatched request (3,9) into the no-match marker.", "alchemy": "Bring the matched-pair vessel and the faithful match and projection, and wire ONE pairing that turns the matching ore (3,3) into reagent 3 AND the clashing ore (3,9) into the no-match marker.", "spellcraft": "Bring the matched-pair flame and the faithful bind and projection, and wire ONE bind that turns the matching rune (3,3) into ward 3 AND the clashing rune (3,9) into the no-match marker.", "abstract": "Place A×_C B and the faithful u and p₂, and wire one X → A×_C B → B that sends (3,3) ↦ 3 and (3,9) ↦ ⊥." },
+  "objects": [
+    { "id": "obj-x", "formalLabel": "X", "labels": { "data": "Join Request", "alchemy": "Pairing", "spellcraft": "Binding", "abstract": "X" }, "description": { "data": "a request: a candidate order/customer pair to match on the key", "alchemy": "a candidate ore/reagent pair to match on the mark", "spellcraft": "a candidate rune/ward pair to match on the sigil", "abstract": "the source X of the mediating map" }, "colorToken": "amber" },
+    { "id": "obj-p", "formalLabel": "A×_C B", "labels": { "data": "Joined Row", "alchemy": "Matched Pair", "spellcraft": "Matched Pair", "abstract": "A×_C B" }, "description": { "data": "an order paired with a customer whose ids match, or a no-match marker", "alchemy": "an ore paired with a reagent whose marks match, or a no-match marker", "spellcraft": "a rune paired with a ward whose sigils match, or a no-match marker", "abstract": "the pullback object: matching pairs (a,b) with f(a)=g(b), plus the marker ⊥" }, "colorToken": "violet" },
+    { "id": "obj-b", "formalLabel": "B", "labels": { "data": "Customer", "alchemy": "Reagent", "spellcraft": "Ward", "abstract": "B" }, "description": { "data": "the customer side of the pair", "alchemy": "the reagent side of the pair", "spellcraft": "the ward side of the pair", "abstract": "object B" }, "colorToken": "emerald" }
+  ],
+  "morphisms": [
+    { "id": "mor-u", "formalLabel": "u", "sourceObjectId": "obj-x", "targetObjectId": "obj-p", "labels": { "data": "Join on Key", "alchemy": "Match on Mark", "spellcraft": "Bind on Sigil", "abstract": "u" }, "description": { "data": "pairs a request only when the ids match; a mismatched request yields the no-match marker", "alchemy": "pairs an ore only when the marks match; a clashing ore yields the no-match marker", "spellcraft": "pairs a rune only when the sigils match; a clashing rune yields the no-match marker", "abstract": "the unique mediating map u : X → A×_C B: builds (3,3) when f(a)=g(b), else ⊥ — (3,3) ↦ (3,3), (3,9) ↦ ⊥" }, "action": { "v-x-cons": "v-row33", "v-x-incon": "v-row-bot" } },
+    { "id": "mor-uforce", "formalLabel": "u?", "sourceObjectId": "obj-x", "targetObjectId": "obj-p", "labels": { "data": "Force-Join", "alchemy": "Force-Match", "spellcraft": "Force-Bind", "abstract": "u?" }, "description": { "data": "same type, joins matching ids correctly but force-fits a mismatched request into a bogus row instead of refusing it", "alchemy": "same type, matches lined-up marks correctly but force-fits a clashing ore into a bogus pair instead of refusing it", "spellcraft": "same type, binds lined-up sigils correctly but force-fits a clashing rune into a bogus pair instead of refusing it", "abstract": "same type X → A×_C B: (3,3) ↦ (3,3) (correct), but (3,9) ↦ (3,9) — fabricates a pair with f(a)≠g(b) instead of ⊥" }, "action": { "v-x-cons": "v-row33", "v-x-incon": "v-row39" } },
+    { "id": "mor-uloose", "formalLabel": "u??", "sourceObjectId": "obj-x", "targetObjectId": "obj-p", "labels": { "data": "Loose Join", "alchemy": "Loose Match", "spellcraft": "Loose Bind", "abstract": "u??" }, "description": { "data": "same type, but ignores the key entirely and always builds a mismatched row", "alchemy": "same type, but ignores the mark entirely and always builds a clashing pair", "spellcraft": "same type, but ignores the sigil entirely and always builds a clashing pair", "abstract": "same type X → A×_C B, but ignores the matching condition: always builds (3,9) with f(a)≠g(b) — fails even the consistent case" }, "action": { "v-x-cons": "v-row39", "v-x-incon": "v-row39" } },
+    { "id": "mor-p2", "formalLabel": "p₂", "sourceObjectId": "obj-p", "targetObjectId": "obj-b", "labels": { "data": "Read Customer", "alchemy": "Read Reagent", "spellcraft": "Read Ward", "abstract": "p₂" }, "description": { "data": "projects out the customer side of the row; the no-match marker passes through as no-match", "alchemy": "projects out the reagent side of the pair; the no-match marker passes through as no-match", "spellcraft": "projects out the ward side of the pair; the no-match marker passes through as no-match", "abstract": "the projection p₂: returns the second component — (3,3) ↦ 3, ⊥ ↦ ⊥, and on a bogus pair (3,9) ↦ 9" }, "action": { "v-row33": "v-cust3", "v-row-bot": "v-cust-bot", "v-row39": "v-cust9" } },
+    { "id": "mor-p2bad", "formalLabel": "p₂?", "sourceObjectId": "obj-p", "targetObjectId": "obj-b", "labels": { "data": "Misread Customer", "alchemy": "Misread Reagent", "spellcraft": "Misread Ward", "abstract": "p₂?" }, "description": { "data": "same type, but ignores the row and always returns the wrong customer", "alchemy": "same type, but ignores the pair and always returns the wrong reagent", "spellcraft": "same type, but ignores the pair and always returns the wrong ward", "abstract": "same type A×_C B → B, but ignores its input and always returns 9 — not the projection" }, "action": { "v-row33": "v-cust9", "v-row-bot": "v-cust9", "v-row39": "v-cust9" } }
+  ],
+  "samples": [
+    { "id": "v-x-cons", "objectId": "obj-x", "labels": { "data": "a matching request (ids agree)", "alchemy": "a matching ore (marks agree)", "spellcraft": "a matching rune (sigils agree)", "abstract": "(3,3) f(a)=g(b)" } },
+    { "id": "v-x-incon", "objectId": "obj-x", "labels": { "data": "a mismatched request (ids clash)", "alchemy": "a clashing ore (marks clash)", "spellcraft": "a clashing rune (sigils clash)", "abstract": "(3,9) f(a)≠g(b)" } },
+    { "id": "v-row33", "objectId": "obj-p", "labels": { "data": "a real joined row (ids match)", "alchemy": "a real matched pair (marks match)", "spellcraft": "a real matched pair (sigils match)", "abstract": "(3,3) consistent" } },
+    { "id": "v-row-bot", "objectId": "obj-p", "labels": { "data": "the no-match marker", "alchemy": "the no-match marker", "spellcraft": "the no-match marker", "abstract": "⊥ (no matching pair)" } },
+    { "id": "v-row39", "objectId": "obj-p", "labels": { "data": "a bogus, force-fit row (ids clash)", "alchemy": "a bogus, force-fit pair (marks clash)", "spellcraft": "a bogus, force-fit pair (sigils clash)", "abstract": "(3,9) inconsistent — not in the pullback" } },
+    { "id": "v-cust3", "objectId": "obj-b", "labels": { "data": "the real matching customer", "alchemy": "the real matching reagent", "spellcraft": "the real matching ward", "abstract": "3" } },
+    { "id": "v-cust-bot", "objectId": "obj-b", "labels": { "data": "no matching customer", "alchemy": "no matching reagent", "spellcraft": "no matching ward", "abstract": "⊥ (correct no-match)" } },
+    { "id": "v-cust9", "objectId": "obj-b", "labels": { "data": "a stranger (wrong customer)", "alchemy": "a wrong reagent", "spellcraft": "a wrong ward", "abstract": "9 — wrong" } }
+  ],
+  "initialGraph": {
+    "nodes": [
+      { "kind": "object", "nodeId": "n-x", "objectId": "obj-x", "role": "start", "position": { "x": 40, "y": 220 } },
+      { "kind": "object", "nodeId": "n-b", "objectId": "obj-b", "role": "goal", "position": { "x": 1060, "y": 220 } }
+    ],
+    "edges": []
+  },
+  "toolkit": {
+    "paletteObjectIds": ["obj-p"],
+    "paletteMorphismIds": ["mor-u", "mor-uforce", "mor-uloose", "mor-p2", "mor-p2bad"]
+  },
+  "allowedMorphismIds": ["mor-u", "mor-uforce", "mor-uloose", "mor-p2", "mor-p2bad"],
+  "validation": [
+    { "type": "type-valid-wiring" },
+    { "type": "concept-tag-required", "conceptTag": "composition" },
+    { "type": "required-output", "inputValueId": "v-x-cons", "outputValueId": "v-cust3" },
+    { "type": "required-output", "inputValueId": "v-x-incon", "outputValueId": "v-cust-bot" }
+  ],
+  "reveal": {
+    "afterSuccess": {
+      "data": "One join handled both requests: it paired the matching request into a real joined row and returned customer 3, and it REFUSED the mismatched request with a no-match marker rather than inventing a customer. That refusal is the heart of the pullback — it keeps ONLY the pairs whose keys agree (f∘p₁ = g∘p₂). 'Force-Join' returned the right customer on the easy request but fabricated a row for the clashing one, so it passed case 1 and failed case 2. The mismatched request is why a join must respect the key on every input, not just the ones that happen to line up.",
+      "alchemy": "One pairing handled both ores: it matched the lined-up ore into a real pair and returned reagent 3, and it REFUSED the clashing ore with a no-match marker rather than inventing a reagent. That refusal is the pullback: only pairs whose marks agree. 'Force-Match' fabricated a pair for the clashing ore, passing the easy case and failing the hard one.",
+      "spellcraft": "One bind handled both runes: it paired the lined-up rune into a real pair and returned ward 3, and it REFUSED the clashing rune with a no-match marker rather than inventing a ward. That refusal is the pullback: only pairs whose sigils agree. 'Force-Bind' fabricated a pair for the clashing rune, passing the easy case and failing the hard one.",
+      "abstract": "f∘p₁ = g∘p₂ held on both cases: the pullback admits the consistent pair (3,3) and projects to 3, and it sends the inconsistent (3,9) to ⊥ because no matching pair exists. u? coincides with u on the consistent request — both build (3,3) — so it passes case 1, but it force-fits (3,9) instead of ⊥ and projects to 9, failing case 2. Two cases pin the mediating map: agreeing on one input is not the universal property."
+    },
+    "summary": "The pullback of f : A → C and g : B → C is the object of matching pairs — those with f(a) = g(b) — with projections p₁, p₂ and the universal property that any request factors through a UNIQUE mediating map. Two test cases over one map force it to respect the key everywhere: the consistent request must reach the matched element, and the inconsistent one must reach the no-match marker, not a fabricated row.",
+    "notation": ["A ×_C B", "u : X → A ×_C B with p₂ ∘ u", "f ∘ p₁ = g ∘ p₂"],
+    "moreFormal": "The no-match marker is the pullback being EMPTY for that request: when no (a,b) has f(a)=g(b), the matching-pair object contributes nothing, so the honest mediating map cannot fabricate an element. Reversing the arrows dualises the pullback to a pushout.",
+    "programmerAnalogy": "orders.join(customers).on(o => o.customerId === c.id): a matching key yields the row, a clashing key yields no row — never a stranger. A unit test on a matching input can pass a buggy join; a mismatched input catches it."
+  },
+  "glossaryUnlocks": [],
+  "referenceSolution": {
+    "nodes": [
+      { "kind": "object", "nodeId": "n-x", "objectId": "obj-x", "role": "start", "position": { "x": 40, "y": 220 } },
+      { "kind": "morphism", "nodeId": "n-u", "morphismId": "mor-u", "position": { "x": 280, "y": 90 } },
+      { "kind": "morphism", "nodeId": "n-uforce", "morphismId": "mor-uforce", "position": { "x": 280, "y": 280 } },
+      { "kind": "morphism", "nodeId": "n-uloose", "morphismId": "mor-uloose", "position": { "x": 280, "y": 420 } },
+      { "kind": "object", "nodeId": "n-p", "objectId": "obj-p", "position": { "x": 540, "y": 220 } },
+      { "kind": "morphism", "nodeId": "n-p2", "morphismId": "mor-p2", "position": { "x": 800, "y": 90 } },
+      { "kind": "morphism", "nodeId": "n-p2bad", "morphismId": "mor-p2bad", "position": { "x": 800, "y": 320 } },
+      { "kind": "object", "nodeId": "n-b", "objectId": "obj-b", "role": "goal", "position": { "x": 1060, "y": 220 } }
+    ],
+    "edges": [
+      { "id": "e1", "sourceNodeId": "n-x", "targetNodeId": "n-u" },
+      { "id": "e2", "sourceNodeId": "n-u", "targetNodeId": "n-p" },
+      { "id": "e3", "sourceNodeId": "n-p", "targetNodeId": "n-p2" },
+      { "id": "e4", "sourceNodeId": "n-p2", "targetNodeId": "n-b" }
+    ]
+  }
+}
