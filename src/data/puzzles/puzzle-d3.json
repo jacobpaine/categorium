@@ -13,7 +13,7 @@
     "data": "Sealing is TWO steps forward — Encode then Compress — and the return trip must undo BOTH with its own two steps so you get the EXACT original back. The tray hides look-alikes at every stage, and one sneaky decoder 'Lossy Open' returns the right file for message 3 but drifts to a stranger for message 5. A round trip that only restores message 3 is still broken; build the inverse chain that restores BOTH 3 and 5.",
     "alchemy": "Sealing is TWO steps forward — Transmute then Condense — and the return must undo BOTH with its own two steps to recover the EXACT original. The tray hides look-alikes at every stage, and a sly 'Rough Revert' recovers the right bar for charge 3 but drifts to a stranger for charge 5. A round trip that only restores charge 3 is still false; build the inverse chain that restores BOTH 3 and 5.",
     "spellcraft": "Sealing is TWO steps forward — Seal then Fold — and the return must undo BOTH with its own two steps to recover the EXACT original sigil. The tray hides look-alikes at every stage, and a sly 'Cracked Unseal' recovers the right sigil for spark 3 but drifts to a stranger for spark 5. A round trip that only restores spark 3 is still hollow; build the inverse chain that restores BOTH 3 and 5.",
-    "abstract": "Values are concrete round-trip tokens (a number, a ◆ for the once-sealed form, a ◆◆ for the twice-sealed form). The forward composite is g∘f : A→B→C; you must build the inverse chain g⁻¹ then f⁻¹ (C→B→A) so the round trip returns the original for TWO starts: 3 → 3◆ → 3◆◆ → 3◆ → 3 and 5 → 5◆ → 5◆◆ → 5◆ → 5. A fake f⁻¹ sends 3◆ ↦ 3 (matches the true one) but 5◆ ↦ 7, so it passes case 1 and fails case 2. Build the one chain that restores both and leave the impostors in the tray."
+    "abstract": "Values are concrete round-trip tokens: a plain number, then (n) for the once-sealed form and ((n)) for the twice-sealed form. The forward composite is g∘f : A→B→C; you must build the inverse chain g⁻¹ then f⁻¹ (C→B→A) so the round trip returns the original for TWO starts: 3 → (3) → ((3)) → (3) → 3 and 5 → (5) → ((5)) → (5) → 5. A fake f⁻¹ sends (3) ↦ 3 (matches the true one) but (5) ↦ 7, so it passes case 1 and fails case 2. Build the one chain that restores both and leave the impostors in the tray."
   },
   "goal": {
     "data": "Bring the faithful Encode and Compress and the genuine two-step return, and wire ONE round trip that restores message 3 to 3 AND message 5 to 5.",
@@ -93,7 +93,7 @@
         "data": "encodes the text",
         "alchemy": "transmutes the lead",
         "spellcraft": "seals the sigil",
-        "abstract": "sends 3 ↦ 3◆, 5 ↦ 5◆"
+        "abstract": "sends 3 ↦ (3), 5 ↦ (5)"
       },
       "action": {
         "v-a3": "v-b3",
@@ -115,7 +115,7 @@
         "data": "same type, but garbles the text",
         "alchemy": "same type, but spoils the lead",
         "spellcraft": "same type, but mars the sigil",
-        "abstract": "sends 3 ↦ 7◆, 5 ↦ 7◆ (garbles it, not f)"
+        "abstract": "sends 3 ↦ (7), 5 ↦ (7) (garbles it, not f)"
       },
       "action": {
         "v-a3": "v-b7",
@@ -137,7 +137,7 @@
         "data": "packs the cipher",
         "alchemy": "condenses the gold",
         "spellcraft": "folds the seal",
-        "abstract": "sends 3◆ ↦ 3◆◆, 5◆ ↦ 5◆◆"
+        "abstract": "sends (3) ↦ ((3)), (5) ↦ ((5))"
       },
       "action": {
         "v-b3": "v-c3",
@@ -159,7 +159,7 @@
         "data": "same type, but packs it wrong",
         "alchemy": "same type, but condenses wrong",
         "spellcraft": "same type, but folds wrong",
-        "abstract": "sends 3◆ ↦ 8◆◆, 5◆ ↦ 8◆◆ (packs it wrong, not g)"
+        "abstract": "sends (3) ↦ ((8)), (5) ↦ ((8)) (packs it wrong, not g)"
       },
       "action": {
         "v-b3": "v-c8",
@@ -181,7 +181,7 @@
         "data": "the true inverse of Compress — unpacks back to the cipher",
         "alchemy": "the true inverse of Condense — loosens back to the gold",
         "spellcraft": "the true inverse of Fold — unfolds back to the seal",
-        "abstract": "g⁻¹: sends 3◆◆ ↦ 3◆, 5◆◆ ↦ 5◆ (undoes Compress)"
+        "abstract": "g⁻¹: sends ((3)) ↦ (3), ((5)) ↦ (5) (undoes Compress)"
       },
       "action": {
         "v-c3": "v-b3",
@@ -203,7 +203,7 @@
         "data": "same type, but unpacks to the wrong cipher",
         "alchemy": "same type, but loosens to the wrong gold",
         "spellcraft": "same type, but unfolds to the wrong seal",
-        "abstract": "sends 3◆◆ ↦ 9◆, 5◆◆ ↦ 9◆ (wrong cipher, not g⁻¹)"
+        "abstract": "sends ((3)) ↦ (9), ((5)) ↦ (9) (wrong cipher, not g⁻¹)"
       },
       "action": {
         "v-c3": "v-b9",
@@ -225,7 +225,7 @@
         "data": "the true inverse of Encode — restores the exact original",
         "alchemy": "the true inverse of Transmute — restores the exact original",
         "spellcraft": "the true inverse of Seal — restores the exact original",
-        "abstract": "f⁻¹: sends 3◆ ↦ 3, 5◆ ↦ 5 (undoes Encode)"
+        "abstract": "f⁻¹: sends (3) ↦ 3, (5) ↦ 5 (undoes Encode)"
       },
       "action": {
         "v-b3": "v-a3",
@@ -247,7 +247,7 @@
         "data": "same type, restores message 3 by coincidence but drifts on message 5",
         "alchemy": "same type, restores charge 3 by coincidence but drifts on charge 5",
         "spellcraft": "same type, restores spark 3 by coincidence but drifts on spark 5",
-        "abstract": "sends 3◆ ↦ 3 (matches f⁻¹ here), 5◆ ↦ 7 (wrong: f⁻¹ gives 5)"
+        "abstract": "sends (3) ↦ 3 (matches f⁻¹ here), (5) ↦ 7 (wrong: f⁻¹ gives 5)"
       },
       "action": {
         "v-b3": "v-a3",
@@ -269,7 +269,7 @@
         "data": "same type, but loses the message on both",
         "alchemy": "same type, but loses the metal on both",
         "spellcraft": "same type, but frays both",
-        "abstract": "sends 3◆ ↦ 7, 5◆ ↦ 7 (does NOT return the original)"
+        "abstract": "sends (3) ↦ 7, (5) ↦ 7 (does NOT return the original)"
       },
       "action": {
         "v-b3": "v-a7",
@@ -315,7 +315,7 @@
         "data": "cipher of 3",
         "alchemy": "gold of 3",
         "spellcraft": "seal of 3",
-        "abstract": "3◆"
+        "abstract": "(3)"
       }
     },
     {
@@ -325,7 +325,7 @@
         "data": "cipher of 5",
         "alchemy": "gold of 5",
         "spellcraft": "seal of 5",
-        "abstract": "5◆"
+        "abstract": "(5)"
       }
     },
     {
@@ -335,7 +335,7 @@
         "data": "a garbled cipher",
         "alchemy": "spoiled gold",
         "spellcraft": "a marred seal",
-        "abstract": "7◆"
+        "abstract": "(7)"
       }
     },
     {
@@ -345,7 +345,7 @@
         "data": "a spilled cipher",
         "alchemy": "spilled gold",
         "spellcraft": "a spilled seal",
-        "abstract": "9◆"
+        "abstract": "(9)"
       }
     },
     {
@@ -355,7 +355,7 @@
         "data": "packed cipher of 3",
         "alchemy": "dense gold of 3",
         "spellcraft": "folded seal of 3",
-        "abstract": "3◆◆"
+        "abstract": "((3))"
       }
     },
     {
@@ -365,7 +365,7 @@
         "data": "packed cipher of 5",
         "alchemy": "dense gold of 5",
         "spellcraft": "folded seal of 5",
-        "abstract": "5◆◆"
+        "abstract": "((5))"
       }
     },
     {
@@ -375,7 +375,7 @@
         "data": "a mashed cipher",
         "alchemy": "mis-condensed gold",
         "spellcraft": "a mis-folded seal",
-        "abstract": "8◆◆"
+        "abstract": "((8))"
       }
     }
   ],
@@ -452,7 +452,7 @@
       "data": "You sealed both steps forward and undid BOTH on the way back — Unpack then Decode — so message 3 and message 5 each returned exactly. 'Lossy Open' restored message 3 by coincidence but drifted to a stranger on message 5, so it passed the easy case and failed the hard one. Restoring two messages is why the return trip must be the genuine inverse of every step, not a step that merely happens to agree once.",
       "alchemy": "You transmuted both steps forward and undid BOTH on the way back — Loosen then Revert — so charge 3 and charge 5 each returned exactly. 'Rough Revert' restored charge 3 by coincidence but drifted on charge 5, passing the easy case and failing the hard one. Two charges is why the return must be the genuine inverse of every step.",
       "spellcraft": "You sealed both steps forward and undid BOTH on the way back — Unfold then Unseal — so spark 3 and spark 5 each returned exactly. 'Cracked Unseal' restored spark 3 by coincidence but drifted on spark 5, passing the easy case and failing the hard one. Two sparks is why the return must be the genuine inverse of every step.",
-      "abstract": "The faithful round trip (f⁻¹∘g⁻¹)∘(g∘f) sent 3 ↦ 3 and 5 ↦ 5. The fake f⁻¹ agrees with the true f⁻¹ at 3◆ (both give 3), so it passes case 1, but at 5◆ it gives 7 not 5 and fails case 2. Two cases pin the inverse: agreeing on one value is not being the inverse, and (g∘f)⁻¹ = f⁻¹∘g⁻¹ undoes the steps in reverse order."
+      "abstract": "The faithful round trip (f⁻¹∘g⁻¹)∘(g∘f) sent 3 ↦ 3 and 5 ↦ 5. The fake f⁻¹ agrees with the true f⁻¹ at (3) (both give 3), so it passes case 1, but at (5) it gives 7 not 5 and fails case 2. Two cases pin the inverse: agreeing on one value is not being the inverse, and (g∘f)⁻¹ = f⁻¹∘g⁻¹ undoes the steps in reverse order."
     },
     "summary": "The inverse of a two-step composite is its own two steps run in reverse: (g∘f)⁻¹ = f⁻¹∘g⁻¹. Two test cases over one round trip force every return step to be the genuine inverse, not coincidentally right on a single value — a look-alike that matches the true inverse at one input still corrupts the round trip on another.",
     "notation": [

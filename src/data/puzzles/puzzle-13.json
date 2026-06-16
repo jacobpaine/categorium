@@ -9,7 +9,7 @@
     "data": "Encode is reversible, and so is Compress. Chain two reversible steps and the whole journey is reversible. Your tray holds Encode, the lossless finisher, and a lossy look-alike that loses detail. Bring Encode and the lossless finisher onto the board and wire them to reach the archive, leaving the lossy one in the tray.",
     "alchemy": "Grind is reversible, and so is Mint. Chain two reversible steps and the whole journey is reversible. Your tray holds Grind, the lossless finisher, and a lossy look-alike that loses detail. Bring Grind and the lossless finisher onto the board and wire them to reach the coin, leaving the lossy one in the tray.",
     "spellcraft": "Etch is reversible, and so is Seal. Chain two reversible steps and the whole working is reversible. Your tray holds Etch, the lossless finisher, and a lossy look-alike that loses detail. Bring Etch and the lossless finisher onto the board and wire them to reach the ward, leaving the lossy one in the tray.",
-    "abstract": "f and the right h are isomorphisms; chained, the composite is too. Here values are concrete: f sends 2 ↦ 2▲ (invertible) and the true h sends 2▲ ↦ 2◆ (invertible), so the whole chain can be undone, while the lossy look-alike sends 2▲ ↦ 8 and cannot. Bring f and the true h from the tray and wire them, leaving the lossy one behind."
+    "abstract": "f and the right h are isomorphisms; chained, the composite is too. Here values are concrete: f sends 2 ↦ (2) (invertible) and the true h sends (2) ↦ ((2)) (invertible), so the whole chain can be undone, while the lossy look-alike sends (2) ↦ 8 and cannot. Bring f and the true h from the tray and wire them, leaving the lossy one behind."
   },
   "goal": { "data": "Bring Encode and the lossless finisher from the tray and wire them to reach the archive.", "alchemy": "Bring Grind and the lossless finisher from the tray and wire them to reach the coin.", "spellcraft": "Bring Etch and the lossless finisher from the tray and wire them to reach the ward.", "abstract": "Bring f and the invertible B→C morphism from the tray and wire them to reach C, leaving the lossy one in the tray." },
   "objects": [
@@ -18,14 +18,14 @@
     { "id": "obj-c", "formalLabel": "C", "labels": { "data": "Archive", "alchemy": "Coin", "spellcraft": "Ward", "abstract": "C" }, "colorToken": "amber" }
   ],
   "morphisms": [
-    { "id": "mor-f", "formalLabel": "f", "sourceObjectId": "obj-a", "targetObjectId": "obj-b", "labels": { "data": "Encode", "alchemy": "Grind", "spellcraft": "Etch", "abstract": "f" }, "description": { "data": "packs the data into a blob", "alchemy": "grinds the ore into powder", "spellcraft": "etches the spark into a glyph", "abstract": "sends 2 ↦ 2▲ (invertible)" }, "action": { "v-a": "v-b" } },
-    { "id": "mor-h", "formalLabel": "h", "sourceObjectId": "obj-b", "targetObjectId": "obj-c", "labels": { "data": "Compress", "alchemy": "Mint", "spellcraft": "Seal", "abstract": "h" }, "description": { "data": "lossless (reversible)", "alchemy": "lossless (reversible)", "spellcraft": "lossless (reversible)", "abstract": "sends 2▲ ↦ 2◆ (an isomorphism, invertible)" }, "action": { "v-b": "v-c" } },
-    { "id": "mor-hbad", "formalLabel": "h′", "sourceObjectId": "obj-b", "targetObjectId": "obj-c", "labels": { "data": "Flatten", "alchemy": "Melt", "spellcraft": "Smear", "abstract": "h′" }, "description": { "data": "lossy (not reversible)", "alchemy": "lossy (not reversible)", "spellcraft": "lossy (not reversible)", "abstract": "sends 2▲ ↦ 8 (lossy, not invertible)" }, "action": { "v-b": "v-cx" } }
+    { "id": "mor-f", "formalLabel": "f", "sourceObjectId": "obj-a", "targetObjectId": "obj-b", "labels": { "data": "Encode", "alchemy": "Grind", "spellcraft": "Etch", "abstract": "f" }, "description": { "data": "packs the data into a blob", "alchemy": "grinds the ore into powder", "spellcraft": "etches the spark into a glyph", "abstract": "sends 2 ↦ (2) (invertible)" }, "action": { "v-a": "v-b" } },
+    { "id": "mor-h", "formalLabel": "h", "sourceObjectId": "obj-b", "targetObjectId": "obj-c", "labels": { "data": "Compress", "alchemy": "Mint", "spellcraft": "Seal", "abstract": "h" }, "description": { "data": "lossless (reversible)", "alchemy": "lossless (reversible)", "spellcraft": "lossless (reversible)", "abstract": "sends (2) ↦ ((2)) (an isomorphism, invertible)" }, "action": { "v-b": "v-c" } },
+    { "id": "mor-hbad", "formalLabel": "h′", "sourceObjectId": "obj-b", "targetObjectId": "obj-c", "labels": { "data": "Flatten", "alchemy": "Melt", "spellcraft": "Smear", "abstract": "h′" }, "description": { "data": "lossy (not reversible)", "alchemy": "lossy (not reversible)", "spellcraft": "lossy (not reversible)", "abstract": "sends (2) ↦ 8 (lossy, not invertible)" }, "action": { "v-b": "v-cx" } }
   ],
   "samples": [
     { "id": "v-a", "objectId": "obj-a", "labels": { "data": "the file", "alchemy": "the bar", "spellcraft": "the sigil", "abstract": "2" } },
-    { "id": "v-b", "objectId": "obj-b", "labels": { "data": "packed blob", "alchemy": "gold dust", "spellcraft": "glyph", "abstract": "2▲" } },
-    { "id": "v-c", "objectId": "obj-c", "labels": { "data": "the archive", "alchemy": "the coin", "spellcraft": "the ward", "abstract": "2◆" } },
+    { "id": "v-b", "objectId": "obj-b", "labels": { "data": "packed blob", "alchemy": "gold dust", "spellcraft": "glyph", "abstract": "(2)" } },
+    { "id": "v-c", "objectId": "obj-c", "labels": { "data": "the archive", "alchemy": "the coin", "spellcraft": "the ward", "abstract": "((2))" } },
     { "id": "v-cx", "objectId": "obj-c", "labels": { "data": "a flattened blob", "alchemy": "a melted lump", "spellcraft": "a smeared mark", "abstract": "8" } }
   ],
   "initialGraph": {
