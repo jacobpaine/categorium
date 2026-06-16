@@ -3,12 +3,11 @@
  * from the player-facing list (and logged loudly in dev) so a broken puzzle never reaches the
  * chapter map. Themes and glossary parse strictly — a failure there is a build-time bug.
  */
-import { safeParsePuzzle, parseThemes, parseGlossary, parseTour, parseQuiz } from '../schemas';
-import type { AuthoredPuzzle, Puzzle, Theme, GlossaryEntry, QuizQuestion } from '../schemas';
+import { safeParsePuzzle, parseGlossary, parseTour, parseQuiz } from '../schemas';
+import type { AuthoredPuzzle, Puzzle, GlossaryEntry, QuizQuestion } from '../schemas';
 import type { Diagram } from '../domain';
 import type { ValidationInput } from '../validation';
 
-import themesJson from './themes.json';
 import glossaryJson from './glossary.json';
 import tourJson from './tour.json';
 import quizJson from './quiz.json';
@@ -38,7 +37,9 @@ function loadPuzzles(): Puzzle[] {
 }
 
 export const PUZZLES: Puzzle[] = loadPuzzles();
-export const THEMES: Theme[] = parseThemes(themesJson);
+// THEMES / getTheme live in ./themes so importing just theme metadata doesn't pull this barrel
+// (and its eager puzzle glob) into the bundle. Re-exported here to keep the data API in one place.
+export { THEMES, getTheme } from './themes';
 export const GLOSSARY: GlossaryEntry[] = parseGlossary(glossaryJson);
 /** The interactive introduction ("Chapter 0") — guided, playable definition steps. */
 export const TOUR: AuthoredPuzzle[] = parseTour(tourJson);
@@ -47,10 +48,6 @@ export const QUIZ: QuizQuestion[] = parseQuiz(quizJson);
 
 export function getPuzzle(id: string): Puzzle | undefined {
   return PUZZLES.find((p) => p.id === id);
-}
-
-export function getTheme(id: string): Theme | undefined {
-  return THEMES.find((t) => t.id === id);
 }
 
 export function getGlossaryEntry(id: string): GlossaryEntry | undefined {

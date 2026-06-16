@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { Check, GraduationCap, Sparkles } from 'lucide-react';
-import { THEMES } from '../../data';
+import { THEMES } from '../../data/themes';
 import { useProgressStore } from '../../state/progressStore';
 import type { ThemeId } from '../../domain';
 

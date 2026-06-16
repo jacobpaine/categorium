@@ -1,12 +1,21 @@
+import { lazy, Suspense } from 'react';
 import { Routes, Route, Link, NavLink } from 'react-router-dom';
 import { ThemeSelect } from './screens/ThemeSelect';
-import { ChapterMap } from './screens/ChapterMap';
-import { PuzzleScreen } from './screens/PuzzleScreen';
-import { TourScreen } from './screens/TourScreen';
-import { GlossaryScreen } from './screens/GlossaryScreen';
-import { QuizScreen } from './screens/QuizScreen';
-import { SettingsScreen } from './screens/SettingsScreen';
 import { useDebugStore } from '../devtools/debugStore';
+
+// The landing screen (ThemeSelect) stays eager so first paint is instant. The rest load on demand
+// — this keeps React Flow (the heavy canvas dependency, pulled in by the puzzle/tour screens) out
+// of the initial bundle. Named exports are remapped to the default `lazy` expects.
+const ChapterMap = lazy(() => import('./screens/ChapterMap').then((m) => ({ default: m.ChapterMap })));
+const PuzzleScreen = lazy(() => import('./screens/PuzzleScreen').then((m) => ({ default: m.PuzzleScreen })));
+const TourScreen = lazy(() => import('./screens/TourScreen').then((m) => ({ default: m.TourScreen })));
+const GlossaryScreen = lazy(() => import('./screens/GlossaryScreen').then((m) => ({ default: m.GlossaryScreen })));
+const QuizScreen = lazy(() => import('./screens/QuizScreen').then((m) => ({ default: m.QuizScreen })));
+const SettingsScreen = lazy(() => import('./screens/SettingsScreen').then((m) => ({ default: m.SettingsScreen })));
+
+function RouteFallback() {
+  return <div className="px-6 py-8 text-sm text-slate-400">Loading…</div>;
+}
 
 export default function App() {
   const debug = useDebugStore((s) => s.enabled);
@@ -48,16 +57,18 @@ export default function App() {
         </nav>
       </header>
       <main className="flex-1">
-        <Routes>
-          <Route path="/" element={<ThemeSelect />} />
-          <Route path="/intro" element={<TourScreen />} />
-          <Route path="/chapters" element={<ChapterMap />} />
-          <Route path="/chapter/:chapterId/puzzle/:puzzleId" element={<PuzzleScreen />} />
-          <Route path="/glossary" element={<GlossaryScreen />} />
-          <Route path="/quiz" element={<QuizScreen />} />
-          <Route path="/settings" element={<SettingsScreen />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        <Suspense fallback={<RouteFallback />}>
+          <Routes>
+            <Route path="/" element={<ThemeSelect />} />
+            <Route path="/intro" element={<TourScreen />} />
+            <Route path="/chapters" element={<ChapterMap />} />
+            <Route path="/chapter/:chapterId/puzzle/:puzzleId" element={<PuzzleScreen />} />
+            <Route path="/glossary" element={<GlossaryScreen />} />
+            <Route path="/quiz" element={<QuizScreen />} />
+            <Route path="/settings" element={<SettingsScreen />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Suspense>
       </main>
     </div>
   );
