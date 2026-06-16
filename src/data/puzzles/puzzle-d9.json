@@ -1,0 +1,94 @@
+{
+  "status": "authored",
+  "kind": "natural-transformation",
+  "id": "puzzle-d9",
+  "chapterId": "chapter-09-functor-categories",
+  "order": 35,
+  "title": { "data": "Stack Three Transformations", "alchemy": "Stack Three Transformations", "spellcraft": "Stack Three Transformations", "abstract": "Vertical Composition of Three" },
+  "intro": {
+    "data": "You have THREE uniform conversions in a row: safeHead turns a List into an Optional, 'As a List' turns that Optional into a thin List, and safeHead again turns it back into an Optional. Run all three in order and you get a SINGLE conversion, List ⇒ Optional — that's vertical composition of three transformations. At each type its component is the three component arrows composed: (γ·β·α)_A = γ_A ∘ β_A ∘ α_A. Pick that triple composite at each type; the look-alikes splice in a default and aren't natural.",
+    "alchemy": "You have THREE uniform methods in a row: F to G, then G to H, then H to K. Run all three and you get a SINGLE method, F ⇒ K — vertical composition of three. At each material its component is the three steps composed: (γ·β·α)_A = γ_A ∘ β_A ∘ α_A. Pick that triple composite; the look-alikes splice in a spare and aren't natural.",
+    "spellcraft": "You have THREE uniform workings in a row: F to G, then G to H, then H to K. Cast all three and you get a SINGLE working, F ⇒ K — vertical composition of three. At each essence its component is the three runes composed: (γ·β·α)_A = γ_A ∘ β_A ∘ α_A. Choose that triple composite; the look-alikes splice in a conjured one and aren't natural.",
+    "abstract": "Given α : F ⇒ G, β : G ⇒ H and γ : H ⇒ K, build the vertical composite γ·β·α : F ⇒ K. Its component at A is γ_A ∘ β_A ∘ α_A. Pick that composite at each object; non-composite, non-natural families are offered as distractors."
+  },
+  "goal": { "data": "Pick the triple composite (safeHead, then As a List, then safeHead) at each type.", "alchemy": "Pick the triple composite at each material.", "spellcraft": "Choose the triple composite at each essence.", "abstract": "Choose γ_A ∘ β_A ∘ α_A at each object." },
+  "sourceCategory": {
+    "objects": [
+      { "id": "obj-a", "formalLabel": "A", "labels": { "data": "User", "alchemy": "Herb", "spellcraft": "Rune", "abstract": "A" }, "description": { "data": "a data type — choose the triple composite here", "alchemy": "a material — choose the triple composite here", "spellcraft": "an essence — choose the triple composite here", "abstract": "object A of C" } },
+      { "id": "obj-b", "formalLabel": "B", "labels": { "data": "Email", "alchemy": "Essence", "spellcraft": "Spark", "abstract": "B" }, "description": { "data": "a data type — choose the triple composite here", "alchemy": "a material — choose the triple composite here", "spellcraft": "an essence — choose the triple composite here", "abstract": "object B of C" } }
+    ],
+    "morphisms": [
+      { "id": "mor-f", "formalLabel": "f", "sourceObjectId": "obj-a", "targetObjectId": "obj-b", "labels": { "data": "getEmail", "alchemy": "Extract", "spellcraft": "Invoke", "abstract": "f" } }
+    ]
+  },
+  "targetCategory": {
+    "objects": [
+      { "id": "d-fa", "formalLabel": "F(A)", "labels": { "data": "List of Users", "alchemy": "Bundle of Herbs", "spellcraft": "Web of Runes", "abstract": "F(A)" }, "colorToken": "sky" },
+      { "id": "d-fb", "formalLabel": "F(B)", "labels": { "data": "List of Emails", "alchemy": "Bundle of Essences", "spellcraft": "Web of Sparks", "abstract": "F(B)" }, "colorToken": "emerald" },
+      { "id": "d-ga", "formalLabel": "G(A)", "labels": { "data": "Optional User", "alchemy": "One Herb (or empty)", "spellcraft": "Top Rune (or none)", "abstract": "G(A)" }, "colorToken": "sky" },
+      { "id": "d-gb", "formalLabel": "G(B)", "labels": { "data": "Optional Email", "alchemy": "One Essence (or empty)", "spellcraft": "Top Spark (or none)", "abstract": "G(B)" }, "colorToken": "emerald" },
+      { "id": "d-ha", "formalLabel": "H(A)", "labels": { "data": "List (0-or-1) of Users", "alchemy": "Thin Bundle of Herbs", "spellcraft": "Thin Web of Runes", "abstract": "H(A)" }, "colorToken": "sky" },
+      { "id": "d-hb", "formalLabel": "H(B)", "labels": { "data": "List (0-or-1) of Emails", "alchemy": "Thin Bundle of Essences", "spellcraft": "Thin Web of Sparks", "abstract": "H(B)" }, "colorToken": "emerald" },
+      { "id": "d-ka", "formalLabel": "K(A)", "labels": { "data": "Optional User", "alchemy": "One Herb (or empty)", "spellcraft": "Top Rune (or none)", "abstract": "K(A)" }, "colorToken": "sky" },
+      { "id": "d-kb", "formalLabel": "K(B)", "labels": { "data": "Optional Email", "alchemy": "One Essence (or empty)", "spellcraft": "Top Spark (or none)", "abstract": "K(B)" }, "colorToken": "emerald" }
+    ],
+    "morphisms": [
+      { "id": "d-Ff", "formalLabel": "F(f)", "sourceObjectId": "d-fa", "targetObjectId": "d-fb", "labels": { "data": "map getEmail", "alchemy": "Extract Each", "spellcraft": "Invoke Each", "abstract": "F(f)" } },
+      { "id": "d-Gf", "formalLabel": "G(f)", "sourceObjectId": "d-ga", "targetObjectId": "d-gb", "labels": { "data": "map? getEmail", "alchemy": "Extract the One", "spellcraft": "Invoke the One", "abstract": "G(f)" } },
+      { "id": "d-Hf", "formalLabel": "H(f)", "sourceObjectId": "d-ha", "targetObjectId": "d-hb", "labels": { "data": "map getEmail", "alchemy": "Extract Each", "spellcraft": "Invoke Each", "abstract": "H(f)" } },
+      { "id": "d-Kf", "formalLabel": "K(f)", "sourceObjectId": "d-ka", "targetObjectId": "d-kb", "labels": { "data": "map? getEmail", "alchemy": "Extract the One", "spellcraft": "Invoke the One", "abstract": "K(f)" } },
+      { "id": "d-alphaA", "formalLabel": "α_A", "sourceObjectId": "d-fa", "targetObjectId": "d-ga", "labels": { "data": "safeHead", "alchemy": "Take First", "spellcraft": "Take Top", "abstract": "α_A" } },
+      { "id": "d-alphaB", "formalLabel": "α_B", "sourceObjectId": "d-fb", "targetObjectId": "d-gb", "labels": { "data": "safeHead", "alchemy": "Take First", "spellcraft": "Take Top", "abstract": "α_B" } },
+      { "id": "d-betaA", "formalLabel": "β_A", "sourceObjectId": "d-ga", "targetObjectId": "d-ha", "labels": { "data": "As a List", "alchemy": "As a Bundle", "spellcraft": "As a Web", "abstract": "β_A" } },
+      { "id": "d-betaB", "formalLabel": "β_B", "sourceObjectId": "d-gb", "targetObjectId": "d-hb", "labels": { "data": "As a List", "alchemy": "As a Bundle", "spellcraft": "As a Web", "abstract": "β_B" } },
+      { "id": "d-gammaA", "formalLabel": "γ_A", "sourceObjectId": "d-ha", "targetObjectId": "d-ka", "labels": { "data": "safeHead", "alchemy": "Take First", "spellcraft": "Take Top", "abstract": "γ_A" } },
+      { "id": "d-gammaB", "formalLabel": "γ_B", "sourceObjectId": "d-hb", "targetObjectId": "d-kb", "labels": { "data": "safeHead", "alchemy": "Take First", "spellcraft": "Take Top", "abstract": "γ_B" } },
+      { "id": "d-baA", "formalLabel": "(β·α)_A", "sourceObjectId": "d-fa", "targetObjectId": "d-ha", "labels": { "data": "First, As a List", "alchemy": "Take First, As a Bundle", "spellcraft": "Take Top, As a Web", "abstract": "β_A ∘ α_A" }, "description": { "data": "the first two stacked: safeHead, then As a List", "alchemy": "the first two stacked: Take First, then As a Bundle", "spellcraft": "the first two stacked: Take Top, then As a Web", "abstract": "running α_A then β_A: the partial composite β_A ∘ α_A : F(A) → H(A)" } },
+      { "id": "d-baB", "formalLabel": "(β·α)_B", "sourceObjectId": "d-fb", "targetObjectId": "d-hb", "labels": { "data": "First, As a List", "alchemy": "Take First, As a Bundle", "spellcraft": "Take Top, As a Web", "abstract": "β_B ∘ α_B" }, "description": { "data": "the first two stacked: safeHead, then As a List", "alchemy": "the first two stacked: Take First, then As a Bundle", "spellcraft": "the first two stacked: Take Top, then As a Web", "abstract": "running α_B then β_B: the partial composite β_B ∘ α_B : F(B) → H(B)" } },
+      { "id": "d-compA", "formalLabel": "(γ·β·α)_A", "sourceObjectId": "d-fa", "targetObjectId": "d-ka", "labels": { "data": "First, As a List, First", "alchemy": "First, As a Bundle, First", "spellcraft": "Top, As a Web, Top", "abstract": "γ_A ∘ β_A ∘ α_A" }, "description": { "data": "the triple composite: safeHead, then As a List, then safeHead — back to an Optional, the natural choice", "alchemy": "the triple composite: Take First, As a Bundle, Take First — back to one, the natural choice", "spellcraft": "the triple composite: Take Top, As a Web, Take Top — back to one, the natural choice", "abstract": "take the first element, wrap as a list, take the first again — running α_A then β_A then γ_A, exactly γ_A ∘ β_A ∘ α_A; all three natural squares stack, so the composite is natural" } },
+      { "id": "d-compB", "formalLabel": "(γ·β·α)_B", "sourceObjectId": "d-fb", "targetObjectId": "d-kb", "labels": { "data": "First, As a List, First", "alchemy": "First, As a Bundle, First", "spellcraft": "Top, As a Web, Top", "abstract": "γ_B ∘ β_B ∘ α_B" }, "description": { "data": "the triple composite: safeHead, then As a List, then safeHead — back to an Optional, the natural choice", "alchemy": "the triple composite: Take First, As a Bundle, Take First — back to one, the natural choice", "spellcraft": "the triple composite: Take Top, As a Web, Take Top — back to one, the natural choice", "abstract": "take the first element, wrap as a list, take the first again — running α_B then β_B then γ_B, exactly γ_B ∘ β_B ∘ α_B; all three natural squares stack, so the composite is natural" } },
+      { "id": "d-deltaA", "formalLabel": "δ_A", "sourceObjectId": "d-fa", "targetObjectId": "d-ka", "labels": { "data": "Default Triple", "alchemy": "Spare Triple", "spellcraft": "Conjured Triple", "abstract": "δ_A" }, "description": { "data": "same type F(A) → K(A), but on the empty list it splices in a MADE-UP default — not the composite, not natural", "alchemy": "same type, but on the empty bundle it splices in a spare — not the composite, not natural", "spellcraft": "same type, but on the empty web it conjures one — not the composite, not natural", "abstract": "on the empty list it returns a MADE-UP default instead of staying empty — that differs from γ_A ∘ β_A ∘ α_A, so it isn't the composite and breaks the naturality square" } },
+      { "id": "d-deltaB", "formalLabel": "δ_B", "sourceObjectId": "d-fb", "targetObjectId": "d-kb", "labels": { "data": "Default Triple", "alchemy": "Spare Triple", "spellcraft": "Conjured Triple", "abstract": "δ_B" }, "description": { "data": "same type F(B) → K(B), but on the empty list it splices in a MADE-UP default — not the composite, not natural", "alchemy": "same type, but on the empty bundle it splices in a spare — not the composite, not natural", "spellcraft": "same type, but on the empty web it conjures one — not the composite, not natural", "abstract": "on the empty list it returns a MADE-UP default instead of staying empty — that differs from γ_B ∘ β_B ∘ α_B, so it isn't the composite and breaks the naturality square" } },
+      { "id": "d-skipA", "formalLabel": "σ_A", "sourceObjectId": "d-fa", "targetObjectId": "d-ka", "labels": { "data": "Drop-the-Middle", "alchemy": "Drop-the-Middle", "spellcraft": "Drop-the-Middle", "abstract": "σ_A" }, "description": { "data": "same type F(A) → K(A), but skips a step and re-pads the result differently — not the triple composite, not natural", "alchemy": "same type, but skips a step and re-pads differently — not the triple composite, not natural", "spellcraft": "same type, but skips a step and re-pads differently — not the triple composite, not natural", "abstract": "drops the middle step and re-pads the empty case with a MADE-UP value — it differs from γ_A ∘ β_A ∘ α_A and breaks the naturality square" } },
+      { "id": "d-skipB", "formalLabel": "σ_B", "sourceObjectId": "d-fb", "targetObjectId": "d-kb", "labels": { "data": "Drop-the-Middle", "alchemy": "Drop-the-Middle", "spellcraft": "Drop-the-Middle", "abstract": "σ_B" }, "description": { "data": "same type F(B) → K(B), but skips a step and re-pads the result differently — not the triple composite, not natural", "alchemy": "same type, but skips a step and re-pads differently — not the triple composite, not natural", "spellcraft": "same type, but skips a step and re-pads differently — not the triple composite, not natural", "abstract": "drops the middle step and re-pads the empty case with a MADE-UP value — it differs from γ_B ∘ β_B ∘ α_B and breaks the naturality square" } },
+      { "id": "d-diag", "formalLabel": "·", "sourceObjectId": "d-fa", "targetObjectId": "d-kb", "labels": { "data": "natural", "alchemy": "natural", "spellcraft": "natural", "abstract": "F(A)→K(B)" }, "description": { "data": "goes from a List of Users straight to an Optional Email — wrong shape to be a composite component here", "alchemy": "goes from a bundle of Herbs straight to one Essence — wrong shape to be a composite method here", "spellcraft": "goes from a web of Runes straight to one Spark — wrong shape to be a composite working here", "abstract": "wrong type F(A) → K(B): not a component (γ·β·α)_A : F(A) → K(A)" } },
+      { "id": "d-diag1", "formalLabel": "·", "sourceObjectId": "d-fa", "targetObjectId": "d-kb", "labels": { "data": "broken-across", "alchemy": "broken", "spellcraft": "broken", "abstract": "F(A)→K(B)" }, "description": { "data": "goes from a List of Users straight to an Optional Email — wrong shape to be a composite component here", "alchemy": "goes from a bundle of Herbs straight to one Essence — wrong shape to be a composite method here", "spellcraft": "goes from a web of Runes straight to one Spark — wrong shape to be a composite working here", "abstract": "wrong type F(A) → K(B): not a component (γ·β·α)_A : F(A) → K(A)" } },
+      { "id": "d-diag2", "formalLabel": "·", "sourceObjectId": "d-fa", "targetObjectId": "d-kb", "labels": { "data": "broken-down", "alchemy": "broken", "spellcraft": "broken", "abstract": "F(A)→K(B)" }, "description": { "data": "goes from a List of Users straight to an Optional Email — wrong shape to be a composite component here", "alchemy": "goes from a bundle of Herbs straight to one Essence — wrong shape to be a composite method here", "spellcraft": "goes from a web of Runes straight to one Spark — wrong shape to be a composite working here", "abstract": "wrong type F(A) → K(B): not a component (γ·β·α)_A : F(A) → K(A)" } },
+      { "id": "d-diag3", "formalLabel": "·", "sourceObjectId": "d-fa", "targetObjectId": "d-kb", "labels": { "data": "broken-skip", "alchemy": "broken", "spellcraft": "broken", "abstract": "F(A)→K(B)" }, "description": { "data": "goes from a List of Users straight to an Optional Email — wrong shape to be a composite component here", "alchemy": "goes from a bundle of Herbs straight to one Essence — wrong shape to be a composite method here", "spellcraft": "goes from a web of Runes straight to one Spark — wrong shape to be a composite working here", "abstract": "wrong type F(A) → K(B): not a component (γ·β·α)_A : F(A) → K(A)" } }
+    ],
+    "composites": [
+      { "first": "d-alphaA", "second": "d-betaA", "result": "d-baA" },
+      { "first": "d-alphaB", "second": "d-betaB", "result": "d-baB" },
+      { "first": "d-baA", "second": "d-gammaA", "result": "d-compA" },
+      { "first": "d-baB", "second": "d-gammaB", "result": "d-compB" },
+      { "first": "d-Ff", "second": "d-compB", "result": "d-diag" },
+      { "first": "d-compA", "second": "d-Kf", "result": "d-diag" },
+      { "first": "d-Ff", "second": "d-deltaB", "result": "d-diag1" },
+      { "first": "d-deltaA", "second": "d-Kf", "result": "d-diag2" },
+      { "first": "d-Ff", "second": "d-skipB", "result": "d-diag3" },
+      { "first": "d-skipA", "second": "d-Kf", "result": "d-diag1" }
+    ]
+  },
+  "functorF": {
+    "objectMap": { "obj-a": "d-fa", "obj-b": "d-fb" },
+    "morphismMap": { "mor-f": "d-Ff" }
+  },
+  "functorG": {
+    "objectMap": { "obj-a": "d-ka", "obj-b": "d-kb" },
+    "morphismMap": { "mor-f": "d-Kf" }
+  },
+  "referenceComponents": { "obj-a": "d-compA", "obj-b": "d-compB" },
+  "conceptTags": ["vertical-composition", "functor-category"],
+  "reveal": {
+    "afterSuccess": {
+      "data": "You stacked THREE conversions into one: safeHead (List⇒Optional), then 'As a List' (Optional⇒List), then safeHead again (List⇒Optional) — a single List⇒Optional conversion whose component at each type is the three component arrows composed, (γ·β·α)_A = γ_A ∘ β_A ∘ α_A. The 'Default Triple' and 'Drop-the-Middle' families spliced in a default and broke the square. Natural transformations compose, however many you stack.",
+      "alchemy": "You stacked THREE methods into one: F⇒G, G⇒H, H⇒K give a single F⇒K method, its component the three steps composed — (γ·β·α)_A = γ_A ∘ β_A ∘ α_A. The spare-splicing and middle-dropping families broke the square.",
+      "spellcraft": "You stacked THREE workings into one: F⇒G, G⇒H, H⇒K give a single F⇒K working, its component the three runes composed — (γ·β·α)_A = γ_A ∘ β_A ∘ α_A. The conjuring and middle-dropping families broke the square.",
+      "abstract": "γ·β·α : F ⇒ K is natural, with (γ·β·α)_A = γ_A ∘ β_A ∘ α_A; the non-composite families fail naturality. Vertical composition is associative, so stacking three (or any number of) natural transformations again yields a natural transformation."
+    },
+    "summary": "Vertical composition stacks any number of natural transformations. If α : F ⇒ G, β : G ⇒ H and γ : H ⇒ K, then γ·β·α : F ⇒ K is natural, with component (γ·β·α)_A = γ_A ∘ β_A ∘ α_A at each object. Associativity means the grouping does not matter.",
+    "notation": ["γ · β · α : F ⇒ K", "(γ·β·α)_A = γ_A ∘ β_A ∘ α_A", "(γ·β)·α = γ·(β·α)"],
+    "programmerAnalogy": "Chaining three polymorphic conversions: (xs => safeHead(xs)) then (o => o.toList()) then (ys => safeHead(ys))."
+  },
+  "glossaryUnlocks": []
+}

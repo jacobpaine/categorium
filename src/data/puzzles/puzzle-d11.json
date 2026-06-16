@@ -1,0 +1,46 @@
+{
+  "status": "authored",
+  "kind": "matching",
+  "id": "puzzle-d11",
+  "chapterId": "chapter-11-yoneda",
+  "order": 39,
+  "title": { "data": "Four Tiers, Four Fingerprints", "alchemy": "Four Grades, Four Fingerprints", "spellcraft": "Four Ranks, Four Fingerprints", "abstract": "Representables Along a 4-Chain" },
+  "conceptTags": ["representable", "yoneda"],
+  "intro": {
+    "data": "Now stretch the idea over a longer ladder: four tiers, Bronze ≤ Silver ≤ Gold ≤ Platinum. The fingerprint Hom(−, X) is the exact set of tiers that map INTO X — and in a ranking that's everything at or below X, no more, no less. Match each tier to its precise fingerprint. Two profiles in the right column can never happen in a ranking — leave both unpaired.",
+    "alchemy": "Stretch the idea over a longer ladder: four grades, Tin ≤ Bronze ≤ Silver ≤ Gold. The fingerprint Hom(−, X) is the exact set of grades that flow INTO X — everything at or below X. Match each grade to its fingerprint. Two profiles can never happen in a ranking — leave both unpaired.",
+    "spellcraft": "Stretch the idea over a longer ladder: four ranks, Novice ≤ Adept ≤ Master ≤ Grandmaster. The fingerprint Hom(−, X) is the exact set of ranks whose workings reach INTO X — everything at or below X. Match each rank to its fingerprint. Two profiles can never happen in a ranking — leave both unpaired.",
+    "abstract": "In the chain A ≤ B ≤ C ≤ D, the representable Hom(−, X) is the set of arrows into X — exactly the objects ≤ X. Match each object to its Hom(−, X). Two offered profiles are not realizable in any chain (distractors)."
+  },
+  "goal": { "data": "Match each tier to the exact set of tiers that map into it.", "alchemy": "Match each grade to the exact set of grades that flow into it.", "spellcraft": "Match each rank to the exact set of ranks that reach into it.", "abstract": "Pair each object X with its Hom(−, X)." },
+  "context": { "data": "Hom(−, X) = every arrow into X. In a ranking, X receives exactly the tiers at or below it — a downward-closed run with no gaps.", "alchemy": "Hom(−, X) = every process into X — exactly the grades at or below X, a run with no gaps.", "spellcraft": "Hom(−, X) = every working into X — exactly the ranks at or below X, a run with no gaps.", "abstract": "Hom(−, X) : the set of arrows into X — a downward-closed initial segment of the chain." },
+  "leftLabel": { "data": "Tier", "alchemy": "Grade", "spellcraft": "Rank", "abstract": "Object X" },
+  "rightLabel": { "data": "What maps into it — Hom(−, X)", "alchemy": "What flows in", "spellcraft": "What reaches in", "abstract": "Hom(−, X)" },
+  "left": [
+    { "id": "l-a", "label": { "data": "Bronze", "alchemy": "Tin", "spellcraft": "Novice", "abstract": "A" }, "sub": { "data": "the lowest tier", "alchemy": "the lowest grade", "spellcraft": "the lowest rank", "abstract": "least" } },
+    { "id": "l-b", "label": { "data": "Silver", "alchemy": "Bronze", "spellcraft": "Adept", "abstract": "B" }, "sub": { "data": "second tier", "alchemy": "second grade", "spellcraft": "second rank", "abstract": "second" } },
+    { "id": "l-c", "label": { "data": "Gold", "alchemy": "Silver", "spellcraft": "Master", "abstract": "C" }, "sub": { "data": "third tier", "alchemy": "third grade", "spellcraft": "third rank", "abstract": "third" } },
+    { "id": "l-d", "label": { "data": "Platinum", "alchemy": "Gold", "spellcraft": "Grandmaster", "abstract": "D" }, "sub": { "data": "the top tier", "alchemy": "the top grade", "spellcraft": "the top rank", "abstract": "greatest" } }
+  ],
+  "right": [
+    { "id": "r-one", "label": { "data": "Only itself maps in", "alchemy": "Only itself flows in", "spellcraft": "Only itself reaches in", "abstract": "{A→}" }, "sub": { "data": "just the identity", "alchemy": "just the identity", "spellcraft": "just the identity", "abstract": "id only" } },
+    { "id": "r-two", "label": { "data": "The bottom two map in", "alchemy": "The bottom two flow in", "spellcraft": "The bottom two reach in", "abstract": "{A→, B→}" }, "sub": { "data": "Bronze and Silver → it", "alchemy": "Tin and Bronze → it", "spellcraft": "Novice and Adept → it", "abstract": "least two map in" } },
+    { "id": "r-skip", "label": { "data": "Bronze maps in and Gold maps in, but Silver does not", "alchemy": "Tin flows in and Silver flows in, but Bronze does not", "spellcraft": "Novice reaches in and Master reaches in, but Adept does not", "abstract": "{A→, C→, not B→}" }, "sub": { "data": "impossible — has a gap", "alchemy": "impossible — has a gap", "spellcraft": "impossible — has a gap", "abstract": "not downward-closed" } },
+    { "id": "r-three", "label": { "data": "The bottom three map in", "alchemy": "The bottom three flow in", "spellcraft": "The bottom three reach in", "abstract": "{A→, B→, C→}" }, "sub": { "data": "Bronze, Silver, Gold → it", "alchemy": "Tin, Bronze, Silver → it", "spellcraft": "Novice, Adept, Master → it", "abstract": "least three map in" } },
+    { "id": "r-headless", "label": { "data": "Silver maps in, but Bronze does not", "alchemy": "Bronze flows in, but Tin does not", "spellcraft": "Adept reaches in, but Novice does not", "abstract": "{B→, not A→}" }, "sub": { "data": "impossible — skips the bottom", "alchemy": "impossible — skips the bottom", "spellcraft": "impossible — skips the bottom", "abstract": "not downward-closed" } },
+    { "id": "r-four", "label": { "data": "All four map in", "alchemy": "All four flow in", "spellcraft": "All four reach in", "abstract": "{A→, B→, C→, D→}" }, "sub": { "data": "everything maps in", "alchemy": "everything flows in", "spellcraft": "everything reaches in", "abstract": "the whole chain" } }
+  ],
+  "solution": { "l-a": "r-one", "l-b": "r-two", "l-c": "r-three", "l-d": "r-four" },
+  "reveal": {
+    "afterSuccess": {
+      "data": "You sorted four tiers using nothing but the arrows into each one, and each fingerprint was a clean run from the bottom with no gaps. Platinum is 'everything maps in'; Bronze is 'only itself maps in'. The two impostors both broke the same rule: in a ranking, if a higher tier maps into X then every lower tier does too, so Hom(−, X) can never skip a tier or skip the bottom. That gapless profile — Hom(−, X), every arrow into X — is the REPRESENTABLE functor, and it names exactly one tier.",
+      "alchemy": "You sorted four grades using only the processes into each, and each fingerprint was a gapless run from the bottom. The two impostors skipped grades — impossible, since a higher grade flowing in forces all the lower ones. That profile, Hom(−, X), is the representable functor; it names exactly one grade.",
+      "spellcraft": "You sorted four ranks using only the workings into each, and each fingerprint was a gapless run from the bottom. The two impostors skipped ranks — impossible, since a higher rank reaching in forces all the lower ones. That profile, Hom(−, X), is the representable functor; it names exactly one rank.",
+      "abstract": "Each object X is identified by Hom(−, X), the set of arrows into it. In a chain, Hom(−, X) is the downward-closed initial segment {Y : Y ≤ X} — never a profile with a gap ({A→, C→, not B→}) or a missing least element ({B→, not A→}). Distinct objects have distinct hom-sets-of-incoming-arrows; the two non-realizable profiles name nothing."
+    },
+    "summary": "The representable functor Hom(−, X) records every arrow into X. Along a chain it is the gapless initial segment of objects ≤ X, so it pins down each object and forbids any skip-a-rank profile. An object is known by the arrows into it — the idea the Yoneda lemma makes exact.",
+    "notation": ["Hom(−, X)", "Hom(W, X) = arrows W → X", "Y ≤ X ⟺ Hom(Y, X) ≠ ∅"],
+    "programmerAnalogy": "A value identified by its full set of constructors — and in a layered build, a layer's constructors always include every layer beneath it, never skipping one."
+  },
+  "glossaryUnlocks": []
+}

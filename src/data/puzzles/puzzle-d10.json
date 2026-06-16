@@ -1,0 +1,46 @@
+{
+  "status": "authored",
+  "kind": "matching",
+  "id": "puzzle-d10",
+  "chapterId": "chapter-10-adjunctions",
+  "order": 37,
+  "title": { "data": "Four Transposes, Two Traps", "alchemy": "Four Transposes, Two Traps", "spellcraft": "Four Transposes, Two Traps", "abstract": "The Currying Bijection, Stress-Tested" },
+  "conceptTags": ["adjunction"],
+  "intro": {
+    "data": "Currying says a function of a pair, h : C×A → B, is the SAME as a function returning a function, ĥ : C → (A → B), where ĥ(c)(a) = h(c, a). On the left are four two-at-once functions; on the right are their curried transposes — plus two impostors. One impostor curries the OTHER argument first; the other is an unrelated map. Match each function to its true transpose and leave the traps unpaired.",
+    "alchemy": "Staging says a process on two reagents at once, h : C×A → B, is the SAME as one taking the first and yielding a process for the second, ĥ : C → (A → B), where ĥ(c)(a) = h(c, a). Left: four two-at-once processes. Right: their staged forms, plus two impostors — one stages the WRONG reagent first, one is unrelated. Match each to its true partner.",
+    "spellcraft": "Staging says a working on two essences at once, h : C×A → B, is the SAME as one taking the first and yielding a working for the second, ĥ : C → (A → B), where ĥ(c)(a) = h(c, a). Left: four two-at-once workings. Right: their staged forms, plus two impostors — one stages the WRONG essence first, one is unrelated. Match each to its true partner.",
+    "abstract": "The adjunction (−)×A ⊣ (−)^A gives a natural bijection Hom(C×A, B) ≅ Hom(C, B^A) sending h to its transpose ĥ with ĥ(c)(a) = h(c, a). Match each h : C×A → B with its ĥ : C → B^A. Two distractors are offered: one transposes the swapped argument, one is not a transpose at all."
+  },
+  "goal": { "data": "Match each of the four two-at-once functions with its correct curried form; reject both impostors.", "alchemy": "Match each of the four two-at-once processes with its correct staged form; reject both impostors.", "spellcraft": "Match each of the four two-at-once workings with its correct staged form; reject both impostors.", "abstract": "Pair each h : C×A → B with the unique ĥ : C → B^A satisfying ĥ(c)(a) = h(c, a)." },
+  "context": { "data": "This is the adjunction (−)×A ⊣ (−)^A — currying. The transpose ĥ must satisfy ĥ(c)(a) = h(c, a) for ALL c and a; mishandling either argument breaks the match.", "alchemy": "The adjunction (−)×A ⊣ (−)^A: the staged form must satisfy ĥ(c)(a) = h(c, a) for every c and a.", "spellcraft": "The adjunction (−)×A ⊣ (−)^A: the staged form must satisfy ĥ(c)(a) = h(c, a) for every c and a.", "abstract": "(−)×A ⊣ (−)^A : Hom(C×A, B) ≅ Hom(C, B^A), with ĥ(c)(a) = h(c, a)." },
+  "leftLabel": { "data": "Two-at-once: h : C×A → B", "alchemy": "Two reagents at once", "spellcraft": "Two essences at once", "abstract": "Hom(C×A, B)" },
+  "rightLabel": { "data": "Curried: ĥ : C → (A → B)", "alchemy": "First, then a process for the second", "spellcraft": "First, then a working for the second", "abstract": "Hom(C, B^A)" },
+  "left": [
+    { "id": "l-sub", "label": { "data": "sub(x, y) = x − y", "alchemy": "Temper(salt, sulfur)", "spellcraft": "Quench(flame, frost)", "abstract": "h" }, "sub": { "data": "(Int, Int) → Int", "alchemy": "(Salt, Sulfur) → Tonic", "spellcraft": "(Flame, Frost) → Ward", "abstract": "C×A → B" } },
+    { "id": "l-pow", "label": { "data": "pow(b, e) = b ^ e", "alchemy": "Distil(base, heat)", "spellcraft": "Forge(metal, rune)", "abstract": "k" }, "sub": { "data": "(Int, Int) → Int", "alchemy": "(Base, Heat) → Essence", "spellcraft": "(Metal, Rune) → Blade", "abstract": "C×A → B" } },
+    { "id": "l-rep", "label": { "data": "repeat(s, n) = s × n", "alchemy": "Steep(herb, vial)", "spellcraft": "Echo(chant, count)", "abstract": "m" }, "sub": { "data": "(Str, Int) → Str", "alchemy": "(Herb, Vial) → Brew", "spellcraft": "(Chant, Count) → Spell", "abstract": "C×A → B" } },
+    { "id": "l-take", "label": { "data": "take(list, n) = first n items", "alchemy": "Draw(vat, dose)", "spellcraft": "Cull(host, tally)", "abstract": "p" }, "sub": { "data": "(List, Int) → List", "alchemy": "(Vat, Dose) → Draught", "spellcraft": "(Host, Tally) → Band", "abstract": "C×A → B" } }
+  ],
+  "right": [
+    { "id": "r-pow", "label": { "data": "pow(b) = (e ↦ b ^ e)", "alchemy": "Distil(base) = (heat ↦ …)", "spellcraft": "Forge(metal) = (rune ↦ …)", "abstract": "k̂" }, "sub": { "data": "Int → (Int → Int)", "alchemy": "Base → (Heat → Essence)", "spellcraft": "Metal → (Rune → Blade)", "abstract": "C → B^A" } },
+    { "id": "r-swap", "label": { "data": "g(y) = (x ↦ x − y)", "alchemy": "Temper(sulfur) = (salt ↦ …)", "spellcraft": "Quench(frost) = (flame ↦ …)", "abstract": "(impostor)" }, "sub": { "data": "Int → (Int → Int) — second arg curried first", "alchemy": "wrong reagent staged first", "spellcraft": "wrong essence staged first", "abstract": "ĝ(y)(x) = h(x, y), not h(y, x)" } },
+    { "id": "r-take", "label": { "data": "take(list) = (n ↦ first n items)", "alchemy": "Draw(vat) = (dose ↦ …)", "spellcraft": "Cull(host) = (tally ↦ …)", "abstract": "p̂" }, "sub": { "data": "List → (Int → List)", "alchemy": "Vat → (Dose → Draught)", "spellcraft": "Host → (Tally → Band)", "abstract": "C → B^A" } },
+    { "id": "r-sub", "label": { "data": "sub(x) = (y ↦ x − y)", "alchemy": "Temper(salt) = (sulfur ↦ …)", "spellcraft": "Quench(flame) = (frost ↦ …)", "abstract": "ĥ" }, "sub": { "data": "Int → (Int → Int)", "alchemy": "Salt → (Sulfur → Tonic)", "spellcraft": "Flame → (Frost → Ward)", "abstract": "C → B^A" } },
+    { "id": "r-rep", "label": { "data": "repeat(s) = (n ↦ s × n)", "alchemy": "Steep(herb) = (vial ↦ …)", "spellcraft": "Echo(chant) = (count ↦ …)", "abstract": "m̂" }, "sub": { "data": "Str → (Int → Str)", "alchemy": "Herb → (Vial → Brew)", "spellcraft": "Chant → (Count → Spell)", "abstract": "C → B^A" } },
+    { "id": "r-unrel", "label": { "data": "q(x) = (y ↦ x · y)", "alchemy": "Grind(salt) = (sulfur ↦ blend …)", "spellcraft": "Bind(flame) = (frost ↦ fuse …)", "abstract": "(impostor)" }, "sub": { "data": "Int → (Int → Int) — multiplies, unrelated to any h", "alchemy": "an unrelated process", "spellcraft": "an unrelated working", "abstract": "q(x)(y) = x · y ≠ any h(c, a)" } }
+  ],
+  "solution": { "l-sub": "r-sub", "l-pow": "r-pow", "l-rep": "r-rep", "l-take": "r-take" },
+  "reveal": {
+    "afterSuccess": {
+      "data": "All four functions matched exactly one curried form, and BOTH impostors were left unpaired — that one-to-one correspondence IS the adjunction (−)×A ⊣ (−)^A. The first impostor curried the second argument first, so it computed x − y from (y, x) order: ĝ(y)(x) = h(x, y), not h(y, x) — a different function. The second impostor multiplied instead of subtracting, so it was nobody's transpose. The true transpose must agree with h on EVERY input: ĥ(c)(a) = h(c, a).",
+      "alchemy": "All four processes matched exactly one staged form, and both impostors stayed unpaired — that correspondence is the adjunction (−)×A ⊣ (−)^A: Hom(C×A, B) ≅ Hom(C, A→B). One impostor staged the wrong reagent first; the other was an unrelated process.",
+      "spellcraft": "All four workings matched exactly one staged form, and both impostors stayed unpaired — that correspondence is the adjunction (−)×A ⊣ (−)^A: Hom(C×A, B) ≅ Hom(C, A→B). One impostor staged the wrong essence first; the other was an unrelated working.",
+      "abstract": "The bijection Hom(C×A, B) ≅ Hom(C, B^A) sends h to the unique ĥ with ĥ(c)(a) = h(c, a); it is natural in C and B, which is exactly the adjunction (−)×A ⊣ (−)^A. The swap impostor is the transpose of h∘swap, a genuinely different arrow; the multiply impostor lies outside the image of any h here. Order matters for non-commutative h, which is why subtraction and exponentiation expose the trap."
+    },
+    "summary": "An adjunction F ⊣ G is a natural one-to-one correspondence Hom(F A, B) ≅ Hom(A, G B). Currying is the example (−)×A ⊣ (−)^A, with ĥ(c)(a) = h(c, a). The transpose must agree with h on every input, so currying the wrong argument — or an unrelated map — is not a transpose.",
+    "notation": ["F ⊣ G", "Hom(C×A, B) ≅ Hom(C, B^A)", "ĥ(c)(a) = h(c, a)"],
+    "programmerAnalogy": "curry: ((c, a) => b) ↔ (c => a => b). For sub, curry((x,y)=>x-y) is x=>y=>x-y; x=>y=>y-x is curry of the swapped function — a different map."
+  },
+  "glossaryUnlocks": []
+}

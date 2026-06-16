@@ -78,4 +78,18 @@ describe('chapter 9 — vertical composition (the composite is the natural one)'
     expect(check('puzzle-v2', { 'obj-a': 'd-gammaA', 'obj-b': 'd-gammaB' }).ok).toBe(true);
     expect(check('puzzle-v2', { 'obj-a': 'd-deltaA', 'obj-b': 'd-deltaB' }).ok).toBe(false);
   });
+
+  it('d9: the triple composite γ·β·α is natural; both look-alike families are not', () => {
+    expect(check('puzzle-d9', { 'obj-a': 'd-compA', 'obj-b': 'd-compB' }).ok).toBe(true);
+    const delta = check('puzzle-d9', { 'obj-a': 'd-deltaA', 'obj-b': 'd-deltaB' });
+    expect(delta.ok).toBe(false);
+    if (!delta.ok) expect(delta.violations.some((v) => v.kind === 'naturality')).toBe(true);
+    const skip = check('puzzle-d9', { 'obj-a': 'd-skipA', 'obj-b': 'd-skipB' });
+    expect(skip.ok).toBe(false);
+    if (!skip.ok) expect(skip.violations.some((v) => v.kind === 'naturality')).toBe(true);
+    // a wrong-typed diagonal arrow fails on component typing, not naturality
+    const diag = check('puzzle-d9', { 'obj-a': 'd-diag', 'obj-b': 'd-diag' });
+    expect(diag.ok).toBe(false);
+    if (!diag.ok) expect(diag.violations.some((v) => v.kind === 'component-typing')).toBe(true);
+  });
 });
